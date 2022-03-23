@@ -6,7 +6,7 @@
 		{
 			"label": "2ahk push",
 			"type": "shell",
-			"command": "git push",
+			"command": "git push origin main --force",
 			"problemMatcher": [],
 			"presentation": {
 				"focus": true

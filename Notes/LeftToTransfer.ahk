@@ -657,35 +657,6 @@ return
 ;######################################################################################
 ;###################################################################################### 
 
-;Mail
-<!SC033::WindowsApp_WinNum("Gmail", "1")
-
-;Calendar
-<!SC034::WindowsApp_WinNum("Google Calendar", "2")
-
-;Calculator
-<!SC035::WindowsApp_Name("Calculator", "calc.exe")
-
-;Monkeytype
-<!u::WindowsApp_WinNum("Monkeytype", "4")
-
-;Autohotkey help file
-<!SC028::WindowsApp_Name("AutoHotkey Help", "C:\Programs\Autohotkey\AutoHotkey.chm")
-
-;Autohotkey v2 help file
-<!SC027::WindowsApp_Name("AutoHotkey v2 Help", "C:\Programs\Autohotkey\v2\AutoHotkey.chm")
-
-;Gimp 
-<!SC01A::WindowsApp_Name("GIMP", "C:\Programs\GIMP 2\bin\gimp-2.10.exe")
-
-;Atom 
-<!y::WindowsApp("C:\Users\serge\AppData\Local\atom\app-1.58.0\atom.exe") 
-
-;Video editor
-<!SC01B::WindowsApp("C:\Programs\Davinci Resolve\Resolve.exe")
-
-;OBS
-<!o::MinMax("OBS") 
 
 ;MinMaxes a game if it exists, closes all apps but spotify if all main 6 apps exist, if they don't: launches those apps of the main 6, that do not yet exist
 <!g:: 

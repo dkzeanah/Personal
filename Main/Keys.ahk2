@@ -396,4 +396,33 @@ WindowsApp_Folders(folderPath)
    }
 }
 
+;OBS
+<!o::MinMax("OBS") 
+
+;Monkeytype
+<!u::WindowsApp_WinNum("Monkeytype", "4")
+
+;Mail
+<!SC033::WindowsApp_WinNum("Gmail", "1")
+
+;Calendar
+<!SC034::WindowsApp_WinNum("Google Calendar", "2")
+
+;Calculator
+<!SC035::WindowsApp("Calculator", "calc.exe")
+
+;Autohotkey help file
+<!SC028::WindowsApp("AutoHotkey Help", "C:\Programs\Autohotkey\AutoHotkey.chm")
+
+;Autohotkey v2 help file
+<!SC027::WindowsApp("AutoHotkey v2 Help", "C:\Programs\Autohotkey\v2\AutoHotkey.chm")
+
+;Gimp 
+<!SC01A::WindowsApp("GIMP", "C:\Programs\GIMP 2\bin\gimp-2.10.exe")
+
+;Atom 
+<!y::WindowsApp("ahk_exe atom.exe", "C:\Users\serge\AppData\Local\atom\app-1.58.0\atom.exe") 
+
+;Video editor
+<!SC01B::WindowsApp("ahk_exe Resolve.exe", "C:\Programs\Davinci Resolve\Resolve.exe")
 

@@ -334,5 +334,66 @@ HotIfWinNotActive
 ;######################################################################################
 
 
+;Minimizes or maximizes the window depending on its state
+MinMax(title) {
+   ((WinActive(title)) ? (WinMinimize()) : (WinActivate()))
+}
+
+;If the window exists, minimize or maximize it depending on its state and return 1, otherwise return 0
+ifMinMax(title)
+{
+   if WinExist(title)
+   {
+      MinMax(title)
+      return 1
+   }
+   else
+      return 0
+}
+
+;Run an exe, activate its window
+RunApp(winTitle, exePath)
+{
+   Run exePath,, "Max"
+   WinWait winTitle,, 3
+   WinActivate
+} 
+
+;Run app, but only if it doesn't exist already
+ifRunApp(winTitle, exePath)
+{
+   if !WinExist(winTitle)
+   {
+      Run exePath,, "Max" 
+      WinWait winTitle
+   } 
+}
+
+;If the app doesn't exist, launches it. If it does and is active, minimizes it. If it's minimized, activates it
+WindowsApp(winTitle, exePath) {
+   ((!ifMinMax(winTitle)) ? (RunApp(winTitle, exePath)))
+}
+
+;Windows app name, but there's no exe fot the app so you put it in your taskbar and use windows + number to launch it and then this optimized way of activating it and minimizing it
+WindowsApp_WinNum(winTitle, windowsNumber)
+{
+   if !ifMinMax(winTitle)
+   {
+      Send "#" . windowsNumber
+      WinWait winTitle
+      WinActivate
+   } 
+}
+
+;WindowsApp, but for folders
+WindowsApp_Folders(folderPath)
+{
+   Switch
+   {
+      Case !WinExist(folderPath):RunWait folderPath
+      Case WinActive(folderPath):WinMinimize 
+      Case !WinActive(folderPath):WinActivate
+   }
+}
 
 

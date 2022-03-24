@@ -1,0 +1,13 @@
+YET TO IMPLEMENT:
+
+ahk_group youtube and youtube vid
+   mouse skips 
+   in messengers
+   ifwinactive sections
+
+spotify add and discovery
+   themselves
+   mouse gestures
+
+todoist search
+   ifwinactive and mouse gestures implementation

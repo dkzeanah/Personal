@@ -1,1 +1,338 @@
-MsgBox("hi", "MsgBox", "4096")
+SetWorkingDir "C:\Files\Programming\Personal" ;Ensures a consistent A_WorkingDir.
+#SingleInstance Force ;Launches the new instance of the script always, instead of asking whether it should
+#Hotstring EndChars `t ;Decides the characters that can finish a hotstring
+#WinActivateForce ;Forces windows to be activated, skipping the gentle method
+CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of the window's
+; Persistent True ;Make the script not autoquit if it doesn't have hotkeys
+
+
+
+
+;SCRIPT SELF###########################################################################
+;######################################################################################
+;######################################################################################
+;######################################################################################
+
+
+;Reload this script
++ScrollLock::
+{
+   Run A_ScriptFullPath
+   SoundPlay "*-1"
+}
+
+;Suspend this script 
+#SuspendExempt True
++!ScrollLock::
+{
+   if A_IsSuspended
+   {
+      Suspend False
+      SoundPlay "*-1"
+
+   }
+   else 
+   {
+      Suspend True
+      SoundPlay "*16"
+   }
+}
+#SuspendExempt 
+
+;Exit this script
+^!ScrollLock::SoundPlay("*16"), ExitApp()
+
+
+
+
+;VARIABLES#############################################################################
+;######################################################################################
+;######################################################################################
+;###################################################################################### 
+
+
+;Often when you want something selected, you'll send down and enter, so this is the variable for that 
+select := "{Down}{Enter}"
+selectTab := "{Down}{Enter}"
+
+;Games
+GroupAdd "Game", "Enter the Gungeon"
+GroupAdd "Game", "Binding of Isaac: Repentance"
+GroupAdd "Game", "Super Auto Pets"
+GroupAdd "Game", "Nuclear Throne"
+GroupAdd "Game", "Terraria"
+GroupAdd "Game", "Minecraft"
+
+
+
+
+;FUNCTIONS#############################################################################
+;######################################################################################
+;###################################################################################### 
+;###################################################################################### 
+
+
+;Sends one thing if you pressed a button once. A different thing if twice. 
+PressSend_Double(keyname, toSend1:="", toSend2:="")
+{
+   KeyWait keyname
+   ((KeyWait(keyname, "D T0.1")) ? (Send(toSend2)) : (Send(toSend1)))
+}
+
+
+
+
+;HOTSTRINGS############################################################################
+;######################################################################################
+;######################################################################################
+;###################################################################################### 
+
+
+
+
+;KBMAIN################################################################################
+;######################################################################################
+;######################################################################################
+;######################################################################################
+
+
+
+
+;MOUSE KEY INTERACTION#################################################################
+;######################################################################################
+;######################################################################################
+;######################################################################################
+
+
+;Special button + side buttons
+Volume_Down & XButton2::PressSend_Double("XButton2","^v","#v")
+Volume_Down & XButton1::PressSend_Double("XButton1","^c","^x")
+Volume_Down & MButton::F5
+
+;Special button by itself pressed in different sections of the screen does different things
+Volume_Down::
+{ 
+   MouseGetPos &SectionX, &SectionY
+   right := (SectionX > 1368), left := (SectionX < 568), down := (SectionY > 747), up := (SectionY < 347) 
+   Switch
+   {
+      Case right:Send "#{Right}"
+      Case left:Send "#{Left}"
+      Case down:Send "#{Down}"
+      Case up:Send "#{Up}"
+      Default: 
+         Send "{AltDown}{Tab}" 
+         KeyWait "LButton", "D"
+         Sleep 150
+         Send "{AltUp}"
+   } 
+}
+
+HotIfWinNotActive "ahk_group Game"
+
+;Combined side buttons
+XButton2 & XButton1::Escape
+XButton1 & XButton2::Media_Play_Pause
+
+;Far side button and Wheel
+XButton2 & WheelUp::Volume_Up
+XButton2 & WheelDown::Volume_Down
+
+;Close side button and Wheel
+XButton1 & WheelUp::Send "^y"
+XButton1 & WheelDown::Send "^z"
+
+;Close side button with L and R buttons 
+XButton1 & LButton::((WinActive("ahk_exe Spotify.exe")) ? Send(select) : Send("{BackSpace}"))
+XButton1 & RButton::Delete
+
+;Far side button with L and R buttons
+XButton2 & RButton::PrintScreen
+XButton2 & LButton::Enter
+
+
+
+
+;SECTION GESTURES#####################################################################
+;#####################################################################################
+;#####################################################################################
+;##################################################################################### 
+
+
+;Far side button, does different things depending on what section of the screen it was pressed on. Right, left, down, up or middle
+$XButton2::
+{ 
+   MouseGetPos &SectionX, &SectionY
+   right := (SectionX > 1368), left := (SectionX < 568), down := (SectionY > 747), up := (SectionY < 347) ;Here I define the sections
+   Switch
+   {
+      Case right:
+         Switch
+         {
+            ; Case WinActive("ahk_group YouTube_vid"):Send, +n
+            Case WinActive("ahk_exe Spotify.exe"):Send "^{Right}"
+            Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgDn}"
+            Default:Send "{Media_Next}"
+         }
+      Case left:
+         Switch
+         {
+            ; Case WinActive("ahk_group YouTube_vid"):Send, +p
+            Case WinActive("ahk_exe Spotify.exe"):Send "^{Left}"
+            Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgUp}"
+            Default:Send "{Media_Prev}"
+         }
+      Case down:((WinActive("ahk_exe Spotify.exe")) ? (Send("^+q")) : (PostMessage("0x0010",,,, "A"))) ;Closes the active window
+      Case up:PostMessage "0x112", "0xF020",,, "A" ;Minimizes the active window
+      Default:((WinActive("ahk_exe Code.exe")) ? (Send("^!/")) : (Send("{Browser_Forward}")))
+   }
+}
+
+;Close side button, does different things depending on what section of the screen it was pressed on. Right, left, down, up or middle
+$XButton1::
+{ 
+   MouseGetPos &SectionX, &SectionY
+   right := (SectionX > 1368), left := (SectionX < 568), down := (SectionY > 747), up := (SectionY < 347)
+   Switch
+   {
+      Default:Send "{Browser_Back}"
+      Case WinActive("Google Chrome"): ;_chrome
+         Switch
+         {
+            Default:Send "{Browser_Back}"
+            Case right:Send "^{PgDn}"
+            Case left:Send "^{PgUp}"
+            Case up:Send "^t"
+            Case down:((WinActive("Messenger")) ? (ControlClick("X1750 Y903")) : (Send("^w")))
+         }
+      Case WinActive("ahk_exe Code.exe"): ;_vscode
+         Switch
+         {
+            Default:Send "^/"
+            Case right:Send "^!{Right}"
+            Case left:Send "^!{Left}"
+            Case down:
+               Run A_WorkingDir . "\Test\TestScript.ahk2"
+               SoundPlay "*-1" 
+            Case up: 
+               Run A_ScriptFullPath
+               SoundPlay "*-1" 
+         }
+      Case WinActive("ahk_exe Spotify.exe"): ;_spotify
+         Switch
+         {
+            Default:Send "{Browser_Back}"
+            Case right:
+            ;    Process, Exist, %Discovery_add_PID%
+            ;    ;Launches a script that counts how many tracks you've added to a playlist in spotify (meaning, right clicks) if it isn't already running, otherwise exits it by sending a button that is binded to an exitapp in that script
+            ;    if ErrorLevel
+            ;       Send, {Launch_App2}
+            ;    else 
+            ;       Run, %A_WorkingDir%\Tools\Discovery add.ahk,,, Discovery_add_PID
+            ; Case left:
+            ;    Process, Exist, %Playlist_moving_PID%
+            ;    ;Launches a scripts that counts how many tracks you've selected in spotify (meaning, controlclicks) if it isn't already running, otherwise exits it by sending a button that is binded to an exitapp in that script
+            ;    if ErrorLevel
+            ;       Send, {Launch_Mail}
+            ;    else 
+            ;       Run, %A_WorkingDir%\Tools\Playlist moving.ahk,,, Playlist_moving_PID
+            Case down:
+               ;Unlikes current track and opens the menu for you to click to delete it from the playlist
+               ControlClick "X36 Y1021",,, "R" 
+               ControlSend "{Up 3}" 
+               Send "+!b"
+            Case up:
+               ;Likes current track and opens the menu for you to click to add to a playlist
+               ControlClick "X36 Y1021",,, "R"
+               ControlSend "{Up 2}{Right}"
+               Sleep 5
+               Send "+!b" 
+         } 
+      Case WinActive("ahk_exe wps.exe"): 
+         Switch
+         {
+            Default:Send "{Browser_Back}"
+            Case right:Send "^{Tab}"
+            Case left:Send "^+{Tab}"
+            Case down:Send "{PgDn}"
+            Case up:Send "^s"
+         }
+      Case WinActive("Discord"): ;_discord
+         Switch
+         {
+            Default:Send "{Browser_Back}"
+            Case right, left, up:return
+            Case down:Send "{Esc}"
+         }
+      Case WinActive("Telegram"): ;_telegram
+         Switch
+         {
+            Default:Send "{Browser_Back}"
+            Case right, left, up:return
+            Case down:ControlClick "X1434 Y964" ;Clicks the scroll button since shift PgDn doesn't work for some reason
+         }
+      Case WinActive("Todoist"): ;_todoist
+         Switch
+         {
+            Default:Send "{Browser_Back}"
+            ; Case right:Todoist_Search("unfinished")
+            ; Case left:Todoist_Search("rappers")
+            ; Case down:Todoist_Search("payments")
+            ; Case up:Todoist_Search("inbox")
+         }
+   } 
+}
+
+HotIfWinNotActive 
+
+
+
+
+;APP SPECIFIC MULTIPLE MAIN############################################################
+;######################################################################################
+;######################################################################################
+;###################################################################################### 
+
+
+
+
+;APP SPECIFIC TECH#####################################################################
+;######################################################################################
+;######################################################################################
+;######################################################################################
+
+
+
+
+;APP SPECIFIC MESSENGERS###############################################################
+;######################################################################################
+;######################################################################################
+;######################################################################################
+
+
+
+
+;APP SPECIFIC SINGLE###################################################################
+;######################################################################################
+;######################################################################################
+;######################################################################################
+
+
+
+
+;TOOLS#################################################################################
+;######################################################################################
+;######################################################################################
+;######################################################################################
+
+
+
+
+;APPS##################################################################################
+;######################################################################################
+;######################################################################################
+;######################################################################################
+
+
+
+

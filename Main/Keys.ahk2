@@ -22,7 +22,7 @@ CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of t
 
 ;Suspend this script 
 #SuspendExempt True
-+!ScrollLock::
+^!ScrollLock::
 {
    if A_IsSuspended
    {
@@ -39,7 +39,10 @@ CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of t
 #SuspendExempt 
 
 ;Exit this script
-^!ScrollLock::SoundPlay("*16"), ExitApp()
++!ScrollLock::SoundPlay("*16"), ExitApp()
+
+;Run Testscript
++Pause::Run(A_WorkingDir . "\Test\TestScript.ahk2") 
 
 
 

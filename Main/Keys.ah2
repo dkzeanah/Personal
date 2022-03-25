@@ -45,6 +45,9 @@ CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of t
 ;Run Testscript
 +Pause::SoundPlay("*-1"), Run(A_WorkingDir . "\Test\TestScript.ah2") 
 
+;Restart system
+#Pause::Shutdown 2
+
 
 
 
@@ -120,6 +123,8 @@ ifWinClose(winTitle)
 
 ;SECTION OF HOTSTRINGS THAT OPEN LINKS
 ;-------------------------------------
+;.vscode directory
+:?X:vscodedr::Run "C:\Users\serge\.vscode\extensions"
 ;Reddit
 :?X:reddit::Run "https://www.reddit.com/notifications"
 ;Instagram
@@ -190,6 +195,9 @@ ifWinClose(winTitle)
 ;Cut everything that you've written
 !Insert::Send "^a^x"
 
+;Cut
+^Insert::Send "^x"
+
 ;Delete everything that you've written
 !Delete::Send "^a{Delete}" 
 
@@ -214,27 +222,23 @@ ifWinClose(winTitle)
 
 
 ;Easy way to reactivate the previous window after using the quick add task of todoist
-; +!x::
-; {
-;    global todoistQA_ID := WinGetID("A")
-;    Send "^!+x"
-;    if WinWait("ahk_exe Todoist.exe",, 7)
-;    {
-;       SetTimer TodoistTimer.Call(), 100
-;    }
-; }
++!x::
+{
+   prevActWin := WinGetID("A")
+   Send "^!+x"
+   if WinWait("ahk_exe Todoist.exe",, 7)
+      SetTimer ReactivatePrevActWin, 100 ;Bind by calling the function (works like this if no params)
 
-; Class TodoistTimer extends Object
-; {
-;    Call(todoistQA_ID)
-;    {
-;       if !WinActive("ahk_exe Todoist.exe")
-;       {
-;          WinActivate "ahk_id " . todoistQA_ID
-;          SetTimer , "Off"
-;       }
-;    }
-; }
+   ReactivatePrevActWin() ;You can actually put it inside of the hotkey
+   {
+      if !WinActive("ahk_exe Todoist.exe") 
+      {
+         WinActivate "ahk_id " . prevActWin ;No need to make it a param, since same scope
+         SetTimer ReactivatePrevActWin, 0
+      }
+   }
+}
+
 
 ;Pure remapping
 AppsKey::LCtrl 
@@ -485,13 +489,50 @@ $F9::Send "^9"
 Volume_Down & XButton1::
 {
    KeyWait "XButton1" 
-   (KeyWait "XButton1", "D T0.1" ? (Send("{F6}"), Sleep("40"), Send("^c")) : Send("^c"))
+   (KeyWait("XButton1", "D T0.1") ? (Send("{F6}"), Sleep("40"), Send("^c")) : Send("^c"))
 }
 
 ;Opens a new tab
 +!e::Send "^t"
 
 #HotIf
+
+
+#HotIf WinActive("YouTube") ;_youtube 
+
+;Switch channels
+XButton2 & Volume_Down::ControlClick "X1821 Y131"
+
+;Shift n to skip never made sense to begin with
+PgDn::Send "+n"
+PgUp::Send "+p"
+
+#HotIf
+
+
+#HotIf WinActive("Watch later") || WinActive("Subscriptions") || (WinActive("YouTube") && !WinActive(" - YouTube"))
+
+;Close minimized window 
+Escape::ControlClick "X1858 Y665"
+
+;Pop out window
+XButton1 & Volume_Down::i
+
+#HotIf
+
+
+#HotIf WinActive(" - YouTube") && !WinActive("Watch later") && !WinActive("Subscriptions")
+
+;Picture in picture
++!r::ControlClick "X1579 Y73"
+
+;Fullscreen
+XButton1 & Volume_Down::f
+
+#HotIf
+
+
+
 
 
 
@@ -516,6 +557,23 @@ Volume_Down & XButton1::
 ;######################################################################################
 ;######################################################################################
 ;######################################################################################
+
+
+;Search in docs
+#HotIf WinActive("AutoHotkey Help") || WinActive("AutoHotkey v2 Help")
+!j::Send "!s"
+#HotIf
+
+;Shift click, but entirely on the mouse
+#HotIf WinActive("ahk_exe Code.exe") ;_vscode 
+XButton1 & Volume_Down::Send "+{Click}"
+#HotIf
+
+;Skip opening
+#HotIf WinActive("ahk_exe KMPlayer64.exe")
+Insert::Send "{End 6}{Right 3}"
+#HotIf
+
 
 
 
@@ -614,10 +672,10 @@ WindowsApp_Folders(folderPath)
 <!SC035::WindowsApp("Calculator", "calc.exe")
 
 ;Autohotkey help file
-<!SC028::WindowsApp("AutoHotkey Help", "C:\Programs\Autohotkey\AutoHotkey.chm")
+<!SC028::WindowsApp("AutoHotkey Help", "C:\Program Files\Autohotkey\AutoHotkey.chm")
 
 ;Autohotkey v2 help file
-<!SC027::WindowsApp("AutoHotkey v2 Help", "C:\Programs\Autohotkey\v2\AutoHotkey.chm")
+<!SC027::WindowsApp("AutoHotkey v2 Help", "C:\Program Files\Autohotkey\v2\AutoHotkey.chm")
 
 ;Gimp 
 <!SC01A::WindowsApp("GIMP", "C:\Programs\GIMP 2\bin\gimp-2.10.exe")

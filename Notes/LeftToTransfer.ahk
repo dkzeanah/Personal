@@ -6,16 +6,7 @@
 
 ;Makes sure not to run the same script more than once. Lets you start and end a script with the same hotkey
 Playlist_moving_PID := 0
-Discovery_add_PID := 0
-
-
-youtubeDash := " - YouTube"
-;Youtube while watching a video 
-GroupAdd, YouTube_vid, %youtubeDash%,,, Watch later|Subscriptions
-;Youtube while not watching a video
-GroupAdd, YouTube_main, A)YouTube|Watch later|Subscriptions
-
-
+Discovery_add_PID := 0 
 
 ;FUNCTIONS#############################################################################
 ;######################################################################################
@@ -39,62 +30,10 @@ ClickThenGoBack_Event(coordX, coordY)
    MouseMove, %initX%, %initY%
 } 
 
-
-
-
-
-;KBMAIN################################################################################
-;######################################################################################
-;######################################################################################
-;######################################################################################
-
-
-
-
-
-
-
 ;APP SPECIFIC MULTIPLE MAIN############################################################
 ;######################################################################################
 ;######################################################################################
 ;###################################################################################### 
-
-
-
-
-#IfWinActive YouTube ;_youtube 
-
-;Switch channels
-XButton2 & Volume_Down::ControlClick, X1821 Y131
-
-;Shift n to skip never made sense to begin with
-PgDn::Send, +n
-PgUp::Send, +p
-
-#IfWinActive
-
-
-#IfWinActive ahk_group YouTube_main
-
-;Close minimized window 
-Escape::ControlClick, X1858 Y665
-
-;Pop out window
-XButton1 & Volume_Down::i
-
-#IfWinActive 
-
-
-#IfWinActive ahk_group YouTube_vid 
-
-;Picture in picture
-+!r::ControlClick, X1579 Y73
-
-;Fullscreen
-XButton1 & Volume_Down::f
-
-#IfWinActive 
-
 
 #IfWinActive ahk_exe Spotify.exe ;_spotify
 
@@ -162,30 +101,6 @@ Enter::Send, % select
 ;######################################################################################
 
 
-#IfWinActive ahk_exe Code.exe ;_vscode
-
-;Shift click, but entirely on the mouse
-XButton1 & Volume_Down::Send, +{Click}
-
-;Gets the name of the key by its sc code 
-XButton2 & Volume_Down::
-Send, ^c
-Sleep, 100
-Loop, Read, %A_WorkingDir%\Libraries\SC code keys.txt ;Reads every line until it comes across the SC code you selected
-{
-   readLine_contents_key := A_LoopReadLine 
-   lineIndex := A_Index
-}
-Until readLine_contents_key == Clipboard
-;Since the SC code of a key is always on the next line after the key, reads every line until it gets to the previous line before the SC code
-Loop, Read, %A_WorkingDir%\Libraries\SC code keys.txt
-   foundCode := A_LoopReadLine
-Until A_Index = lineIndex - 1
-;And then shows you the name of the key in a MsgBox
-MsgBox, 4096, SC code to key, %foundCode%
-return 
-
-#IfWinActive
 
 
 #IfWinActive ahk_exe wps.exe ;_wps
@@ -333,36 +248,13 @@ return
 XButton2 & Volume_Down::ControlClick, X1875 Y1039
 #IfWinActive
 
-;Autoclicker for enter the gungeon
-#IfWinActive Enter the Gungeon
-MButton::Run, %A_WorkingDir%\Tools\Autoclicker.ahk 
-#IfWinActive 
-
-;Edit in edison
-#IfWinActive FL Studio
-+!t::Send, ^e
-#IfWinActive
-
-;Unmute in zoom
-#IfWinExist Zoom Meeting
-#a::Send, !a
-#IfWinExist 
-
 ;Scroll to go between pics
 #IfWinActive Photos
 WheelUp::Send, {Left}
 WheelDown::Send, {Right}
 #IfWinActive
 
-;Skip opening
-#IfWinActive ahk_exe KMPlayer64.exe
-Insert::Send, {End 6}{Right 3}
-#IfWinActive
 
-;Search in docs
-#IfWinActive AutoHotkey Help|AutoHotkey v2 Help
-!j::Send, !s
-#IfWinActive 
 
 
 
@@ -376,32 +268,7 @@ Insert::Send, {End 6}{Right 3}
 ;Gets current cursor's position and opens a gui giving you the options for formatting the parameters for different commands to put them into your Clipboard or to not copy them into your Clipboard at all and just exit the gui
 +!g::Run, %A_WorkingDir%\Tools\MouseGetPos.ahk
 
-;Opens an inputbox for you to type in a character/button you want the SC code of, then places that SC code into your clipboard
-+!k::
-InputBox, keyToGetCodeOf, SC Code Getter, Key to get code of: 
-;Doesn't do shit to your clipboard if it didn't even try to find a SC code. If it tries and can't find the correct one, places "error" into your clipboard
-if (!ErrorLevel && keyToGetCodeOf != "")
-{
-   ;Reads every line until it comes across the key you inputted
-   Loop, Read, %A_WorkingDir%\Libraries\SC code keys.txt
-   {
-      readLine_contents_key := A_LoopReadLine 
-      lineIndex := A_Index
-   }
-   Until readLine_contents_key = keyToGetCodeOf 
-   ;Since the SC code of a key is always on the next line after the key, reads every line until it gets to the next line after the key
-   Loop, Read, %A_WorkingDir%\Libraries\SC code keys.txt
-      foundCode := A_LoopReadLine
-   Until A_Index = lineIndex + 1
-   ;And then puts the sc code to your clipboard
-   ClipBoard := foundCode 
-}
-return 
 
-;Launches smart click. Choose the position to click on with shift alt MButton then press the hotkey below again to start clicking. Presses a random position every time until you press the hotkey again to exit the script
-#IfWinNotActive ahk_exe Code.exe
-+!d::Run, %A_WorkingDir%\Tools\SmartClick.ahk
-#IfWinNotActive
 
 ;Opens an inputbox for you to input how many minutes to wait, plays a sound and opens a msgbox saying the time has passed after it has. Press the same hotkey while the timer is running to see when it will ring and three options: start a new timer, discarding the current one, continue on, exit the timer
 #F6::Run, %A_WorkingDir%\Tools\Basic timer.ahk
@@ -438,11 +305,4 @@ FileSelectFolder, FolderPath, C:\, 3, Select a folder
 ((FolderPath) ? (Clipboard := FolderPath))
 return
 
-;Restart system
-#Pause::Shutdown, 2
 
-;Run test script
-$Pause:: 
-Run, %A_WorkingDir%\Test\TestScript.ahk
-SoundPlay, *-1 
-return 

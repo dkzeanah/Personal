@@ -82,6 +82,13 @@ PressSend_Double(keyname, toSend1:="", toSend2:="")
    ((KeyWait(keyname, "D T0.1")) ? (Send(toSend2)) : (Send(toSend1)))
 }
 
+;Only tries to close the window if it exists
+ifWinClose(winTitle)
+{
+   if WinExist(winTitle)
+      WinClose(winTitle)
+}
+
 
 
 
@@ -434,6 +441,41 @@ WindowsApp_Folders(folderPath)
 
 ;Video editor
 <!SC01B::WindowsApp("ahk_exe Resolve.exe", "C:\Programs\Davinci Resolve\Resolve.exe")
+
+;MinMaxes a game if it exists, closes all apps but spotify if all main 6 apps exist, if they don't: launches those apps of the main 6, that do not yet exist
+<!g:: 
+{
+   ;ahk_exe of the main 6 apps 
+
+   ;Google Chrome
+   chrome := "ahk_exe chrome.exe"
+   chrome_exe := "C:\Program Files\Google\Chrome\Application\chrome.exe" 
+   ;Todoist
+   todoist := "ahk_exe Todoist.exe"
+   todoist_exe := "C:\Users\serge\AppData\Local\Programs\todoist\Todoist.exe"
+   ;Telegram
+   telegram := "ahk_exe Telegram.exe"
+   telegram_exe := "C:\Programs\Telegram Desktop\Telegram.exe"
+   ;Visual Studio Code
+   vscode := "ahk_exe Code.exe"
+   vscode_exe := "C:\Programs\Microsoft VS Code\Code.exe"
+   ;Discord
+   discord := "ahk_exe Discord.exe"
+   discord_exe := "C:\Users\serge\AppData\Local\Discord\app-1.0.9004\Discord.exe"
+   ;Spotify
+   spotify := "ahk_exe Spotify.exe"
+   spotify_exe := "C:\Users\serge\AppData\Roaming\Spotify\Spotify.exe"
+   ;Steam
+   steam := "ahk_exe steam.exe"
+   steam_exe := "C:\Programs\Steam\steam.exe"
+
+   ;Variable for ALL the main 6 apps existing
+   mainAppsExist := (WinExist(chrome) && WinExist(todoist) && WinExist(telegram) && WinExist(vscode) && WinExist(discord) && WinExist(spotify)) 
+
+   if !MinMax("ahk_group Game")
+      (mainAppsExist ? (WinClose(chrome), WinClose(todoist), WinClose(telegram), WinClose(vscode), WinClose(discord), ifWinClose("Monkeytype"), ifWinClose("Google Calendar"), ifWinClose("AutoHotkey Help"), ifWinClose("AutoHotkey v2 Help"), WinActivate(spotify)) 
+      : (ifWinClose(steam), ifRunApp(chrome, chrome_exe), ifRunApp(todoist, todoist_exe), ifRunApp(telegram, telegram_exe), ifRunApp(vscode, vscode_exe), ifRunApp(discord, discord_exe), ifRunApp(spotify, spotify_exe)))
+}
 
 
 HotIfWinNotActive "ahk_group Game"

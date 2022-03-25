@@ -645,37 +645,3 @@ $Pause::
 Run, %A_WorkingDir%\Test\TestScript.ahk
 SoundPlay, *-1 
 return 
-
-
-
-
-;APPS##################################################################################
-;######################################################################################
-;######################################################################################
-;###################################################################################### 
-
-
-;MinMaxes a game if it exists, closes all apps but spotify if all main 6 apps exist, if they don't: launches those apps of the main 6, that do not yet exist
-<!g:: 
-
-;ahk_exe of the main 6 apps 
-chrome := "ahk_exe C:\\Program Files\\Google\\Chrome\\Application\\chrome\.exe"
-todoist := "ahk_exe C:\\Users\\serge\\AppData\\Local\\Programs\\todoist\\Todoist\.exe"
-telegram := "ahk_exe C:\\Programs\\Telegram Desktop\\Telegram\.exe"
-vscode := "ahk_exe C:\\Programs\\Microsoft VS Code\\Code\.exe"
-discord := "ahk_exe C:\\Users\\serge\\AppData\\Local\\Discord\\app-1\.0\.9004\\Discord\.exe"
-spotify := "ahk_exe C:\\Users\\serge\\AppData\\Roaming\\Spotify\\Spotify\.exe"
-steam := "ahk_exe C:\\Programs\\Steam\\steam\.exe"
-
-;Variable for ALL the main 6 apps existing
-mainAppsExist := (WinExist(chrome) && WinExist(todoist) && WinExist(telegram) && WinExist(vscode) && WinExist(discord) && WinExist(spotify)) 
-
-((!MinMax("ahk_group Game")) 
-? ((mainAppsExist) ? (WinClose(chrome), WinClose(todoist), WinClose(telegram), WinClose(vscode), WinClose(discord), ifWinClose("Monkeytype"), ifWinClose("Google Calendar"), ifWinClose("AutoHotkey Help")) 
-: (ifWinClose(steam), IfNotExist_RunApp(chrome), IfNotExist_RunApp(todoist), IfNotExist_RunApp(telegram), IfNotExist_RunApp(vscode), IfNotExist_RunApp(discord), IfNotExist_RunApp(spotify))))
-return 
-
-#IfWinNotActive ahk_group Game
-
-
-#IfWinNotActive

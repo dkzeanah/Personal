@@ -132,7 +132,7 @@ ifWinClose(winTitle)
 ;Weather
 :?X:weather::Run "https://yandex.ru/pogoda/krasnoyarsk"
 ;GitHub
-:?X:git::Run "https://github.com/Axlefublr/Personal_Projects"
+:?X:git::Run "https://github.com/Axlefublr/Personal"
 ;Расписание пар
 :?X:timf::Run A_WorkingDir . "\Libraries\Time table"
 :?:timt::
@@ -174,6 +174,84 @@ HotIfWinActive
 
 ;Close active window
 !Escape::(WinActive("ahk_exe Spotify.exe") ? Send("^+q") : PostMessage("0x0010",,,, "A"))
+
+;Long dash
+!-::Send "{ASC 0151}"
+
+;Alt enter in down enter
+!Enter::(WinActive("ahk_exe Code.exe") ? Send(selectTab) : Send(select)) 
+
+;Easily accessible paste window
+#Insert::Send "#v"
+
+;Cut everything that you've written
+!Insert::Send "^a^x"
+
+;Delete everything that you've written
+!Delete::Send "^a{Delete}" 
+
+;Media keys
+!SC029::Media_Play_Pause
+>^Home::Volume_Up
+>^End::Volume_Down
+>^Insert::Volume_Mute
+>^Delete::Media_Play_Pause
+>^PgUp::Media_Prev
+>^Pgdn::Media_Next
+
+
+;SHIFT ALT + KEY HOTKEYS MADE TO BE MORE EASILY PRESSABLE VERSIONS OF DIFFERENT HOTKEYS. THESE SOMETIMES CHANGE DEPENDING ON THE APP IN THE APP SPECIFIC BLOCK
+;---------------------------------------------------------------------------------------
+;Shift alt w closes a tab
++!w::Send "^w"
+;Shift alt a selects all
++!a::Send "^a"
+
+
+;Easy way to reactivate the previous window after using the quick add task of todoist
+; +!x::
+; {
+;    todoistQA_ID := WinGetID("A")
+;    Send "^!+x"
+;    if WinWait("ahk_exe Todoist.exe",, 7)
+;       SetTimer object.isTaskDone(todoistQA_ID), 100
+; }
+; Class Todoist_ReActivateWin 
+; {
+;    isTaskDone(todoistQA_ID)
+;    {
+;       if !WinActive("ahk_exe Todoist.exe")
+;       {
+;          WinActivate "ahk_id " . todoistQA_ID
+;          SetTimer , "Off"
+;       }
+;    }
+; }
+
+;Pure remapping
+AppsKey::LCtrl 
+SC138::RAlt ;This is supposed to be right alt to begin with, but it worked fuckily so I made sure it's right alt. Worked a wonder ever since.
+
+;Makes sure the side mouse buttons work as intended ingame, despite their remapping outside of game 
+HotIfWinActive "ahk_group Game"
+Volume_Down & MButton::Media_Play_Pause
+XButton1::XButton1
+XButton2::XButton2
+HotIfWinActive
+
+;Makes sure fn + function key doesn't do its native function. Commented if made into a hotkey
+$Launch_Media::return ;F1
+$Media_Play_Pause::return ;F2
+$Media_Stop::return ;F3
+$Media_Prev::return ;F4
+$Media_Next::return ;F5
+$Volume_Mute::return ;F6
+$Volume_Up::return ;F7
+; $Volume_Down::return ;F8
+$Launch_App1::return ;F9
+; $Launch_Mail::return ;F10
+; $Launch_App2::return ;F11
+$Browser_Home::return ;F12
 
 
 

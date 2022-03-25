@@ -9,5 +9,6 @@ spotify add and discovery
    themselves
    mouse gestures
 
-todoist search
-   ifwinactive and mouse gestures implementation
+todoist 
+   ifwinactive and mouse gestures implementation 
+   implement timer

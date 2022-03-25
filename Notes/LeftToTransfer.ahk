@@ -60,35 +60,6 @@ ClickThenGoBack_Event(coordX, coordY)
 ;###################################################################################### 
 
 
-#IfWinActive Google Chrome ;_chrome
-
-;Ctrl numbers aren't easy to press, so F keys instead
-$F1::Send, ^1
-$F2::Send, ^2
-$F3::Send, ^3
-$F4::Send, ^4
-$F5::Send, ^5
-$F6::Send, ^6
-$F7::Send, ^7
-$F8::Send, ^8 
-$F9::Send, ^9 
-
-;Reminds of the markdown syntax for reddit
-:?:mark::
-MsgBox, 4096, Markdown, * italic *`n** bold **`n~~ strikethrough ~~`n>! spoiler !<`n[embed](link)`n^(superscript)`n`` code inline ```n # BIG TEXT
-return
-
-;Single press is copy, double press will get current tab's link to clipboard
-Volume_Down & XButton1::
-KeyWait, XButton1
-KeyWait, XButton1, D T0.1 
-((ErrorLevel) ? (Send("^c")) : (Send("{F6}"), Sleep("40"), Send("^c")))
-return 
-
-;Opens a new tab
-+!e::Send, ^t
-
-#IfWinActive
 
 
 #IfWinActive YouTube ;_youtube 

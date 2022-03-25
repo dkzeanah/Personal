@@ -56,7 +56,6 @@ CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of t
 
 ;Often when you want something selected, you'll send down and enter, so this is the variable for that 
 select := "{Down}{Enter}"
-selectTab := "{Down}{Enter}"
 
 ;Time part of the ekursы link
 ekurs_time := 1646067600 
@@ -153,7 +152,7 @@ ifWinClose(winTitle)
 
 ;Alt + number sends the Unicode for a specific emoji, making that work anywhere. These hotkeys only work in windows that are messengers
 ;🥺😋🤯😼😎😭🧐😳🤨🤔—💀
-HotIfWinActive "ahk_group Messenger"
+#HotIf WinActive("ahk_group Messenger")
 !1::Send("{U+1F97A}")
 !2::Send("{U+1F60B}")
 !3::Send("{U+1F92F}")
@@ -165,7 +164,7 @@ HotIfWinActive "ahk_group Messenger"
 !9::Send("{U+1F928}")
 !0::Send("{U+1F914}")
 !=::Send("{U+1F480}")
-HotIfWinActive 
+#HotIf 
 
 
 
@@ -183,7 +182,7 @@ HotIfWinActive
 !-::Send "{ASC 0151}"
 
 ;Alt enter in down enter
-!Enter::(WinActive("ahk_exe Code.exe") ? Send(selectTab) : Send(select)) 
+!Enter::Send select
 
 ;Easily accessible paste window
 #Insert::Send "#v"
@@ -206,10 +205,12 @@ HotIfWinActive
 
 ;SHIFT ALT + KEY HOTKEYS MADE TO BE MORE EASILY PRESSABLE VERSIONS OF DIFFERENT HOTKEYS. THESE SOMETIMES CHANGE DEPENDING ON THE APP IN THE APP SPECIFIC BLOCK
 ;---------------------------------------------------------------------------------------
+#HotIf 
 ;Shift alt w closes a tab
 +!w::Send "^w"
 ;Shift alt a selects all
 +!a::Send "^a"
+#HotIf 
 
 
 ;Easy way to reactivate the previous window after using the quick add task of todoist
@@ -240,11 +241,11 @@ AppsKey::LCtrl
 SC138::RAlt ;This is supposed to be right alt to begin with, but it worked fuckily so I made sure it's right alt. Worked a wonder ever since.
 
 ;Makes sure the side mouse buttons work as intended ingame, despite their remapping outside of game 
-HotIfWinActive "ahk_group Game"
+#HotIf WinActive("ahk_group Game")
 Volume_Down & MButton::Media_Play_Pause
 XButton1::XButton1
 XButton2::XButton2
-HotIfWinActive
+#HotIf
 
 ;Makes sure fn + function key doesn't do its native function. Commented if made into a hotkey
 $Launch_Media::return ;F1
@@ -266,7 +267,7 @@ $Browser_Home::return ;F12
 ;MOUSE KEY INTERACTION#################################################################
 ;######################################################################################
 ;######################################################################################
-;######################################################################################
+;###################################################################################### 
 
 
 #HotIf
@@ -275,6 +276,8 @@ $Browser_Home::return ;F12
 Volume_Down & XButton2::PressSend_Double("XButton2","^v","#v")
 Volume_Down & XButton1::PressSend_Double("XButton1","^c","^x")
 Volume_Down & MButton::F5
+
+#HotIf
 
 ;Special button by itself pressed in different sections of the screen does different things
 Volume_Down::
@@ -295,9 +298,8 @@ Volume_Down::
    } 
 }
 
-#HotIf
 
-HotIfWinNotActive "ahk_group Game"
+#HotIf !WinActive("ahk_group Game")
 
 ;Combined side buttons
 XButton2 & XButton1::Escape
@@ -452,7 +454,7 @@ $XButton1::
    } 
 }
 
-HotIfWinNotActive 
+#HotIf
 
 
 
@@ -489,7 +491,7 @@ Volume_Down & XButton1::
 ;Opens a new tab
 +!e::Send "^t"
 
-#HotIf 
+#HotIf
 
 
 

@@ -8,24 +8,12 @@
 Playlist_moving_PID := 0
 Discovery_add_PID := 0
 
-;Time part of the ekursы link
-ekurs_time := 1646067600 
 
 youtubeDash := " - YouTube"
 ;Youtube while watching a video 
 GroupAdd, YouTube_vid, %youtubeDash%,,, Watch later|Subscriptions
 ;Youtube while not watching a video
 GroupAdd, YouTube_main, A)YouTube|Watch later|Subscriptions
-
-;Messengers
-GroupAdd, Messenger, Messenger
-GroupAdd, Messenger, Telegram
-GroupAdd, Messenger, Discord
-GroupAdd, Messenger, WhatsApp
-GroupAdd, Messenger, Viber
-GroupAdd, Messenger, ahk_group YouTube_vid
-GroupAdd, Messenger, Instagram
-
 
 
 
@@ -51,91 +39,6 @@ ClickThenGoBack_Event(coordX, coordY)
    MouseMove, %initX%, %initY%
 } 
 
-;Winclose as a function for ternary
-ifWinClose(winTitle)
-{
-   ((WinExist(winTitle)) ? (WinClose(winTitle)))
-}
-
-
-
-
-
-;HOTSTRINGS############################################################################
-;######################################################################################
-;######################################################################################
-;###################################################################################### 
-
-
-;If I try to laugh in russian but my language is set to english, it autosets the language to russian
-:*?:[f[f::{LWin Down}{Space}{LWin Up} 
-:*?:[[f[f::{LWin Down}{Space}{LWin Up} 
-
-
-;SECTION OF HOTSTRINGS THAT OPEN LINKS
-;-------------------------------------
-;Reddit
-:?:reddit::
-Run, https://www.reddit.com/notifications
-return 
-;Instagram
-:?:inst::
-Run, https://www.instagram.com/
-return 
-;Twitter
-:?:twit::
-Run, https://twitter.com/home
-return 
-;Eкурсы
-:?:eku::
-Run, https://e.sfu-kras.ru/calendar/view.php?view=month&time=%ekurs_time%
-return 
-;Расписание пар
-:?:timt::
-Switch A_WDay 
-{
-   Default:Run, %A_WorkingDir%\Libraries\Time table\Monday.jpg
-   Case 2:Run, %A_WorkingDir%\Libraries\Time table\Tuesday.jpg
-   Case 3:Run, %A_WorkingDir%\Libraries\Time table\Wednesday.jpg
-   Case 4:Run, %A_WorkingDir%\Libraries\Time table\Thursday.jpg
-   Case 5:Run, %A_WorkingDir%\Libraries\Time table\Friday.jpg
-}
-return
-:?:timf::
-Run, %A_WorkingDir%\Libraries\Time table
-return 
-;MyAnimeList
-:?:mal::
-Run, https://myanimelist.net/profile/Axlefublr
-return 
-;Metta
-:?:metta::
-Run, https://mettalife.ru/pl/my?gcmes=5779290672&gcmlg=-4
-return 
-;Weather
-:?:weather::
-Run, https://yandex.ru/pogoda/krasnoyarsk
-return 
-;GitHub
-:?:git::
-Run, https://github.com/Axlefublr/Personal_Projects
-return 
-
-;Alt + number sends the Unicode for a specific emoji, making that work anywhere. These hotkeys only work in windows that are messengers
-;🥺😋🤯😼😎😭🧐😳🤨🤔—💀
-#IfWinActive ahk_group Messenger
-!1::Send, {U+1F97A} ;1
-!2::Send, {U+1F60B} ;2
-!3::Send, {U+1F92F} ;3
-!4::Send, {U+1F63C} ;4
-!5::Send, {U+1F60E} ;5
-!6::Send, {U+1F62D} ;6
-!7::Send, {U+1F9D0} ;7
-!8::Send, {U+1F633} ;8
-!9::Send, {U+1F928} ;9
-!0::Send, {U+1F914} ;0
-!=::Send, {U+1F480} ;=
-#IfWinActive 
 
 
 

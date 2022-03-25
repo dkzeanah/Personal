@@ -1,0 +1,112 @@
+WINDOWS APP (which is now alt lmao)
+################################################################################################
+q — discord
+w — wps office
+e — file explorer
+r — photos, videos, steam
+t — telegram, whatsapp, viber
+y — atom
+u — monkeytype
+i — 
+o — obs
+p — 
+[ — gimp
+] — davinci resolve 17
+\ — 
+a — vs code
+s — spotify
+d — documents
+f — fl studio, projects
+g — game winapp, open/close main apps
+h — [spotify] — liked
+j — 
+   [spotify] — search
+   [ahk docs] — search
+k — 
+l — 
+ж — 
+э — ahk docs
+z — vpn
+x — todoist
+c — chrome
+v — pictures
+b — one piece
+n — 
+m — 
+б — mail 
+ю — calendar 
+? — calculator
+
+SHIFT ALT
+(—! is used when there are multiple themed hotkeys using the key through using different combinations of the modifiers)
+################################################################################################
+q — time 
+w — close tab
+   [youtube] — pop out window
+e — open tab
+   [gimp] — export (doesn't work rn)
+   [fl studio] — edit in edison
+   [todoist] — change project to #unfinished and insert "—"
+   [vs code] —! open file in file explorer, compile ahk
+r — 
+   [youtube] — PiP
+   [vs code] —! add next selection / change all occurences, refactor, rename symbol / rename
+t — 
+y — 
+u —! git
+i —! snippets
+o —! tasks
+p —! palletes
+[ —! new file/folder
+] —! settings
+\ — 
+a — select all
+s — get path of file 
+d — smartclick
+   [vs code] — find all references
+f — 
+g — get mouse pos and bring up a gui with options for formatting 
+h — run current file
+j — 
+k — get the sc code of a key
+ж — 
+э — 
+z — 
+x — add todoist task
+c — 
+v — 
+b — 
+n — 
+m — 
+б — 
+ю — 
+? — 
+
+FUNCTION KEYS
+#########################################################################################
+
+#F1 
+#F2 
+#F3 
+#F4 
+#F5 Window information
+#F6 Timer
+#F7 File chooser
+#F8 Folder chooser
+#F9 Command prompt
+#F10 Python command prompt
+#F11 
+#F12 
+
+fnF1 
+fnF2 
+fnF3 
+fnF4 
+fnF5 
+fnF6
+fnF7
+fnF8 mouse
+fnF9 
+fnF10 playlist moving
+fnF11 discovery add
+fnF12 

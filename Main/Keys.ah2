@@ -213,27 +213,27 @@ HotIfWinActive
 
 
 ;Easy way to reactivate the previous window after using the quick add task of todoist
-+!x::
-{
-   global todoistQA_ID := WinGetID("A")
-   Send "^!+x"
-   if WinWait("ahk_exe Todoist.exe",, 7)
-   {
-      SetTimer TodoistTimer.Call(), 100
-   }
-}
+; +!x::
+; {
+;    global todoistQA_ID := WinGetID("A")
+;    Send "^!+x"
+;    if WinWait("ahk_exe Todoist.exe",, 7)
+;    {
+;       SetTimer TodoistTimer.Call(), 100
+;    }
+; }
 
-Class TodoistTimer extends Object
-{
-   Call(todoistQA_ID)
-   {
-      if !WinActive("ahk_exe Todoist.exe")
-      {
-         WinActivate "ahk_id " . todoistQA_ID
-         SetTimer , "Off"
-      }
-   }
-}
+; Class TodoistTimer extends Object
+; {
+;    Call(todoistQA_ID)
+;    {
+;       if !WinActive("ahk_exe Todoist.exe")
+;       {
+;          WinActivate "ahk_id " . todoistQA_ID
+;          SetTimer , "Off"
+;       }
+;    }
+; }
 
 ;Pure remapping
 AppsKey::LCtrl 
@@ -269,6 +269,8 @@ $Browser_Home::return ;F12
 ;######################################################################################
 
 
+#HotIf
+
 ;Special button + side buttons
 Volume_Down & XButton2::PressSend_Double("XButton2","^v","#v")
 Volume_Down & XButton1::PressSend_Double("XButton1","^c","^x")
@@ -292,6 +294,8 @@ Volume_Down::
          Send "{AltUp}"
    } 
 }
+
+#HotIf
 
 HotIfWinNotActive "ahk_group Game"
 
@@ -457,6 +461,35 @@ HotIfWinNotActive
 ;######################################################################################
 ;######################################################################################
 ;###################################################################################### 
+
+
+#HotIf WinActive("Google Chrome") ;_chrome
+
+;Ctrl numbers aren't easy to press, so F keys instead
+$F1::Send "^1"
+$F2::Send "^2"
+$F3::Send "^3"
+$F4::Send "^4"
+$F5::Send "^5"
+$F6::Send "^6"
+$F7::Send "^7"
+$F8::Send "^8"
+$F9::Send "^9"
+
+;Reminds of the markdown syntax for reddit
+:?X:mark::MsgBox "* italic *`n** bold **`n~~ strikethrough ~~`n>! spoiler !<`n[embed](link)`n^(superscript)`n`` code inline ```n # BIG TEXT", "MarkDown", "4096"
+
+;Single press is copy, double press will get current tab's link to clipboard
+Volume_Down & XButton1::
+{
+   KeyWait "XButton1" 
+   (KeyWait "XButton1", "D T0.1" ? (Send("{F6}"), Sleep("40"), Send("^c")) : Send("^c"))
+}
+
+;Opens a new tab
++!e::Send "^t"
+
+#HotIf 
 
 
 

@@ -7,6 +7,7 @@ CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of t
 
 
 
+
 ;SCRIPT SELF###########################################################################
 ;######################################################################################
 ;######################################################################################
@@ -42,7 +43,7 @@ CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of t
 +!ScrollLock::SoundPlay("*16"), ExitApp()
 
 ;Run Testscript
-+Pause::Run(A_WorkingDir . "\Test\TestScript.ahk2") 
++Pause::SoundPlay("*-1"), Run(A_WorkingDir . "\Test\TestScript.ah2") 
 
 
 
@@ -212,24 +213,27 @@ HotIfWinActive
 
 
 ;Easy way to reactivate the previous window after using the quick add task of todoist
-; +!x::
-; {
-;    todoistQA_ID := WinGetID("A")
-;    Send "^!+x"
-;    if WinWait("ahk_exe Todoist.exe",, 7)
-;       SetTimer object.isTaskDone(todoistQA_ID), 100
-; }
-; Class Todoist_ReActivateWin 
-; {
-;    isTaskDone(todoistQA_ID)
-;    {
-;       if !WinActive("ahk_exe Todoist.exe")
-;       {
-;          WinActivate "ahk_id " . todoistQA_ID
-;          SetTimer , "Off"
-;       }
-;    }
-; }
++!x::
+{
+   global todoistQA_ID := WinGetID("A")
+   Send "^!+x"
+   if WinWait("ahk_exe Todoist.exe",, 7)
+   {
+      SetTimer TodoistTimer.Call(), 100
+   }
+}
+
+Class TodoistTimer extends Object
+{
+   Call(todoistQA_ID)
+   {
+      if !WinActive("ahk_exe Todoist.exe")
+      {
+         WinActivate "ahk_id " . todoistQA_ID
+         SetTimer , "Off"
+      }
+   }
+}
 
 ;Pure remapping
 AppsKey::LCtrl 
@@ -373,7 +377,7 @@ $XButton1::
             Case right:Send "^!{Right}"
             Case left:Send "^!{Left}"
             Case down:
-               Run A_WorkingDir . "\Test\TestScript.ahk2"
+               Run A_WorkingDir . "\Test\TestScript.ah2"
                SoundPlay "*-1" 
             Case up: 
                Run A_ScriptFullPath

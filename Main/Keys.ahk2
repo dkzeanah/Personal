@@ -7,7 +7,6 @@ CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of t
 
 
 
-
 ;SCRIPT SELF###########################################################################
 ;######################################################################################
 ;######################################################################################
@@ -63,6 +62,10 @@ GroupAdd "Game", "Nuclear Throne"
 GroupAdd "Game", "Terraria"
 GroupAdd "Game", "Minecraft"
 
+;Media
+GroupAdd "Media", "Photos"
+GroupAdd "Media", "ahk_exe KMPlayer64.exe"
+
 
 
 
@@ -94,6 +97,10 @@ PressSend_Double(keyname, toSend1:="", toSend2:="")
 ;######################################################################################
 ;######################################################################################
 ;######################################################################################
+
+
+;Close active window
+!Escape::(WinActive("ahk_exe Spotify.exe") ? Send("^+q") : PostMessage("0x0010",,,, "A"))
 
 
 
@@ -336,7 +343,7 @@ HotIfWinNotActive
 
 ;Minimizes or maximizes the window depending on its state
 MinMax(title) {
-   ((WinActive(title)) ? (WinMinimize()) : (WinActivate()))
+   Try (WinActive(title) ? WinMinimize(title) : WinActivate(title))
 }
 
 ;If the window exists, minimize or maximize it depending on its state and return 1, otherwise return 0
@@ -355,8 +362,8 @@ ifMinMax(title)
 RunApp(winTitle, exePath)
 {
    Run exePath,, "Max"
-   WinWait winTitle,, 3
-   WinActivate
+   WinWait winTitle,, 7
+   WinActivate winTitle
 } 
 
 ;Run app, but only if it doesn't exist already
@@ -370,8 +377,10 @@ ifRunApp(winTitle, exePath)
 }
 
 ;If the app doesn't exist, launches it. If it does and is active, minimizes it. If it's minimized, activates it
-WindowsApp(winTitle, exePath) {
-   ((!ifMinMax(winTitle)) ? (RunApp(winTitle, exePath)))
+WindowsApp(winTitle, exePath) 
+{
+   if !ifMinMax(winTitle)
+      RunApp(winTitle, exePath)
 }
 
 ;Windows app name, but there's no exe fot the app so you put it in your taskbar and use windows + number to launch it and then this optimized way of activating it and minimizing it
@@ -380,8 +389,8 @@ WindowsApp_WinNum(winTitle, windowsNumber)
    if !ifMinMax(winTitle)
    {
       Send "#" . windowsNumber
-      WinWait winTitle
-      WinActivate
+      WinWait winTitle,, 7
+      WinActivate winTitle
    } 
 }
 
@@ -391,8 +400,8 @@ WindowsApp_Folders(folderPath)
    Switch
    {
       Case !WinExist(folderPath):RunWait folderPath
-      Case WinActive(folderPath):WinMinimize 
-      Case !WinActive(folderPath):WinActivate
+      Case WinActive(folderPath):WinMinimize folderPath
+      Case !WinActive(folderPath):WinActivate folderPath
    }
 }
 
@@ -426,3 +435,75 @@ WindowsApp_Folders(folderPath)
 ;Video editor
 <!SC01B::WindowsApp("ahk_exe Resolve.exe", "C:\Programs\Davinci Resolve\Resolve.exe")
 
+
+HotIfWinNotActive "ahk_group Game"
+
+;Visual studio code
+$<!a::WindowsApp("ahk_exe Code.exe", "C:\Programs\Microsoft VS Code\Code.exe")
+
+;Spotify 
+$<!s::WindowsApp("ahk_exe Spotify.exe", "C:\Users\serge\AppData\Roaming\Spotify\Spotify.exe")
+
+;Chrome 
+<!c::WindowsApp("Google Chrome", "C:\Program Files\Google\Chrome\Application\chrome.exe")
+
+;VPN
+<!z::WindowsApp("ahk_exe vpncmgr_x64.exe", "C:\Program Files\SoftEther VPN Client\vpncmgr_x64.exe")
+
+;Todoist
+<!x::WindowsApp("ahk_exe Todoist.exe", "C:\Users\serge\AppData\Local\Programs\todoist\Todoist.exe")
+
+;Wps
+<!w::WindowsApp("ahk_exe wps.exe", "C:\Users\serge\AppData\Local\Kingsoft\WPS Office\11.2.0.10463\office6\wps.exe")
+
+;Telegram, whatsapp, viber on one, two and three presses
+<!t::
+{
+   KeyWait "t"
+   Switch KeyWait("t", "D T0.1")
+   {
+      Case True:
+         KeyWait "t"
+         Switch KeyWait("t", "D T0.1")
+         {
+            ; You pressed three times
+            Case True:WindowsApp("ahk_exe Viber.exe", "C:\Users\serge\AppData\Local\Viber\Viber.exe") 
+            ; You pressed twice
+            Case False:WindowsApp("ahk_exe WhatsApp.exe", "C:\Users\serge\AppData\Local\WhatsApp\app-2.2140.12\WhatsApp.exe")
+         }
+      ; You pressed once
+      Case False:WindowsApp("Telegram", "C:\Programs\Telegram Desktop\Telegram.exe")
+   } 
+}
+
+;Projects folder on single press, FL Studio on double press
+<!f::
+{
+   KeyWait "f"
+   if KeyWait("f", "D T0.1")
+      WindowsApp("ahk_exe FL64.exe", "C:\Programs\FL Studio 20\FL64.exe")
+   else
+      WindowsApp_Folders("C:\Files\Projects")
+}
+
+;Discord
+<!q::WindowsApp("ahk_exe Discord.exe", "C:\Users\serge\AppData\Local\Discord\app-1.0.9004\Discord.exe")
+
+;Photos
+$<!r::
+{
+   if !ifMinMax("ahk_group Media")
+      WindowsApp("ahk_exe steam.exe", "C:\Programs\Steam\steam.exe")
+}
+
+;Explorer
+$<!e::WindowsApp_Folders("C:\") 
+
+;Documents 
+<!d::WindowsApp_Folders("C:\Files\Documents")
+
+;Pictures
+<!v::WindowsApp_Folders("C:\Files\Pictures")
+
+;One Piece
+<!b::WindowsApp_Folders("C:\Files\Pictures\One Piece")

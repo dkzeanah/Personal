@@ -149,9 +149,6 @@ return
 ;Long dash
 !-::Send, {ASC 0151}
 
-;Close active window
-!Escape::((WinActive("ahk_exe Spotify.exe")) ? (Send("^+q")) : (PostMessage("0x0010",,,, "A")))
-
 ;Alt enter in down enter
 !Enter::Send, % ((WinActive("ahk_exe Code.exe")) ? ("{Down}{Tab}") : (select)) 
 
@@ -680,61 +677,5 @@ return
 
 #IfWinNotActive ahk_group Game
 
-;Visual studio code
-$<!a::WindowsApp("C:\Programs\Microsoft VS Code\Code.exe")
-
-;Spotify 
-$<!s::WindowsApp("C:\Users\serge\AppData\Roaming\Spotify\Spotify.exe")
-
-;Chrome 
-<!c::WindowsApp_Name("Google Chrome", "C:\Program Files\Google\Chrome\Application\chrome.exe")
-
-;VPN
-<!z::WindowsApp("C:\Program Files\SoftEther VPN Client\vpncmgr_x64.exe")
-
-;Todoist
-<!x::WindowsApp("C:\Users\serge\AppData\Local\Programs\todoist\Todoist.exe")
-
-;Wps
-<!w::WindowsApp_Name("WPS Office","C:\Users\serge\AppData\Local\Kingsoft\WPS Office\11.2.0.10463\office6\wps.exe")
-
-;Telegram, whatsapp, viber on one, two and three presses
-<!t::
-KeyWait, t
-KeyWait, t, D T0.1
-if !ErrorLevel 
-{ 
-   KeyWait, t
-   KeyWait, t, D T0.1
-   ((!ErrorLevel) ? (WindowsApp("C:\Users\serge\AppData\Local\Viber\Viber.exe")) : (WindowsApp("C:\Users\serge\AppData\Local\WhatsApp\app-2.2140.12\WhatsApp.exe")))
-}
-else 
-   WindowsApp_Name("Telegram", "C:\Programs\Telegram Desktop\Telegram.exe")
-return
-
-;Projects folder on single press, FL Studio on double press
-<!f::
-KeyWait, f
-KeyWait, f, D T0.1
-((ErrorLevel) ? (WindowsApp_Folders("C:\Files\Projects")) : (WindowsApp_Name("FL Studio 20", "C:\Programs\FL Studio 20\FL64.exe")))
-return
-
-;Discord
-<!q::WindowsApp("C:\Users\serge\AppData\Local\Discord\app-1.0.9004\Discord.exe")
-
-;Photos
-$<!r::((!MinMax("Photos")) ? ((!MinMax("ahk_exe KMPlayer64.exe")) ? (WindowsApp("C:\Programs\Steam\steam.exe"))))
-
-;Explorer
-$<!e::WindowsApp_Folders("C:\") 
-
-;Documents 
-<!d::WindowsApp_Folders("C:\Files\Documents")
-
-;Pictures
-<!v::WindowsApp_Folders("C:\Files\Pictures")
-
-;One Piece
-<!b::WindowsApp_Folders("C:\Files\Pictures\One Piece")
 
 #IfWinNotActive

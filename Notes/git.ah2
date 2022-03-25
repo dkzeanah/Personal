@@ -43,3 +43,13 @@ git reset --hard origin/main
 ; If you checked out to a branch and want to go back to it, use
 git checkout -
 
+;DOESN'T WORK
+/* 
+;Alias for changing the author/email of last commits
+git config --global alias.change-commits '!"f() { VAR=\$1; OLD=\$2; NEW=\$3; shift 3; git filter-branch --env-filter \"if [[ \\\"\$\`echo \$VAR\`\\\" = '\$OLD' ]]; then export \$VAR='\$NEW'; fi\" \$@; }; f"'
+
+;To change author name for all last commits:
+git change-commits GIT_AUTHOR_NAME "old name" "new name"
+;To change email for 10 last commits
+git change-commits GIT_AUTHOR_EMAIL "old@email.com" "new@email.com" HEAD~10..HEAD
+*/

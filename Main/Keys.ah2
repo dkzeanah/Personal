@@ -768,6 +768,16 @@ XButton1 & Volume_Down::Send "+{Click}"
 Insert::Send "{End 6}{Right 3}"
 #HotIf
 
+;Voice message
+#HotIf WinActive("WhatsApp")
+XButton2 & Volume_Down::ControlClick "X1875 Y1039"
+#HotIf
+
+;Scroll to go between pics
+#HotIf WinActive("ahk_group Media")
+WheelUp::Send "{Left}"
+WheelDown::Send "{Right}"
+#HotIf
 
 
 

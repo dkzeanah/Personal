@@ -8,28 +8,6 @@
 Playlist_moving_PID := 0
 Discovery_add_PID := 0 
 
-;FUNCTIONS#############################################################################
-;######################################################################################
-;###################################################################################### 
-;###################################################################################### 
-
-
-;it literally says what it does
-ClickThenGoBack(coordX, coordY)
-{
-   MouseGetPos, initX, initY
-   Click, %coordX%, %coordY%
-   MouseMove, %initX%, %initY%
-}
-
-;clickthengoback, but clicks as an event for extra fucky things
-ClickThenGoBack_Event(coordX, coordY)
-{
-   MouseGetPos, initX, initY
-   SendEvent, {Click %coordX%, %coordY%}
-   MouseMove, %initX%, %initY%
-} 
-
 ;APP SPECIFIC MULTIPLE MAIN############################################################
 ;######################################################################################
 ;######################################################################################

@@ -37,7 +37,7 @@ CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of t
       SoundPlay "*16"
    }
 }
-#SuspendExempt 
+#SuspendExempt False
 
 ;Exit this script
 +!ScrollLock::SoundPlay("*16"), ExitApp()
@@ -107,6 +107,23 @@ ifWinClose(winTitle)
       WinClose(winTitle)
 }
 
+;it literally says what it does
+ClickThenGoBack(coordX, coordY)
+{
+   MouseGetPos &initX, &initY
+   Click coordX . " " . coordY
+   MouseMove initX, initY
+}
+
+;clickthengoback, but clicks as an event for extra fucky things
+ClickThenGoBack_Event(coordX, coordY)
+{
+   MouseGetPos &initX, &initY
+   SendPlay "{Click " . coordX . " " . coordY . "}"
+   MouseMove initX, initY
+} 
+
+
 
 
 
@@ -147,11 +164,11 @@ ifWinClose(winTitle)
 {
    Switch A_WDay 
    {
-      Default:Run A_WorkingDir . "\Libraries\Time table\Monday.jpg"
-      Case 2:Run A_WorkingDir . "\Libraries\Time table\Tuesday.jpg"
-      Case 3:Run A_WorkingDir . "\Libraries\Time table\Wednesday.jpg"
-      Case 4:Run A_WorkingDir . "\Libraries\Time table\Thursday.jpg"
-      Case 5:Run A_WorkingDir . "\Libraries\Time table\Friday.jpg"
+      Default:Run A_WorkingDir . "\Libraries\Time table\Monday.jpg", "Max"
+      Case 2:Run A_WorkingDir . "\Libraries\Time table\Tuesday.jpg", "Max"
+      Case 3:Run A_WorkingDir . "\Libraries\Time table\Wednesday.jpg", "Max"
+      Case 4:Run A_WorkingDir . "\Libraries\Time table\Thursday.jpg", "Max"
+      Case 5:Run A_WorkingDir . "\Libraries\Time table\Friday.jpg", "Max"
    }
 }
 

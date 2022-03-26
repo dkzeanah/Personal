@@ -549,7 +549,37 @@ XButton1 & Volume_Down::f
 #HotIf
 
 
+#HotIf WinActive("ahk_exe Spotify.exe") ;_spotify
 
+;Slows down the selection of stuff in spotify so you don't accidentally drag stuff as often
+^LButton::Send "^{Click}"
+
+;Search (meaning filter)
+!j::Send "^f"
+
+;Go to liked
+!h::Send "+!s"
+
+;Shuffle
+Volume_Down & XButton1::Send "^s"
+
+;Like
+Volume_Down & XButton2::Send "+!b"
+
+;Playlists
+$F1::Send "+!1" 
+
+;Podcasts
+$F2::Send "+!2" 
+
+;Currently playing
+$F3::Send "+!j"
+
+;Skips
+PgDn::Send "^{Right}"
+PgUp::Send "^{Left}"
+
+#HotIf
 
 
 

@@ -265,6 +265,7 @@ XButton2::XButton2
       Case "settings":Run "C:\Files\Programming\Personal\Backups\settings.json"
       Case "tasks":Run "C:\Users\serge\AppData\Roaming\Code\User\tasks.json"
       Case "extensions":Run "C:\Users\serge\.vscode\extensions"
+      Case "package":Run "C:\Users\serge\.vscode\extensions\mark-wiemer.vscode-autohotkey-plus-plus-2.8.1\package.json"
    }
 }
 
@@ -274,14 +275,15 @@ XButton2::XButton2
    prevActWin := WinGetID("A")
    Send "^!+x"
    if WinWait("ahk_exe Todoist.exe",, 7)
-      SetTimer ReactivatePrevActWin, 100 ;Bind by calling the function (works like this if no params)
-
+      SetTimer ReactivatePrevActWin(), 100 ;Bind by calling the function (works like this if no params)
+   
+   ;Waits for the quick add task window to disappear and as soon as it does, reactivates the window it was called from
    ReactivatePrevActWin() ;You can actually put it inside of the hotkey
    {
       if !WinActive("ahk_exe Todoist.exe") 
       {
          WinActivate "ahk_id " . prevActWin ;No need to make it a param, since same scope
-         SetTimer ReactivatePrevActWin, 0
+         SetTimer ReactivatePrevActWin(), 0
       }
    }
 }

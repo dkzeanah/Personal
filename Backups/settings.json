@@ -50,4 +50,9 @@
    "git.allowForcePush": true,
    "git.autoStash": true,
    "git.confirmForcePush": false,
+   "editor.mouseWheelScrollSensitivity": 1.7,
+   "editor.smoothScrolling": true,
+   "editor.scrollbar.verticalScrollbarSize": 0,
+   "workbench.editor.scrollToSwitchTabs": true,
+   "workbench.list.smoothScrolling": true,
 }

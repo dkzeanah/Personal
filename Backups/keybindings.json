@@ -1441,5 +1441,10 @@
       "key": "escape",
       "command": "workbench.action.terminal.kill",
       "when": "terminalHasBeenCreated && terminalFocus"
+   },
+   {
+      "key": "ctrl+space",
+      "command": "selectNextSuggestion",
+      "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
    }
 ]

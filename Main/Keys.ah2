@@ -615,6 +615,29 @@ Enter::Send select
 ;######################################################################################
 
 
+#HotIf WinActive("ahk_exe Code.exe") ;_vscode 
+
+;Shift click, but entirely on the mouse
+XButton1 & Volume_Down::Send "+{Click}"
+
+;Launches a batch of setting files for vs code
+^!u::Run A_WorkingDir . "\Scripts\Pull vs code settings.py"
+
++!l::
+{
+   SettingFile := InputBox("File to open:", "Open a vs code setting file",, "syntax").value
+   Switch SettingFile
+   {
+      Case "syntax":Run "C:\Users\serge\.vscode\extensions\mark-wiemer.vscode-autohotkey-plus-plus-2.8.1\syntaxes\ahk.tmLanguage.json"
+      Case "keybind":Run "C:\Users\serge\AppData\Roaming\Code\User\keybindings.json"
+      Case "settings":Run "C:\Files\Programming\Personal\Backups\settings.json"
+      Case "tasks":Run "C:\Users\serge\AppData\Roaming\Code\User\tasks.json"
+   }
+}
+
+#HotIf
+
+
 #HotIf WinActive("ahk_exe wps.exe") ;_wps
 
 ;Bullets
@@ -756,11 +779,6 @@ XButton2 & Volume_Down::Send "^g"
 ;Search in docs
 #HotIf WinActive("AutoHotkey Help") || WinActive("AutoHotkey v2 Help")
 !j::Send "!s"
-#HotIf
-
-;Shift click, but entirely on the mouse
-#HotIf WinActive("ahk_exe Code.exe") ;_vscode 
-XButton1 & Volume_Down::Send "+{Click}"
 #HotIf
 
 ;Skip opening

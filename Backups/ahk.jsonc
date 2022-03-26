@@ -1,0 +1,237 @@
+{
+	// Place your snippets for ah2 here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+   "MsgBox": {
+      "prefix": "MsgBox",
+      "body": [
+         "MsgBox"
+      ],
+      "description": ""
+   },
+   "Section separator": {
+      "prefix": "Section separator",
+      "body": [
+         ";$0######################################################################################",
+         ";######################################################################################",
+         ";######################################################################################",
+         ";######################################################################################" 
+      ],
+      "description": "Commented lines to separate sections of code"
+   },
+   "Persistent": {
+      "prefix": "Persistent",
+      "body": [
+         "Persistent True"
+      ],
+      "description": ""
+   },
+   "#Hotstring": {
+      "prefix": "Hotstring",
+      "body": [
+         "#Hotstring EndChars"
+      ],
+      "description": ""
+   },
+   "Directories": {
+      "prefix": "Directories",
+      "body": [
+         "SetWorkingDir \"C:\\Files\\Programming\\Personal\" ;Ensures a consistent A_WorkingDir.",
+         "#SingleInstance Force ;Launches the new instance of the script always, instead of asking whether it should",
+         "#Hotstring EndChars `t ;Decides the characters that can finish a hotstring",
+         "#WinActivateForce ;Forces windows to be activated, skipping the gentle method",
+         "CoordMode \"Mouse\", \"Screen\" ;Uses the coordinates of the screen rather than of the window's",
+         "A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seconds",
+         "; Persistent True ;Make the script not autoquit if it doesn't have hotkeys"
+      ],
+      "description": ""
+   },
+   "True": {
+      "prefix": "True",
+      "body": [
+         "True"
+      ],
+      "description": ""
+   },
+   "False": {
+      "prefix": "False",
+      "body": [
+         "False"
+      ],
+      "description": ""
+   },
+   "HotIfWinActive": {
+      "prefix": "HotIfWinActive",
+      "body": [
+         "HotIfWinActive $0"
+      ],
+      "description": ""
+   },
+   "HotIfWinNotActive": {
+      "prefix": "HotIfWinNotActive",
+      "body": [
+         "HotIfWinNotActive $0"
+      ],
+      "description": ""
+   },
+   "HotIfWinExist": {
+      "prefix": "HotIfWinExist",
+      "body": [
+         "HotIfWinExist $0"
+      ],
+      "description": ""
+   },
+   "HotIfWinNotExist": {
+      "prefix": "HotIfWinNotExist",
+      "body": [
+         "HotIfWinNotExist $0"
+      ],
+      "description": ""
+   },
+   "ControlSend": {
+      "prefix": "ControlSend",
+      "body": [
+         "ControlSend"
+      ],
+      "description": ""
+   },
+   "ControlClick": {
+      "prefix": "ControlClick",
+      "body": [
+         "ControlClick"
+      ],
+      "description": ""
+   },
+   "ExitApp": {
+      "prefix": "ExitApp",
+      "body": [
+         "ExitApp"
+      ],
+      "description": ""
+   },
+   "Call": {
+      "prefix": "Call",
+      "body": [
+         "Call(${1:Params*})"
+      ],
+      "description": ""
+   },
+   "#HotIf": {
+      "prefix": "#HotIf",
+      "body": [
+         "#HotIf"
+      ],
+      "description": ""
+   },
+   "#WinActivateForce": {
+      "prefix": "#WinActivateForce",
+      "body": "#WinActivateForce",
+      "description": "Skips the gentle method of activating a window and goes straight to the forceful method."
+   },
+   "if": {
+      "prefix": "if",
+      "body": [
+         "if"
+      ],
+      "description": ""
+   },
+   "else": {
+      "prefix": "else",
+      "body": [
+         "else"
+      ],
+      "description": ""
+   },
+   "SetWorkingDir": {
+      "prefix": "SetWorkingDir",
+      "body": [
+         "SetWorkingDir "
+      ],
+      "description": ""
+   },
+   "#SingleInstance": {
+      "prefix": "#SingleInstance",
+      "body": [
+         "#SingleInstance Force"
+      ],
+      "description": ""
+   },
+   "Click": {
+      "prefix": "Click",
+      "body": [
+         "Click"
+      ],
+      "description": ""
+   },
+   "MouseGetPos": {
+      "prefix": "MouseGetPos",
+      "body": [
+         "MouseGetPos &${1:OutputVarX}, &${2:OutputVarY}"
+      ],
+      "description": ""
+   },
+   "MouseMove": {
+      "prefix": "MouseMove",
+      "body": [
+         "MouseMove"
+      ],
+      "description": ""
+   },
+   "SendPlay": {
+      "prefix": "SendPlay",
+      "body": [
+         "SendPlay"
+      ],
+      "description": ""
+   },
+   "WinActive": {
+      "prefix": "WinActive",
+      "body": [
+         "WinActive"
+      ]
+   },
+   "WinExist": {
+      "prefix": "WinExist",
+      "body": [
+         "WinExist"
+      ]
+   },
+   "ProcessExist": {
+      "prefix": "ProcessExist",
+      "body": [
+         "ProcessExist($0)"
+      ]
+   },
+   "InputBox": {
+      "prefix": "InputBox",
+      "body": [
+         "InputBox($0)"
+      ]
+   },
+   "Switch": {
+      "prefix": "Switch",
+      "body": [
+         "Switch",
+         "{",
+         "\t$0",
+         "}"
+      ]
+   },
+   "Case": {
+      "prefix": "Case",
+      "body": [
+         "Case "
+      ]
+   },
+   
+}

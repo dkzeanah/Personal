@@ -1,0 +1,25 @@
+{
+   "version": "2.0.0",
+   "tasks": 
+   [
+      {
+         "label": "New project tasks",
+         "type": "shell",
+         "command": "start C:\\Files\\Programming\\Autohotkey\\Scripts\\newTasksJson.py",
+         "problemMatcher": []
+      },
+      {
+         "label": "Python documentation",
+         "type": "shell",
+         "command": "start C:\\Programs\\Python\\Doc\\python3100.chm",
+         "problemMatcher": [],
+         "group": {
+            "kind": "build",
+            "isDefault": false
+         },
+         "presentation": {
+            "focus": true
+         }
+      }
+   ]
+}

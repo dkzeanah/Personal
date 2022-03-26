@@ -69,6 +69,7 @@ g — get mouse pos and bring up a gui with options for formatting
 h — run current file
 j — 
 k — get the sc code of a key
+l — open something by typing it in
 ж — 
 э — 
 z — 

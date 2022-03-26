@@ -127,51 +127,63 @@ ClickThenGoBack_Event(coordX, coordY)
 
 
 
-
-;HOTSTRINGS############################################################################
+;KBMAIN################################################################################
 ;######################################################################################
 ;######################################################################################
-;###################################################################################### 
+;######################################################################################
 
+
+;SPECIAL CHARACTERS
+;————————————————————
+
+;Long dash
+!-::Send "{ASC 0151}"
 
 ;If I try to laugh in russian but my language is set to english, it autosets the language to russian
 :*?:[f[f::{LWin Down}{Space}{LWin Up} 
 :*?:[[f[f::{LWin Down}{Space}{LWin Up} 
 
 
-;SECTION OF HOTSTRINGS THAT OPEN LINKS
-;-------------------------------------
-;.vscode directory
-:?X:vscodedr::Run "C:\Users\serge\.vscode\extensions"
-;Reddit
-:?X:reddit::Run "https://www.reddit.com/notifications"
-;Instagram
-:?X:inst::Run "https://www.instagram.com/"
-;Twitter
-:?X:twit::Run "https://twitter.com/home"
-;Eкурсы
-:?X:eku::Run "https://e.sfu-kras.ru/calendar/view.php?view=month&time=" . ekurs_time
-;MyAnimeList
-:?X:mal::Run "https://myanimelist.net/profile/Axlefublr"
-;Metta
-:?X:metta::Run "https://mettalife.ru/pl/my?gcmes=5779290672&gcmlg=-4"
-;Weather
-:?X:weather::Run "https://yandex.ru/pogoda/krasnoyarsk"
-;GitHub
-:?X:git::Run "https://github.com/Axlefublr/Personal"
-;Расписание пар
-:?X:timf::Run A_WorkingDir . "\Libraries\Time table"
-:?:timt::
-{
-   Switch A_WDay 
-   {
-      Default:Run A_WorkingDir . "\Libraries\Time table\Monday.jpg", "Max"
-      Case 2:Run A_WorkingDir . "\Libraries\Time table\Tuesday.jpg", "Max"
-      Case 3:Run A_WorkingDir . "\Libraries\Time table\Wednesday.jpg", "Max"
-      Case 4:Run A_WorkingDir . "\Libraries\Time table\Thursday.jpg", "Max"
-      Case 5:Run A_WorkingDir . "\Libraries\Time table\Friday.jpg", "Max"
-   }
-}
+;GLOBAL MANIPULATION
+;—————————————————————————————
+
+;Close active window
+!Escape::(WinActive("ahk_exe Spotify.exe") ? Send("^+q") : PostMessage("0x0010",,,, "A"))
+
+;Alt enter in down enter
+!Enter::Send select
+
+;Easily accessible paste window
+#Insert::Send "#v"
+
+;Cut
+!Insert::Send "^x"
+
+;Cut everything that you've written
+^!Insert::Send "^a^x"
+
+;Delete everything that you've written
+^!Delete::Send "^a{Delete}" 
+
+#HotIf 
+;Shift alt w closes a tab
++!w::Send "^w"
+;Shift alt a selects all
++!a::Send "^a"
+#HotIf 
+
+
+;INTERACTION
+;————————————————————
+
+;Media hotkeys
+!SC029::Media_Play_Pause
+>^Home::Volume_Up
+>^End::Volume_Down
+>^Insert::Volume_Mute
+>^Delete::Media_Play_Pause
+>^PgUp::Media_Prev
+>^Pgdn::Media_Next
 
 ;Alt + number sends the Unicode for a specific emoji, making that work anywhere. These hotkeys only work in windows that are messengers
 ;🥺😋🤯😼😎😭🧐😳🤨🤔—💀
@@ -190,54 +202,71 @@ ClickThenGoBack_Event(coordX, coordY)
 #HotIf 
 
 
+;REMAPPING
+;——————————————————
 
 
-;KBMAIN################################################################################
+;Pure remapping
+AppsKey::LCtrl 
+SC138::RAlt ;This is supposed to be right alt to begin with, but it worked fuckily so I made sure it's right alt. Worked a wonder ever since.
+
+;Makes sure the side mouse buttons work as intended ingame, despite their remapping outside of game 
+#HotIf WinActive("ahk_group Game")
+Volume_Down & MButton::Media_Play_Pause
+XButton1::XButton1
+XButton2::XButton2
+#HotIf
+
+
+
+
+;SPECIAL HOTKEYS#######################################################################
 ;######################################################################################
 ;######################################################################################
 ;######################################################################################
 
 
-;Close active window
-!Escape::(WinActive("ahk_exe Spotify.exe") ? Send("^+q") : PostMessage("0x0010",,,, "A"))
+;Gives you a place to essentially type a hotstring. Runs what you entered
++!l::
+{
+   Path_or_Link := InputBox("What do you want to run?", "Runner",, "timt").value
+   Switch Path_or_Link
+   {
+      ;Reddit
+      Case "reddit":Run "https://www.reddit.com/notifications"
+      ;Instagram
+      Case "inst":Run "https://www.instagram.com/"
+      ;Twitter
+      Case "twit":Run "https://twitter.com/home"
+      ;Eкурсы
+      Case "eku":Run "https://e.sfu-kras.ru/calendar/view.php?view=month&time=" . ekurs_time
+      ;MyAnimeList
+      Case "mal":Run "https://myanimelist.net/profile/Axlefublr"
+      ;Metta
+      Case "metta":Run "https://mettalife.ru/pl/my?gcmes=5779290672&gcmlg=-4"
+      ;Weather
+      Case "weather":Run "https://yandex.ru/pogoda/krasnoyarsk"
+      ;GitHub
+      Case "git":Run "https://github.com/Axlefublr/Personal"
+      ;Расписание пар
+      Case "timf":Run A_WorkingDir . "\Libraries\Time table"
+      Case "timt":
+         Switch A_WDay 
+         {
+            Default:Run A_WorkingDir . "\Libraries\Time table\Monday.jpg", "Max"
+            Case 2:Run A_WorkingDir . "\Libraries\Time table\Tuesday.jpg", "Max"
+            Case 3:Run A_WorkingDir . "\Libraries\Time table\Wednesday.jpg", "Max"
+            Case 4:Run A_WorkingDir . "\Libraries\Time table\Thursday.jpg", "Max"
+            Case 5:Run A_WorkingDir . "\Libraries\Time table\Friday.jpg", "Max"
+         }
 
-;Long dash
-!-::Send "{ASC 0151}"
-
-;Alt enter in down enter
-!Enter::Send select
-
-;Easily accessible paste window
-#Insert::Send "#v"
-
-;Cut
-!Insert::Send "^x"
-
-;Cut everything that you've written
-^!Insert::Send "^a^x"
-
-;Delete everything that you've written
-^!Delete::Send "^a{Delete}" 
-
-;Media keys
-!SC029::Media_Play_Pause
->^Home::Volume_Up
->^End::Volume_Down
->^Insert::Volume_Mute
->^Delete::Media_Play_Pause
->^PgUp::Media_Prev
->^Pgdn::Media_Next
-
-
-;SHIFT ALT + KEY HOTKEYS MADE TO BE MORE EASILY PRESSABLE VERSIONS OF DIFFERENT HOTKEYS. THESE SOMETIMES CHANGE DEPENDING ON THE APP IN THE APP SPECIFIC BLOCK
-;---------------------------------------------------------------------------------------
-#HotIf 
-;Shift alt w closes a tab
-+!w::Send "^w"
-;Shift alt a selects all
-+!a::Send "^a"
-#HotIf 
-
+      Case "syntax":Run "C:\Users\serge\.vscode\extensions\mark-wiemer.vscode-autohotkey-plus-plus-2.8.1\syntaxes\ahk.tmLanguage.json"
+      Case "keybind":Run "C:\Users\serge\AppData\Roaming\Code\User\keybindings.json"
+      Case "settings":Run "C:\Files\Programming\Personal\Backups\settings.json"
+      Case "tasks":Run "C:\Users\serge\AppData\Roaming\Code\User\tasks.json"
+      Case "extensions":Run "C:\Users\serge\.vscode\extensions"
+   }
+}
 
 ;Easy way to reactivate the previous window after using the quick add task of todoist
 +!x::
@@ -256,18 +285,6 @@ ClickThenGoBack_Event(coordX, coordY)
       }
    }
 }
-
-
-;Pure remapping
-AppsKey::LCtrl 
-SC138::RAlt ;This is supposed to be right alt to begin with, but it worked fuckily so I made sure it's right alt. Worked a wonder ever since.
-
-;Makes sure the side mouse buttons work as intended ingame, despite their remapping outside of game 
-#HotIf WinActive("ahk_group Game")
-Volume_Down & MButton::Media_Play_Pause
-XButton1::XButton1
-XButton2::XButton2
-#HotIf
 
 ;Makes sure fn + function key doesn't do its native function. Commented if made into a hotkey
 $Launch_Media::return ;F1
@@ -620,20 +637,8 @@ Enter::Send select
 ;Shift click, but entirely on the mouse
 XButton1 & Volume_Down::Send "+{Click}"
 
-;Launches a batch of setting files for vs code
+;Copies the most important setting files of vs code into the /Backups folder
 ^!u::Run A_WorkingDir . "\Scripts\Pull vs code settings.py"
-
-+!l::
-{
-   SettingFile := InputBox("File to open:", "Open a vs code setting file",, "syntax").value
-   Switch SettingFile
-   {
-      Case "syntax":Run "C:\Users\serge\.vscode\extensions\mark-wiemer.vscode-autohotkey-plus-plus-2.8.1\syntaxes\ahk.tmLanguage.json"
-      Case "keybind":Run "C:\Users\serge\AppData\Roaming\Code\User\keybindings.json"
-      Case "settings":Run "C:\Files\Programming\Personal\Backups\settings.json"
-      Case "tasks":Run "C:\Users\serge\AppData\Roaming\Code\User\tasks.json"
-   }
-}
 
 #HotIf
 

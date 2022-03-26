@@ -731,6 +731,20 @@ $F7::Telegram_Search("gallery") ;F9
 #HotIf 
 
 
+#HotIf WinActive("Discord") ;_discord
+
+;Emoji tab 
+XButton1 & Volume_Down::Send "^e"
+
+;Gif tab
+XButton2 & Volume_Down::Send "^g"
+
+;Reminds of the markdown syntax in discord
+:?X:mark::MsgBox "__ underline __`n* italic *`n** bold **`n~~ strikethrough ~~`n|| spoiler ||`n`````` code ```````n`` code inline ```n_ nothing _", "Markdown", "4096"
+
+#HotIf
+
+
 
 
 ;APP SPECIFIC SINGLE###################################################################

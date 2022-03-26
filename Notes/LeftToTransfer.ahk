@@ -16,61 +16,8 @@ Discovery_add_PID := 0
 
 
 
-#IfWinActive ahk_exe wps.exe ;_wps
-
-;Bullets
-!6::ControlClick, X568 Y98
-
-;Save 
-+!s::Send, ^s
-
-;Switch between open documents
-$F1::Send, ^+{Tab}
-$F4::Send, ^{Tab}
-
-#IfWinActive 
 
 
-#IfWinActive ahk_exe ScreenClippingHost.exe
-
-;In the screenshot tool there are three options that can be selected. Selects those options in a rotary manner, depending on direction
-ScreenshotOptions(direction)
-{
-   static optionYoureOn := 1
-   if (direction == "left")
-      Switch optionYoureOn
-      {
-         Case 1:
-            Click, 959, 27
-            optionYoureOn := 3
-         Case 2:
-            Click, 839, 28
-            optionYoureOn--
-         Case 3:
-            Click, 897, 31
-            optionYoureOn--
-      }
-   else 
-      Switch optionYoureOn
-      {
-         Case 1:
-            Click, 897, 31
-            optionYoureOn++
-         Case 2:
-            Click, 959, 27
-            optionYoureOn++
-         Case 3:
-            Click, 839, 28
-            optionYoureOn := 1
-      }
-}
-
-;Use the scroll wheel to choose among modes of the screenshot tool
-WheelUp::ScreenshotOptions("left")
-WheelDown::ScreenshotOptions("right")
-MButton::ClickThenGoBack("1017", "29") ;Takes a full-screen screenshot
-
-#IfWinActive
 
 
 

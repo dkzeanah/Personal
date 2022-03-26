@@ -3,6 +3,7 @@ SetWorkingDir A_ScriptDir "\..\" ;Ensures a consistent A_WorkingDir.
 #Hotstring EndChars `t ;Decides the characters that can finish a hotstring
 #WinActivateForce ;Forces windows to be activated, skipping the gentle method
 CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of the window's
+A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seconds
 ; Persistent True ;Make the script not autoquit if it doesn't have hotkeys
 
 
@@ -467,10 +468,10 @@ $XButton1::
          Switch
          {
             Default:Send "{Browser_Back}"
-            ; Case right:Todoist_Search("unfinished")
-            ; Case left:Todoist_Search("rappers")
-            ; Case down:Todoist_Search("payments")
-            ; Case up:Todoist_Search("inbox")
+            Case right:Todoist_Search("unfinished")
+            Case left:Todoist_Search("rappers")
+            Case down:Todoist_Search("payments")
+            Case up:Todoist_Search("inbox")
          }
    } 
 }
@@ -612,6 +613,63 @@ Enter::Send select
 ;######################################################################################
 ;######################################################################################
 ;######################################################################################
+
+
+#HotIf WinActive("ahk_exe wps.exe") ;_wps
+
+;Bullets
+!6::ControlClick "X568 Y98"
+
+;Save 
++!s::Send "^s"
+
+;Switch between open documents
+$F1::Send "^+{Tab}"
+$F4::Send "^{Tab}"
+
+#HotIf
+
+
+#HotIf WinActive("ahk_exe ScreenClippingHost.exe")
+
+;In the screenshot tool there are three options that can be selected. Selects those options in a rotary manner, depending on direction
+ScreenshotOptions(direction)
+{
+   static optionYoureOn := 1
+   if (direction == "left")
+      Switch optionYoureOn
+      {
+         Case 1:
+            Click "959 27"
+            optionYoureOn := 3
+         Case 2:
+            Click "839 28"
+            optionYoureOn--
+         Case 3:
+            Click "897 31"
+            optionYoureOn--
+      }
+   else 
+      Switch optionYoureOn
+      {
+         Case 1:
+            Click "897 31"
+            optionYoureOn++
+         Case 2:
+            Click "959 27"
+            optionYoureOn++
+         Case 3:
+            Click "839 28"
+            optionYoureOn := 1
+      }
+}
+
+;Use the scroll wheel to choose among modes of the screenshot tool
+WheelUp::ScreenshotOptions("left")
+WheelDown::ScreenshotOptions("right")
+MButton::ClickThenGoBack("1017", "29") ;Takes a full-screen screenshot
+
+#HotIf
 
 
 

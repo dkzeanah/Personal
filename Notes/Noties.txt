@@ -4,5 +4,3 @@ spotify add and discovery
    themselves
    mouse gestures
 
-todoist 
-   ifwinactive and mouse gestures implementation 

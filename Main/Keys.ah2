@@ -16,7 +16,7 @@ A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seco
 
 
 ;Reload this script
-+ScrollLock::
+ScrollLock::
 {
    Run A_ScriptFullPath
    SoundPlay "*-1"
@@ -24,7 +24,7 @@ A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seco
 
 ;Suspend this script 
 #SuspendExempt True
-^!ScrollLock::
++ScrollLock::
 {
    if A_IsSuspended
    {
@@ -41,13 +41,13 @@ A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seco
 #SuspendExempt False
 
 ;Exit this script
-+!ScrollLock::SoundPlay("*16"), ExitApp()
+!ScrollLock::SoundPlay("*16"), ExitApp()
 
 ;Run Testscript
-+Pause::SoundPlay("*-1"), Run(A_WorkingDir . "\Test\TestScript.ah2") 
+Pause::SoundPlay("*-1"), Run(A_WorkingDir . "\Test\TestScript.ah2") 
 
 ;Restart system
-#Pause::Shutdown 2
+#ScrollLock::Shutdown 2
 
 
 
@@ -678,6 +678,23 @@ MButton::ClickThenGoBack("1017", "29") ;Takes a full-screen screenshot
 ;######################################################################################
 ;######################################################################################
 ;######################################################################################
+
+
+#HotIf WinActive("Messenger") ;_vk
+
+;Clicks the scroll button bc shift pgdn doesn't work
++PgDn::ControlClick "X1750 Y903"
+
+;Clicks the send button to either start recording or send a voice message
+XButton2 & Volume_Down::ControlClick "X1757 Y1014"
+
+;Notifications
+XButton1 & Volume_Down::ControlClick "X788 Y126"
+
+;Makes sure the tab can't be closed by shift alt w which is now ctrl w
++!w::return
+
+#HotIf 
 
 
 

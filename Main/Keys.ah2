@@ -582,6 +582,30 @@ PgUp::Send "^{Left}"
 #HotIf
 
 
+#HotIf WinActive("Todoist") ;_todoist
+
+;Goes to the project or label or filter or your mom
+Todoist_Search(projectToFind) {
+   Send "f" . projectToFind . "{Down}{Enter}"
+}
+
+;Hotkeys to jump to different projects
+$F1::Todoist_Search("inbox") 
+$F2::Todoist_Search("rappers") 
+$F3::Todoist_Search("unfinished")
+$F4::Todoist_Search("payments")
+$F5::Todoist_Search("desires")
+$F6::Todoist_Search("shopping") 
+
+;Gives the current task an unfinished label and lets you edit its description
++!t::Send " {#}unfinished — " ;Straight up doesn't work if you don't have a space before everything else
+
+;Enter is always down enter
+Enter::Send select
+
+#HotIf
+
+
 
 
 ;APP SPECIFIC TECH#####################################################################

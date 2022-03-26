@@ -8,40 +8,6 @@
 Playlist_moving_PID := 0
 Discovery_add_PID := 0 
 
-;APP SPECIFIC MULTIPLE MAIN############################################################
-;######################################################################################
-;######################################################################################
-;###################################################################################### 
-
-
-
-#IfWinActive Todoist ;_todoist
-
-;Goes to the project or label or filter or your mom
-Todoist_Search(projectToFind)
-{
-   Send, f%projectToFind%{Down}{Enter}
-}
-
-;Hotkeys to jump to different projects
-$F1::Todoist_Search("inbox") ;F1 
-$F2::Todoist_Search("rappers") ;F2
-$F3::Todoist_Search("unfinished") ;F3
-$F4::Todoist_Search("payments") ;F4
-$F5::Todoist_Search("desires") ;F5
-$F6::Todoist_Search("shopping") ;F6
-
-;Gives the current task an unfinished label and lets you edit its description
-+!t::Send, ` {#}unfinished —` ` ;Straight up doesn't work if you don't have a space before everything else
-
-;Enter is always down enter
-Enter::Send, % select
-
-#IfWinActive 
-
-
-
-
 ;APP SPECIFIC TECH#####################################################################
 ;######################################################################################
 ;######################################################################################

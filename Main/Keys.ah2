@@ -210,14 +210,14 @@ ClickThenGoBack_Event(coordX, coordY)
 ;Easily accessible paste window
 #Insert::Send "#v"
 
-;Cut everything that you've written
-!Insert::Send "^a^x"
-
 ;Cut
-^Insert::Send "^x"
+!Insert::Send "^x"
+
+;Cut everything that you've written
+^!Insert::Send "^a^x"
 
 ;Delete everything that you've written
-!Delete::Send "^a{Delete}" 
+^!Delete::Send "^a{Delete}" 
 
 ;Media keys
 !SC029::Media_Play_Pause
@@ -863,6 +863,12 @@ WindowsApp_Folders(folderPath)
 ;OBS
 <!o::MinMax("OBS") 
 
+;Command prompt
+#F9::WindowsApp("ahk_exe cmd.exe", "cmd.exe")
+
+;Python cmd
+#F10::WindowsApp("ahk_exe py.exe", "py.exe")
+
 ;Monkeytype
 <!u::WindowsApp_WinNum("Monkeytype", "4")
 
@@ -922,7 +928,7 @@ WindowsApp_Folders(folderPath)
 
    if !MinMax("ahk_group Game")
       (mainAppsExist ? (WinClose(chrome), WinClose(todoist), WinClose(telegram), WinClose(vscode), WinClose(discord), ifWinClose("Monkeytype"), ifWinClose("Google Calendar"), ifWinClose("AutoHotkey Help"), ifWinClose("AutoHotkey v2 Help"), WinActivate(spotify)) 
-      : (ifWinClose(steam), ifRunApp(chrome, chrome_exe), ifRunApp(todoist, todoist_exe), ifRunApp(telegram, telegram_exe), ifRunApp(vscode, vscode_exe), ifRunApp(discord, discord_exe), ifRunApp(spotify, spotify_exe)))
+      : (ifWinClose(steam), ifRunApp(chrome, chrome_exe), ifRunApp(todoist, todoist_exe), ifRunApp("Telegram", telegram_exe), ifRunApp(vscode, vscode_exe), ifRunApp(discord, discord_exe), ifRunApp(spotify, spotify_exe)))
 }
 
 

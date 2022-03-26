@@ -43,6 +43,9 @@ git reset --hard origin/main
 ; If you checked out to a branch and want to go back to it, use
 git checkout -
 
+; Change your email
+git config --global user.email some_other_address
+
 ;DOESN'T WORK
 /* 
 ;Alias for changing the author/email of last commits

@@ -26,11 +26,6 @@ FormatTime, currentFullTime_date,, d MMMM
 MsgBox, 4096, Current time, %currentFullTime_time%`n%currentFullTime_weekDay%`n%currentFullTime_date%
 return
 
-;Command prompt
-#F9::WindowsApp("cmd.exe")
-
-;Python cmd
-#F10::WindowsApp("C:\Windows\py.exe")
 
 ;Get the root to the exe of the active window and put it into your clipboard
 #F5::

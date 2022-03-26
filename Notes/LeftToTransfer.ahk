@@ -28,55 +28,8 @@ Discovery_add_PID := 0
 ;######################################################################################
 
 
-#IfWinActive Messenger ;_vk
-
-;Clicks the scroll button bc shift pgdn doesn't work
-+PgDn::ControlClick, X1750 Y903 
-
-;Clicks the send button to either start recording or send a voice message
-XButton2 & Volume_Down::ControlClick, X1757 Y1014
-
-;Notifications
-XButton1 & Volume_Down::ControlClick, X788 Y126
-
-;Makes sure the tab can't be closed by shift alt w which is now ctrl w
-+!w::return
-
-#IfWinActive 
 
 
-#IfWinActive Telegram ;_telegram
-
-;Clicks the search bar for you to search for channels, finds and goes to the channel you want
-Telegram_Search(channelToFind)
-{
-   ControlClick, X422 Y78
-   Send, %channelToFind%{Down}{Enter}
-} 
-
-;Shift pgdn scrolls down by clicking the scroll button
-+PgDn::ControlClick, X1434 Y964 
-
-;SYNTAX HOTKEYS
-;--------------
-;Spoiler
-^p::Send, ^+p 
-;Strikethrough
-^n::Send, ^+x
-
-;Clicks the send button to send a voice message
-XButton2 & Volume_Down::ClickThenGoBack_Event("1452", "1052")
-
-;Press an F key -> go to a channel
-$F1::Telegram_Search("diary") ;F1
-$F2::Telegram_Search("texts") ;F2
-$F3::Telegram_Search("transfer") ;F3
-$F4::Telegram_Search("documents") ;F4
-$F5::Telegram_Search("алена") ;F5
-$F6::Telegram_Search("мама") ;F6
-$F7::Telegram_Search("gallery") ;F9 
-
-#IfWinActive 
 
 
 #IfWinActive Discord ;_discord

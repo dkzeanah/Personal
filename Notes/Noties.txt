@@ -1,6 +1,0 @@
-YET TO IMPLEMENT:
-
-spotify add and discovery
-   themselves
-   mouse gestures
-

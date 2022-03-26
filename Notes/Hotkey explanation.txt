@@ -1,5 +1,5 @@
 WINDOWS APP (which is now alt lmao)
-################################################################################################
+###########################################################################################
 q — discord
 w — wps office
 e — file explorer
@@ -39,7 +39,7 @@ m —
 
 SHIFT ALT
 (—! is used when there are multiple themed hotkeys using the key through using different combinations of the modifiers)
-################################################################################################
+###########################################################################################
 q — time 
 w — close tab
    [youtube] — pop out window
@@ -52,7 +52,7 @@ r —
    [youtube] — PiP
    [vs code] —! add next selection / change all occurences, refactor, rename symbol / rename
 t — 
-y — 
+y —! reload window, add to workspace, remove from workspace
 u —! git
 i —! snippets
 o —! tasks

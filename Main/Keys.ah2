@@ -416,19 +416,19 @@ $XButton1::
          {
             Default:Send "{Browser_Back}"
             Case right:
-            ;    Process, Exist, %Discovery_add_PID%
-            ;    ;Launches a script that counts how many tracks you've added to a playlist in spotify (meaning, right clicks) if it isn't already running, otherwise exits it by sending a button that is binded to an exitapp in that script
-            ;    if ErrorLevel
-            ;       Send, {Launch_App2}
-            ;    else 
-            ;       Run, %A_WorkingDir%\Tools\Discovery add.ahk,,, Discovery_add_PID
-            ; Case left:
-            ;    Process, Exist, %Playlist_moving_PID%
-            ;    ;Launches a scripts that counts how many tracks you've selected in spotify (meaning, controlclicks) if it isn't already running, otherwise exits it by sending a button that is binded to an exitapp in that script
-            ;    if ErrorLevel
-            ;       Send, {Launch_Mail}
-            ;    else 
-            ;       Run, %A_WorkingDir%\Tools\Playlist moving.ahk,,, Playlist_moving_PID
+               ;Launches a script that counts how many tracks you've added to a playlist in spotify (meaning, right clicks) if it isn't already running, otherwise exits it by sending a button that is binded to an exitapp in that script
+               static Discovery_add_PID := 0
+               if ProcessExist(Discovery_add_PID)
+                  Send "{Launch_App2}"
+               else 
+                  Run A_WorkingDir . "\Tools\Discovery add.ahk",,, &Discovery_add_PID
+            Case left:
+               ;Launches a scripts that counts how many tracks you've selected in spotify (meaning, controlclicks) if it isn't already running, otherwise exits it by sending a button that is binded to an exitapp in that script
+               static Playlist_moving_PID := 0
+               if ProcessExist(Playlist_moving_PID)
+                  Send "{Launch_Mail}"
+               else 
+                  Run A_WorkingDir . "\Tools\Playlist moving.ahk",,, &Playlist_moving_PID
             Case down:
                ;Unlikes current track and opens the menu for you to click to delete it from the playlist
                ControlClick "X36 Y1021",,, "R" 
@@ -788,6 +788,13 @@ WheelDown::Send "{Right}"
 ;######################################################################################
 
 
+;Gets current cursor's position and opens a gui giving you the options for formatting the parameters for different commands to put them into your Clipboard or to not copy them into your Clipboard at all and just exit the gui
++!g::Run A_WorkingDir . "\Tools\MouseGetPos.ahk"
+
+;Opens an inputbox for you to input how many minutes to wait, plays a sound and opens a msgbox saying the time has passed after it has. Press the same hotkey while the timer is running to see when it will ring and three options: start a new timer, discarding the current one, continue on, exit the timer
+#F6::Run A_WorkingDir . "\Tools\Basic timer.ahk"
+
+
 
 
 ;APPS##################################################################################
@@ -932,7 +939,7 @@ WindowsApp_Folders(folderPath)
 }
 
 
-HotIfWinNotActive "ahk_group Game"
+#HotIf !WinActive("ahk_group Game")
 
 ;Visual studio code
 $<!a::WindowsApp("ahk_exe Code.exe", "C:\Programs\Microsoft VS Code\Code.exe")

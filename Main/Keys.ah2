@@ -790,7 +790,7 @@ XButton2 & Volume_Down::Send "^g"
 
 ;Skip opening
 #HotIf WinActive("ahk_exe KMPlayer64.exe")
-Insert::Send "{End 6}{Right 3}"
+Insert::Send "{End 5}{Right 2}"
 #HotIf
 
 ;Voice message

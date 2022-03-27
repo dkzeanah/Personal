@@ -109,18 +109,18 @@ ifWinClose(winTitle)
 }
 
 ;it literally says what it does
-ClickThenGoBack(coordX, coordY)
+ClickThenGoBack(coordinates)
 {
    MouseGetPos &initX, &initY
-   Click coordX . " " . coordY
+   Click coordinates
    MouseMove initX, initY
 }
 
 ;clickthengoback, but clicks as an event for extra fucky things
-ClickThenGoBack_Event(coordX, coordY)
+ClickThenGoBack_Event(coordinates)
 {
    MouseGetPos &initX, &initY
-   SendPlay "{Click " . coordX . " " . coordY . "}"
+   SendEvent "{Click " . coordinates . "}"
    MouseMove initX, initY
 } 
 
@@ -704,7 +704,7 @@ ScreenshotOptions(direction)
 ;Use the scroll wheel to choose among modes of the screenshot tool
 WheelUp::ScreenshotOptions("left")
 WheelDown::ScreenshotOptions("right")
-MButton::ClickThenGoBack("1017", "29") ;Takes a full-screen screenshot
+MButton::ClickThenGoBack("1017 29") ;Takes a full-screen screenshot
 
 #HotIf
 
@@ -754,7 +754,7 @@ Telegram_Search(channelToFind)
 ^n::Send "^+x"
 
 ;Clicks the send button to send a voice message
-XButton2 & Volume_Down::ClickThenGoBack_Event("1452", "1052")
+XButton2 & Volume_Down::ClickThenGoBack_Event("1452 1052")
 
 ;Press an F key -> go to a channel
 $F1::Telegram_Search("diary") ;F1

@@ -208,7 +208,6 @@ ClickThenGoBack_Event(coordinates)
 
 ;Pure remapping
 AppsKey::LCtrl 
-SC138::RAlt ;This is supposed to be right alt to begin with, but it worked fuckily so I made sure it's right alt. Worked a wonder ever since.
 
 ;Makes sure the side mouse buttons work as intended ingame, despite their remapping outside of game 
 #HotIf WinActive("ahk_group Game")
@@ -520,7 +519,7 @@ $F8::Send "^8"
 $F9::Send "^9"
 
 ;Reminds of the markdown syntax for reddit
-:?X:mark::MsgBox "* italic *`n** bold **`n~~ strikethrough ~~`n>! spoiler !<`n[embed](link)`n^(superscript)`n`` code inline ```n # BIG TEXT", "MarkDown", "4096"
+:?X:mark::MsgBox "* italic *`n** bold **`n~~ strikethrough ~~`n>! spoiler !<`n[embed](link)`n^(superscript)`n`` code inline ```n # BIG TEXT`nEmpty msg: &#12288;", "MarkDown", "4096"
 
 ;Single press is copy, double press will get current tab's link to clipboard
 Volume_Down & XButton1::
@@ -546,8 +545,8 @@ XButton2 & Volume_Down::
 }   
 
 ;Shift n to skip never made sense to begin with
-PgDn::Send "+n"
-PgUp::Send "+p"
+$PgDn::Send "+n"
+$PgUp::Send "+p"
 
 #HotIf
 
@@ -570,6 +569,14 @@ XButton1 & Volume_Down::i
 
 ;Fullscreen
 XButton1 & Volume_Down::f
+
+;Seek farther
+$Delete::Send "l"
+$Insert::Send "j"
+
+;Volume
+$Up::Send "{Volume_Up}"
+$Down::Send "{Volume_Down}"
 
 #HotIf
 
@@ -601,8 +608,16 @@ $F2::Send "+!2"
 $F3::Send "+!j"
 
 ;Skips
-PgDn::Send "^{Right}"
-PgUp::Send "^{Left}"
+$PgDn::Send "^{Right}"
+$PgUp::Send "^{Left}"
+
+;Volume
+$Up::Send "{Volume_Up}"
+$Down::Send "{Volume_Down}"
+
+;Seek
+$Delete::Send "+{Right}"
+$Insert::Send "+{Left}"
 
 #HotIf
 
@@ -744,6 +759,18 @@ $F4::Send "^{Tab}"
 #HotIf
 
 
+#HotIf WinActive("ahk_exe KMPlayer64.exe")
+
+;Skip opening
+$End::Send "{End 5}{Right 2}"
+
+;Volume
+$Up::Send "{Volume_Up}"
+$Down::Send "{Volume_Down}"
+
+#HotIf
+
+
 #HotIf WinActive("ahk_exe ScreenClippingHost.exe")
 
 ;In the screenshot tool there are three options that can be selected. Selects those options in a rotary manner, depending on direction
@@ -799,11 +826,6 @@ MButton::ClickThenGoBack("1017 29") ;Takes a full-screen screenshot
 ;Search in docs
 #HotIf WinActive("AutoHotkey Help") || WinActive("AutoHotkey v2 Help")
 !j::Send "!s"
-#HotIf
-
-;Skip opening
-#HotIf WinActive("ahk_exe KMPlayer64.exe")
-Insert::Send "{End 5}{Right 2}"
 #HotIf
 
 ;Voice message

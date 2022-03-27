@@ -48,7 +48,7 @@
    "Directories": {
       "prefix": "Directories",
       "body": [
-         "SetWorkingDir \"C:\\Files\\Programming\\Personal\" ;Ensures a consistent A_WorkingDir.",
+         "SetWorkingDir A_ScriptDir \"\\..\\\" ;Ensures a consistent A_WorkingDir.",
          "#SingleInstance Force ;Launches the new instance of the script always, instead of asking whether it should",
          "#Hotstring EndChars `t ;Decides the characters that can finish a hotstring",
          "#WinActivateForce ;Forces windows to be activated, skipping the gentle method",

@@ -5,7 +5,7 @@
       {
          "label": "New project tasks",
          "type": "shell",
-         "command": "start C:\\Files\\Programming\\Autohotkey\\Scripts\\newTasksJson.py",
+         "command": "start C:\\Files\\Programming\\Personal\\Scripts\\newTasksJson.py",
          "problemMatcher": []
       },
       {

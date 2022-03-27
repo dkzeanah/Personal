@@ -62,13 +62,13 @@ p —! palletes
 \ — 
 a — select all
 s — get path of file 
-d — smartclick
+d — 
    [vs code] — find all references
 f — 
 g — get mouse pos and bring up a gui with options for formatting 
 h — run current file
 j — 
-k — get the sc code of a key
+k — get the sc code of a key (not working yet)
 l — open something by typing it in
 ж — 
 э — 

@@ -541,8 +541,8 @@ Volume_Down & XButton1::
 XButton2 & Volume_Down::
 {
    ControlClick "X1820 Y133"
-   if KeyWait("XButton2", "T7")
-      ControlClick "X1495 Y464"
+   Sleep 200
+   Send "{Tab 5}{Enter}"
 }   
 
 ;Shift n to skip never made sense to begin with

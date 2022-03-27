@@ -519,9 +519,6 @@ $F7::Send "^7"
 $F8::Send "^8"
 $F9::Send "^9"
 
-;Close tab 
-$Escape::Send "^w"
-
 ;Reminds of the markdown syntax for reddit
 :?X:mark::MsgBox "* italic *`n** bold **`n~~ strikethrough ~~`n>! spoiler !<`n[embed](link)`n^(superscript)`n`` code inline ```n # BIG TEXT", "MarkDown", "4096"
 
@@ -636,6 +633,85 @@ Enter::Send select
 
 
 
+;APP SPECIFIC MESSENGERS###############################################################
+;######################################################################################
+;######################################################################################
+;######################################################################################
+
+
+#HotIf WinActive("Messenger") ;_vk
+
+;Clicks the scroll button bc shift pgdn doesn't work
++PgDn::ControlClick "X1750 Y903"
+
+;Clicks the send button to either start recording or send a voice message
+XButton2 & Volume_Down::ControlClick "X1757 Y1014"
+
+;Notifications
+XButton1 & Volume_Down::ControlClick "X788 Y126"
+
+;Makes sure the tab can't be closed by shift alt w which is now ctrl w
++!w::return
+
+#HotIf 
+
+;Close tab 
+#HotIf WinActive("Google Chrome") && !WinActive("Messenger")
+$Escape::Send "^w"
+#HotIf
+
+
+#HotIf WinActive("Telegram") ;_telegram
+
+;Clicks the search bar for you to search for channels, finds and goes to the channel you want
+Telegram_Search(channelToFind)
+{
+   ControlClick "X422 Y78"
+   Send channelToFind . "{Down}{Enter}"
+} 
+
+;Shift pgdn scrolls down by clicking the scroll button
++PgDn::ControlClick "X1434 Y964"
+
+;SYNTAX HOTKEYS
+;--------------
+;Spoiler
+^p::Send "^+p" 
+;Strikethrough
+^n::Send "^+x"
+
+;Clicks the send button to send a voice message
+XButton2 & Volume_Down::ClickThenGoBack_Event("1452 1052")
+
+;Press an F key -> go to a channel
+$F1::Telegram_Search("diary")
+$F2::Telegram_Search("texts")
+$F3::Telegram_Search("transfer")
+$F4::Telegram_Search("documents")
+$F5::Telegram_Search("gallery")
+$F6::Telegram_Search("мама")
+$F7::Telegram_Search("кристина")
+$F8::Telegram_Search("алена")
+
+#HotIf 
+
+
+#HotIf WinActive("Discord") ;_discord
+
+;Emoji tab 
+XButton1 & Volume_Down::Send "^e"
+
+;Gif tab
+XButton2 & Volume_Down::Send "^g"
+
+;Reminds of the markdown syntax in discord
+:?X:mark::MsgBox "__ underline __`n* italic *`n** bold **`n~~ strikethrough ~~`n|| spoiler ||`n`````` code ```````n`` code inline ```n_ nothing _", "Markdown", "4096"
+
+#HotIf
+
+
+
+
 ;APP SPECIFIC TECH#####################################################################
 ;######################################################################################
 ;######################################################################################
@@ -708,80 +784,6 @@ ScreenshotOptions(direction)
 WheelUp::ScreenshotOptions("left")
 WheelDown::ScreenshotOptions("right")
 MButton::ClickThenGoBack("1017 29") ;Takes a full-screen screenshot
-
-#HotIf
-
-
-
-
-;APP SPECIFIC MESSENGERS###############################################################
-;######################################################################################
-;######################################################################################
-;######################################################################################
-
-
-#HotIf WinActive("Messenger") ;_vk
-
-;Clicks the scroll button bc shift pgdn doesn't work
-+PgDn::ControlClick "X1750 Y903"
-
-;Clicks the send button to either start recording or send a voice message
-XButton2 & Volume_Down::ControlClick "X1757 Y1014"
-
-;Notifications
-XButton1 & Volume_Down::ControlClick "X788 Y126"
-
-;Makes sure the tab can't be closed by shift alt w which is now ctrl w
-+!w::return
-
-#HotIf 
-
-
-#HotIf WinActive("Telegram") ;_telegram
-
-;Clicks the search bar for you to search for channels, finds and goes to the channel you want
-Telegram_Search(channelToFind)
-{
-   ControlClick "X422 Y78"
-   Send channelToFind . "{Down}{Enter}"
-} 
-
-;Shift pgdn scrolls down by clicking the scroll button
-+PgDn::ControlClick "X1434 Y964"
-
-;SYNTAX HOTKEYS
-;--------------
-;Spoiler
-^p::Send "^+p" 
-;Strikethrough
-^n::Send "^+x"
-
-;Clicks the send button to send a voice message
-XButton2 & Volume_Down::ClickThenGoBack_Event("1452 1052")
-
-;Press an F key -> go to a channel
-$F1::Telegram_Search("diary")
-$F2::Telegram_Search("texts")
-$F3::Telegram_Search("transfer")
-$F4::Telegram_Search("documents")
-$F5::Telegram_Search("gallery")
-$F6::Telegram_Search("мама")
-$F7::Telegram_Search("кристина")
-$F8::Telegram_Search("алена")
-
-#HotIf 
-
-
-#HotIf WinActive("Discord") ;_discord
-
-;Emoji tab 
-XButton1 & Volume_Down::Send "^e"
-
-;Gif tab
-XButton2 & Volume_Down::Send "^g"
-
-;Reminds of the markdown syntax in discord
-:?X:mark::MsgBox "__ underline __`n* italic *`n** bold **`n~~ strikethrough ~~`n|| spoiler ||`n`````` code ```````n`` code inline ```n_ nothing _", "Markdown", "4096"
 
 #HotIf
 

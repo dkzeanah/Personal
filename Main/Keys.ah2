@@ -665,6 +665,7 @@ $F4::Send "^{Tab}"
 ;In the screenshot tool there are three options that can be selected. Selects those options in a rotary manner, depending on direction
 ScreenshotOptions(direction)
 {
+   MouseGetPos &initX, &initY
    static optionYoureOn := 1
    if (direction == "left")
       Switch optionYoureOn
@@ -692,6 +693,7 @@ ScreenshotOptions(direction)
             Click "839 28"
             optionYoureOn := 1
       }
+   MouseMove initX, initY   
 }
 
 ;Use the scroll wheel to choose among modes of the screenshot tool

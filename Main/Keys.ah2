@@ -537,8 +537,13 @@ Volume_Down & XButton1::
 
 #HotIf WinActive("YouTube") ;_youtube 
 
-;Switch channels
-XButton2 & Volume_Down::ControlClick "X1821 Y131"
+;Switch channel
+XButton2 & Volume_Down::
+{
+   ControlClick "X1820 Y133"
+   if KeyWait("XButton2", "T7")
+      ControlClick "X1495 Y464"
+}   
 
 ;Shift n to skip never made sense to begin with
 PgDn::Send "+n"

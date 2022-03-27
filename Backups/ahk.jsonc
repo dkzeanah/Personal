@@ -235,5 +235,11 @@
          "Case "
       ]
    },
+   "KeyWait": {
+      "prefix": "KeyWait",
+      "body": [
+         "KeyWait"
+      ]
+   },
    
 }

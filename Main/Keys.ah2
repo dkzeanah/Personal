@@ -85,6 +85,10 @@ GroupAdd "Messenger", "Instagram"
 GroupAdd "Media", "Photos"
 GroupAdd "Media", "ahk_exe KMPlayer64.exe"
 
+;Autohotkey help
+GroupAdd "AutoHotkey_Help", "AutoHotkey Help"
+GroupAdd "AutoHotkey_Help", "AutoHotkey v2 Help"
+
 
 
 
@@ -163,7 +167,7 @@ ClickThenGoBack_Event(coordinates)
 ^!Insert::Send "^a^x"
 
 ;Delete everything that you've written
-^!Delete::Send "^a{Delete}" 
+!Delete::Send "^a{Delete}" 
 
 #HotIf 
 ;Shift alt w closes a tab
@@ -188,17 +192,17 @@ ClickThenGoBack_Event(coordinates)
 ;Alt + number sends the Unicode for a specific emoji, making that work anywhere. These hotkeys only work in windows that are messengers
 ;🥺😋🤯😼😎😭🧐😳🤨🤔—💀
 #HotIf WinActive("ahk_group Messenger")
-!1::Send("{U+1F97A}")
-!2::Send("{U+1F60B}")
-!3::Send("{U+1F92F}")
-!4::Send("{U+1F63C}")
-!5::Send("{U+1F60E}")
-!6::Send("{U+1F62D}")
-!7::Send("{U+1F9D0}")
-!8::Send("{U+1F633}")
-!9::Send("{U+1F928}")
-!0::Send("{U+1F914}")
-!=::Send("{U+1F480}")
+!1::Send "{U+1F97A}"
+!2::Send "{U+1F60B}"
+!3::Send "{U+1F92F}"
+!4::Send "{U+1F63C}"
+!5::Send "{U+1F60E}"
+!6::Send "{U+1F62D}"
+!7::Send "{U+1F9D0}"
+!8::Send "{U+1F633}"
+!9::Send "{U+1F928}"
+!0::Send "{U+1F914}"
+!=::Send "{U+1F480}"
 #HotIf 
 
 
@@ -479,8 +483,9 @@ $XButton1::
          Switch
          {
             Default:Send "{Browser_Back}"
-            Case right, left, up:return
+            Case right, left:return
             Case down:ControlClick "X1434 Y964" ;Clicks the scroll button since shift PgDn doesn't work for some reason
+            Case up:Telegram_Search("diary")
          }
       Case WinActive("Todoist"): ;_todoist
          Switch
@@ -540,7 +545,7 @@ Volume_Down & XButton1::
 XButton2 & Volume_Down::
 {
    ControlClick "X1820 Y133"
-   Sleep 200
+   Sleep 300
    Send "{Tab 5}{Enter}"
 }   
 
@@ -573,6 +578,9 @@ XButton1 & Volume_Down::f
 ;Seek farther
 $Delete::Send "l"
 $Insert::Send "j"
+
+$^Up::Send "{Up}"
+$^Down::Send "{Down}"
 
 ;Volume
 $Up::Send "{Volume_Up}"
@@ -638,10 +646,10 @@ $F5::Todoist_Search("desires")
 $F6::Todoist_Search("shopping") 
 
 ;Gives the current task an unfinished label and lets you edit its description
-+!t::Send " {#}unfinished — " ;Straight up doesn't work if you don't have a space before everything else
++!e::Send " {#}unfinished — " ;Straight up doesn't work if you don't have a space before everything else
 
 ;Enter is always down enter
-Enter::Send select
+$Enter::Send select
 
 #HotIf
 
@@ -753,8 +761,7 @@ XButton1 & Volume_Down::Send "+{Click}"
 +!s::Send "^s"
 
 ;Switch between open documents
-$F1::Send "^+{Tab}"
-$F4::Send "^{Tab}"
+$!Tab::Send "^{Tab}"
 
 #HotIf
 
@@ -824,7 +831,7 @@ MButton::ClickThenGoBack("1017 29") ;Takes a full-screen screenshot
 
 
 ;Search in docs
-#HotIf WinActive("AutoHotkey Help") || WinActive("AutoHotkey v2 Help")
+#HotIf WinActive("ahk_group AutoHotkey_Help")
 !j::Send "!s"
 #HotIf
 

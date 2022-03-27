@@ -44,13 +44,12 @@ q — time
 w — close tab
    [youtube] — pop out window
 e — open tab
-   [gimp] — export (doesn't work rn)
-   [fl studio] — edit in edison
+   [gimp] — export 
    [todoist] — change project to #unfinished and insert "—"
-   [vs code] —! open file in file explorer, compile ahk
+   [vs code] — open file in file explorer
 r — 
    [youtube] — PiP
-   [vs code] —! add next selection / change all occurences, refactor, rename symbol / rename
+   [vs code] — rename file
 t — 
 y —! reload window, add to workspace, remove from workspace
 u —! git
@@ -61,14 +60,16 @@ p —! palletes
 ] —! settings
 \ — 
 a — select all
-s — get path of file 
+s — 
 d — 
    [vs code] — find all references
 f — 
 g — get mouse pos and bring up a gui with options for formatting 
 h — run current file
 j — 
-k — get the sc code of a key (not working yet)
+   [vs code] —! add next selection / change all occurences, refactor, rename symbol / rename
+k —
+   [vs code] —! get the sc code of a key (not working yet), get path of file 
 l — open something by typing it in
 ж — 
 э — 

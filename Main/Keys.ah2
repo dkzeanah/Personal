@@ -519,6 +519,9 @@ $F7::Send "^7"
 $F8::Send "^8"
 $F9::Send "^9"
 
+;Close tab 
+$Escape::Send "^w"
+
 ;Reminds of the markdown syntax for reddit
 :?X:mark::MsgBox "* italic *`n** bold **`n~~ strikethrough ~~`n>! spoiler !<`n[embed](link)`n^(superscript)`n`` code inline ```n # BIG TEXT", "MarkDown", "4096"
 
@@ -757,13 +760,14 @@ Telegram_Search(channelToFind)
 XButton2 & Volume_Down::ClickThenGoBack_Event("1452 1052")
 
 ;Press an F key -> go to a channel
-$F1::Telegram_Search("diary") ;F1
-$F2::Telegram_Search("texts") ;F2
-$F3::Telegram_Search("transfer") ;F3
-$F4::Telegram_Search("documents") ;F4
-$F5::Telegram_Search("алена") ;F5
-$F6::Telegram_Search("мама") ;F6
-$F7::Telegram_Search("gallery") ;F9 
+$F1::Telegram_Search("diary")
+$F2::Telegram_Search("texts")
+$F3::Telegram_Search("transfer")
+$F4::Telegram_Search("documents")
+$F5::Telegram_Search("gallery")
+$F6::Telegram_Search("мама")
+$F7::Telegram_Search("кристина")
+$F8::Telegram_Search("алена")
 
 #HotIf 
 

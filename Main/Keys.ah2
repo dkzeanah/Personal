@@ -151,10 +151,10 @@ ClickThenGoBack_Event(coordinates)
 !-::Send "{ASC 0151}"
 
 ;Hotstring that turns into a random word every time
-:B0*:rkinch::
+:B0*?:uclanr::
 {
    Send "{BackSpace 6}"
-   ERW_index := Random(1, 999)
+   ERW_index := Random(1, 3003)
    Send Eng_randomWords[ERW_index]
 }
 
@@ -551,7 +551,7 @@ $F8::Send "^8"
 $F9::Send "^9"
 
 ;Reminds of the markdown syntax for reddit
-:?X:mark::MsgBox "* italic *`n** bold **`n~~ strikethrough ~~`n>! spoiler !<`n[embed](link)`n^(superscript)`n`` code inline ```n # BIG TEXT`nEmpty msg: &#12288;", "MarkDown", "4096"
+!m::MsgBox "* italic *`n** bold **`n~~ strikethrough ~~`n>! spoiler !<`n[embed](link)`n^(superscript)`n`` code inline ```n # BIG TEXT`nEmpty msg: &#12288;", "MarkDown", "4096"
 
 ;Single press is copy, double press will get current tab's link to clipboard
 Volume_Down & XButton1::
@@ -755,7 +755,7 @@ XButton1 & Volume_Down::Send "^e"
 XButton2 & Volume_Down::Send "^g"
 
 ;Reminds of the markdown syntax in discord
-:?X:mark::MsgBox "__ underline __`n* italic *`n** bold **`n~~ strikethrough ~~`n|| spoiler ||`n`````` code ```````n`` code inline ```n_ nothing _", "Markdown", "4096"
+!m::MsgBox "__ underline __`n* italic *`n** bold **`n~~ strikethrough ~~`n|| spoiler ||`n`````` code ```````n`` code inline ```n_ nothing _", "Markdown", "4096"
 
 #HotIf
 

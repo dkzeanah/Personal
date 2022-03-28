@@ -3,23 +3,10 @@
    "tasks": 
    [
       {
-         "label": "New project tasks",
+         "label": "echo",
          "type": "shell",
-         "command": "start C:\\Files\\Programming\\Personal\\Scripts\\newTasksJson.py",
+         "command": "echo Hello",
          "problemMatcher": []
-      },
-      {
-         "label": "Python documentation",
-         "type": "shell",
-         "command": "start C:\\Programs\\Python\\Doc\\python3100.chm",
-         "problemMatcher": [],
-         "group": {
-            "kind": "build",
-            "isDefault": false
-         },
-         "presentation": {
-            "focus": true
-         }
       }
    ]
 }

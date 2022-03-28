@@ -241,5 +241,77 @@
          "KeyWait"
       ]
    },
+   "AltTabAndMenu": {
+      "prefix": "AltTabAndMenu",
+      "body": [
+         "AltTabAndMenu"
+      ]
+   },
+   "ShiftAltTab": {
+      "prefix": "ShiftAltTab",
+      "body": [
+         "ShiftAltTab"
+      ]
+   },
+   "Media_Play_Pause": {
+      "prefix": "Media_Play_Pause",
+      "body": [
+         "Media_Play_Pause"
+      ]
+   },
+   "Volume_Up": {
+      "prefix": "Volume_Up",
+      "body": [
+         "Volume_Up"
+      ]
+   },
+   "Volume_Down": {
+      "prefix": "Volume_Down",
+      "body": [
+         "Volume_Down"
+      ]
+   },
+   "Volume_Mute": {
+      "prefix": "Volume_Mute",
+      "body": [
+         "Volume_Mute"
+      ]
+   },
+   "Media_Prev": {
+      "prefix": "Media_Prev",
+      "body": [
+         "Media_Prev"
+      ]
+   },
+   "Media_Next": {
+      "prefix": "Media_Next",
+      "body": [
+         "Media_Next"
+      ]
+   },
+   "A_Clipboard": {
+      "prefix": "A_Clipboard",
+      "body": [
+         "A_Clipboard"
+      ]
+   },
+   "Browser_Back": {
+      "prefix": "Browser_Back",
+      "body": [
+         "Browser_Back"
+      ]
+   },
+   "Random": {
+      "prefix": "Random",
+      "body": [
+         "Random($0)"
+      ]
+   },
+   "BackSpace": {
+      "prefix": "BackSpace",
+      "body": [
+         "BackSpace"
+      ]
+   },
    
 }

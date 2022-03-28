@@ -332,7 +332,7 @@
         "when": "editorTextFocus && !editorReadonly"
     },
    {
-        "key": "shift+alt+s",
+        "key": "ctrl+alt+k",
       "command": "copyRelativeFilePath"
     },
     {
@@ -426,7 +426,7 @@
         "when": "webviewFindWidgetFocused && !editorFocus && activeEditor == 'WebviewEditor'"
     },
     {
-        "key": "ctrl+j ctrl+j",
+        "key": "ctrl+; ctrl+;",
         "command": "keybindings.editor.recordSearchKeys",
         "when": "inKeybindings"
     },
@@ -932,7 +932,7 @@
       "when": "editorTextFocus && foldingEnabled"
    },
    {
-      "key": "shift+alt+r",
+      "key": "shift+alt+j",
       "command": "editor.action.changeAll",
       "when": "editorTextFocus && !editorReadonly"
    },
@@ -1090,7 +1090,7 @@
       "when": "editorTextFocus && !findInputFocussed && !jupyter.ownsSelection && !notebookEditorFocused && !replaceInputFocussed && editorLangId == 'python'"
    },
    {
-      "key": "ctrl+j ctrl+l",
+      "key": "ctrl+; ctrl+l",
       "command": "keybindings.editor.searchKeybindings",
       "when": "inKeybindings"
    },
@@ -1100,7 +1100,7 @@
       "when": "inKeybindings"
    },
    {
-      "key": "ctrl+j ctrl+k",
+      "key": "ctrl+; ctrl+k",
       "command": "keybindings.editor.defineWhenExpression",
       "when": "inKeybindings && keybindingFocus"
    },
@@ -1114,7 +1114,7 @@
       "command": "-workbench.action.keybindingsReference"
    },
    {
-      "key": "ctrl+j ctrl+n",
+      "key": "ctrl+; ctrl+n",
       "command": "keybindings.editor.addKeybinding",
       "when": "inKeybindings && keybindingFocus"
    },
@@ -1178,7 +1178,7 @@
       "when": "suggestWidgetVisible && textInputFocus"
    },
    {
-      "key": "ctrl+alt+s",
+      "key": "ctrl+shift+k",
       "command": "copyFilePath"
    },
    {
@@ -1212,7 +1212,7 @@
       "when": "editorTextFocus && jupyter.hascodecells && !notebookEditorFocused"
    },
    {
-      "key": "ctrl+alt+r",
+      "key": "ctrl+alt+j",
       "command": "editor.action.rename"
    },
    {
@@ -1254,7 +1254,7 @@
       "when": "inQuickOpen && inRecentFilesPicker"
    },
    {
-      "key": "ctrl+r",
+      "key": "ctrl+j",
       "command": "editor.action.addSelectionToNextFindMatch",
       "when": "editorFocus"
    },
@@ -1391,7 +1391,7 @@
       "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
    },
    {
-      "key": "ctrl+shift+r",
+      "key": "ctrl+shift+j",
       "command": "editor.action.refactor"
    },
    {
@@ -1418,7 +1418,7 @@
       "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
    },
    {
-      "key": "ctrl+j ctrl+p",
+      "key": "ctrl+; ctrl+p",
       "command": "workbench.action.pinEditor",
       "when": "!activeEditorIsPinned"
    },
@@ -1428,7 +1428,7 @@
       "when": "!activeEditorIsPinned"
    },
    {
-      "key": "ctrl+j ctrl+p",
+      "key": "ctrl+; ctrl+p",
       "command": "workbench.action.unpinEditor",
       "when": "activeEditorIsPinned"
    },
@@ -1446,5 +1446,9 @@
       "key": "ctrl+space",
       "command": "selectNextSuggestion",
       "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+   },
+   {
+      "key": "ctrl+oem_1 ctrl+l",
+      "command": "-testing.debugLastRun"
    }
 ]

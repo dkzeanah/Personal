@@ -44,7 +44,7 @@ ScrollLock::
 !ScrollLock::SoundPlay("*16"), ExitApp()
 
 ;Run Testscript
-Pause::SoundPlay("*-1"), Run(A_WorkingDir . "\Test\TestScript.ah2") 
+Pause::SoundPlay("*-1"), Run(A_WorkingDir . "\Test\Tests.ah2") 
 
 ;Restart system
 #ScrollLock::Shutdown 2
@@ -57,6 +57,9 @@ Pause::SoundPlay("*-1"), Run(A_WorkingDir . "\Test\TestScript.ah2")
 ;######################################################################################
 ;###################################################################################### 
 
+
+;An array of the 1000 most used english words
+#Include "C:\Files\Programming\Personal\Libraries\Eng_randomWords.ah2"
 
 ;Often when you want something selected, you'll send down and enter, so this is the variable for that 
 select := "{Down}{Enter}"
@@ -80,6 +83,10 @@ GroupAdd "Messenger", "WhatsApp"
 GroupAdd "Messenger", "Viber"
 GroupAdd "Messenger", "YouTube"
 GroupAdd "Messenger", "Instagram" 
+
+;Whatsapp and viber
+GroupAdd "Whatiber", "WhatsApp"
+GroupAdd "Whatiber", "Viber"
 
 ;Media
 GroupAdd "Media", "Photos"
@@ -142,6 +149,14 @@ ClickThenGoBack_Event(coordinates)
 
 ;Long dash
 !-::Send "{ASC 0151}"
+
+;Hotstring that turns into a random word every time
+:B0*:rkinch::
+{
+   Send "{BackSpace 6}"
+   ERW_index := Random(1, 999)
+   Send Eng_randomWords[ERW_index]
+}
 
 ;If I try to laugh in russian but my language is set to english, it autosets the language to russian
 :*?:[f[f::{LWin Down}{Space}{LWin Up} 
@@ -269,6 +284,8 @@ XButton2::XButton2
       Case "tasks":Run "C:\Users\serge\AppData\Roaming\Code\User\tasks.json"
       Case "extensions":Run "C:\Users\serge\.vscode\extensions"
       Case "package":Run "C:\Users\serge\.vscode\extensions\mark-wiemer.vscode-autohotkey-plus-plus-2.8.1\package.json"
+      Case "format table to array":Run A_WorkingDir . "\Scripts\Format Table to Array.ah2"
+      Case "new project tasks":Run A_WorkingDir . "\Scripts\New project tasks.py"
    }
 }
 
@@ -427,7 +444,7 @@ $XButton1::
             Case right:Send "^!{Right}"
             Case left:Send "^!{Left}"
             Case down:
-               Run A_WorkingDir . "\Test\TestScript.ah2"
+               Run A_WorkingDir . "\Test\Tests.ah2"
                SoundPlay "*-1" 
             Case up: 
                Run A_ScriptFullPath
@@ -483,9 +500,19 @@ $XButton1::
          Switch
          {
             Default:Send "{Browser_Back}"
-            Case right, left:return
+            Case right:Send "{Right}"
+            Case left:Send "{Left}"
             Case down:ControlClick "X1434 Y964" ;Clicks the scroll button since shift PgDn doesn't work for some reason
             Case up:Telegram_Search("diary")
+         }
+      Case WinActive("ahk_group Whatiber"):
+         Switch
+         {
+            Default:Send "{Browser_Back}"
+            Case right:Send "{Right}"
+            Case left:Send "{Left}"
+            Case down:ControlClick "X1878 Y961"
+            Case up:return
          }
       Case WinActive("Todoist"): ;_todoist
          Switch
@@ -836,8 +863,8 @@ MButton::ClickThenGoBack("1017 29") ;Takes a full-screen screenshot
 #HotIf
 
 ;Voice message
-#HotIf WinActive("WhatsApp")
-XButton2 & Volume_Down::ControlClick "X1875 Y1039"
+#HotIf WinActive("ahk_group Whatiber")
+XButton2 & Volume_Down::ControlClick "X1873 Y1047"
 #HotIf
 
 ;Scroll to go between pics

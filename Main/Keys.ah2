@@ -59,7 +59,10 @@ Pause::SoundPlay("*-1"), Run(A_WorkingDir . "\Test\Tests.ah2")
 
 
 ;An array of the 1000 most used english words
-#Include "C:\Files\Programming\Personal\Libraries\Eng_randomWords.ah2"
+#Include "C:\Files\Programming\Personal\Libraries\Random words.ah2"
+
+;A dictionary of key names and SC codes of them
+#Include "C:\Files\Programming\Personal\Libraries\Key codes.ah2"
 
 ;Often when you want something selected, you'll send down and enter, so this is the variable for that 
 select := "{Down}{Enter}"
@@ -134,6 +137,14 @@ ClickThenGoBack_Event(coordinates)
    SendEvent "{Click " . coordinates . "}"
    MouseMove initX, initY
 } 
+
+;Intakes text that's written on multiple lines. For every line ending character, replaces it with ", ", formatting every line into a 
+Format_Table_to_Array()
+{
+   A_Clipboard := StrReplace(A_Clipboard, "`r`n", '", "') 
+   A_Clipboard := "`"" . A_Clipboard . "`""
+   MsgBox "Done formatting table to array"
+}
 
 
 
@@ -293,7 +304,7 @@ XButton2::XButton2
       Case "tasks":Run "C:\Users\serge\AppData\Roaming\Code\User\tasks.json"
       Case "extensions":Run "C:\Users\serge\.vscode\extensions"
       Case "package":Run "C:\Users\serge\.vscode\extensions\mark-wiemer.vscode-autohotkey-plus-plus-2.8.1\package.json"
-      Case "format table to array":Run A_WorkingDir . "\Scripts\Format Table to Array.ah2"
+      Case "format table to array":Format_Table_to_Array()
       Case "new project tasks":Run A_WorkingDir . "\Scripts\New project tasks.py"
    }
 }
@@ -785,6 +796,16 @@ XButton1 & Volume_Down::Send "+{Click}"
 ;Copies the most important setting files of vs code into the /Backups folder
 ^!u::Run A_WorkingDir . "\Scripts\Pull vs code settings.py"
 
+;Gets the selected SC code by copying and shows you the key it references
+XButton2 & Volume_Down::
+{
+   tempClip := A_Clipboard
+   Send "^c"
+   Sleep 100
+   MsgBox Name_bySC[A_Clipboard], "Key name by SC key"
+   A_Clipboard := tempClip
+}
+
 #HotIf
 
 
@@ -805,7 +826,7 @@ $!Tab::Send "^{Tab}"
 #HotIf WinActive("ahk_exe KMPlayer64.exe")
 
 ;Skip opening
-$End::Send "{End 5}{Right 2}"
+$End::Send "{Delete 6}{Right 4}"
 
 ;Volume
 $Up::Send "{Volume_Up}"
@@ -896,6 +917,19 @@ WheelDown::Send "{Right}"
 
 ;Opens an inputbox for you to input how many minutes to wait, plays a sound and opens a msgbox saying the time has passed after it has. Press the same hotkey while the timer is running to see when it will ring and three options: start a new timer, discarding the current one, continue on, exit the timer
 #F6::Run A_WorkingDir . "\Tools\Basic timer.ahk"
+
+;Opens an inputbox for you to put in the name of the key to get its SC code into your clipboard
++!k::
+{
+   Try
+   {
+      A_Clipboard := SC_byName[InputBox("Name of the key:", "SC code by key name").value]
+   }
+   Catch Any
+   {
+      MsgBox "Key not found!", "SC code by key name", "T0.5"
+   }
+}
 
 
 

@@ -313,5 +313,41 @@
          "BackSpace"
       ]
    },
+   "#Include": {
+      "prefix": "#Include",
+      "body": [
+         "#Include "
+      ]
+   },
+   "Try": {
+      "prefix": "Try",
+      "body": [
+         "Try",
+         "{",
+         "\t$0",
+         "}"
+      ]
+   },
+   "Catch": {
+      "prefix": "Catch",
+      "body": [
+         "Catch",
+         "{",
+         "\t$0",
+         "}"
+      ]
+   },
+   "XButton1": {
+      "prefix": "XButton1",
+      "body": [
+         "XButton1"
+      ]
+   },
+   "XButton2": {
+      "prefix": "XButton2",
+      "body": [
+         "XButton2"
+      ]
+   },
    
 }

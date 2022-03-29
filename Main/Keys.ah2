@@ -204,9 +204,10 @@ ClickThenGoBack_Event(coordinates)
 >^PgUp::Media_Prev
 >^Pgdn::Media_Next
 
+#HotIf WinActive("ahk_group Messenger")
+
 ;Alt + number sends the Unicode for a specific emoji, making that work anywhere. These hotkeys only work in windows that are messengers
 ;🥺😋🤯😼😎😭🧐😳🤨🤔—💀
-#HotIf WinActive("ahk_group Messenger")
 !1::Send "{U+1F97A}"
 !2::Send "{U+1F60B}"
 !3::Send "{U+1F92F}"
@@ -218,6 +219,14 @@ ClickThenGoBack_Event(coordinates)
 !9::Send "{U+1F928}"
 !0::Send "{U+1F914}"
 !=::Send "{U+1F480}"
+
+;Alt + F keys are emojis as well
+;😩💜🙄🥴
+!F5::Send "{U+1F629}"
+!F6::Send "{U+1F49C}"
+!F7::Send "{U+1F644}"
+!F8::Send "{U+1F974}"
+
 #HotIf 
 
 
@@ -551,7 +560,7 @@ $F8::Send "^8"
 $F9::Send "^9"
 
 ;Reminds of the markdown syntax for reddit
-!m::MsgBox "* italic *`n** bold **`n~~ strikethrough ~~`n>! spoiler !<`n[embed](link)`n^(superscript)`n`` code inline ```n # BIG TEXT`nEmpty msg: &#12288;", "MarkDown", "4096"
+^m::MsgBox "* italic *`n** bold **`n~~ strikethrough ~~`n>! spoiler !<`n[embed](link)`n^(superscript)`n`` code inline ```n # BIG TEXT`nEmpty msg: &#12288;", "MarkDown", "4096"
 
 ;Single press is copy, double press will get current tab's link to clipboard
 Volume_Down & XButton1::
@@ -755,7 +764,7 @@ XButton1 & Volume_Down::Send "^e"
 XButton2 & Volume_Down::Send "^g"
 
 ;Reminds of the markdown syntax in discord
-!m::MsgBox "__ underline __`n* italic *`n** bold **`n~~ strikethrough ~~`n|| spoiler ||`n`````` code ```````n`` code inline ```n_ nothing _", "Markdown", "4096"
+^m::MsgBox "__ underline __`n* italic *`n** bold **`n~~ strikethrough ~~`n|| spoiler ||`n`````` code ```````n`` code inline ```n_ nothing _", "Markdown", "4096"
 
 #HotIf
 

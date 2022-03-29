@@ -230,4 +230,8 @@ rolling_eyes
 {U+1F644}
 thinking
 {U+1F914}
+weary
+{U+1F629}
+woozy
+{U+1F974}
 error

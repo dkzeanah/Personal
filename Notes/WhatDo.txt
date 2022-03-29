@@ -24,7 +24,7 @@ j —
    [ahk docs] — search
 k — 
 l — 
-ж — 
+ж — ahk v2 docs
 э — ahk docs
 z — vpn
 x — todoist

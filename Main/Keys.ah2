@@ -161,12 +161,20 @@ Format_Table_to_Array()
 ;Long dash
 !-::Send "{ASC 0151}"
 
-;Hotstring that turns into a random word every time
+;Hotstring that turns into a random english word every time
 :B0*?:uclanr::
 {
    Send "{BackSpace 6}"
    ERW_index := Random(1, 3003)
    Send Eng_randomWords[ERW_index]
+}
+
+;Hotstring that turns into a random russian word every time
+:B0*?:ilandh::
+{
+   Send "{BackSpace 6}"
+   RRW_index := Random(1, 3000)
+   Send Rus_randomWords[RRW_index]
 }
 
 ;If I try to laugh in russian but my language is set to english, it autosets the language to russian

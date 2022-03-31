@@ -12,3 +12,7 @@ https://getsharex.com/
 
 Github copilot
 https://copilot.github.com/
+
+Share files
+https://files.fm/
+

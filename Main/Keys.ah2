@@ -429,7 +429,7 @@ $XButton2::
       Case right:
          Switch
          {
-            ; Case WinActive("ahk_group YouTube_vid"):Send, +n
+            Case WinActive(" - YouTube") && !WinActive("Watch later") && !WinActive("Subscriptions"):Send "+n"
             Case WinActive("ahk_exe Spotify.exe"):Send "^{Right}"
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgDn}"
             Default:Send "{Media_Next}"
@@ -437,7 +437,7 @@ $XButton2::
       Case left:
          Switch
          {
-            ; Case WinActive("ahk_group YouTube_vid"):Send, +p
+            Case WinActive(" - YouTube") && !WinActive("Watch later") && !WinActive("Subscriptions"):Send "+p"
             Case WinActive("ahk_exe Spotify.exe"):Send "^{Left}"
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgUp}"
             Default:Send "{Media_Prev}"

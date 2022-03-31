@@ -295,8 +295,7 @@ XButton2::XButton2
       ;GitHub
       Case "git":Run "https://github.com/Axlefublr/Personal"
       ;Расписание пар
-      Case "timf":Run A_WorkingDir . "\Libraries\Time table"
-      Case "timt":
+      Case "tom", "tomorrow":
          Switch A_WDay 
          {
             Default:Run A_WorkingDir . "\Libraries\Time table\Monday.jpg", "Max"
@@ -305,7 +304,21 @@ XButton2::XButton2
             Case 4:Run A_WorkingDir . "\Libraries\Time table\Thursday.jpg", "Max"
             Case 5:Run A_WorkingDir . "\Libraries\Time table\Friday.jpg", "Max"
          }
-
+      Case "today":
+         Switch A_WDay
+         {
+            Default:Run A_WorkingDir . "\Libraries\Time table\Monday.jpg", "Max"
+            Case 3:Run A_WorkingDir . "\Libraries\Time table\Tuesday.jpg", "Max"
+            Case 4:Run A_WorkingDir . "\Libraries\Time table\Wednesday.jpg", "Max"
+            Case 5:Run A_WorkingDir . "\Libraries\Time table\Thursday.jpg", "Max"
+            Case 6:Run A_WorkingDir . "\Libraries\Time table\Friday.jpg", "Max"
+         }
+      Case "monday":Run A_WorkingDir . "\Libraries\Time table\Monday.jpg", "Max"
+      Case "tuesday":Run A_WorkingDir . "\Libraries\Time table\Tuesday.jpg", "Max"
+      Case "wednesday":Run A_WorkingDir . "\Libraries\Time table\Wednesday.jpg", "Max"
+      Case "thursday":Run A_WorkingDir . "\Libraries\Time table\Thursday.jpg", "Max"
+      Case "friday":Run A_WorkingDir . "\Libraries\Time table\Friday.jpg", "Max"
+      ;VS code section
       Case "syntax":Run "C:\Users\serge\.vscode\extensions\mark-wiemer.vscode-autohotkey-plus-plus-2.8.1\syntaxes\ahk.tmLanguage.json"
       Case "keybind":Run "C:\Users\serge\AppData\Roaming\Code\User\keybindings.json"
       Case "settings":Run "C:\Files\Programming\Personal\Backups\settings.json"
@@ -631,8 +644,8 @@ XButton1 & Volume_Down::i
 XButton1 & Volume_Down::f
 
 ;Seek farther
-$Delete::Send "l"
-$Insert::Send "j"
+$Delete::l
+$Insert::j
 
 $^Up::Send "{Up}"
 $^Down::Send "{Down}"
@@ -701,7 +714,7 @@ $F5::Todoist_Search("desires")
 $F6::Todoist_Search("shopping") 
 
 ;Gives the current task an unfinished label and lets you edit its description
-+!e::Send " {#}unfinished — " ;Straight up doesn't work if you don't have a space before everything else
++!e::Send " {#}unfinished — " ;Straight up doesn't work if you don't have a space before everything else, thankfully v2 makes it easier to incorporate
 
 ;Enter is always down enter
 $Enter::Send select
@@ -733,7 +746,7 @@ XButton1 & Volume_Down::ControlClick "X788 Y126"
 
 #HotIf 
 
-;Close tab 
+;Escape closes current tab if it's not vk
 #HotIf WinActive("Google Chrome") && !WinActive("Messenger")
 $Escape::Send "^w"
 #HotIf
@@ -1078,7 +1091,9 @@ WindowsApp_Folders(folderPath)
    ;Variable for ALL the main 6 apps existing
    mainAppsExist := (WinExist(chrome) && WinExist(todoist) && WinExist(telegram) && WinExist(vscode) && WinExist(discord) && WinExist(spotify)) 
 
-   if !MinMax("ahk_group Game")
+   if WinExist("ahk_group Game")
+      MinMax("ahk_group Game")
+   else
       (mainAppsExist ? (WinClose(chrome), WinClose(todoist), WinClose(telegram), WinClose(vscode), WinClose(discord), ifWinClose("Monkeytype"), ifWinClose("Google Calendar"), ifWinClose("AutoHotkey Help"), ifWinClose("AutoHotkey v2 Help"), WinActivate(spotify)) 
       : (ifWinClose(steam), ifRunApp(chrome, chrome_exe), ifRunApp(todoist, todoist_exe), ifRunApp("Telegram", telegram_exe), ifRunApp(vscode, vscode_exe), ifRunApp(discord, discord_exe), ifRunApp(spotify, spotify_exe)))
 }

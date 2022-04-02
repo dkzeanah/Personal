@@ -283,6 +283,9 @@ XButton2::XButton2
    Path_or_Link := InputBox("What do you want to run?", "Runner",, "today").value
    Switch Path_or_Link
    {
+      ;WEBSITES
+      ;——————————————————
+
       ;Reddit
       Case "reddit":Run "https://www.reddit.com/notifications"
       ;Instagram
@@ -298,7 +301,7 @@ XButton2::XButton2
       ;Weather
       Case "weather":Run "https://yandex.ru/pogoda/krasnoyarsk"
       ;GitHub
-      Case "git":Run "https://github.com/Axlefublr/Personal"
+      Case "git":Run "https://github.com/Axlefublr"
       ;Watch movies
       Case "movies":Run "https://watchmovieshd.ru/"
       ;Gogoanime
@@ -311,7 +314,11 @@ XButton2::XButton2
       Case "emoji":Run "https://www.alt-codes.net/smiley_alt_codes.php"
       ;Share files
       Case "share files":Run "https://files.fm/"
-      ;Расписание пар
+
+
+      ;РАСПИСАНИЕ
+      ;————————————————————
+
       Case "tom", "tomorrow":
          Switch A_WDay 
          {
@@ -335,13 +342,20 @@ XButton2::XButton2
       Case "wednesday":Run A_WorkingDir . "\Libraries\Time table\Wednesday.jpg", "Max"
       Case "thursday":Run A_WorkingDir . "\Libraries\Time table\Thursday.jpg", "Max"
       Case "friday":Run A_WorkingDir . "\Libraries\Time table\Friday.jpg", "Max"
-      ;VS code section
+
+
+      ;VS CODE
+      ;—————————————————
+
+      ;Important files
       Case "syntax":Run "C:\Users\serge\.vscode\extensions\mark-wiemer.vscode-autohotkey-plus-plus-2.8.1\syntaxes\ahk.tmLanguage.json"
       Case "keybind":Run "C:\Users\serge\AppData\Roaming\Code\User\keybindings.json"
       Case "settings":Run "C:\Files\Programming\Personal\Backups\settings.json"
       Case "tasks":Run "C:\Users\serge\AppData\Roaming\Code\User\tasks.json"
       Case "extensions":Run "C:\Users\serge\.vscode\extensions"
       Case "package":Run "C:\Users\serge\.vscode\extensions\mark-wiemer.vscode-autohotkey-plus-plus-2.8.1\package.json"
+      
+      ;Running tasks
       Case "format table to array":Format_Table_to_Array()
       Case "new project tasks":Run A_WorkingDir . "\Scripts\New project tasks.py"
    }

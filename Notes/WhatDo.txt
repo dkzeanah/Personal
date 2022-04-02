@@ -69,7 +69,7 @@ h — run current file
 j — 
    [vs code] —! add next selection / change all occurences, refactor, rename symbol / rename
 k —
-   [vs code] —! get the sc code of a key (not working yet), get path of file 
+   [vs code] —! get the sc code of a key, get full / relative path of file 
 l — open something by typing it in
 ж — 
 э — 
@@ -91,10 +91,10 @@ FUNCTION KEYS
 #F2 
 #F3 
 #F4 
-#F5 Window information
+#F5 Path to exe of active window
 #F6 Timer
-#F7 File chooser
-#F8 Folder chooser
+#F7 Name of the active window
+#F8 
 #F9 Command prompt
 #F10 Python command prompt
 #F11 

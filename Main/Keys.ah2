@@ -226,6 +226,7 @@ Format_Table_to_Array()
 >^PgUp::Media_Prev
 >^Pgdn::Media_Next
 
+
 #HotIf WinActive("ahk_group Messenger")
 
 ;Alt + number sends the Unicode for a specific emoji, making that work anywhere. These hotkeys only work in windows that are messengers
@@ -256,7 +257,6 @@ Format_Table_to_Array()
 
 ;REMAPPING
 ;——————————————————
-
 
 ;Pure remapping
 AppsKey::LCtrl 
@@ -675,13 +675,6 @@ XButton1 & Volume_Down::f
 $Delete::l
 $Insert::j
 
-$^Up::Send "{Up}"
-$^Down::Send "{Down}"
-
-;Volume
-$Up::Send "{Volume_Up}"
-$Down::Send "{Volume_Down}"
-
 #HotIf
 
 
@@ -777,15 +770,9 @@ XButton1 & Volume_Down::ControlClick "X788 Y126"
 
 #HotIf 
 
-
-#HotIf WinActive("Google Chrome") && !WinActive("Messenger")
-
-;Escape closes current tab if it's not vk
-$Escape::Send "^w"
-
 ;Reminds of the markdown syntax for reddit
+#HotIf WinActive("Google Chrome") && !WinActive("Messenger")
 ^m::MsgBox "* italic *`n** bold **`n~~ strikethrough ~~`n>! spoiler !<`n[embed](link)`n^(superscript)`n`` code inline ```n # BIG TEXT", "MarkDown", "4096"
-
 #HotIf
 
 
@@ -961,6 +948,12 @@ WheelUp::Send "{Left}"
 WheelDown::Send "{Right}"
 #HotIf
 
+;Change volume
+#HotIf WinActive("WatchMoviesHD")
+Up::Send "{Volume_Up}"
+Down::Send "{Volume_Down}"
+#HotIf
+
 
 
 
@@ -971,7 +964,7 @@ WheelDown::Send "{Right}"
 
 
 ;Gets current cursor's position and opens a gui giving you the options for formatting the parameters for different commands to put them into your Clipboard or to not copy them into your Clipboard at all and just exit the gui
-+!g::Run A_WorkingDir . "\Tools\MouseGetPos.ahk"
++!f::Run A_WorkingDir . "\Tools\MouseGetPos.ahk"
 
 ;Opens an inputbox for you to input how many minutes to wait, plays a sound and opens a msgbox saying the time has passed after it has. Press the same hotkey while the timer is running to see when it will ring and three options: start a new timer, discarding the current one, continue on, exit the timer
 #F6::Run A_WorkingDir . "\Tools\Basic timer.ahk"
@@ -1001,17 +994,21 @@ WheelDown::Send "{Right}"
    MsgBox clock_time . "`n" . clock_weekDay . "`n" . clock_date, "Current time", "4096"
 }
 
+;Takes a random number out of 1 and 100000, says yes if it's even, no if it's odd
++!z::
+{
+   coinFlip := Random(1, 100000)
+   ((Mod(coinFlip, 2)) ? (result := "Yes") : (result := "No"))
+   MsgBox result
+}
+
 ;Opens an inputbox for you to put in the name of the key to get its SC code into your clipboard
 +!k::
 {
    Try
-   {
       A_Clipboard := SC_byName[InputBox("Name of the key:", "SC code by key name").value]
-   }
    Catch Any
-   {
-      MsgBox "Key not found!", "SC code by key name", "T0.5"
-   }
+      MsgBox "Key not found!", "SC code by key name", "T0.7"
 }
 
 
@@ -1044,7 +1041,7 @@ ifMinMax(title)
 RunApp(winTitle, exePath)
 {
    Run exePath,, "Max"
-   WinWait winTitle,, 7
+   WinWait winTitle,, 10
    WinActivate winTitle
 } 
 
@@ -1071,7 +1068,7 @@ WindowsApp_WinNum(winTitle, windowsNumber)
    if !ifMinMax(winTitle)
    {
       Send "#" . windowsNumber
-      WinWait winTitle,, 7
+      WinWait winTitle,, 10
       WinActivate winTitle
    } 
 }

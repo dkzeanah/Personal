@@ -42,7 +42,6 @@ SHIFT ALT
 ###########################################################################################
 q — time 
 w — close tab
-   [youtube] — pop out window
 e — open tab
    [gimp] — export 
    [todoist] — change project to #unfinished and insert "—"
@@ -63,8 +62,8 @@ a — select all
 s — 
 d — 
    [vs code] — find all references
-f — 
-g — get mouse pos and bring up a gui with options for formatting 
+f — get mouse pos and bring up a gui with options for formatting 
+g — 
 h — run current file
 j — 
    [vs code] —! add next selection / change all occurences, refactor, rename symbol / rename
@@ -73,7 +72,7 @@ k —
 l — open something by typing it in
 ж — 
 э — 
-z — 
+z — flip a coin
 x — add todoist task
 c — 
 v — 

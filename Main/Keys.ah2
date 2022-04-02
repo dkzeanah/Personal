@@ -192,7 +192,10 @@ Format_Table_to_Array()
 !Enter::Send select
 
 ;Easily accessible paste window
-#Insert::Send "#v"
+^Insert::Send "#v"
+
+;Copy
+#Insert::Send "^c"
 
 ;Cut
 !Insert::Send "^x"
@@ -240,11 +243,13 @@ Format_Table_to_Array()
 !=::Send "{U+1F480}"
 
 ;Alt + F keys are emojis as well
-;😩💜🙄🥴
+;😩💜🙄🥴👉👈🤤
 !F5::Send "{U+1F629}"
 !F6::Send "{U+1F49C}"
 !F7::Send "{U+1F644}"
 !F8::Send "{U+1F974}"
+!F9::Send "{U+1F449}{U+1F448}"
+!F10::Send "{U+1F924}"
 
 #HotIf 
 
@@ -275,7 +280,7 @@ XButton2::XButton2
 ;Gives you a place to essentially type a hotstring. Runs what you entered
 +!l::
 {
-   Path_or_Link := InputBox("What do you want to run?", "Runner",, "timt").value
+   Path_or_Link := InputBox("What do you want to run?", "Runner",, "today").value
    Switch Path_or_Link
    {
       ;Reddit
@@ -294,6 +299,18 @@ XButton2::XButton2
       Case "weather":Run "https://yandex.ru/pogoda/krasnoyarsk"
       ;GitHub
       Case "git":Run "https://github.com/Axlefublr/Personal"
+      ;Watch movies
+      Case "movies":Run "https://watchmovieshd.ru/"
+      ;Gogoanime
+      Case "gogoanime":Run "https://gogoanime.fi/"
+      ;Mvideo
+      Case "mvideo":Run "https://www.mvideo.ru/"
+      ;Barbershop
+      Case "barber":Run "https://b73723.yclients.com/company/89170/menu?o="
+      ;Emoji unicodes
+      Case "emoji":Run "https://www.alt-codes.net/smiley_alt_codes.php"
+      ;Share files
+      Case "share files":Run "https://files.fm/"
       ;Расписание пар
       Case "tom", "tomorrow":
          Switch A_WDay 
@@ -938,6 +955,22 @@ WheelDown::Send "{Right}"
 
 ;Opens an inputbox for you to input how many minutes to wait, plays a sound and opens a msgbox saying the time has passed after it has. Press the same hotkey while the timer is running to see when it will ring and three options: start a new timer, discarding the current one, continue on, exit the timer
 #F6::Run A_WorkingDir . "\Tools\Basic timer.ahk"
+
+;Get the root to the exe of the active window and put it into your clipboard
+#F5::
+{
+   windowExe := WinGetProcessPath("A")
+   if windowExe
+      A_Clipboard := windowExe
+}
+
+;Get the name of the active window and put it into your clipboard
+#F7::
+{
+   windowTitle := WinGetTitle("A")
+   if windowTitle
+      A_Clipboard := windowTitle
+}
 
 ;Opens an inputbox for you to put in the name of the key to get its SC code into your clipboard
 +!k::

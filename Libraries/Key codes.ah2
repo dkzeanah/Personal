@@ -106,7 +106,11 @@ SC_byName := Map("~", "SC029",
 "rolling_eyes", "U+1F644", 
 "thinking", "U+1F914", 
 "weary", "U+1F629", 
-"woozy", "U+1F974")
+"woozy", "U+1F974",
+"finger_left", "U+1F448",
+"finger_right", "U+1F449",
+"drooling", "U+1F924",
+"eggplant", "U+1F346")
 
 Name_bySC := Map()
 for key, value in SC_byName ;SC_byName is the map I wanted to switch keys with values of

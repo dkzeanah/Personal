@@ -349,5 +349,23 @@
          "XButton2"
       ]
    },
+   "WinGetProcessPath": {
+      "prefix": "WinGetProcessPath",
+      "body": [
+         "WinGetProcessPath($0)"
+      ]
+   },
+   "WinGetTitle": {
+      "prefix": "WinGetTitle",
+      "body": [
+         "WinGetTitle($0)"
+      ]
+   },
+   "FormatTime": {
+      "prefix": "FormatTime",
+      "body": [
+         "FormatTime($0)"
+      ]
+   },
    
 }

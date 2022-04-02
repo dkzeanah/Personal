@@ -972,6 +972,15 @@ WheelDown::Send "{Right}"
       A_Clipboard := windowTitle
 }
 
+;Opens a msgbox showing the exact time
++!q::
+{
+   clock_time := FormatTime(, "H:mm")
+   clock_weekDay := FormatTime(, "dddd")
+   clock_date := FormatTime(, "d MMMM")
+   MsgBox clock_time . "`n" . clock_weekDay . "`n" . clock_date, "Current time", "4096"
+}
+
 ;Opens an inputbox for you to put in the name of the key to get its SC code into your clipboard
 +!k::
 {

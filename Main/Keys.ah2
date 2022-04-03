@@ -282,7 +282,7 @@ XButton2::XButton2
 ;Gives you a place to essentially type a hotstring. Runs what you entered
 +!l::
 {
-   Path_or_Link := InputBox("What do you want to run?", "Runner",, "today").value
+   Path_or_Link := InputBox("What do you want to run?", "Runner").value
    Switch Path_or_Link
    {
       ;WEBSITES
@@ -972,7 +972,7 @@ WheelDown::Send "{Right}"
 
 
 ;Gets current cursor's position and opens a gui giving you the options for formatting the parameters for different commands to put them into your Clipboard or to not copy them into your Clipboard at all and just exit the gui
-+!f::Run A_WorkingDir . "\Tools\MouseGetPos.ahk"
++!f::Run A_WorkingDir . "\Tools\MouseGetPos.ah2"
 
 ;Opens an inputbox for you to input how many minutes to wait, plays a sound and opens a msgbox saying the time has passed after it has. Press the same hotkey while the timer is running to see when it will ring and three options: start a new timer, discarding the current one, continue on, exit the timer
 #F6::Run A_WorkingDir . "\Tools\Basic timer.ah2"

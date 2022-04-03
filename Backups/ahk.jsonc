@@ -367,5 +367,37 @@
          "FormatTime($0)"
       ]
    },
+   "Directories_v1": {
+      "prefix": "Directories_v1",
+      "body": [
+         "#NoEnv ;Recommended for performance and compatibility with future AutoHotkey releases.",
+         "#Warn ;Enable warnings to assist with detecting common errors.",
+         "SetWorkingDir ${1:%A_ScriptDir%} ;Ensures a consistent starting directory.",
+         "#SingleInstance, Force ;Only launch 1 instance of this script.",
+         "#Hotstring EndChars `t ;The only character that completes a hotstring is Tab",
+         "#WinActivateForce",
+         "SendMode Input ;Recommended for new scripts due to its superior speed and reliability.",
+         "SetTitleMatchMode, 2 ;Title *consists of* instead of precise title",
+         "SetBatchLines, -1 ;Script takes CPU priority",
+         "CoordMode, Mouse, Screen ;Cursor coordinates are always of the screen, not window",
+         "; if !A_IsAdmin ;Runs the script as admin",
+         "; {",
+         ";    Run,*RunAs \"%A_ScriptFullPath%\"",
+         ";    ExitApp",
+         "; }"
+      ]
+   },
+   "GuiCtrlFromHwnd": {
+      "prefix": "GuiCtrlFromHwnd",
+      "body": [
+         "GuiCtrlFromHwnd($0)"
+      ]
+   },
+   "SetTimer": {
+      "prefix": "SetTimer",
+      "body": [
+         "SetTimer"
+      ]
+   },
    
 }

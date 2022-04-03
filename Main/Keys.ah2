@@ -45,6 +45,7 @@ ScrollLock::
 
 ;Run Testscript
 Pause::SoundPlay("*-1"), Run(A_WorkingDir . "\Test\Tests.ah2") 
++Pause::SoundPlay("*-1"), Run(A_WorkingDir . "\Test\Testsv1.ahk")
 
 ;Restart system
 #ScrollLock::Shutdown 2
@@ -642,7 +643,7 @@ Volume_Down & XButton1::
 XButton2 & Volume_Down::
 {
    ControlClick "X1820 Y133"
-   Sleep 300
+   Sleep 400
    Send "{Tab 5}{Enter}"
 }   
 
@@ -974,7 +975,7 @@ WheelDown::Send "{Right}"
 +!f::Run A_WorkingDir . "\Tools\MouseGetPos.ahk"
 
 ;Opens an inputbox for you to input how many minutes to wait, plays a sound and opens a msgbox saying the time has passed after it has. Press the same hotkey while the timer is running to see when it will ring and three options: start a new timer, discarding the current one, continue on, exit the timer
-#F6::Run A_WorkingDir . "\Tools\Basic timer.ahk"
+#F6::Run A_WorkingDir . "\Tools\Basic timer.ah2"
 
 ;Get the root to the exe of the active window and put it into your clipboard
 #F5::

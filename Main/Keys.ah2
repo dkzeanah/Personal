@@ -533,7 +533,7 @@ $XButton1::
                if ProcessExist(Discovery_add_PID)
                   Send "{Launch_App2}"
                else 
-                  Run A_WorkingDir . "\Tools\Discovery add.ahk",,, &Discovery_add_PID
+                  Run A_WorkingDir . "\Tools\Discovery add.ah2",,, &Discovery_add_PID
             Case left:
                ;Launches a scripts that counts how many tracks you've selected in spotify (meaning, controlclicks) if it isn't already running, otherwise exits it by sending a button that is binded to an exitapp in that script
                static Playlist_moving_PID := 0

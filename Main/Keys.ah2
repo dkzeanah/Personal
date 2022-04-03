@@ -68,7 +68,7 @@ Pause::SoundPlay("*-1"), Run(A_WorkingDir . "\Test\Tests.ah2")
 select := "{Down}{Enter}"
 
 ;Time part of the ekursы link
-ekurs_time := 1646067600 
+ekurs_time := 1648746000
 
 ;Games
 GroupAdd "Game", "Enter the Gungeon"
@@ -244,13 +244,14 @@ Format_Table_to_Array()
 !=::Send "{U+1F480}"
 
 ;Alt + F keys are emojis as well
-;😩💜🙄🥴👉👈🤤
+;😩💜🙄🥴👉👈🤤😈
 !F5::Send "{U+1F629}"
 !F6::Send "{U+1F49C}"
 !F7::Send "{U+1F644}"
 !F8::Send "{U+1F974}"
 !F9::Send "{U+1F449}{U+1F448}"
 !F10::Send "{U+1F924}"
+!F11::Send "{U+1F608}"
 
 #HotIf 
 
@@ -880,6 +881,18 @@ $Down::Send "{Volume_Down}"
 #HotIf
 
 
+#HotIf WinActive("WatchMoviesHD")
+
+;Change volume
+Up::Send "{Volume_Up}"
+Down::Send "{Volume_Down}"
+
+;Fullscreen
+XButton1 & Volume_Down::f
+
+#HotIf
+
+
 #HotIf WinActive("ahk_exe ScreenClippingHost.exe")
 
 ;In the screenshot tool there are three options that can be selected. Selects those options in a rotary manner, depending on direction
@@ -946,12 +959,6 @@ XButton2 & Volume_Down::ControlClick "X1873 Y1047"
 #HotIf WinActive("ahk_group Media")
 WheelUp::Send "{Left}"
 WheelDown::Send "{Right}"
-#HotIf
-
-;Change volume
-#HotIf WinActive("WatchMoviesHD")
-Up::Send "{Volume_Up}"
-Down::Send "{Volume_Down}"
 #HotIf
 
 

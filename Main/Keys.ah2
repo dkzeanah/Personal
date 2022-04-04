@@ -651,6 +651,10 @@ XButton2 & Volume_Down::
 $PgDn::Send "+n"
 $PgUp::Send "+p"
 
+;Volume
+$Insert::Send "{Volume_Up}"
+$Delete::Send "{Volume_Down}"
+
 #HotIf
 
 
@@ -674,8 +678,8 @@ XButton1 & Volume_Down::i
 XButton1 & Volume_Down::f
 
 ;Seek farther
-$Delete::l
-$Insert::j
+!Right::Send "l"
+!Left::Send "j"
 
 #HotIf
 
@@ -714,9 +718,9 @@ $PgUp::Send "^{Left}"
 $Up::Send "{Volume_Up}"
 $Down::Send "{Volume_Down}"
 
-;Seek
-$Delete::Send "+{Right}"
-$Insert::Send "+{Left}"
+;Seeking
+$Right::Send "+{Right}"
+$Left::Send "+{Left}"
 
 #HotIf
 
@@ -873,7 +877,7 @@ $!Tab::Send "^{Tab}"
 #HotIf WinActive("ahk_exe KMPlayer64.exe")
 
 ;Skip opening
-$End::Send "{Delete 6}{Right 4}"
+$Delete::Send "{Delete 6}{Right 4}"
 
 ;Volume
 $Up::Send "{Volume_Up}"

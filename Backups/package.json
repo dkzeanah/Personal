@@ -8,7 +8,9 @@
 		"vscode": "^1.30.0"
 	},
 	"activationEvents": [
-		"onLanguage:ahk"
+		"onLanguage:ahk",
+		"onCommand:ahk++.run",
+		"onDebug"
 	],
 	"main": "./out/extension",
 	"categories": [
@@ -42,7 +44,77 @@
 		],
 		"debuggers": [
 			{
-            
+				"type": "ahk",
+				"label": "AutoHotkey",
+				"program": "./out/debugger/DebugAdapter.js",
+				"runtime": "\"C:\\Program Files\\Autohotkey\\AutoHotkeyU64.exe\"",
+				"configurationAttributes": {
+					"launch": {
+						"required": [
+							"program"
+						],
+						"properties": {
+							"program": {
+								"type": "string",
+								"description": "Absolute path to a text file.",
+								"default": "${file}"
+							},
+							"runtime": {
+								"type": "string",
+								"description": "Absolute path to a AutoHotkey.exe file.",
+								"default": "C:\\Program Files\\Autohotkey\\AutoHotkeyU64.exe"
+							},
+							"stopOnEntry": {
+								"type": "boolean",
+								"description": "Automatically stop after launch.",
+								"default": true
+							},
+							"trace": {
+								"type": "boolean",
+								"description": "Enable logging of the Debug Adapter Protocol.",
+								"default": true
+							},
+							"dbgpSettings": {
+								"type": "object",
+								"properties": {
+									"max_children": {
+										"type": "integer",
+										"description": "max number of array or object children to initially retrieve",
+										"default": 300
+									},
+									"max_data": {
+										"type": "integer",
+										"description": "max amount of variable data to initially retrieve.",
+										"default": 131072
+									}
+								},
+								"description": "Dbgp settings. See https://xdebug.org/docs-dbgp.php#feature-names",
+								"default": {}
+							}
+						}
+					}
+				},
+				"initialConfigurations": [
+					{
+						"type": "ahk",
+						"request": "launch",
+						"name": "AutoHotkey Debugger",
+						"program": "${file}",
+						"stopOnEntry": true
+					}
+				],
+				"configurationSnippets": [
+					{
+						"label": "AutoHotkey Debug: Launch",
+						"body": {
+							"type": "ahk",
+							"request": "launch",
+							"name": "AutoHotkey Debugger",
+							"program": "${file}",
+							"stopOnEntry": true
+						}
+					}
+				]
 			}
 		],
 		"languages": [
@@ -71,25 +143,132 @@
 			}
 		],
 		"commands": [
-
+			{
+				"command": "ahk++.compile",
+				"title": "Compile AHK Script",
+				"category": "AHK++",
+				"icon": "./image/build.svg"
+			},
+			{
+				"command": "ahk++.debug",
+				"title": "Debug AHK Script",
+				"category": "AHK++",
+				"icon": {
+					"light": "./image/run.png",
+					"dark": "./image/run-dark.png"
+				}
+			},
+			{
+				"command": "ahk++.openHelp",
+				"title": "Open AutoHotkey Help",
+				"category": "AHK++"
+			},
+			{
+				"command": "ahk++.run",
+				"title": "Run AHK Script",
+				"category": "AHK++"
+			},
+			{
+				"command": "ahk++.runSelection",
+				"title": "Run Selection",
+				"category": "AHK++"
+			}
 		],
 		"menus": {
+			"editor/context": [
+				{
+					"command": "ahk++.compile",
+					"when": "editorLangId == ahk",
+					"group": "navigation@1"
+				},
+				{
+					"command": "ahk++.run",
+					"when": "editorLangId == ahk",
+					"group": "navigation@0"
+				},
+				{
+					"command": "ahk++.runSelection",
+					"when": "editorLangId == ahk && editorHasSelection",
+					"group": "navigation@-1"
+				}
+			],
+			"editor/title": [
+				{
+					"command": "ahk++.debug",
+					"when": "editorLangId == ahk && config.ahk++.showDebugButton",
+					"group": "navigation@1"
+				}
+			]
 		},
 		"keybindings": [
+			{
+				"command": "ahk++.compile",
+				"key": "",
+				"when": "editorLangId == ahk"
+			},
+			{
+				"command": "ahk++.debug",
+				"key": "",
+				"when": "editorLangId == ahk"
+			},
+			{
+				"command": "ahk++.openHelp",
+				"key": ""
+			},
+			{
+				"command": "ahk++.run",
+				"key": "",
+				"when": "editorLangId == ahk"
+			},
+			{
+				"command": "ahk++.runSelection",
+				"key": "",
+				"when": "editorLangId == ahk"
+			}
+		],
+		"snippets": [
+			{
+				"language": "ahk",
+				"path": "./snippets/ahk.json"
+			}
 		],
 		"configuration": {
 			"type": "object",
 			"title": "AutoHotkey Plus Plus",
 			"properties": {
+				"ahk++.compilePath": {
+					"type": "string",
+					"default": "C:/Program Files/AutoHotkey/Compiler/Ahk2Exe.exe",
+					"description": "Path to the AHK compiler."
+				},
 				"ahk++.enableIntellisense": {
 					"type": "boolean",
 					"default": true,
 					"description": "Enable IntelliSense (Preview). Changes take effect after reload."
+				},
+				"ahk++.executePath": {
+					"type": "string",
+					"default": "C:/Program Files/AutoHotkey/AutoHotkeyU64.exe",
+					"description": "Path to the AHK runner."
+				},
+				"ahk++.helpPath": {
+					"type": "string",
+					"default": "C:/Program Files/AutoHotkey/AutoHotkey.chm",
+					"description": "Path to the AHK Help document."
+				},
+				"ahk++.showDebugButton": {
+					"type": "boolean",
+					"default": "true",
+					"description": "Show the Debug button in the editor title menu"
 				}
 			}
 		}
 	},
 	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"tslint": "tslint -t verbose src/**/*.ts"
 	},
 	"dependencies": {
 		"get-port": "^5.1.1",
@@ -114,8 +293,10 @@
 		"id": "cf96e3c7-3b07-4403-acc9-2b6299ba7877",
 		"publisherId": "5d0c3a99-7c1e-41ac-a4b0-401d0091adcf",
 		"publisherDisplayName": "Mark Wiemer",
+		"targetPlatform": "undefined",
+		"updated": false,
 		"isPreReleaseVersion": false,
 		"preRelease": false,
-		"installedTimestamp": 1648289698691
+		"installedTimestamp": 1649082411152
 	}
 }

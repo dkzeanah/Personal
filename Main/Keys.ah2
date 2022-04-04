@@ -889,8 +889,8 @@ $Down::Send "{Volume_Down}"
 #HotIf WinActive("WatchMoviesHD")
 
 ;Change volume
-Up::Send "{Volume_Up}"
-Down::Send "{Volume_Down}"
+$Up::Send "{Volume_Up}"
+$Down::Send "{Volume_Down}"
 
 ;Fullscreen
 XButton1 & Volume_Down::f

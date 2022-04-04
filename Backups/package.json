@@ -90,10 +90,6 @@
 		}
 	},
 	"scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
-		"tslint": "tslint -t verbose src/**/*.ts"
 	},
 	"dependencies": {
 		"get-port": "^5.1.1",

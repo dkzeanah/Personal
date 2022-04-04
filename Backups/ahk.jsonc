@@ -399,5 +399,11 @@
          "SetTimer"
       ]
    },
+   "OnEvent": {
+      "prefix": "OnEvent",
+      "body": [
+         "OnEvent($0)"
+      ]
+   },
    
 }

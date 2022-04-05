@@ -89,6 +89,17 @@ GroupAdd "Game", "Nuclear Throne"
 GroupAdd "Game", "Terraria"
 GroupAdd "Game", "Minecraft"
 
+;Main apps
+GroupAdd "Main", "ahk_exe chrome.exe"
+GroupAdd "Main", "ahk_exe Todoist.exe"
+GroupAdd "Main", "ahk_exe Telegram.exe"
+GroupAdd "Main", "ahk_exe Code.exe"
+GroupAdd "Main", "ahk_exe Discord.exe" 
+GroupAdd "Main", "Monkeytype"
+GroupAdd "Main", "Google Calendar"
+GroupAdd "Main", "AutoHotkey Help"
+GroupAdd "Main", "AutoHotkey v2 Help"
+
 ;Messengers
 GroupAdd "Messenger", "Messenger"
 GroupAdd "Messenger", "Telegram"
@@ -1069,6 +1080,13 @@ ifMinMax(title)
       return 0
 }
 
+;If the window exists and is not active, activate it
+ifAct(title)
+{
+   if WinExist(title) && !WinActive(title)
+      WinActivate title
+}
+
 ;Run an exe, activate its window
 RunApp(winTitle, exePath)
 {
@@ -1081,10 +1099,7 @@ RunApp(winTitle, exePath)
 ifRunApp(winTitle, exePath)
 {
    if !WinExist(winTitle)
-   {
-      Run exePath,, "Max" 
-      WinWait winTitle
-   } 
+      Run exePath
 }
 
 ;If the app doesn't exist, launches it. If it does and is active, minimizes it. If it's minimized, activates it
@@ -1164,7 +1179,7 @@ WindowsApp_Folders(folderPath)
    todoist := "ahk_exe Todoist.exe"
    todoist_exe := "C:\Users\serge\AppData\Local\Programs\todoist\Todoist.exe"
    ;Telegram
-   telegram := "ahk_exe Telegram.exe"
+   telegram := "Telegram"
    telegram_exe := "C:\Programs\Telegram Desktop\Telegram.exe"
    ;Visual Studio Code
    vscode := "ahk_exe Code.exe"
@@ -1177,7 +1192,6 @@ WindowsApp_Folders(folderPath)
    spotify_exe := "C:\Users\serge\AppData\Roaming\Spotify\Spotify.exe"
    ;Steam
    steam := "ahk_exe steam.exe"
-   steam_exe := "C:\Programs\Steam\steam.exe"
 
    ;Variable for ALL the main 6 apps existing
    mainAppsExist := (WinExist(chrome) && WinExist(todoist) && WinExist(telegram) && WinExist(vscode) && WinExist(discord) && WinExist(spotify)) 
@@ -1185,8 +1199,8 @@ WindowsApp_Folders(folderPath)
    if WinExist("ahk_group Game")
       MinMax("ahk_group Game")
    else
-      (mainAppsExist ? (WinClose(chrome), WinClose(todoist), WinClose(telegram), WinClose(vscode), WinClose(discord), ifWinClose("Monkeytype"), ifWinClose("Google Calendar"), ifWinClose("AutoHotkey Help"), ifWinClose("AutoHotkey v2 Help"), WinActivate(spotify)) 
-      : (ifWinClose(steam), ifRunApp(chrome, chrome_exe), ifRunApp(todoist, todoist_exe), ifRunApp("Telegram", telegram_exe), ifRunApp(vscode, vscode_exe), ifRunApp(discord, discord_exe), ifRunApp(spotify, spotify_exe)))
+      (mainAppsExist ? (WinClose("ahk_group Main"), WinActivate(spotify)) 
+      : (ifWinClose(steam), ifRunApp(chrome, chrome_exe), ifRunApp(spotify, spotify_exe), ifRunApp(todoist, todoist_exe), ifRunApp(telegram, telegram_exe), ifRunApp(vscode, vscode_exe), ifRunApp(discord, discord_exe)))
 }
 
 

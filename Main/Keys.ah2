@@ -68,7 +68,18 @@ Pause::SoundPlay("*-1"), Run(A_WorkingDir . "\Test\Tests.ah2")
 select := "{Down}{Enter}"
 
 ;Time part of the ekursы link
-ekurs_time := 1648746000
+Switch A_MMMM 
+{
+   Case "April":ekurs_time := 1648746000
+   Case "May":ekurs_time := 1651338000
+   Case "June":ekurs_time := 1654016400
+   Case "July":ekurs_time := 1656608400
+   Case "August":ekurs_time := 1659286800
+   Case "September":ekurs_time := 1661965200
+   Case "October":ekurs_time := 1664557200
+   Case "November":ekurs_time := 1667235600
+   Case "December":ekurs_time := 1669827600
+}
 
 ;Games
 GroupAdd "Game", "Enter the Gungeon"
@@ -317,6 +328,8 @@ XButton2::XButton2
       Case "gogoanime":RunLink("https://gogoanime.fi/")
       ;Mvideo
       Case "mvideo":RunLink("https://www.mvideo.ru/")
+      ;Steam keys
+      Case "zaka", "zakazaka":RunLink("https://zaka-zaka.com/")
       ;Barbershop
       Case "barber":RunLink("https://b73723.yclients.com/company/89170/menu?o=")
       ;Emoji unicodes

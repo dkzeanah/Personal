@@ -60,15 +60,12 @@ p —! palletes
 \ — 
 a — select all
 s — 
-d — 
-   [vs code] — find all references
+d — find all references
 f — get mouse pos and bring up a gui with options for formatting 
 g — 
 h — run current file
-j — 
-   [vs code] —! add next selection / change all occurences, refactor, rename symbol / rename
-k —
-   [vs code] —! get the sc code of a key, get full / relative path of file 
+j —! add next selection / change all occurences, refactor, rename symbol / rename
+k —! get the sc code of a key, get full / relative path of file 
 l — open something by typing it in
 ж — 
 э — 

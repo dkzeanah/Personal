@@ -86,6 +86,7 @@ GroupAdd "Messenger", "WhatsApp"
 GroupAdd "Messenger", "Viber"
 GroupAdd "Messenger", "YouTube"
 GroupAdd "Messenger", "Instagram" 
+GroupAdd "Messenger", "Twitter" 
 
 ;Whatsapp and viber
 GroupAdd "Whatiber", "WhatsApp"
@@ -295,33 +296,33 @@ XButton2::XButton2
       ;——————————————————
 
       ;Reddit
-      Case "reddit":RunLink "https://www.reddit.com/notifications"
+      Case "reddit":RunLink("https://www.reddit.com/notifications")
       ;Instagram
-      Case "inst", "instagram":RunLink "https://www.instagram.com/"
+      Case "inst", "instagram":RunLink("https://www.instagram.com/")
       ;Twitter
-      Case "twit", "twitter":RunLink "https://twitter.com/home"
+      Case "twit", "twitter":RunLink("https://twitter.com/home")
       ;Eкурсы
-      Case "eku":RunLink "https://e.sfu-kras.ru/calendar/view.php?view=month&time=" . ekurs_time
+      Case "eku":RunLink("https://e.sfu-kras.ru/calendar/view.php?view=month&time=" . ekurs_time)
       ;MyAnimeList
-      Case "mal":RunLink "https://myanimelist.net/profile/Axlefublr"
+      Case "mal":RunLink("https://myanimelist.net/profile/Axlefublr")
       ;Metta
-      Case "metta":RunLink "https://mettalife.ru/pl/my?gcmes=5779290672&gcmlg=-4"
+      Case "metta":RunLink("https://mettalife.ru/pl/my?gcmes=5779290672&gcmlg=-4")
       ;Weather
-      Case "weather":RunLink "https://yandex.ru/pogoda/krasnoyarsk"
+      Case "weather":RunLink("https://yandex.ru/pogoda/krasnoyarsk")
       ;GitHub
-      Case "git":RunLink "https://github.com/Axlefublr"
+      Case "git":RunLink("https://github.com/Axlefublr")
       ;Watch movies
-      Case "movies":RunLink "https://watchmovieshd.ru/"
+      Case "movies":RunLink("https://watchmovieshd.ru/")
       ;Gogoanime
-      Case "gogoanime":RunLink "https://gogoanime.fi/"
+      Case "gogoanime":RunLink("https://gogoanime.fi/")
       ;Mvideo
-      Case "mvideo":RunLink "https://www.mvideo.ru/"
+      Case "mvideo":RunLink("https://www.mvideo.ru/")
       ;Barbershop
-      Case "barber":RunLink "https://b73723.yclients.com/company/89170/menu?o="
+      Case "barber":RunLink("https://b73723.yclients.com/company/89170/menu?o=")
       ;Emoji unicodes
-      Case "emoji":RunLink "https://www.alt-codes.net/smiley_alt_codes.php"
+      Case "emoji":RunLink("https://www.alt-codes.net/smiley_alt_codes.php")
       ;Share files
-      Case "share files":RunLink "https://files.fm/"
+      Case "share files":RunLink("https://files.fm/")
 
 
       ;РАСПИСАНИЕ
@@ -547,7 +548,7 @@ $XButton1::
                if ProcessExist(Playlist_moving_PID)
                   Send "{Launch_Mail}"
                else 
-                  Run A_WorkingDir . "\Tools\Playlist moving.ahk",,, &Playlist_moving_PID
+                  Run A_WorkingDir . "\Tools\Playlist moving.ah2",,, &Playlist_moving_PID
             Case down:
                ;Unlikes current track and opens the menu for you to click to delete it from the playlist
                ControlClick "X36 Y1021",,, "R" 

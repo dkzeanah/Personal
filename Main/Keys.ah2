@@ -176,6 +176,12 @@ RunLink(link)
    WinActivate "Google Chrome"
 }
 
+;A faster send for discord. Sending stuff can take too long, but if you copy and paste it, it's much faster. Takes care of your previous clipboard disappearing as well
+ClipSend(linkText)
+{
+   prevClip := A_Clipboard, A_Clipboard := linkText, KeyWait("Insert", "D"), Send("^v"), KeyWait("Insert", "U"), A_Clipboard := prevClip
+}
+
 
 
 
@@ -222,19 +228,13 @@ RunLink(link)
 !Enter::Send select
 
 ;Easily accessible paste window
-^Insert::Send "#v"
-
-;Copy
-#Insert::Send "^c"
+#Insert::Send "#v"
 
 ;Cut
 !Insert::Send "^x"
 
-;Cut everything that you've written
-^!Insert::Send "^a^x"
-
 ;Delete everything that you've written
-!Delete::Send "^a{Delete}" 
+!Delete::Send "^a" 
 
 #HotIf 
 ;Shift alt w closes a tab
@@ -391,6 +391,13 @@ XButton2::XButton2
       ;Running tasks
       Case "format table to array":Format_Table_to_Array()
       Case "new project tasks":Run A_WorkingDir . "\Scripts\New project tasks.py"
+
+
+      ;MEMES
+      ;————————————
+
+      ;Youtube links
+      Case "I made it the fuck up", "I made it up":ClipSend("https://www.youtube.com/watch?v=r7l0Rq9E8MY")
    }
 }
 
@@ -1125,7 +1132,7 @@ WindowsApp_Folders(folderPath)
 {
    Switch
    {
-      Case !WinExist(folderPath):RunWait folderPath
+      Case !WinExist(folderPath):Run(folderPath), WinWait(folderPath), WinActivate(folderPath)
       Case WinActive(folderPath):WinMinimize folderPath
       Case !WinActive(folderPath):WinActivate folderPath
    }

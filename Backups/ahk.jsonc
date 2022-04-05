@@ -405,5 +405,11 @@
          "OnEvent($0)"
       ]
    },
+   "ClipWait": {
+      "prefix": "ClipWait",
+      "body": [
+         "ClipWait"
+      ]
+   },
    
 }

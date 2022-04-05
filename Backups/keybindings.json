@@ -97,7 +97,7 @@
         "when": "inDebugMode"
     },
     {
-        "key": "shift+right",
+        "key": "ctrl+alt+right",
         "command": "workbench.action.debug.stepOver",
         "when": "debugState == 'stopped'"
     },
@@ -453,11 +453,6 @@
       "key": "f11",
       "command": "-extension.node-debug.startWithStopOnEntry",
       "when": "!inDebugMode && debugConfigurationType == 'node' || !inDebugMode && debugConfigurationType == 'pwa-extensionHost' || !inDebugMode && debugConfigurationType == 'pwa-node'"
-   },
-   {
-      "key": "f9",
-      "command": "workbench.action.debug.start",
-      "when": "debuggersAvailable && debugState == 'inactive' "
    },
    {
       "key": "f5",
@@ -1450,5 +1445,19 @@
    {
       "key": "ctrl+oem_1 ctrl+l",
       "command": "-testing.debugLastRun"
+   },
+   {
+      "key": "f9",
+      "command": "workbench.action.debug.selectandstart"
+   },
+   {
+      "key": "f10",
+      "command": "-jupyter.runByLineNext",
+      "when": "jupyter.notebookeditor.runByLineInProgress"
+   },
+   {
+      "key": "f10",
+      "command": "-jupyter.runByLine",
+      "when": "!jupyter.notebookeditor.debuggingInProgress && !jupyter.notebookeditor.runByLineInProgress && notebookKernelCount > 0"
    }
 ]

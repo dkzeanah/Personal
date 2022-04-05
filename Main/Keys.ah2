@@ -1,10 +1,9 @@
-SetWorkingDir A_ScriptDir "\..\" ;Ensures a consistent A_WorkingDir.
+SetWorkingDir A_ScriptDir . "\..\" ;Ensures a consistent A_WorkingDir.
 #SingleInstance Force ;Launches the new instance of the script always, instead of asking whether it should
 #Hotstring EndChars `t ;Decides the characters that can finish a hotstring
 #WinActivateForce ;Forces windows to be activated, skipping the gentle method
 CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of the window's
 A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seconds
-; Persistent True ;Make the script not autoquit if it doesn't have hotkeys
 
 
 
@@ -60,10 +59,10 @@ Pause::SoundPlay("*-1"), Run(A_WorkingDir . "\Test\Tests.ah2")
 
 
 ;An array of the 1000 most used english words
-#Include "C:\Files\Programming\Personal\Libraries\Random words.ah2"
+#Include "%A_ScriptDir%\..\Libraries\Random words.ah2"
 
 ;A dictionary of key names and SC codes of them
-#Include "C:\Files\Programming\Personal\Libraries\Key codes.ah2"
+#Include "%A_ScriptDir%\..\Libraries\Key codes.ah2"
 
 ;Often when you want something selected, you'll send down and enter, so this is the variable for that 
 select := "{Down}{Enter}"
@@ -147,6 +146,13 @@ Format_Table_to_Array()
    MsgBox "Done formatting table to array"
 }
 
+;Runs the link and makes sure the browser is activated
+RunLink(link)
+{
+   Run link
+   WinActivate "Google Chrome"
+}
+
 
 
 
@@ -219,7 +225,7 @@ Format_Table_to_Array()
 ;————————————————————
 
 ;Media hotkeys
-!SC029::Media_Play_Pause
+!CapsLock::Media_Play_Pause
 >^Home::Volume_Up
 >^End::Volume_Down
 >^Insert::Volume_Mute
@@ -289,33 +295,33 @@ XButton2::XButton2
       ;——————————————————
 
       ;Reddit
-      Case "reddit":Run "https://www.reddit.com/notifications"
+      Case "reddit":RunLink "https://www.reddit.com/notifications"
       ;Instagram
-      Case "inst", "instagram":Run "https://www.instagram.com/"
+      Case "inst", "instagram":RunLink "https://www.instagram.com/"
       ;Twitter
-      Case "twit", "twitter":Run "https://twitter.com/home"
+      Case "twit", "twitter":RunLink "https://twitter.com/home"
       ;Eкурсы
-      Case "eku":Run "https://e.sfu-kras.ru/calendar/view.php?view=month&time=" . ekurs_time
+      Case "eku":RunLink "https://e.sfu-kras.ru/calendar/view.php?view=month&time=" . ekurs_time
       ;MyAnimeList
-      Case "mal":Run "https://myanimelist.net/profile/Axlefublr"
+      Case "mal":RunLink "https://myanimelist.net/profile/Axlefublr"
       ;Metta
-      Case "metta":Run "https://mettalife.ru/pl/my?gcmes=5779290672&gcmlg=-4"
+      Case "metta":RunLink "https://mettalife.ru/pl/my?gcmes=5779290672&gcmlg=-4"
       ;Weather
-      Case "weather":Run "https://yandex.ru/pogoda/krasnoyarsk"
+      Case "weather":RunLink "https://yandex.ru/pogoda/krasnoyarsk"
       ;GitHub
-      Case "git":Run "https://github.com/Axlefublr"
+      Case "git":RunLink "https://github.com/Axlefublr"
       ;Watch movies
-      Case "movies":Run "https://watchmovieshd.ru/"
+      Case "movies":RunLink "https://watchmovieshd.ru/"
       ;Gogoanime
-      Case "gogoanime":Run "https://gogoanime.fi/"
+      Case "gogoanime":RunLink "https://gogoanime.fi/"
       ;Mvideo
-      Case "mvideo":Run "https://www.mvideo.ru/"
+      Case "mvideo":RunLink "https://www.mvideo.ru/"
       ;Barbershop
-      Case "barber":Run "https://b73723.yclients.com/company/89170/menu?o="
+      Case "barber":RunLink "https://b73723.yclients.com/company/89170/menu?o="
       ;Emoji unicodes
-      Case "emoji":Run "https://www.alt-codes.net/smiley_alt_codes.php"
+      Case "emoji":RunLink "https://www.alt-codes.net/smiley_alt_codes.php"
       ;Share files
-      Case "share files":Run "https://files.fm/"
+      Case "share files":RunLink "https://files.fm/"
 
 
       ;РАСПИСАНИЕ
@@ -852,7 +858,7 @@ XButton2 & Volume_Down::
 {
    tempClip := A_Clipboard
    Send "^c"
-   Sleep 100
+   ClipWait 10, 1
    MsgBox Name_bySC[A_Clipboard], "Key name by SC key"
    A_Clipboard := tempClip
 }

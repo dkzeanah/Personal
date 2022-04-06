@@ -88,6 +88,7 @@ GroupAdd "Game", "Super Auto Pets"
 GroupAdd "Game", "Nuclear Throne"
 GroupAdd "Game", "Terraria"
 GroupAdd "Game", "Minecraft"
+GroupAdd "Game", "ahk_exe METAL GEAR RISING REVENGEANCE.exe"
 
 ;Main apps
 GroupAdd "Main", "ahk_exe chrome.exe"
@@ -227,6 +228,10 @@ ClipSend(linkText)
 ;Alt enter in down enter
 !Enter::Send select
 
+;Undo/redo
++!Left::Send "^z"
++!Right::Send "^y"
+
 ;Easily accessible paste window
 #Insert::Send "#v"
 
@@ -248,7 +253,7 @@ ClipSend(linkText)
 ;————————————————————
 
 ;Media hotkeys
-!CapsLock::Media_Play_Pause
+!SC029::Media_Play_Pause
 >^Home::Volume_Up
 >^End::Volume_Down
 >^Insert::Volume_Mute
@@ -293,12 +298,20 @@ ClipSend(linkText)
 AppsKey::LCtrl 
 
 ;Makes sure the side mouse buttons work as intended ingame, despite their remapping outside of game 
-#HotIf WinActive("ahk_group Game")
+#HotIf WinActive("ahk_group Game") && !WinActive("ahk_exe METAL GEAR RISING REVENGEANCE.exe")
 Volume_Down & MButton::Media_Play_Pause
 XButton1::XButton1
 XButton2::XButton2
 #HotIf
 
+#HotIf WinActive("ahk_exe METAL GEAR RISING REVENGEANCE.exe")
+XButton1::z
+XButton2::x
+XButton1 & XButton2::c
+XButton2 & XButton1::f
+CapsLock::Enter
+Volume_Down::q
+#HotIf
 
 
 
@@ -311,8 +324,7 @@ XButton2::XButton2
 ;Gives you a place to essentially type a hotstring. Runs what you entered
 +!l::
 {
-   Path_or_Link := InputBox("What do you want to run?", "Runner").value
-   Switch Path_or_Link
+   Switch InputBox("What do you want to run?", "Runner").value
    {
       ;WEBSITES
       ;——————————————————
@@ -450,7 +462,6 @@ Volume_Down & XButton2::PressSend_Double("XButton2","^v","#v")
 Volume_Down & XButton1::PressSend_Double("XButton1","^c","^x")
 Volume_Down & MButton::F5
 
-#HotIf
 
 ;Special button by itself pressed in different sections of the screen does different things
 Volume_Down::
@@ -470,6 +481,8 @@ Volume_Down::
          Send "{AltUp}"
    } 
 }
+
+#HotIf
 
 
 #HotIf !WinActive("ahk_group Game")

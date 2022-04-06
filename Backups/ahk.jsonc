@@ -719,5 +719,113 @@
       "body": [
          "WinMinimize"
       ]
-   }
+   },
+   "SetScrollLockState": {
+      "prefix": "SetScrollLockState",
+      "body": [
+         "SetScrollLockState"
+      ]
+   },
+   ".Value": {
+      "prefix": ".Value",
+      "body": [
+         ".Value"
+      ]
+   },
+   ".Result": {
+      "prefix": ".Result",
+      "body": [
+         ".Result"
+      ]
+   },
+   "A_Sec": {
+      "prefix": "A_Sec",
+      "body": [
+         "A_Sec"
+      ]
+   },
+   "A_Hour": {
+      "prefix": "A_Hour",
+      "body": [
+         "A_Hour"
+      ]
+   },
+   "A_Min": {
+      "prefix": "A_Min",
+      "body": [
+         "A_Min"
+      ]
+   },
+   ".Show": {
+      "prefix": ".Show",
+      "body": [
+         ".Show"
+      ]
+   },
+   ".SetFont": {
+      "prefix": ".SetFont",
+      "body": [
+         ".SetFont"
+      ]
+   },
+   ".Add": {
+      "prefix": "",
+      "body": [
+         ""
+      ]
+   },
+   ".OnEvent": {
+      "prefix": ".OnEvent",
+      "body": [
+         ".OnEvent"
+      ]
+   },
+   "Button": {
+      "prefix": "Button",
+      "body": [
+         "Button"
+      ]
+   },
+   "Text": {
+      "prefix": "Text",
+      "body": [
+         "Text"
+      ]
+   },
+   "Gui": {
+      "prefix": "Gui",
+      "body": [
+         "Gui($0)"
+      ]
+   },
+   ".Text": {
+      "prefix": ".Text",
+      "body": [
+         ".Text"
+      ]
+   },
+   "Map": {
+      "prefix": "Map",
+      "body": [
+         "Map($0)"
+      ]
+   },
+   "for in": {
+      "prefix": "for in",
+      "body": [
+         "for $1 in $0"
+      ]
+   },
+   "value": {
+      "prefix": "value",
+      "body": [
+         "value"
+      ]
+   },
+   "key": {
+      "prefix": "key",
+      "body": [
+         "key"
+      ]
+   },
 }

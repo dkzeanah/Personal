@@ -447,5 +447,277 @@
          "ClipboardAll($0)"
       ]
    },
-   
+   "CoordMode": {
+      "prefix": "CoordMode",
+      "body": [
+         "CoordMode ${1:\"Mouse\"} ${2:\"Screen\"}"
+      ]
+   },
+   "A_MaxHotkeysPerInterval": {
+      "prefix": "A_MaxHotkeysPerInterval",
+      "body": [
+         "A_MaxHotkeysPerInterval"
+      ]
+   },
+   "ScrollLock": {
+      "prefix": "ScrollLock",
+      "body": [
+         "ScrollLock"
+      ]
+   },
+   "Run": {
+      "prefix": "Run",
+      "body": [
+         "Run"
+      ]
+   },
+   "SoundPlay": {
+      "prefix": "SoundPlay",
+      "body": [
+         "SoundPlay"
+      ]
+   },
+   "A_ScriptFullPath": {
+      "prefix": "A_ScriptFullPath",
+      "body": [
+         "A_ScriptFullPath"
+      ]
+   },
+   "#SuspendExempt": {
+      "prefix": "#SuspendExempt",
+      "body": [
+         "#SuspendExempt"
+      ]
+   },
+   "A_IsSuspended": {
+      "prefix": "A_IsSuspended",
+      "body": [
+         "A_IsSuspended"
+      ]
+   },
+   "Suspend": {
+      "prefix": "Suspend",
+      "body": [
+         "Suspend"
+      ]
+   },
+   "Pause": {
+      "prefix": "Pause",
+      "body": [
+         "Pause"
+      ]
+   },
+   "A_WorkingDir": {
+      "prefix": "A_WorkingDir",
+      "body": [
+         "A_WorkingDir"
+      ]
+   },
+   "Shutdown": {
+      "prefix": "Shutdown",
+      "body": [
+         "Shutdown"
+      ]
+   },
+   "A_MMMM": {
+      "prefix": "A_MMMM",
+      "body": [
+         "A_MMMM"
+      ]
+   },
+   "Send": {
+      "prefix": "Send",
+      "body": [
+         "Send"
+      ]
+   },
+   "WinClose": {
+      "prefix": "WinClose",
+      "body": [
+         "WinClose"
+      ]
+   },
+   "SendEvent": {
+      "prefix": "SendEvent",
+      "body": [
+         "SendEvent"
+      ]
+   },
+   "StrReplace": {
+      "prefix": "StrReplace",
+      "body": [
+         "StrReplace($0)"
+      ]
+   },
+   "Insert": {
+      "prefix": "Insert",
+      "body": [
+         "Insert"
+      ]
+   },
+   "Escape": {
+      "prefix": "Escape",
+      "body": [
+         "Escape"
+      ]
+   },
+   "Enter": {
+      "prefix": "Enter",
+      "body": [
+         "Enter"
+      ]
+   },
+   "PostMessage": {
+      "prefix": "PostMessage",
+      "body": [
+         "PostMessage"
+      ]
+   },
+   "Delete": {
+      "prefix": "Delete",
+      "body": [
+         "Delete"
+      ]
+   },
+   "ahk_group": {
+      "prefix": "ahk_group",
+      "body": [
+         "ahk_group"
+      ]
+   },
+   "AppsKey": {
+      "prefix": "AppsKey",
+      "body": [
+         "AppsKey"
+      ]
+   },
+   "Default": {
+      "prefix": "Default",
+      "body": [
+         "Default"
+      ]
+   },
+   "WinGetID": {
+      "prefix": "WinGetID",
+      "body": [
+         "WinGetID($0)"
+      ]
+   },
+   "Hotkey": {
+      "prefix": "::",
+      "body": [
+         "::",
+         "{",
+         "\t$0",
+         "}"
+      ]
+   },
+   "Launch_Media": {
+      "prefix": "Launch_Media",
+      "body": [
+         "Launch_Media"
+      ]
+   },
+   "Media_Stop": {
+      "prefix": "Media_Stop",
+      "body": [
+         "Media_Stop"
+      ]
+   },
+   "Launch_App1": {
+      "prefix": "Launch_App1",
+      "body": [
+         "Launch_App1"
+      ]
+   },
+   "Launch_Mail": {
+      "prefix": "Launch_Mail",
+      "body": [
+         "Launch_Mail"
+      ]
+   },
+   "Launch_App2": {
+      "prefix": "Launch_App2",
+      "body": [
+         "Launch_App2"
+      ]
+   },
+   "Browser_Home": {
+      "prefix": "Browser_Home",
+      "body": [
+         "Browser_Home"
+      ]
+   },
+   "Sleep": {
+      "prefix": "Sleep",
+      "body": [
+         "Sleep"
+      ]
+   },
+   "PrintScreen": {
+      "prefix": "PrintScreen",
+      "body": [
+         "PrintScreen"
+      ]
+   },
+   "PgUp": {
+      "prefix": "PgUp",
+      "body": [
+         "PgUp"
+      ]
+   },
+   "PgDn": {
+      "prefix": "PgDn",
+      "body": [
+         "PgDn"
+      ]
+   },
+   "ahk_exe": {
+      "prefix": "ahk_exe",
+      "body": [
+         "ahk_exe"
+      ]
+   },
+   "static": {
+      "prefix": "static",
+      "body": [
+         "static"
+      ]
+   },
+   "return": {
+      "prefix": "return",
+      "body": [
+         "return"
+      ]
+   },
+   "WheelUp": {
+      "prefix": "WheelUp",
+      "body": [
+         "WheelUp"
+      ]
+   },
+   "WheelDown": {
+      "prefix": "WheelDown",
+      "body": [
+         "WheelDown"
+      ]
+   },
+   "MButton": {
+      "prefix": "MButton",
+      "body": [
+         "MButton"
+      ]
+   },
+   "Mod": {
+      "prefix": "Mod",
+      "body": [
+         "Mod($0)"
+      ]
+   },
+   "WinMinimize": {
+      "prefix": "WinMinimize",
+      "body": [
+         "WinMinimize"
+      ]
+   }
 }

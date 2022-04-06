@@ -1459,5 +1459,13 @@
       "key": "f10",
       "command": "-jupyter.runByLine",
       "when": "!jupyter.notebookeditor.debuggingInProgress && !jupyter.notebookeditor.runByLineInProgress && notebookKernelCount > 0"
+   },
+   {
+      "key": "ctrl+alt+up",
+      "command": "editor.action.moveCarretLeftAction"
+   },
+   {
+      "key": "ctrl+alt+down",
+      "command": "editor.action.moveCarretRightAction"
    }
 ]

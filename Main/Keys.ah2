@@ -299,18 +299,16 @@ AppsKey::LCtrl
 
 ;Makes sure the side mouse buttons work as intended ingame, despite their remapping outside of game 
 #HotIf WinActive("ahk_group Game") && !WinActive("ahk_exe METAL GEAR RISING REVENGEANCE.exe")
-Volume_Down & MButton::Media_Play_Pause
-XButton1::XButton1
-XButton2::XButton2
+*XButton2::y
+*XButton1::u
+*Volume_Down::i
 #HotIf
 
 #HotIf WinActive("ahk_exe METAL GEAR RISING REVENGEANCE.exe")
-XButton1::z
-XButton2::x
-XButton1 & XButton2::c
-XButton2 & XButton1::f
-CapsLock::Enter
-Volume_Down::q
+*XButton2::LCtrl
+*XButton1::u
+*CapsLock::Enter
+*Volume_Down::i
 #HotIf
 
 
@@ -455,7 +453,7 @@ $Browser_Home::return ;F12
 ;###################################################################################### 
 
 
-#HotIf
+#HotIf !WinActive("ahk_exe METAL GEAR RISING REVENGEANCE.exe") && !WinActive("ahk_group Game")
 
 ;Special button + side buttons
 Volume_Down & XButton2::PressSend_Double("XButton2","^v","#v")
@@ -529,6 +527,7 @@ $XButton2::
             Case WinActive(" - YouTube") && !WinActive("Watch later") && !WinActive("Subscriptions"):Send "+n"
             Case WinActive("ahk_exe Spotify.exe"):Send "^{Right}"
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgDn}"
+            Case WinActive("SoundCloud"):Send "+{Right}"
             Default:Send "{Media_Next}"
          }
       Case left:
@@ -537,6 +536,7 @@ $XButton2::
             Case WinActive(" - YouTube") && !WinActive("Watch later") && !WinActive("Subscriptions"):Send "+p"
             Case WinActive("ahk_exe Spotify.exe"):Send "^{Left}"
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgUp}"
+            Case WinActive("SoundCloud"):Send "+{Left}"
             Default:Send "{Media_Prev}"
          }
       Case down:((WinActive("ahk_exe Spotify.exe")) ? (Send("^+q")) : (PostMessage("0x0010",,,, "A"))) ;Closes the active window
@@ -605,6 +605,15 @@ $XButton1::
                Sleep 5
                Send "+!b" 
          } 
+      Case WinActive("SoundCloud"):
+         Switch
+         {
+            Default:Send "{Browser_Back}"
+            Case right:Send "p"
+            Case left:Send "gl"
+            Case up:Send "l"
+            Case down:Send "+s"
+         }
       Case WinActive("ahk_exe wps.exe"): 
          Switch
          {
@@ -796,6 +805,29 @@ $F6::Todoist_Search("shopping")
 
 ;Enter is always down enter
 $Enter::Send select
+
+#HotIf
+
+
+#HotIf WinActive("SoundCloud")
+
+;Skips
+$PgDn::Send "+{Right}"
+$PgUp::Send "+{Left}"
+
+;Volume
+$Insert::Volume_Up
+$Delete::Volume_Down
+
+;Delete search thing
+!Delete::Send "^a{Delete}"
+
+;Search that doesn't choose wherever you mouse was when you pressed enter
+$<+s::
+{
+   MouseMove 1263, 459
+   Send "s^a{Delete}"
+}
 
 #HotIf
 
@@ -1231,6 +1263,9 @@ $<!a::WindowsApp("ahk_exe Code.exe", "C:\Programs\Microsoft VS Code\Code.exe")
 
 ;Spotify 
 $<!s::WindowsApp("ahk_exe Spotify.exe", "C:\Users\serge\AppData\Roaming\Spotify\Spotify.exe")
+
+;SoundCloud
+$<!k::WindowsApp_WinNum("SoundCloud", "6")
 
 ;Chrome 
 <!c::WindowsApp("Google Chrome", "C:\Program Files\Google\Chrome\Application\chrome.exe")

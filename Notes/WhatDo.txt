@@ -14,7 +14,7 @@ p —
 ] — davinci resolve 17
 \ — 
 a — vs code
-s — spotify
+s — soundcloud
 d — documents
 f — fl studio, projects
 g — game winapp, open/close main apps
@@ -22,7 +22,7 @@ h — [spotify] — liked
 j — 
    [spotify] — search
    [ahk docs] — search
-k — 
+k — spotify
 l — 
 ж — ahk v2 docs
 э — ahk docs

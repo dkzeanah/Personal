@@ -162,27 +162,6 @@ ClickThenGoBack_Event(coordinates)
    MouseMove initX, initY
 } 
 
-;Intakes text that's written on multiple lines. For every line ending character, replaces it with ", ", formatting every line into a 
-Format_Table_to_Array()
-{
-   A_Clipboard := StrReplace(A_Clipboard, "`r`n", '", "') 
-   A_Clipboard := "`"" . A_Clipboard . "`""
-   MsgBox "Done formatting table to array"
-}
-
-;Runs the link and makes sure the browser is activated
-RunLink(link)
-{
-   Run link
-   WinActivate "Google Chrome"
-}
-
-;A faster send for discord. Sending stuff can take too long, but if you copy and paste it, it's much faster. Takes care of your previous clipboard disappearing as well
-ClipSend(linkText)
-{
-   prevClip := A_Clipboard, A_Clipboard := linkText, KeyWait("Insert", "D"), Send("^v"), KeyWait("Insert", "U"), A_Clipboard := prevClip
-}
-
 
 
 
@@ -232,20 +211,18 @@ ClipSend(linkText)
 +!Left::Send "^z"
 +!Right::Send "^y"
 
+;Select all
+$Insert::Send "^a"
+
 ;Easily accessible paste window
 #Insert::Send "#v"
 
 ;Cut
 !Insert::Send "^x"
 
-;Delete everything that you've written
-!Delete::Send "^a" 
-
 #HotIf 
 ;Shift alt w closes a tab
 +!w::Send "^w"
-;Shift alt a selects all
-+!a::Send "^a"
 #HotIf 
 
 
@@ -401,6 +378,8 @@ AppsKey::LCtrl
       ;Running tasks
       Case "format table to array":Format_Table_to_Array()
       Case "new project tasks":Run A_WorkingDir . "\Scripts\New project tasks.py"
+      Case "click counter":Run A_WorkingDir . "\Tools\Click counter.ah2"
+      Case "coin flip":CoinFlip()
 
 
       ;MEMES
@@ -409,6 +388,36 @@ AppsKey::LCtrl
       ;Youtube links
       Case "I made it the fuck up", "I made it up":ClipSend("https://www.youtube.com/watch?v=r7l0Rq9E8MY")
    }
+
+   ;Takes a random number out of 1 and 100000, says yes if it's even, no if it's odd
+   CoinFlip()
+   {
+      coinFlip := Random(1, 100000)
+      ((Mod(coinFlip, 2)) ? (result := "Yes") : (result := "No"))
+      MsgBox result
+   }
+   
+   ;Intakes text that's written on multiple lines. For every line ending character, replaces it with ", ", formatting every line into a 
+   Format_Table_to_Array()
+   {
+      A_Clipboard := StrReplace(A_Clipboard, "`r`n", '", "') 
+      A_Clipboard := "`"" . A_Clipboard . "`""
+      MsgBox "Done formatting table to array"
+   }
+   
+   ;Runs the link and makes sure the browser is activated
+   RunLink(link)
+   {
+      Run link
+      WinActivate "Google Chrome"
+   }
+
+   ;A faster send for discord. Sending stuff can take too long, but if you copy and paste it, it's much faster. Takes care of your previous clipboard disappearing as well
+   ClipSend(linkText)
+   {
+      prevClip := A_Clipboard, A_Clipboard := linkText, KeyWait("Insert", "D"), Send("^v"), KeyWait("Insert", "U"), A_Clipboard := prevClip
+   }
+
 }
 
 ;Easy way to reactivate the previous window after using the quick add task of todoist
@@ -819,8 +828,8 @@ $PgUp::Send "+{Left}"
 $Insert::Volume_Up
 $Delete::Volume_Down
 
-;Delete search thing
-!Delete::Send "^a{Delete}"
+;Go to current track
+$<+w::Send "p"
 
 ;Search that doesn't choose wherever you mouse was when you pressed enter
 $<+s::
@@ -1089,14 +1098,6 @@ WheelDown::Send "{Right}"
    MsgBox clock_time . "`n" . clock_weekDay . "`n" . clock_date, "Current time", "4096"
 }
 
-;Takes a random number out of 1 and 100000, says yes if it's even, no if it's odd
-+!z::
-{
-   coinFlip := Random(1, 100000)
-   ((Mod(coinFlip, 2)) ? (result := "Yes") : (result := "No"))
-   MsgBox result
-}
-
 ;Opens an inputbox for you to put in the name of the key to get its SC code into your clipboard
 +!k::
 {
@@ -1219,6 +1220,9 @@ WindowsApp_Folders(folderPath)
 ;Video editor
 <!SC01B::WindowsApp("ahk_exe Resolve.exe", "C:\Programs\Davinci Resolve\Resolve.exe")
 
+;VPN
+<!m::WindowsApp("ahk_exe vpncmgr_x64.exe", "C:\Program Files\SoftEther VPN Client\vpncmgr_x64.exe")
+
 ;MinMaxes a game if it exists, closes all apps but spotify if all main 6 apps exist, if they don't: launches those apps of the main 6, that do not yet exist
 <!g:: 
 {
@@ -1265,13 +1269,10 @@ $<!a::WindowsApp("ahk_exe Code.exe", "C:\Programs\Microsoft VS Code\Code.exe")
 $<!s::WindowsApp("ahk_exe Spotify.exe", "C:\Users\serge\AppData\Roaming\Spotify\Spotify.exe")
 
 ;SoundCloud
-$<!k::WindowsApp_WinNum("SoundCloud", "6")
+$<!z::WindowsApp_WinNum("SoundCloud", "6")
 
 ;Chrome 
 <!c::WindowsApp("Google Chrome", "C:\Program Files\Google\Chrome\Application\chrome.exe")
-
-;VPN
-<!z::WindowsApp("ahk_exe vpncmgr_x64.exe", "C:\Program Files\SoftEther VPN Client\vpncmgr_x64.exe")
 
 ;Todoist
 <!x::WindowsApp("ahk_exe Todoist.exe", "C:\Users\serge\AppData\Local\Programs\todoist\Todoist.exe")

@@ -1462,10 +1462,12 @@
    },
    {
       "key": "ctrl+alt+up",
-      "command": "editor.action.moveCarretLeftAction"
+      "command": "editor.action.moveCarretLeftAction",
+      "when": "!findInputFocussed"
    },
    {
       "key": "ctrl+alt+down",
-      "command": "editor.action.moveCarretRightAction"
+      "command": "editor.action.moveCarretRightAction",
+      "when": "!findInputFocussed"
    }
 ]

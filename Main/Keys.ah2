@@ -4,6 +4,7 @@ SetWorkingDir A_ScriptDir . "\..\" ;Ensures a consistent A_WorkingDir.
 #WinActivateForce ;Forces windows to be activated, skipping the gentle method
 CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of the window's
 A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seconds
+#HotIf
 
 
 
@@ -220,10 +221,8 @@ $Insert::Send "^a"
 ;Cut
 !Insert::Send "^x"
 
-#HotIf 
 ;Shift alt w closes a tab
 +!w::Send "^w"
-#HotIf 
 
 
 ;INTERACTION
@@ -279,7 +278,6 @@ AppsKey::LCtrl
 *XButton2::y
 *XButton1::u
 *Volume_Down::i
-#HotIf
 
 #HotIf WinActive("ahk_exe METAL GEAR RISING REVENGEANCE.exe")
 *XButton2::LCtrl
@@ -379,7 +377,7 @@ AppsKey::LCtrl
       Case "format table to array":Format_Table_to_Array()
       Case "new project tasks":Run A_WorkingDir . "\Scripts\New project tasks.py"
       Case "click counter":Run A_WorkingDir . "\Tools\Click counter.ah2"
-      Case "coin flip":CoinFlip()
+      Case "coin flip":F_CoinFlip()
 
 
       ;MEMES
@@ -390,7 +388,7 @@ AppsKey::LCtrl
    }
 
    ;Takes a random number out of 1 and 100000, says yes if it's even, no if it's odd
-   CoinFlip()
+   F_CoinFlip()
    {
       coinFlip := Random(1, 100000)
       ((Mod(coinFlip, 2)) ? (result := "Yes") : (result := "No"))
@@ -404,7 +402,7 @@ AppsKey::LCtrl
       A_Clipboard := "`"" . A_Clipboard . "`""
       MsgBox "Done formatting table to array"
    }
-   
+
    ;Runs the link and makes sure the browser is activated
    RunLink(link)
    {
@@ -488,8 +486,6 @@ Volume_Down::
          Send "{AltUp}"
    } 
 }
-
-#HotIf
 
 
 #HotIf !WinActive("ahk_group Game")
@@ -618,7 +614,14 @@ $XButton1::
          Switch
          {
             Default:Send "{Browser_Back}"
-            Case right:Send "p"
+            Case right:
+               ;Launches a script that counts how many tracks you've added to a playlist in soundcloud (counts every shift you press) if it isn't already running, otherwise exits it by sending a button that is binded to an exitapp in that script
+               static Discovery_add_PID := 0
+               if ProcessExist(Discovery_add_PID)
+                  Send "{Launch_App2}"
+               else 
+                  Run A_WorkingDir . "\Tools\Discovery add.ah2",,, &Discovery_add_PID
+
             Case left:Send "gl"
             Case up:Send "l"
             Case down:Send "+s"
@@ -669,8 +672,6 @@ $XButton1::
    } 
 }
 
-#HotIf
-
 
 
 
@@ -703,8 +704,6 @@ Volume_Down & XButton1::
 ;Opens a new tab
 +!e::Send "^t"
 
-#HotIf
-
 
 #HotIf WinActive("YouTube") ;_youtube 
 
@@ -724,8 +723,6 @@ $PgUp::Send "+p"
 $Insert::Send "{Volume_Up}"
 $Delete::Send "{Volume_Down}"
 
-#HotIf
-
 
 #HotIf WinActive("Watch later") || WinActive("Subscriptions") || (WinActive("YouTube") && !WinActive(" - YouTube"))
 
@@ -734,8 +731,6 @@ Escape::ControlClick "X1858 Y665"
 
 ;Pop out window
 XButton1 & Volume_Down::i
-
-#HotIf
 
 
 #HotIf WinActive(" - YouTube") && !WinActive("Watch later") && !WinActive("Subscriptions")
@@ -749,8 +744,6 @@ XButton1 & Volume_Down::f
 ;Seek farther
 !Right::Send "l"
 !Left::Send "j"
-
-#HotIf
 
 
 #HotIf WinActive("ahk_exe Spotify.exe") ;_spotify
@@ -791,8 +784,6 @@ $Down::Send "{Volume_Down}"
 $Right::Send "+{Right}"
 $Left::Send "+{Left}"
 
-#HotIf
-
 
 #HotIf WinActive("Todoist") ;_todoist
 
@@ -815,8 +806,6 @@ $F6::Todoist_Search("shopping")
 ;Enter is always down enter
 $Enter::Send select
 
-#HotIf
-
 
 #HotIf WinActive("SoundCloud")
 
@@ -837,8 +826,6 @@ $<+s::
    MouseMove 1263, 459
    Send "s^a{Delete}"
 }
-
-#HotIf
 
 
 
@@ -866,13 +853,9 @@ XButton1 & Volume_Down::ControlClick "X788 Y126"
 ;Makes sure the tab can't be closed by shift alt w which is now ctrl w
 +!w::return
 
-#HotIf 
-
 ;Reminds of the markdown syntax for reddit
 #HotIf WinActive("Google Chrome") && !WinActive("Messenger")
 ^m::MsgBox "* italic *`n** bold **`n~~ strikethrough ~~`n>! spoiler !<`n[embed](link)`n^(superscript)`n`` code inline ```n # BIG TEXT", "MarkDown", "4096"
-#HotIf
-
 
 #HotIf WinActive("Telegram") ;_telegram
 
@@ -906,8 +889,6 @@ $F6::Telegram_Search("мама")
 $F7::Telegram_Search("кристина")
 $F8::Telegram_Search("алена")
 
-#HotIf 
-
 
 #HotIf WinActive("Discord") ;_discord
 
@@ -919,8 +900,6 @@ XButton2 & Volume_Down::Send "^g"
 
 ;Reminds of the markdown syntax in discord
 ^m::MsgBox "__ underline __`n* italic *`n** bold **`n~~ strikethrough ~~`n|| spoiler ||`n`````` code ```````n`` code inline ```n_ nothing _", "Markdown", "4096"
-
-#HotIf
 
 
 
@@ -949,8 +928,6 @@ XButton2 & Volume_Down::
    A_Clipboard := tempClip
 }
 
-#HotIf
-
 
 #HotIf WinActive("ahk_exe wps.exe") ;_wps
 
@@ -963,8 +940,6 @@ XButton2 & Volume_Down::
 ;Switch between open documents
 $!Tab::Send "^{Tab}"
 
-#HotIf
-
 
 #HotIf WinActive("ahk_exe KMPlayer64.exe")
 
@@ -975,8 +950,6 @@ $Delete::Send "{Delete 6}{Right 4}"
 $Up::Send "{Volume_Up}"
 $Down::Send "{Volume_Down}"
 
-#HotIf
-
 
 #HotIf WinActive("WatchMoviesHD")
 
@@ -986,8 +959,6 @@ $Down::Send "{Volume_Down}"
 
 ;Fullscreen
 XButton1 & Volume_Down::f
-
-#HotIf
 
 
 #HotIf WinActive("ahk_exe ScreenClippingHost.exe")
@@ -1031,8 +1002,6 @@ WheelUp::ScreenshotOptions("left")
 WheelDown::ScreenshotOptions("right")
 MButton::ClickThenGoBack("1017 29") ;Takes a full-screen screenshot
 
-#HotIf
-
 
 
 
@@ -1045,12 +1014,10 @@ MButton::ClickThenGoBack("1017 29") ;Takes a full-screen screenshot
 ;Search in docs
 #HotIf WinActive("ahk_group AutoHotkey_Help")
 !j::Send "!s"
-#HotIf
 
 ;Voice message
 #HotIf WinActive("ahk_group Whatiber")
 XButton2 & Volume_Down::ControlClick "X1873 Y1047"
-#HotIf
 
 ;Scroll to go between pics
 #HotIf WinActive("ahk_group Media")

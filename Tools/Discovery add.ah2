@@ -8,6 +8,7 @@ G_DiscoveryAdd.SetFont("S50")
 G_DiscoveryAdd_TracksAdded := G_DiscoveryAdd.Add("Text", "W200 X0 Y50 Center", "0")
 
 ~RButton::
+$LShift::
 {
    static tracksAdded := 0
    tracksAdded++
@@ -16,6 +17,7 @@ G_DiscoveryAdd_TracksAdded := G_DiscoveryAdd.Add("Text", "W200 X0 Y50 Center", "
    else
       ExitApp
 }
+#HotIf
 
 ;Trigger to exit the script by receiving the hotkey key from an another hotkey in an another script
 Launch_App2::ExitApp

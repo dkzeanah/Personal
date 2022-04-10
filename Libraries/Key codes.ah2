@@ -1,4 +1,4 @@
-SC_byName := Map("~", "SC029", 
+D_SCCodes_Out := Map("~", "SC029", 
 "1", "SC002", 
 "2", "SC003", 
 "3", "SC004", 
@@ -113,6 +113,6 @@ SC_byName := Map("~", "SC029",
 "eggplant", "U+1F346",
 "smiling_imp", "U+1F608")
 
-Name_bySC := Map()
-for key, value in SC_byName ;SC_byName is the map I wanted to switch keys with values of
-   Name_bySC[value] := key
+D_SCCodes_In := Map()
+for key, value in D_SCCodes_Out ;D_SCCodes_Out is the map I wanted to switch keys with values of
+   D_SCCodes_In[value] := key

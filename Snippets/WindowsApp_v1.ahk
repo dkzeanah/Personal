@@ -11,16 +11,16 @@ WinActive(title)
 }
 
 ;Minimizes or maximizes the window depending on its state
-MinMax(title) {
+F_MinMax(title) {
    (WinActive(title) ? WinMinimize(title) : WinActivate(title))
 }
 
 ;If the window exists, minimize or maximize it depending on its state and return 1, otherwise return 0
-ifMinMax(title)
+F_ifMinMax(title)
 {
    if WinExist(title)
    {
-      MinMax(title)
+      F_MinMax(title)
       return 1
    }
    else
@@ -28,7 +28,7 @@ ifMinMax(title)
 }
 
 ;Run an exe, activate its window
-RunApp(winTitle, exePath)
+F_RunApp(winTitle, exePath)
 {
    Run, %exePath%,, Max
    WinWait %winTitle%,, 10
@@ -36,9 +36,9 @@ RunApp(winTitle, exePath)
 } 
 
 ;If the app doesn't exist, launches it. If it does and is active, minimizes it. If it's minimized, activates it
-WindowsApp(winTitle, exePath) 
+F_WindowsApp(winTitle, exePath) 
 {
-   if !ifMinMax(winTitle)
-      RunApp(winTitle, exePath)
+   if !F_ifMinMax(winTitle)
+      F_RunApp(winTitle, exePath)
 }
 

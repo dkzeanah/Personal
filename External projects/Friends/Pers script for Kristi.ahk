@@ -81,9 +81,9 @@ XButton2::
 MouseGetPos, locX, locY
 right := (locX > 1368), left := (locX < 568), down := (locY > 747), up := (locY < 347) 
 if right ;Skip track in spotify
-   ControlClick, X1019 Y963, ahk_exe Spotify.exe
+   Send, {Media_Next}
 else if left ;Skip track in spotify but backwards
-   ControlClick, X919 Y963, ahk_exe Spotify.exe
+   Send, {Media_Prev}
 else if down
    Send, {Delete}
 else if up
@@ -93,12 +93,12 @@ else
 return
 
 ;Play pause, but only in spotify
-^!s::ControlClick, X970 Y963, ahk_exe Spotify.exe
-XButton2 & LButton::ControlClick, X970 Y961, ahk_exe Spotify.exe
+^!s::Send, {Media_Play_Pause}
+XButton2 & LButton::Media_Play_Pause
 
 ;Skip tracks in spotify, but with the keyboard
-^!Right::ControlClick, X1019 Y963, ahk_exe Spotify.exe
-^!Left::ControlClick, X919 Y963, ahk_exe Spotify.exe
+^!Right::Send, {Media_Next}
+^!Left::Send, {Media_Prev}
 
 ;Far side button plus Wheel is volume
 XButton2 & WheelUp::Volume_Up

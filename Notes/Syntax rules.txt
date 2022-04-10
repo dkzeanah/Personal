@@ -1,0 +1,29 @@
+Omit brackets if you can, unless it's your own function
+
+ahk_exe is preferred when possible
+
+ternary for if else
+   if for single
+      switch for three or more
+   
+All hotkeys use $
+
+$~*<#^+!
+
+Camel case for variables
+
+Pascal case for everything else
+
+_ after variable for its variations
+
+R_ for arrays
+
+D_ for dictionaries
+
+F_ for functions
+
+O_ for objects
+
+G_ for guis
+
+Gb_gui_ for guis' buttons

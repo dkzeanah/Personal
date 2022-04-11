@@ -199,7 +199,7 @@ $!-::Send "{ASC 0151}"
 ;—————————————————————————————
 
 ;Close active window
-$!Escape::(WinActive("ahk_exe Spotify.exe") ? Send("^+q") : PostMessage("0x0010",,,, "A"))
+$!Escape::PostMessage("0x0010",,,, "A")
 
 ;Alt enter in down enter
 $!Enter::Send select
@@ -496,7 +496,7 @@ XButton1 & WheelUp::Send "^y"
 XButton1 & WheelDown::Send "^z"
 
 ;Close side button with L and R buttons 
-XButton1 & LButton::(WinActive("ahk_exe Spotify.exe") ? Send(select) : Send("{BackSpace}"))
+XButton1 & LButton::BackSpace
 XButton1 & RButton::Delete
 
 ;Far side button with L and R buttons
@@ -523,7 +523,6 @@ $XButton2::
          Switch
          {
             Case (WinActive("YouTube Music") || WinActive(" - YouTube")) && !WinActive("Watch later") && !WinActive("Subscriptions"):Send "+n"
-            Case WinActive("ahk_exe Spotify.exe"):Send "^{Right}"
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgDn}"
             Default:Send "{Media_Next}"
          }
@@ -531,13 +530,12 @@ $XButton2::
          Switch
          {
             Case (WinActive("YouTube Music") || WinActive(" - YouTube")) && !WinActive("Watch later") && !WinActive("Subscriptions"):Send "+p"
-            Case WinActive("ahk_exe Spotify.exe"):Send "^{Left}"
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgUp}"
             Default:Send "{Media_Prev}"
          }
-      Case down:((WinActive("ahk_exe Spotify.exe")) ? (Send("^+q")) : (PostMessage("0x0010",,,, "A"))) ;Closes the active window
+      Case down:PostMessage "0x0010",,,, "A" ;Closes the active window
       Case up:PostMessage "0x112", "0xF020",,, "A" ;Minimizes the active window
-      Default:Send "{Browser_Forward}"
+      Default:WinActive("ahk_exe Code.exe") ? Send("^f") : Send("{Browser_Forward}")
    }
 }
 
@@ -552,7 +550,6 @@ $XButton1::
       Case WinActive("Google Chrome"): ;_chrome
          Switch
          {
-            Default:Send "{Browser_Back}"
             Case right:Send "^{PgDn}"
             Case left:Send "^{PgUp}"
             Case up:Send "^t"
@@ -571,31 +568,9 @@ $XButton1::
                Run A_ScriptFullPath
                SoundPlay "*-1" 
          }
-      Case WinActive("ahk_exe Spotify.exe"): ;_spotify
-         Switch
-         {
-            Default:Send "{Browser_Back}"
-            Case right:
-               ;Launches a script that counts how many tracks you've added to a playlist in spotify (meaning, right clicks) if it isn't already running, otherwise exits it by sending a button that is binded to an exitapp in that script
-               static discoveryAddPID := 0
-               if ProcessExist(discoveryAddPID)
-                  Send "{Launch_App2}"
-               else 
-                  Run A_WorkingDir . "\Tools\Discovery add.ah2",,, &discoveryAddPID
-            Case left:
-               ;Launches a scripts that counts how many tracks you've selected in spotify (meaning, controlclicks) if it isn't already running, otherwise exits it by sending a button that is binded to an exitapp in that script
-               static playlistMovingPID := 0
-               if ProcessExist(playlistMovingPID)
-                  Send "{Launch_Mail}"
-               else 
-                  Run A_WorkingDir . "\Tools\Playlist moving.ah2",,, &playlistMovingPID
-            Case down:Send "^s" ;Shuffle
-            Case up:Send "+!b" ;Like
-         } 
       Case WinActive("YouTube Music"):
          Switch
          {
-            Default:Send "{Browser_Back}"
             Case right:
                ;Launches a script that counts how many tracks you've added to a playlist (counts every shift you press) if it isn't already running, otherwise exits it by sending a button that is binded to an exitapp in that script
                static discoveryAddPID := 0
@@ -603,53 +578,29 @@ $XButton1::
                   Send "{Launch_App2}"
                else 
                   Run A_WorkingDir . "\Tools\Discovery add.ah2",,, &discoveryAddPID
-            Case left:return
+            Case left:ControlClick "X1013 Y73"
             Case up:Send "^i"
             Case down:Send "^u"
          }
       Case WinActive("ahk_exe wps.exe"): 
          Switch
          {
-            Default:Send "{Browser_Back}"
             Case right:Send "^{Tab}"
             Case left:Send "^+{Tab}"
             Case down:Send "{PgDn}"
             Case up:Send "^s"
          }
-      Case WinActive("ahk_exe Discord.exe"): ;_discord
-         Switch
-         {
-            Default:Send "{Browser_Back}"
-            Case right, left, up:return
-            Case down:Send "{Esc}"
-         }
-      Case WinActive("ahk_exe Telegram.exe"): ;_telegram
-         Switch
-         {
-            Default:Send "{Browser_Back}"
-            Case right:Send "{Right}"
-            Case left:Send "{Left}"
-            Case down:ControlClick "X1434 Y964" ;Clicks the scroll button since shift PgDn doesn't work for some reason
-            Case up:F_TelegramSearch("diary")
-         }
-      Case WinActive("ahk_group Whatiber"):
-         Switch
-         {
-            Default:Send "{Browser_Back}"
-            Case right:Send "{Right}"
-            Case left:Send "{Left}"
-            Case down:ControlClick "X1878 Y961"
-            Case up:return
-         }
       Case WinActive("ahk_exe Todoist.exe"): ;_todoist
          Switch
          {
-            Default:Send "{Browser_Back}"
             Case right:F_TodoistSearch("unfinished")
             Case left:F_TodoistSearch("rappers")
             Case down:F_TodoistSearch("payments")
             Case up:F_TodoistSearch("inbox")
          }
+      Case WinActive("ahk_exe Discord.exe") && down:Send "{Esc}" ;_discord
+      Case WinActive("ahk_exe Telegram.exe") && down:ControlClick "X1434 Y964" ;_telegram
+      Case WinActive("ahk_group Whatiber") && down:ControlClick "X1878 Y961"
    } 
 }
 
@@ -709,20 +660,25 @@ XButton2 & Volume_Down::
 
 #HotIf WinActive("YouTube Music")
 
-$<+s::ControlClick "X1195 Y73"
+;Search
+$F1::ControlClick "X1210 Y78"
 
-$F3::
+;Library
+$F2::ControlClick "X1013 Y73"
+
+;Main page
+$F3::ControlClick "X76 Y72"
+
+;Switch channels
+XButton2 & Volume_Down::
 {
-   MouseGetPos &initX, &initY
-   MouseMove initX, initY+67
+   ControlClick "X1861 Y75"
+   Sleep 100
+   Send "{Tab 3}{Enter}"
 }
 
-$F4::
-{
-   MouseGetPos &initX, &initY
-   ControlClick "X" . initX . " Y" . initY, "A"
-   MouseMove initX, initY+67
-}
+;Leave search
+XButton1 & Volume_Down::ControlClick "X1503 Y81"
 
 
 #HotIf WinActive("Watch later") || WinActive("Subscriptions") || (WinActive("YouTube") && !WinActive(" - YouTube"))
@@ -742,45 +698,6 @@ XButton1 & Volume_Down::f
 ;Seek farther
 $!Right::Send "l"
 $!Left::Send "j"
-
-
-#HotIf WinActive("ahk_exe Spotify.exe") ;_spotify
-
-;Slows down the selection of stuff in spotify so you don't accidentally drag stuff as often
-^LButton::Send "^{Click}"
-
-;Search (meaning filter)
-!j::Send "^f"
-
-;Go to liked
-!h::Send "+!s"
-
-;Shuffle
-Volume_Down & XButton1::Send "^s"
-
-;Like
-Volume_Down & XButton2::Send "+!b"
-
-;Playlists
-$F1::Send "+!1" 
-
-;Podcasts
-$F2::Send "+!2" 
-
-;Currently playing
-$F3::Send "+!j"
-
-;Skips
-$PgDn::Send "^{Right}"
-$PgUp::Send "^{Left}"
-
-;Volume
-$Up::Send "{Volume_Up}"
-$Down::Send "{Volume_Down}"
-
-;Seeking
-$Right::Send "+{Right}"
-$Left::Send "+{Left}"
 
 
 #HotIf WinActive("ahk_exe Todoist.exe") ;_todoist
@@ -1181,7 +1098,7 @@ $<!g::
    ;ahk_exe of the main 6 apps 
 
    ;Google Chrome
-   chrome := "Google Chrome"
+   chrome := "ahk_exe chrome.exe"
    chrome_exe := "C:\Program Files\Google\Chrome\Application\chrome.exe" 
    ;Todoist
    todoist := "ahk_exe Todoist.exe"
@@ -1195,14 +1112,11 @@ $<!g::
    ;Discord
    discord := "ahk_exe Discord.exe"
    discord_exe := "C:\Users\serge\AppData\Local\Discord\app-1.0.9004\Discord.exe"
-   ;Spotify
-   spotify := "ahk_exe Spotify.exe"
-   spotify_exe := "C:\Users\serge\AppData\Roaming\Spotify\Spotify.exe"
    ;Steam
    steam := "ahk_exe steam.exe"
 
    ;Variable for ALL the main 6 apps existing
-   mainAppsExist := (WinExist(chrome) && WinExist(todoist) && WinExist(telegram) && WinExist(vscode) && WinExist(discord) && (WinExist(spotify) || WinExist("YouTube Music")))
+   mainAppsExist := (WinExist(chrome) && WinExist(todoist) && WinExist(telegram) && WinExist(vscode) && WinExist(discord))
 
    if WinExist("ahk_group Game")
       F_MinMax("ahk_group Game")
@@ -1215,9 +1129,6 @@ $<!g::
 
 ;Visual studio code
 $<!a::F_WindowsApp("ahk_exe Code.exe", "C:\Programs\Microsoft VS Code\Code.exe")
-
-;Spotify 
-; $<!s::F_WindowsApp("ahk_exe Spotify.exe", "C:\Users\serge\AppData\Roaming\Spotify\Spotify.exe")
 
 ;Youtube music
 $<!s::F_WindowsApp_WinNum("YouTube Music", "6")

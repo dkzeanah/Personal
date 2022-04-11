@@ -7,7 +7,6 @@ G_DiscoveryAdd.Show("W200 H200 X1620 Y50 NA")
 G_DiscoveryAdd.SetFont("S50")
 G_DiscoveryAdd_TracksAdded := G_DiscoveryAdd.Add("Text", "W200 X0 Y50 Center", "0")
 
-~RButton::
 $LShift::
 {
    static tracksAdded := 0

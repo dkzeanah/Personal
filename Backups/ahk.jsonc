@@ -131,7 +131,7 @@
    "#HotIf": {
       "prefix": "#HotIf",
       "body": [
-         "#HotIf"
+         "#HotIf "
       ],
       "description": ""
    },
@@ -828,4 +828,29 @@
          "key"
       ]
    },
+   "FileSelect": {
+      "prefix": "FileSelect",
+      "body": [
+         "FileSelect($0)"
+      ]
+   },
+   "FileCreateShortcut": {
+      "prefix": "FileCreateShortcut",
+      "body": [
+         "FileCreateShortcut"
+      ]
+   },
+   "A_AppData": {
+      "prefix": "A_AppData",
+      "body": [
+         "A_AppData"
+      ]
+   },
+   "SubStr": {
+      "prefix": "SubStr",
+      "body": [
+         "SubStr($0)"
+      ]
+   },
+   
 }

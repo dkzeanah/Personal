@@ -102,14 +102,11 @@ GroupAdd "Main", "AutoHotkey Help"
 GroupAdd "Main", "AutoHotkey v2 Help"
 
 ;Messengers
-GroupAdd "Messenger", "Messenger"
+GroupAdd "Messenger", "Google Chrome"
 GroupAdd "Messenger", "ahk_exe Telegram.exe"
 GroupAdd "Messenger", "ahk_exe Discord.exe"
 GroupAdd "Messenger", "ahk_exe WhatsApp.exe"
 GroupAdd "Messenger", "ahk_exe Viber.exe"
-GroupAdd "Messenger", "YouTube", "YouTube Music"
-GroupAdd "Messenger", "Instagram" 
-GroupAdd "Messenger", "Twitter" 
 
 ;Whatsapp and viber
 GroupAdd "Whatiber", "ahk_exe WhatsApp.exe"

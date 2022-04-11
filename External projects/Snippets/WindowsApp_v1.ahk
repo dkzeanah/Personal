@@ -1,18 +1,18 @@
 ;Minimize for ternary 
-WinMinimize(title)
+F_WinMinimize(title)
 {
    WinMinimize, %title%
 }
 
 ;Active for ternary
-WinActive(title)
+F_WinActivate(title)
 {
    WinActivate, %title%
 }
 
 ;Minimizes or maximizes the window depending on its state
 F_MinMax(title) {
-   (WinActive(title) ? WinMinimize(title) : WinActivate(title))
+   (WinActive(title) ? F_WinMinimize(title) : F_WinActivate(title))
 }
 
 ;If the window exists, minimize or maximize it depending on its state and return 1, otherwise return 0
@@ -31,7 +31,7 @@ F_ifMinMax(title)
 F_RunApp(winTitle, exePath)
 {
    Run, %exePath%,, Max
-   WinWait %winTitle%,, 10
+   WinWait, %winTitle%,, 10
    WinActivate %winTitle%
 } 
 

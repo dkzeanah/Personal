@@ -55,4 +55,5 @@
    "editor.scrollbar.verticalScrollbarSize": 0,
    "workbench.editor.scrollToSwitchTabs": true,
    "workbench.list.smoothScrolling": true,
+   "editor.suggest.showWords": false,
 }

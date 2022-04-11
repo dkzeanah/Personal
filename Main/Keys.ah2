@@ -87,17 +87,17 @@ GroupAdd "Game", "ahk_exe isaac-ng.exe"
 GroupAdd "Game", "ahk_exe nuclearthrone.exe"
 GroupAdd "Game", "ahk_exe METAL GEAR RISING REVENGEANCE.exe"
 
-;Browser
-GroupAdd "Browser", "ahk_exe chrome.exe",, "Picture in picture"
+;Games that don't need built-in remapping
+GroupAdd "Game_M", "ahk_exe EtG.exe"
+GroupAdd "Game_M", "ahk_exe isaac-ng.exe"
+GroupAdd "Game_M", "ahk_exe nuclearthrone.exe"
 
 ;Main apps
-GroupAdd "Main", "ahk_group Browser"
+GroupAdd "Main", "ahk_exe chrome.exe"
 GroupAdd "Main", "ahk_exe Todoist.exe"
 GroupAdd "Main", "ahk_exe Telegram.exe"
 GroupAdd "Main", "ahk_exe Code.exe"
 GroupAdd "Main", "ahk_exe Discord.exe" 
-GroupAdd "Main", "Monkeytype"
-GroupAdd "Main", "Google Calendar"
 GroupAdd "Main", "AutoHotkey Help"
 GroupAdd "Main", "AutoHotkey v2 Help"
 
@@ -107,7 +107,7 @@ GroupAdd "Messenger", "ahk_exe Telegram.exe"
 GroupAdd "Messenger", "ahk_exe Discord.exe"
 GroupAdd "Messenger", "ahk_exe WhatsApp.exe"
 GroupAdd "Messenger", "ahk_exe Viber.exe"
-GroupAdd "Messenger", "YouTube"
+GroupAdd "Messenger", "YouTube", "YouTube Music"
 GroupAdd "Messenger", "Instagram" 
 GroupAdd "Messenger", "Twitter" 
 
@@ -273,7 +273,7 @@ $!F11::Send "{U+1F608}"
 $AppsKey::LCtrl 
 
 ;Makes sure the side mouse buttons work as intended ingame, despite their remapping outside of game 
-#HotIf WinActive("ahk_group Game") && !WinActive("ahk_exe METAL GEAR RISING REVENGEANCE.exe")
+#HotIf WinActive("ahk_group Game_M")
 $*XButton2::y
 $*XButton1::u
 $*Volume_Down::i
@@ -406,7 +406,7 @@ $+!l::
    F_RunLink(link)
    {
       Run link
-      WinActivate "ahk_group Browser"
+      WinActivate "Google Chrome"
    }
 
    ;A faster send for discord. Sending stuff can take too long, but if you copy and paste it, it's much faster. Takes care of your previous clipboard disappearing as well
@@ -459,7 +459,7 @@ $Browser_Home::return ;F12
 ;###################################################################################### 
 
 
-#HotIf !WinActive("ahk_exe METAL GEAR RISING REVENGEANCE.exe") && !WinActive("ahk_group Game")
+#HotIf !WinActive("ahk_group Game")
 
 ;Special button + side buttons
 Volume_Down & XButton2::F_PressSend_Double("XButton2","^v","#v")
@@ -485,9 +485,6 @@ $Volume_Down::
          Send "{AltUp}"
    } 
 }
-
-
-#HotIf !WinActive("ahk_group Game")
 
 ;Combined side buttons
 XButton2 & XButton1::Escape
@@ -528,24 +525,22 @@ $XButton2::
       Case right:
          Switch
          {
-            Case WinActive("ahk_group Browser") && WinActive(" - YouTube") && !WinActive("Watch later") && !WinActive("Subscriptions"):Send "+n"
+            Case (WinActive("YouTube Music") || WinActive(" - YouTube")) && !WinActive("Watch later") && !WinActive("Subscriptions"):Send "+n"
             Case WinActive("ahk_exe Spotify.exe"):Send "^{Right}"
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgDn}"
-            Case WinActive("ahk_group Browser") && WinActive("SoundCloud"):Send "+{Right}"
             Default:Send "{Media_Next}"
          }
       Case left:
          Switch
          {
-            Case WinActive("ahk_group Browser") && WinActive(" - YouTube") && !WinActive("Watch later") && !WinActive("Subscriptions"):Send "+p"
+            Case (WinActive("YouTube Music") || WinActive(" - YouTube")) && !WinActive("Watch later") && !WinActive("Subscriptions"):Send "+p"
             Case WinActive("ahk_exe Spotify.exe"):Send "^{Left}"
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgUp}"
-            Case WinActive("ahk_group Browser") && WinActive("SoundCloud"):Send "+{Left}"
             Default:Send "{Media_Prev}"
          }
       Case down:((WinActive("ahk_exe Spotify.exe")) ? (Send("^+q")) : (PostMessage("0x0010",,,, "A"))) ;Closes the active window
       Case up:PostMessage "0x112", "0xF020",,, "A" ;Minimizes the active window
-      Default:((WinActive("ahk_exe Code.exe")) ? (Send("^!/")) : (Send("{Browser_Forward}")))
+      Default:Send "{Browser_Forward}"
    }
 }
 
@@ -557,7 +552,7 @@ $XButton1::
    Switch
    {
       Default:Send "{Browser_Back}"
-      Case WinActive("ahk_group Browser"): ;_chrome
+      Case WinActive("Google Chrome"): ;_chrome
          Switch
          {
             Default:Send "{Browser_Back}"
@@ -600,21 +595,20 @@ $XButton1::
             Case down:Send "^s" ;Shuffle
             Case up:Send "+!b" ;Like
          } 
-      Case WinActive("ahk_group Browser") && WinActive("SoundCloud"):
+      Case WinActive("YouTube Music"):
          Switch
          {
             Default:Send "{Browser_Back}"
             Case right:
-               ;Launches a script that counts how many tracks you've added to a playlist in soundcloud (counts every shift you press) if it isn't already running, otherwise exits it by sending a button that is binded to an exitapp in that script
+               ;Launches a script that counts how many tracks you've added to a playlist (counts every shift you press) if it isn't already running, otherwise exits it by sending a button that is binded to an exitapp in that script
                static discoveryAddPID := 0
                if ProcessExist(discoveryAddPID)
                   Send "{Launch_App2}"
                else 
                   Run A_WorkingDir . "\Tools\Discovery add.ah2",,, &discoveryAddPID
-
-            Case left:Send "gl"
-            Case up:Send "l"
-            Case down:Send "+s"
+            Case left:return
+            Case up:Send "^i"
+            Case down:Send "^u"
          }
       Case WinActive("ahk_exe wps.exe"): 
          Switch
@@ -671,7 +665,7 @@ $XButton1::
 ;###################################################################################### 
 
 
-#HotIf WinActive("ahk_group Browser") ;_chrome
+#HotIf WinActive("Google Chrome") ;_chrome
 
 ;Ctrl numbers aren't easy to press, so F keys instead
 $F1::Send "^1"
@@ -682,7 +676,9 @@ $F5::Send "^5"
 $F6::Send "^6"
 $F7::Send "^7"
 $F8::Send "^8"
-$F9::Send "^9"
+
+;Opens a new tab
+$+!e::Send "^t"
 
 ;Single press is copy, double press will get current tab's link to clipboard
 Volume_Down & XButton1::
@@ -691,11 +687,19 @@ Volume_Down & XButton1::
    (KeyWait("XButton1", "D T0.1") ? (Send("{F6}"), Sleep("40"), Send("^c")) : Send("^c"))
 }
 
-;Opens a new tab
-$+!e::Send "^t"
+
+#HotIf WinActive("YouTube") ;_youtube 
+
+;Shift n to skip never made sense to begin with
+$PgDn::Send "+n"
+$PgUp::Send "+p"
+
+;Volume
+$F10::Send "{Volume_Up}"
+$F9::Send "{Volume_Down}"
 
 
-#HotIf WinActive("ahk_group Browser") && WinActive("YouTube") ;_youtube 
+#HotIf WinActive("YouTube") && !WinActive("YouTube Music")
 
 ;Switch channel
 XButton2 & Volume_Down::
@@ -705,16 +709,26 @@ XButton2 & Volume_Down::
    Send "{Tab 5}{Enter}"
 }   
 
-;Shift n to skip never made sense to begin with
-$PgDn::Send "+n"
-$PgUp::Send "+p"
 
-;Volume
-$Insert::Send "{Volume_Up}"
-$Delete::Send "{Volume_Down}"
+#HotIf WinActive("YouTube Music")
+
+$<+s::ControlClick "X1195 Y73"
+
+$F3::
+{
+   MouseGetPos &initX, &initY
+   MouseMove initX, initY+67
+}
+
+$F4::
+{
+   MouseGetPos &initX, &initY
+   ControlClick "X" . initX . " Y" . initY, "A"
+   MouseMove initX, initY+67
+}
 
 
-#HotIf WinActive("ahk_group Browser") && (WinActive("Watch later") || WinActive("Subscriptions") || (WinActive("YouTube") && !WinActive(" - YouTube")))
+#HotIf WinActive("Watch later") || WinActive("Subscriptions") || (WinActive("YouTube") && !WinActive(" - YouTube"))
 
 ;Close minimized window 
 $Escape::ControlClick "X1858 Y665"
@@ -723,10 +737,7 @@ $Escape::ControlClick "X1858 Y665"
 XButton1 & Volume_Down::i
 
 
-#HotIf WinActive("ahk_group Browser") && (WinActive(" - YouTube") && !WinActive("Watch later") && !WinActive("Subscriptions"))
-
-;Picture in picture
-$+!r::ControlClick "X1579 Y73"
+#HotIf WinActive(" - YouTube") && !WinActive("Watch later") && !WinActive("Subscriptions")
 
 ;Fullscreen
 XButton1 & Volume_Down::f
@@ -797,29 +808,6 @@ $+!e::Send " {#}unfinished — " ;Straight up doesn't work if you don't have a s
 $Enter::Send select
 
 
-#HotIf WinActive("ahk_group Browser") && WinActive("SoundCloud")
-
-;Skips
-$PgDn::Send "+{Right}"
-$PgUp::Send "+{Left}"
-
-;Volume
-$Insert::Send "{Volume_Up}"
-$Delete::Send "{Volume_Down}"
-
-;Select all
-$!Delete::Send "^a{Delete}"
-
-;Go to current track
-$<+w::Send "p"
-
-;Search that doesn't choose wherever you mouse was when you pressed enter
-$<+s::
-{
-   MouseMove 1263, 459
-   Send "s^a{Delete}"
-}
-
 
 
 
@@ -829,7 +817,7 @@ $<+s::
 ;######################################################################################
 
 
-#HotIf WinActive("ahk_group Browser") && WinActive("Messenger") ;_vk
+#HotIf WinActive("Messenger") ;_vk
 
 ;Clicks the scroll button bc shift pgdn doesn't work
 $+PgDn::ControlClick "X1750 Y903"
@@ -847,7 +835,7 @@ $^m::Send "&{#}12288;"
 $+!w::return
 
 ;Reminds of the markdown syntax for reddit
-#HotIf WinActive("ahk_group Browser") && !WinActive("Messenger")
+#HotIf !WinActive("Messenger")
 $^m::MsgBox "* italic *`n** bold **`n~~ strikethrough ~~`n>! spoiler !<`n[embed](link)`n^(superscript)`n`` code inline ```n # BIG TEXT", "MarkDown", "4096"
 
 
@@ -945,7 +933,7 @@ $Up::Send "{Volume_Up}"
 $Down::Send "{Volume_Down}"
 
 
-#HotIf WinActive("ahk_group Browser") && WinActive("WatchMoviesHD")
+#HotIf WinActive("WatchMoviesHD")
 
 ;Change volume
 $Up::Send "{Volume_Up}"
@@ -1196,7 +1184,7 @@ $<!g::
    ;ahk_exe of the main 6 apps 
 
    ;Google Chrome
-   chrome := "ahk_group Browser"
+   chrome := "Google Chrome"
    chrome_exe := "C:\Program Files\Google\Chrome\Application\chrome.exe" 
    ;Todoist
    todoist := "ahk_exe Todoist.exe"
@@ -1217,15 +1205,14 @@ $<!g::
    steam := "ahk_exe steam.exe"
 
    ;Variable for ALL the main 6 apps existing
-   mainAppsExist := (WinExist(chrome) && WinExist(todoist) && WinExist(telegram) && WinExist(vscode) && WinExist(discord) && (WinExist(spotify) || WinExist("SoundCloud")))
+   mainAppsExist := (WinExist(chrome) && WinExist(todoist) && WinExist(telegram) && WinExist(vscode) && WinExist(discord) && (WinExist(spotify) || WinExist("YouTube Music")))
 
    if WinExist("ahk_group Game")
       F_MinMax("ahk_group Game")
    else
       (mainAppsExist ? WinClose("ahk_group Main")
-      : F_ifWinClose(steam), F_ifRunApp(chrome, chrome_exe), F_ifRunApp(todoist, todoist_exe), F_ifRunApp(telegram, telegram_exe), F_ifRunApp(vscode, vscode_exe), F_ifRunApp(discord, discord_exe), F_ifRunApp_WinNum("SoundCloud", "6"))
+      : F_ifWinClose(steam), F_ifRunApp(chrome, chrome_exe), F_ifRunApp(todoist, todoist_exe), F_ifRunApp(telegram, telegram_exe), F_ifRunApp(vscode, vscode_exe), F_ifRunApp(discord, discord_exe), F_ifRunApp_WinNum("YouTube Music", "6"))
 }
-
 
 #HotIf !WinActive("ahk_group Game")
 
@@ -1233,13 +1220,13 @@ $<!g::
 $<!a::F_WindowsApp("ahk_exe Code.exe", "C:\Programs\Microsoft VS Code\Code.exe")
 
 ;Spotify 
-$<!s::F_WindowsApp("ahk_exe Spotify.exe", "C:\Users\serge\AppData\Roaming\Spotify\Spotify.exe")
+; $<!s::F_WindowsApp("ahk_exe Spotify.exe", "C:\Users\serge\AppData\Roaming\Spotify\Spotify.exe")
 
-;SoundCloud
-$<!z::F_WindowsApp_WinNum("SoundCloud", "6")
+;Youtube music
+$<!s::F_WindowsApp_WinNum("YouTube Music", "6")
 
 ;Chrome 
-$<!c::F_WindowsApp("ahk_group Browser", "C:\Program Files\Google\Chrome\Application\chrome.exe")
+$<!c::F_WindowsApp("Google Chrome", "C:\Program Files\Google\Chrome\Application\chrome.exe")
 
 ;Todoist
 $<!x::F_WindowsApp("ahk_exe Todoist.exe", "C:\Users\serge\AppData\Local\Programs\todoist\Todoist.exe")

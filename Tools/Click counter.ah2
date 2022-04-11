@@ -12,10 +12,13 @@ Gb_ExitApp(*) {
    ExitApp
 }
 
-~LButton::
+~LButton::F_NumOfClicks("up")
+LShift::F_NumOfClicks("down")
+
+F_NumOfClicks(whereCrement)
 {
    static clicks := 0
-   clicks++
+   ((whereCrement == "up") ? clicks++ : clicks--)
    G_ClickCounter_Clicks.Text := clicks
 }
 

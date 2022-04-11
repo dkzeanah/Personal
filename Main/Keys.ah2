@@ -217,9 +217,6 @@ $#Insert::Send "#v"
 ;Cut
 $!Insert::Send "^x"
 
-;Shift alt w closes a tab
-$+!w::Send "^w"
-
 
 ;INTERACTION
 ;————————————————————
@@ -450,19 +447,93 @@ $Browser_Home::return ;F12
 
 
 
+;APP DIFFERENT KEYS ###################################################################
+;######################################################################################
+;######################################################################################
+;######################################################################################
+
+
+#HotIf !WinActive("ahk_group Game")
+
+XButton1 & Volume_Down::
+{
+   Switch
+   {
+      ;Leave search
+      Case WinActive("YouTube Music"):ControlClick "X1503 Y81"
+      ;Maximize pop out window
+      Case WinActive("Watch later") || WinActive("Subscriptions") || (WinActive("YouTube") && !WinActive(" - YouTube")):Send "i"
+      ;Fullscreen
+      Case WinActive(" - YouTube") || WinActive("WatchMoviesHD"):Send "f"
+      ;Notifications
+      Case WinActive("Messenger"):ControlClick "X788 Y126"
+      ;Emoji tab
+      Case WinActive("ahk_exe Discord.exe"):Send "^e"
+      ;Shift click, but entirely on the mouse
+      Case WinActive("ahk_exe Code.exe"):Send "+{Click}"
+   }
+}
+
+XButton2 & Volume_Down::
+{
+   Switch
+   {
+      ;Switch channels in youtube music
+      Case WinActive("YouTube Music"):
+         ControlClick "X1861 Y75"
+         Sleep 100
+         Send "{Tab 3}{Enter}"
+      ;Switch channels in youtube
+      Case WinActive("YouTube"):
+         ControlClick "X1820 Y133"
+         Sleep 400
+         Send "{Tab 5}{Enter}"
+      ;Clicks the send button to either start recording or send a voice message
+      Case WinActive("Messenger"):ControlClick "X1757 Y1014"
+      ;Clicks the send button to send a voice message
+      Case WinActive("ahk_exe Telegram.exe"):F_ClickThenGoBack_Event("1452 1052")
+      ;Clicks the send button to send a voice message
+      Case WinActive("ahk_group Whatiber"):ControlClick "X1873 Y1047"
+      ;Gif tab
+      Case WinActive("ahk_exe Discord.exe"):Send "^g"
+      ;Search
+      Case WinActive("ahk_exe Code.exe"):Send "^f"
+   }
+}
+
+$^m::
+{
+   Switch
+   {
+      Default:Send "^m"
+      Case WinActive("ahk_exe Discord.exe"):
+         ;Markdown
+         MsgBox "__ underline __`n* italic *`n** bold **`n~~ strikethrough ~~`n|| spoiler ||`n`````` code ```````n`` code inline ```n_ nothing _", "Markdown", "4096"
+      Case WinActive("Google Chrome"):
+         if WinActive("Messenger")
+            ;Blank message
+            Send "&{#}12288;"
+         else
+            ;Markdown
+            MsgBox("* italic *`n** bold **`n~~ strikethrough ~~`n>! spoiler !<`n[embed](link)`n^(superscript)`n`` code inline ```n # BIG TEXT", "MarkDown", "4096")
+   }
+}
+
+
+
+
 ;MOUSE KEY INTERACTION ################################################################
 ;######################################################################################
 ;######################################################################################
 ;###################################################################################### 
 
 
-#HotIf !WinActive("ahk_group Game")
-
 ;Special button + side buttons
-Volume_Down & XButton2::F_PressSend_Double("XButton2","^v","#v")
+#HotIf !WinActive("ahk_group Game") && !WinActive("Google Chrome")
 Volume_Down & XButton1::F_PressSend_Double("XButton1","^c","^x")
+#HotIf !WinActive("ahk_group Game")
+Volume_Down & XButton2::F_PressSend_Double("XButton2","^v","#v")
 Volume_Down & MButton::F5
-
 
 ;Special button by itself pressed in different sections of the screen does different things
 $Volume_Down::
@@ -535,7 +606,7 @@ $XButton2::
          }
       Case down:PostMessage "0x0010",,,, "A" ;Closes the active window
       Case up:PostMessage "0x112", "0xF020",,, "A" ;Minimizes the active window
-      Default:WinActive("ahk_exe Code.exe") ? Send("^f") : Send("{Browser_Forward}")
+      Default:WinActive("ahk_exe Code.exe") ? Send("!{PgUp}") : Send("{Browser_Forward}")
    }
 }
 
@@ -607,13 +678,20 @@ $XButton1::
 
 
 
-;APP SPECIFIC MULTIPLE MAIN ###########################################################
+;CHROME AND YOUTUBE ###################################################################
 ;######################################################################################
 ;######################################################################################
 ;###################################################################################### 
 
 
 #HotIf WinActive("Google Chrome") ;_chrome
+
+;Single press is copy, double press will get current tab's link to clipboard
+Volume_Down & XButton1::
+{
+   KeyWait "XButton1", "U"
+   (KeyWait("XButton1", "D T0.2") ? (Send("{F6}"), Sleep(40), Send("^c")) : Send("^c"))
+}
 
 ;Ctrl numbers aren't easy to press, so F keys instead
 $F1::Send "^1"
@@ -628,11 +706,11 @@ $F8::Send "^8"
 ;Opens a new tab
 $+!e::Send "^t"
 
-;Single press is copy, double press will get current tab's link to clipboard
-Volume_Down & XButton1::
+;Shift alt w closes a tab
+$+!w::
 {
-   KeyWait "XButton1" 
-   (KeyWait("XButton1", "D T0.1") ? (Send("{F6}"), Sleep("40"), Send("^c")) : Send("^c"))
+   if !WinActive("Messenger")
+      Send "^w"
 }
 
 
@@ -647,17 +725,6 @@ $F10::Send "{Volume_Up}"
 $F9::Send "{Volume_Down}"
 
 
-#HotIf WinActive("YouTube") && !WinActive("YouTube Music")
-
-;Switch channel
-XButton2 & Volume_Down::
-{
-   ControlClick "X1820 Y133"
-   Sleep 400
-   Send "{Tab 5}{Enter}"
-}   
-
-
 #HotIf WinActive("YouTube Music")
 
 ;Search
@@ -669,33 +736,13 @@ $F2::ControlClick "X1013 Y73"
 ;Main page
 $F3::ControlClick "X76 Y72"
 
-;Switch channels
-XButton2 & Volume_Down::
-{
-   ControlClick "X1861 Y75"
-   Sleep 100
-   Send "{Tab 3}{Enter}"
-}
-
-;Leave search
-XButton1 & Volume_Down::ControlClick "X1503 Y81"
-
-
-#HotIf WinActive("Watch later") || WinActive("Subscriptions") || (WinActive("YouTube") && !WinActive(" - YouTube"))
 
 ;Close minimized window 
-$Escape::ControlClick "X1858 Y665"
-
-;Pop out window
-XButton1 & Volume_Down::i
-
-
-#HotIf WinActive(" - YouTube") && !WinActive("Watch later") && !WinActive("Subscriptions")
-
-;Fullscreen
-XButton1 & Volume_Down::f
+#HotIf WinActive("Watch later") || WinActive("Subscriptions") || (WinActive("YouTube") && !WinActive(" - YouTube"))
+Escape::ControlClick "X1858 Y665"
 
 ;Seek farther
+#HotIf WinActive(" - YouTube") && !WinActive("Watch later") && !WinActive("Subscriptions")
 $!Right::Send "l"
 $!Left::Send "j"
 
@@ -724,33 +771,10 @@ $Enter::Send select
 
 
 
-
 ;APP SPECIFIC MESSENGERS ##############################################################
 ;######################################################################################
 ;######################################################################################
 ;######################################################################################
-
-
-#HotIf WinActive("Messenger") ;_vk
-
-;Clicks the scroll button bc shift pgdn doesn't work
-$+PgDn::ControlClick "X1750 Y903"
-
-;Clicks the send button to either start recording or send a voice message
-XButton2 & Volume_Down::ControlClick "X1757 Y1014"
-
-;Notifications
-XButton1 & Volume_Down::ControlClick "X788 Y126"
-
-;Blank message
-$^m::Send "&{#}12288;"
-
-;Makes sure the tab can't be closed by shift alt w which is now ctrl w
-$+!w::return
-
-;Reminds of the markdown syntax for reddit
-#HotIf !WinActive("Messenger")
-$^m::MsgBox "* italic *`n** bold **`n~~ strikethrough ~~`n>! spoiler !<`n[embed](link)`n^(superscript)`n`` code inline ```n # BIG TEXT", "MarkDown", "4096"
 
 
 #HotIf WinActive("ahk_exe Telegram.exe") ;_telegram
@@ -762,19 +786,6 @@ F_TelegramSearch(channelToFind)
    Send channelToFind . "{Down}{Enter}"
 } 
 
-;Shift pgdn scrolls down by clicking the scroll button
-$+PgDn::ControlClick "X1434 Y964"
-
-;SYNTAX HOTKEYS
-;--------------
-;Spoiler
-$^p::Send "^+p" 
-;Strikethrough
-$^n::Send "^+x"
-
-;Clicks the send button to send a voice message
-XButton2 & Volume_Down::F_ClickThenGoBack_Event("1452 1052")
-
 ;Press an F key -> go to a channel
 $F1::F_TelegramSearch("diary")
 $F2::F_TelegramSearch("texts")
@@ -785,17 +796,11 @@ $F6::F_TelegramSearch("мама")
 $F7::F_TelegramSearch("кристина")
 $F8::F_TelegramSearch("алена")
 
+;Spoiler
+$^p::Send "^+p" 
 
-#HotIf WinActive("ahk_exe Discord.exe") ;_discord
-
-;Emoji tab 
-XButton1 & Volume_Down::Send "^e"
-
-;Gif tab
-XButton2 & Volume_Down::Send "^g"
-
-;Reminds of the markdown syntax in discord
-$^m::MsgBox "__ underline __`n* italic *`n** bold **`n~~ strikethrough ~~`n|| spoiler ||`n`````` code ```````n`` code inline ```n_ nothing _", "Markdown", "4096"
+;Strikethrough
+$^n::Send "^+x"
 
 
 
@@ -806,23 +811,19 @@ $^m::MsgBox "__ underline __`n* italic *`n** bold **`n~~ strikethrough ~~`n|| sp
 ;######################################################################################
 
 
-#HotIf WinActive("ahk_exe Code.exe") ;_vscode 
-
-;Shift click, but entirely on the mouse
-XButton1 & Volume_Down::Send "+{Click}"
-
 ;Copies the most important setting files of vs code into the /Backups folder
+#HotIf WinActive("ahk_exe Code.exe") ;_vscode 
 $^!u::Run A_WorkingDir . "\Scripts\Pull vs code settings.py"
 
 ;Gets the selected SC code by copying and shows you the key it references
-XButton2 & Volume_Down::
-{
-   tempClip := A_Clipboard
-   Send "^c"
-   ClipWait 10, 1
-   MsgBox D_SCCodes_In[A_Clipboard], "Key name by SC key"
-   A_Clipboard := tempClip
-}
+; XButton2 & Volume_Down::
+; {
+;    tempClip := A_Clipboard
+;    Send "^c"
+;    ClipWait 10, 1
+;    MsgBox D_SCCodes_In[A_Clipboard], "Key name by SC key"
+;    A_Clipboard := tempClip
+; }
 
 
 #HotIf WinActive("ahk_exe wps.exe") ;_wps
@@ -834,7 +835,7 @@ $!6::ControlClick "X568 Y98"
 $+!s::Send "^s"
 
 ;Switch between open documents
-$!Tab::Send "^{Tab}"
+$<!Tab::Send "^{Tab}"
 
 
 #HotIf WinActive("ahk_exe KMPlayer64.exe")
@@ -847,14 +848,10 @@ $Up::Send "{Volume_Up}"
 $Down::Send "{Volume_Down}"
 
 
-#HotIf WinActive("WatchMoviesHD")
-
 ;Change volume
+#HotIf WinActive("WatchMoviesHD")
 $Up::Send "{Volume_Up}"
 $Down::Send "{Volume_Down}"
-
-;Fullscreen
-XButton1 & Volume_Down::f
 
 
 #HotIf WinActive("ahk_exe ScreenClippingHost.exe")
@@ -909,11 +906,7 @@ $MButton::F_ClickThenGoBack("1017 29") ;Takes a full-screen screenshot
 
 ;Search in docs
 #HotIf WinActive("ahk_group AutoHotkey_Help")
-$!j::Send "!s"
-
-;Voice message
-#HotIf WinActive("ahk_group Whatiber")
-XButton2 & Volume_Down::ControlClick "X1873 Y1047"
+$F1::Send "!s"
 
 ;Scroll to go between pics
 #HotIf WinActive("ahk_group Media")
@@ -1090,7 +1083,7 @@ $<!y::F_WindowsApp("ahk_exe atom.exe", "C:\Users\serge\AppData\Local\atom\app-1.
 $<!SC01B::F_WindowsApp("ahk_exe Resolve.exe", "C:\Programs\Davinci Resolve\Resolve.exe")
 
 ;VPN
-$<!m::F_WindowsApp("ahk_exe vpncmgr_x64.exe", "C:\Program Files\SoftEther VPN Client\vpncmgr_x64.exe")
+$<!z::F_WindowsApp("ahk_exe vpncmgr_x64.exe", "C:\Program Files\SoftEther VPN Client\vpncmgr_x64.exe")
 
 ;MinMaxes a game if it exists, closes all apps but spotify if all main 6 apps exist, if they don't: launches those apps of the main 6, that do not yet exist
 $<!g:: 
@@ -1127,21 +1120,6 @@ $<!g::
 
 #HotIf !WinActive("ahk_group Game")
 
-;Visual studio code
-$<!a::F_WindowsApp("ahk_exe Code.exe", "C:\Programs\Microsoft VS Code\Code.exe")
-
-;Youtube music
-$<!s::F_WindowsApp_WinNum("YouTube Music", "6")
-
-;Chrome 
-$<!c::F_WindowsApp("Google Chrome", "C:\Program Files\Google\Chrome\Application\chrome.exe")
-
-;Todoist
-$<!x::F_WindowsApp("ahk_exe Todoist.exe", "C:\Users\serge\AppData\Local\Programs\todoist\Todoist.exe")
-
-;Wps
-$<!w::F_WindowsApp("ahk_exe wps.exe", "C:\Users\serge\AppData\Local\Kingsoft\WPS Office\11.2.0.10463\office6\wps.exe")
-
 ;Telegram, whatsapp, viber on one, two and three presses
 $<!t::
 {
@@ -1171,9 +1149,6 @@ $<!f::
    : F_WindowsApp_Folders("C:\Files\Projects"))
 }
 
-;Discord
-$<!q::F_WindowsApp("ahk_exe Discord.exe", "C:\Users\serge\AppData\Local\Discord\app-1.0.9004\Discord.exe")
-
 ;Photos
 $<!r::
 {
@@ -1181,8 +1156,26 @@ $<!r::
       F_WindowsApp("ahk_exe steam.exe", "C:\Programs\Steam\steam.exe")
 }
 
+;Visual studio code
+$<!a::F_WindowsApp("ahk_exe Code.exe", "C:\Programs\Microsoft VS Code\Code.exe")
+
+;Youtube music
+$<!s::F_WindowsApp_WinNum("YouTube Music", "6")
+
+;Chrome 
+$<!c::F_WindowsApp("Google Chrome", "C:\Program Files\Google\Chrome\Application\chrome.exe")
+
+;Todoist
+$<!x::F_WindowsApp("ahk_exe Todoist.exe", "C:\Users\serge\AppData\Local\Programs\todoist\Todoist.exe")
+
+;Wps
+$<!w::F_WindowsApp("ahk_exe wps.exe", "C:\Users\serge\AppData\Local\Kingsoft\WPS Office\11.2.0.10463\office6\wps.exe")
+
+;Discord
+$<!q::F_WindowsApp("ahk_exe Discord.exe", "C:\Users\serge\AppData\Local\Discord\app-1.0.9004\Discord.exe")
+
 ;Explorer
-$<!e::F_WindowsApp_Folders("C:\") 
+$<!e::F_WindowsApp_Folders("C:\")
 
 ;Documents 
 $<!d::F_WindowsApp_Folders("C:\Files\Documents")

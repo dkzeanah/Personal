@@ -17,49 +17,6 @@ CoordMode, Mouse, Screen
 ; }
 
 
-
-
-;FUNCTIONS
-;#########################################################################################
-
-;Get the path to the exe of your active window
-Get_Active_Window_Info()
-{
-   WinGet, windowExe, ProcessPath, A
-   Clipboard := windowExe
-}
-
-;Mousegetpos but msgbox
-Mouse_Get_Pos_MsgBox()
-{
-   MouseGetPos, mgp_X, mgp_Y
-   MsgBox, 4096,, %mgp_X%`n%mgp_Y%
-} 
-
-;Show gesture box
-Gesture_Box(right, left, down, up)
-{
-   MouseMove, %right%, %up%
-   Sleep, 20
-   MouseMove, %right%, %down%
-   Sleep, 20
-   MouseMove, %left%, %down%
-   Sleep, 20
-   MouseMove, %left%, %up% 
-}
-
-
-;TOOLS
-;#########################################################################################
-
-;Get the position of the cursor
-^!F1::Mouse_Get_Pos_MsgBox()  
-;Get the path to the exe of the active window
-^!F2::Get_Active_Window_Info()
-;Move the cursor to all the corners of the gesture sections
-^!F3::Gesture_Box("1368", "568", "747", "347")
-
-
 ;SPECIAL
 ;#########################################################################################
 
@@ -71,25 +28,21 @@ Gesture_Box(right, left, down, up)
 :*?:f[f[f::{LWin Down}{Space}{LWin Up} 
 
 
-
-
 ;MAIN
 ;#########################################################################################
 
 ;Far side button gestures
 XButton2::
-MouseGetPos, locX, locY
-right := (locX > 1368), left := (locX < 568), down := (locY > 747), up := (locY < 347) 
-if right ;Skip track in spotify
-   Send, {Media_Next}
-else if left ;Skip track in spotify but backwards
-   Send, {Media_Prev}
-else if down
-   Send, {Delete}
-else if up
-   return
-else 
-   Send, ^v 
+MouseGetPos, sectionX, sectionY
+right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347) 
+Switch
+{
+   Default:Send, ^v
+   Case right:Send, {Media_Next}
+   Case left:Send, {Media_Prev}
+   Case down:Send, {Delete}
+   Case up:return
+}
 return
 
 ;Play pause, but only in spotify

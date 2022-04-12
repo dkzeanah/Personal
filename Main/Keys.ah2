@@ -462,9 +462,9 @@ XButton1 & Volume_Down::
       ;Leave search
       Case WinActive("YouTube Music"):ControlClick "X1503 Y81"
       ;Maximize pop out window
-      Case WinActive("Watch later") || WinActive("Subscriptions") || (WinActive("YouTube") && !WinActive(" - YouTube")):Send "i"
+      Case WinActive("Watch later"), WinActive("Subscriptions"), (WinActive("YouTube") && !WinActive(" - YouTube")):Send "i"
       ;Fullscreen
-      Case WinActive(" - YouTube") || WinActive("WatchMoviesHD"):Send "f"
+      Case WinActive(" - YouTube"), WinActive("WatchMoviesHD"):Send "f"
       ;Notifications
       Case WinActive("Messenger"):ControlClick "X788 Y126"
       ;Emoji tab
@@ -483,6 +483,8 @@ XButton2 & Volume_Down::
          ControlClick "X1861 Y75"
          Sleep 100
          Send "{Tab 3}{Enter}"
+         Sleep 350
+         Send "{Tab 5}{Enter}"
       ;Switch channels in youtube
       Case WinActive("YouTube"):
          ControlClick "X1820 Y133"
@@ -593,14 +595,14 @@ $XButton2::
       Case right:
          Switch
          {
-            Case (WinActive("YouTube Music") || WinActive(" - YouTube")) && !WinActive("Watch later") && !WinActive("Subscriptions"):Send "+n"
+            Case (WinActive("YouTube Music"), WinActive(" - YouTube")) && !WinActive("Watch later") && !WinActive("Subscriptions"):Send "+n"
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgDn}"
             Default:Send "{Media_Next}"
          }
       Case left:
          Switch
          {
-            Case (WinActive("YouTube Music") || WinActive(" - YouTube")) && !WinActive("Watch later") && !WinActive("Subscriptions"):Send "+p"
+            Case (WinActive("YouTube Music"), WinActive(" - YouTube")) && !WinActive("Watch later") && !WinActive("Subscriptions"):Send "+p"
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgUp}"
             Default:Send "{Media_Prev}"
          }
@@ -617,10 +619,10 @@ $XButton1::
    right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347)
    Switch
    {
-      Default:Send "{Browser_Back}"
       Case WinActive("Google Chrome"): ;_chrome
          Switch
          {
+            Default:Send "{Browser_Back}"
             Case right:Send "^{PgDn}"
             Case left:Send "^{PgUp}"
             Case up:Send "^t"
@@ -639,9 +641,10 @@ $XButton1::
                Run A_ScriptFullPath
                SoundPlay "*-1" 
          }
-      Case WinActive("YouTube Music"):
+      Case WinActive("YouTube Music"): ;_youtube music
          Switch
          {
+            Default:Send "{Browser_Back}"
             Case right:
                ;Launches a script that counts how many tracks you've added to a playlist (counts every shift you press) if it isn't already running, otherwise exits it by sending a button that is binded to an exitapp in that script
                static discoveryAddPID := 0
@@ -656,6 +659,7 @@ $XButton1::
       Case WinActive("ahk_exe wps.exe"): 
          Switch
          {
+            Default:Send "{Browser_Back}"
             Case right:Send "^{Tab}"
             Case left:Send "^+{Tab}"
             Case down:Send "{PgDn}"
@@ -664,6 +668,7 @@ $XButton1::
       Case WinActive("ahk_exe Todoist.exe"): ;_todoist
          Switch
          {
+            Default:Send "{Browser_Back}"
             Case right:F_TodoistSearch("unfinished")
             Case left:F_TodoistSearch("rappers")
             Case down:F_TodoistSearch("payments")
@@ -672,6 +677,7 @@ $XButton1::
       Case WinActive("ahk_exe Discord.exe") && down:Send "{Esc}" ;_discord
       Case WinActive("ahk_exe Telegram.exe") && down:ControlClick "X1434 Y964" ;_telegram
       Case WinActive("ahk_group Whatiber") && down:ControlClick "X1878 Y961"
+      Default:Send "{Browser_Back}"
    } 
 }
 
@@ -736,6 +742,10 @@ $F2::ControlClick "X1013 Y73"
 ;Main page
 $F3::ControlClick "X76 Y72"
 
+;Like and dislike
+$F5::Send "^i"
+$F6::Send "^u"
+
 
 ;Close minimized window 
 #HotIf WinActive("Watch later") || WinActive("Subscriptions") || (WinActive("YouTube") && !WinActive(" - YouTube"))
@@ -763,7 +773,7 @@ $F5::F_TodoistSearch("desires")
 $F6::F_TodoistSearch("shopping") 
 
 ;Gives the current task an unfinished label and lets you edit its description
-$+!e::Send " {#}unfinished — " ;Straight up doesn't work if you don't have a space before everything else, thankfully v2 makes it easier to incorporate
+$+!e::Send " {#}unfinished — " 
 
 ;Enter is always down enter
 $Enter::Send select
@@ -1082,9 +1092,6 @@ $<!y::F_WindowsApp("ahk_exe atom.exe", "C:\Users\serge\AppData\Local\atom\app-1.
 ;Video editor
 $<!SC01B::F_WindowsApp("ahk_exe Resolve.exe", "C:\Programs\Davinci Resolve\Resolve.exe")
 
-;VPN
-$<!z::F_WindowsApp("ahk_exe vpncmgr_x64.exe", "C:\Program Files\SoftEther VPN Client\vpncmgr_x64.exe")
-
 ;MinMaxes a game if it exists, closes all apps but spotify if all main 6 apps exist, if they don't: launches those apps of the main 6, that do not yet exist
 $<!g:: 
 {
@@ -1173,6 +1180,9 @@ $<!w::F_WindowsApp("ahk_exe wps.exe", "C:\Users\serge\AppData\Local\Kingsoft\WPS
 
 ;Discord
 $<!q::F_WindowsApp("ahk_exe Discord.exe", "C:\Users\serge\AppData\Local\Discord\app-1.0.9004\Discord.exe")
+
+;VPN
+$<!z::F_WindowsApp("ahk_exe vpncmgr_x64.exe", "C:\Program Files\SoftEther VPN Client\vpncmgr_x64.exe")
 
 ;Explorer
 $<!e::F_WindowsApp_Folders("C:\")

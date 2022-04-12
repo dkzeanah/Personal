@@ -14,15 +14,13 @@ p —
 ] — davinci resolve 17
 \ — 
 a — vs code
-s — soundcloud
+s — youtube music
 d — documents
 f — fl studio, projects
 g — game winapp, open/close main apps
-h — [spotify] — liked
-j — 
-   [spotify] — search
-   [ahk docs] — search
-k — spotify
+h — 
+j —
+k — 
 l — 
 ж — ahk v2 docs
 э — ahk docs

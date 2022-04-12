@@ -381,7 +381,7 @@ $+!l::
       Case "I made it the fuck up", "I made it up":F_ClipSend("https://www.youtube.com/watch?v=r7l0Rq9E8MY")
       ;A link to a file on github
       Case "gitpage", "gitfile", "gitlink":
-         gitFile := StrReplace(StrReplace(FileSelect("S", A_WorkingDir), "C:\Files\Programming\Personal\", ""), "\", "/")
+         gitFile := StrReplace(StrReplace(StrReplace(FileSelect("S", A_WorkingDir), "C:\Files\Programming\Personal\", ""), "\", "/"), " ", "_")
          F_ClipSend("https://github.com/Axlefublr/Personal/" . gitFile)
    }
 
@@ -411,7 +411,7 @@ $+!l::
    ;A faster send for discord. Sending stuff can take too long, but if you copy and paste it, it's much faster. Takes care of your previous clipboard disappearing as well
    F_ClipSend(linkText)
    {
-      prevClip := A_Clipboard, A_Clipboard := linkText . " ", KeyWait("BackSpace", "D"), Send("^v"), KeyWait("BackSpace", "U"), A_Clipboard := prevClip
+      prevClip := A_Clipboard, A_Clipboard := linkText . " ", KeyWait("End", "D"), Send("^v"), KeyWait("End", "U"), A_Clipboard := prevClip
    }
    
    ;Select a file to run on startup

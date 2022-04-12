@@ -374,11 +374,15 @@ $+!l::
       Case "startup":F_StartupRun()
 
 
-      ;MEMES
+      ;SEND
       ;————————————
 
-      ;Youtube links
+      ;My source is that I made it the fuck up
       Case "I made it the fuck up", "I made it up":F_ClipSend("https://www.youtube.com/watch?v=r7l0Rq9E8MY")
+      ;A link to a file on github
+      Case "gitpage", "gitfile", "gitlink":
+         gitFile := StrReplace(StrReplace(FileSelect("S", A_WorkingDir), "C:\Files\Programming\Personal\", ""), "\", "/")
+         F_ClipSend("https://github.com/Axlefublr/Personal/" . gitFile)
    }
 
    ;Takes a random number out of 1 and 100000, says yes if it's even, no if it's odd
@@ -407,7 +411,7 @@ $+!l::
    ;A faster send for discord. Sending stuff can take too long, but if you copy and paste it, it's much faster. Takes care of your previous clipboard disappearing as well
    F_ClipSend(linkText)
    {
-      prevClip := A_Clipboard, A_Clipboard := linkText, KeyWait("Insert", "D"), Send("^v"), KeyWait("Insert", "U"), A_Clipboard := prevClip
+      prevClip := A_Clipboard, A_Clipboard := linkText . " ", KeyWait("BackSpace", "D"), Send("^v"), KeyWait("BackSpace", "U"), A_Clipboard := prevClip
    }
    
    ;Select a file to run on startup
@@ -986,7 +990,7 @@ $+!q::
    MsgBox clock_time . "`n" . clock_weekDay . "`n" . clock_date, "Current time", "4096"
 }
 
-;Opens an inputbox for you to put in the name of the key to get its SC code into your clipboard
+;Opens an inputbox for you to put in the name of the key to get its SC code into your clipboard, or takes the SC code to then show you to which key it belongs in a msgbox; if it finds neither, says so
 $+!k::
 {
    inputBoxWindowName := "Key codes"

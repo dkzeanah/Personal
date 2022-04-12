@@ -1,4 +1,4 @@
-D_SCCodes_Out := Map("~", "SC029", 
+D_KeyCodes_In := Map("~", "SC029", 
 "1", "SC002", 
 "2", "SC003", 
 "3", "SC004", 
@@ -113,6 +113,7 @@ D_SCCodes_Out := Map("~", "SC029",
 "eggplant", "U+1F346",
 "smiling_imp", "U+1F608")
 
-D_SCCodes_In := Map()
-for key, value in D_SCCodes_Out ;D_SCCodes_Out is the map I wanted to switch keys with values of
-   D_SCCodes_In[value] := key
+D_KeyCodes_Out := Map()
+for key, value in D_KeyCodes_In ;Copy of the dictionary with reversed keys and values
+   D_KeyCodes_Out[value] := key
+

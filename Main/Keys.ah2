@@ -989,10 +989,19 @@ $+!q::
 ;Opens an inputbox for you to put in the name of the key to get its SC code into your clipboard
 $+!k::
 {
+   inputBoxWindowName := "Key codes"
    Try
-      A_Clipboard := D_SCCodes_Out[InputBox("Name of the key:", "SC code by key name").value]
-   Catch Any
-      MsgBox "Key not found!", "SC code by key name", "T0.7"
+   {
+      keyPointer := InputBox("Key pointer:", inputBoxWindowName).value
+      A_Clipboard := D_KeyCodes_In[keyPointer]
+   }
+   Catch
+   {
+      Try
+         MsgBox D_KeyCodes_Out[keyPointer], inputBoxWindowName
+      Catch
+         MsgBox "Key not found!", inputBoxWindowName, "T1"
+   }
 }
 
 

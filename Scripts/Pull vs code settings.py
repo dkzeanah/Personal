@@ -1,6 +1,3 @@
-# copyfile() copies contents of a file
-# copy() + permission mode + destination can be a directory + L + ratio
-# copy2() copy() copies metadata (file's creation and modification times) 
 import shutil
 
 shutil.copyfile("C:\\Users\\serge\\AppData\\Roaming\\Code\\User\\snippets\\ahk.json", "Backups\\ahk.jsonc") #source, destination (args the same for each copy func)

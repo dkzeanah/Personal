@@ -42,7 +42,7 @@ F_IsItTimeYet()
    }
 }
 
-$#F6::
+$#F5::
 {
    result := MsgBox("The timer will ring on " . endHour . ":" . endMinute . "`n`nYes: Start a new timer, overwriting the current one`nNo: Continue the timer as normal`nCancel: Exit the timer", "Timer", "4355")
    Switch result

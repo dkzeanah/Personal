@@ -64,10 +64,10 @@ g —
 h — run current file
 j —! add next selection / change all occurences, refactor, rename symbol / rename
 k —! get the sc code of a key, get full / relative path of file 
-l — open something by typing it in
+l — runner
 ж — 
 э — 
-z — flip a coin
+z — 
 x — add todoist task
 c — 
 v — 

@@ -546,6 +546,9 @@ Volume_Down & XButton1::F_PressSend_Double("XButton1","^c","^x")
 Volume_Down & XButton2::F_PressSend_Double("XButton2","^v","#v")
 Volume_Down & MButton::F5
 
+;Alt tab
+Volume_Down & RButton::Send "!{Tab}"
+
 ;Special button by itself pressed in different sections of the screen does different things
 $Volume_Down::
 { 
@@ -604,20 +607,20 @@ $XButton2::
       Case right:
          Switch
          {
-            Case (WinActive("YouTube Music"), WinActive(" - YouTube")) && !WinActive("Watch later") && !WinActive("Subscriptions"):Send "+n"
+            Case WinActive("YouTube Music"), WinActive(" - YouTube") && !WinActive("Watch later") && !WinActive("Subscriptions"):Send "+n"
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgDn}"
             Default:Send "{Media_Next}"
          }
       Case left:
          Switch
          {
-            Case (WinActive("YouTube Music"), WinActive(" - YouTube")) && !WinActive("Watch later") && !WinActive("Subscriptions"):Send "+p"
+            Case WinActive("YouTube Music"), WinActive(" - YouTube") && !WinActive("Watch later") && !WinActive("Subscriptions"):Send "+p"
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgUp}"
             Default:Send "{Media_Prev}"
          }
       Case down:PostMessage "0x0010",,,, "A" ;Closes the active window
       Case up:PostMessage "0x112", "0xF020",,, "A" ;Minimizes the active window
-      Default:WinActive("ahk_exe Code.exe") ? Send("!{PgUp}") : Send("{Browser_Forward}")
+      Default:WinActive("ahk_exe Code.exe") ? Send("^a") : Send("{Browser_Forward}")
    }
 }
 
@@ -835,9 +838,6 @@ $^n::Send "^+x"
 ;Copies the most important setting files of vs code into the /Backups folder
 $^!u::Run A_WorkingDir . "\Scripts\Pull vs code settings.py"
 
-;Comments the entire file
-Volume_Down & LButton::Send "^a^/"
-
 ;Gets the selected SC code by copying and shows you the key it references
 ; XButton2 & Volume_Down::
 ; {
@@ -858,7 +858,8 @@ $!6::ControlClick "X568 Y98"
 $+!s::Send "^s"
 
 ;Switch between open documents
-$<!Tab::Send "^{Tab}"
+$<F3::Send "^+{Tab}"
+$<F4::Send "^{Tab}"
 
 
 #HotIf WinActive("ahk_exe KMPlayer64.exe")
@@ -946,14 +947,11 @@ $WheelDown::Send "{Right}"
 ;######################################################################################
 
 
-;Gets current cursor's position and opens a gui giving you the options for formatting the parameters for different commands to put them into your Clipboard or to not copy them into your Clipboard at all and just exit the gui
-$+!f::Run A_WorkingDir . "\Tools\MouseGetPos.ah2"
-
 ;Opens an inputbox for you to input how many minutes to wait, plays a sound and opens a msgbox saying the time has passed after it has. Press the same hotkey while the timer is running to see when it will ring and three options: start a new timer, discarding the current one, continue on, exit the timer
-$#F6::Run A_WorkingDir . "\Tools\Basic timer.ah2"
+$#F5::Run A_WorkingDir . "\Tools\Basic timer.ah2"
 
 ;Get the root to the exe of the active window and put it into your clipboard
-$#F5::
+$#F6::
 {
    windowExe := WinGetProcessPath("A")
    if windowExe
@@ -967,6 +965,17 @@ $#F7::
    if windowTitle
       A_Clipboard := windowTitle
 }
+
+;Opens a fileselect in the current folder for you to choose a file to get the path of into your clipboard
+$#F8::
+{
+   windowTitle := WinGetTitle("A")
+   if SubStr(windowTitle, 1, 3) == "C:\"
+      A_Clipboard := FileSelect("S", windowTitle)
+}
+
+;Gets current cursor's position and opens a gui giving you the options for formatting the parameters for different commands to put them into your Clipboard or to not copy them into your Clipboard at all and just exit the gui
+$+!f::Run A_WorkingDir . "\Tools\MouseGetPos.ah2"
 
 ;Opens a msgbox showing the exact time
 $+!q::

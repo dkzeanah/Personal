@@ -594,7 +594,7 @@
    "Default": {
       "prefix": "Default",
       "body": [
-         "Default"
+         "Default:"
       ]
    },
    "WinGetID": {
@@ -837,7 +837,7 @@
    "FileCreateShortcut": {
       "prefix": "FileCreateShortcut",
       "body": [
-         "FileCreateShortcut"
+         "FileCreateShortcut "
       ]
    },
    "A_AppData": {
@@ -850,6 +850,24 @@
       "prefix": "SubStr",
       "body": [
          "SubStr($0)"
+      ]
+   },
+   "RButton": {
+      "prefix": "RButton",
+      "body": [
+         "RButton"
+      ]
+   },
+   "LButton": {
+      "prefix": "LButton",
+      "body": [
+         "LButton"
+      ]
+   },
+   "SplitPath": {
+      "prefix": "SplitPath",
+      "body": [
+         "SplitPath "
       ]
    },
    

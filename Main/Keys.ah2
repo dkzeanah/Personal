@@ -371,6 +371,7 @@ $+!l::
       Case "new project tasks":Run A_WorkingDir . "\Scripts\New project tasks.py"
       Case "click counter":Run A_WorkingDir . "\Tools\Click counter.ah2"
       Case "coin flip":F_CoinFlip()
+      Case "startup":F_StartupRun()
 
 
       ;MEMES
@@ -407,6 +408,14 @@ $+!l::
    F_ClipSend(linkText)
    {
       prevClip := A_Clipboard, A_Clipboard := linkText, KeyWait("Insert", "D"), Send("^v"), KeyWait("Insert", "U"), A_Clipboard := prevClip
+   }
+   
+   ;Select a file to run on startup
+   F_StartupRun()
+   {
+      selectedFile := FileSelect("S", A_WorkingDir)
+      SplitPath selectedFile, &fileName
+      FileCreateShortcut selectedFile, A_AppData . "\Microsoft\Windows\Start Menu\Programs\Startup\" . fileName . ".lnk"
    }
 
 }
@@ -821,9 +830,13 @@ $^n::Send "^+x"
 ;######################################################################################
 
 
-;Copies the most important setting files of vs code into the /Backups folder
 #HotIf WinActive("ahk_exe Code.exe") ;_vscode 
+
+;Copies the most important setting files of vs code into the /Backups folder
 $^!u::Run A_WorkingDir . "\Scripts\Pull vs code settings.py"
+
+;Comments the entire file
+Volume_Down & LButton::Send "^a^/"
 
 ;Gets the selected SC code by copying and shows you the key it references
 ; XButton2 & Volume_Down::

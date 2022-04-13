@@ -18,15 +18,14 @@ SetScrollLockState "AlwaysOff"
 
 ;Reload this script
 ScrollLock::
-Numpad2::
+SC050::
 {
-   Run A_ScriptFullPath
-   SoundPlay "*-1"
+   Run(A_ScriptFullPath), SoundPlay("*-1")
 }
 
 ;Exit this script
 !ScrollLock::
-!Numpad2::
+!SC050::
 {
    SoundPlay("*16"), ExitApp()
 }
@@ -34,37 +33,31 @@ Numpad2::
 ;Suspend this script 
 #SuspendExempt True
 +ScrollLock::
-+Numpad2::
++SC050::
 {
    if A_IsSuspended
-   {
-      Suspend False
-      SoundPlay "*-1"
-   }
+      Suspend(False), SoundPlay("*-1")
    else 
-   {
-      Suspend True
-      SoundPlay "*16"
-   }
+      Suspend(True), SoundPlay("*16")
 }
 #SuspendExempt False
 
 ;Run Testscript v2
 Pause::
-Numpad3::
+SC051::
 {
    SoundPlay("*-1"), Run(A_WorkingDir . "\Test\Tests.ah2") 
 }
 ;Run Testscript v1
 +Pause::
-+Numpad3::
++SC051::
 {
    SoundPlay("*-1"), Run(A_WorkingDir . "\Test\Testsv1.ahk")
 }
 
 ;Restart system
 #ScrollLock::
-#Numpad2::
+#SC050::
 {
    Shutdown 2
 }
@@ -229,13 +222,21 @@ $+!Left::Send "^z"
 $+!Right::Send "^y"
 
 ;Select all
-$Insert::Send "^a"
+$Insert::
+$SC047::
+{
+   Send "^a"
+}
 
 ;Easily accessible paste window
 $#Insert::Send "#v"
 
 ;Cut
-$!Insert::Send "^x"
+$!Insert::
+$!SC047::
+{
+   Send "^x"
+}
 
 
 ;INTERACTION

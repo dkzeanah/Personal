@@ -4,6 +4,7 @@ SetWorkingDir A_ScriptDir . "\..\" ;Ensures a consistent A_WorkingDir.
 #WinActivateForce ;Forces windows to be activated, skipping the gentle method
 CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of the window's
 A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seconds
+SetScrollLockState "AlwaysOff"
 #HotIf
 
 
@@ -17,14 +18,23 @@ A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seco
 
 ;Reload this script
 ScrollLock::
+Numpad2::
 {
    Run A_ScriptFullPath
    SoundPlay "*-1"
 }
 
+;Exit this script
+!ScrollLock::
+!Numpad2::
+{
+   SoundPlay("*16"), ExitApp()
+}
+
 ;Suspend this script 
 #SuspendExempt True
 +ScrollLock::
++Numpad2::
 {
    if A_IsSuspended
    {
@@ -39,15 +49,25 @@ ScrollLock::
 }
 #SuspendExempt False
 
-;Exit this script
-!ScrollLock::SoundPlay("*16"), ExitApp()
-
-;Run Testscript
-Pause::SoundPlay("*-1"), Run(A_WorkingDir . "\Test\Tests.ah2") 
-+Pause::SoundPlay("*-1"), Run(A_WorkingDir . "\Test\Testsv1.ahk")
+;Run Testscript v2
+Pause::
+Numpad3::
+{
+   SoundPlay("*-1"), Run(A_WorkingDir . "\Test\Tests.ah2") 
+}
+;Run Testscript v1
++Pause::
++Numpad3::
+{
+   SoundPlay("*-1"), Run(A_WorkingDir . "\Test\Testsv1.ahk")
+}
 
 ;Restart system
-#ScrollLock::Shutdown 2
+#ScrollLock::
+#Numpad2::
+{
+   Shutdown 2
+}
 
 
 
@@ -259,24 +279,51 @@ $!F11::Send "{U+1F608}"
 
 #HotIf 
 
+;Makes sure fn + function key doesn't do its native function. Commented if made into a hotkey
+$Launch_Media::return ;F1
+$Media_Play_Pause::return ;F2
+$Media_Stop::return ;F3
+$Media_Prev::return ;F4
+$Media_Next::return ;F5
+$Volume_Mute::return ;F6
+$Volume_Up::return ;F7
+; $Volume_Down::return ;F8
+$Launch_App1::return ;F9
+; $Launch_Mail::return ;F10
+; $Launch_App2::return ;F11
+$Browser_Home::return ;F12
 
-;REMAPPING
-;——————————————————
+;Useless numpad
+*NumpadMult::return
+*NumpadDiv::return
+*NumpadAdd::return
+*NumpadSub::return
+*NumLock::return
+*Numpad0::return
+*Numpad1::return
+*NumpadDot::return
+*NumpadEnter::return
 
-;Pure remapping
-$AppsKey::LCtrl 
+;Numpad is special buttons
+SC047::Insert
+SC04B::Delete
+SC048::Home
+SC04C::End
+SC049::PgUp
+SC04D::PgDn
+AppsKey::LCtrl 
 
 ;Makes sure the side mouse buttons work as intended ingame, despite their remapping outside of game 
 #HotIf WinActive("ahk_group Game_M")
-$*XButton2::y
 $*XButton1::u
+$*XButton2::y
 $*Volume_Down::i
 
 #HotIf WinActive("ahk_exe METAL GEAR RISING REVENGEANCE.exe")
-$*XButton2::LCtrl
 $*XButton1::u
-$*CapsLock::Enter
+$*XButton2::LCtrl
 $*Volume_Down::i
+$*CapsLock::Enter
 #HotIf
 
 
@@ -290,99 +337,105 @@ $*Volume_Down::i
 ;Gives you a place to essentially type a hotstring. Runs what you entered
 $+!l::
 {
-   Switch InputBox("What do you want to run?", "Runner").value
+   O_Runner := InputBox("What do you want to run?", "Runner")
+   if O_Runner.Result != "Cancel"
    {
-      ;WEBSITES
-      ;——————————————————
+      Switch O_Runner.Value
+      {
+         ;WEBSITES
+         ;——————————————————
 
-      ;Reddit
-      Case "reddit":F_RunLink("https://www.reddit.com/notifications")
-      ;Instagram
-      Case "inst", "instagram":F_RunLink("https://www.instagram.com/")
-      ;Twitter
-      Case "twit", "twitter":F_RunLink("https://twitter.com/home")
-      ;Eкурсы
-      Case "eku":F_RunLink("https://e.sfu-kras.ru/calendar/view.php?view=month&time=" . ekursTime)
-      ;MyAnimeList
-      Case "mal":F_RunLink("https://myanimelist.net/profile/Axlefublr")
-      ;Metta
-      Case "metta":F_RunLink("https://mettalife.ru/pl/my?gcmes=5779290672&gcmlg=-4")
-      ;Weather
-      Case "weather":F_RunLink("https://yandex.ru/pogoda/krasnoyarsk")
-      ;GitHub
-      Case "git":F_RunLink("https://github.com/Axlefublr")
-      ;Watch movies
-      Case "movies":F_RunLink("https://watchmovieshd.ru/")
-      ;Gogoanime
-      Case "gogoanime":F_RunLink("https://gogoanime.fi/")
-      ;Mvideo
-      Case "mvideo":F_RunLink("https://www.mvideo.ru/")
-      ;Steam keys
-      Case "zaka", "zakazaka":F_RunLink("https://zaka-zaka.com/")
-      ;Barbershop
-      Case "barber":F_RunLink("https://b73723.yclients.com/company/89170/menu?o=")
-      ;Emoji unicodes
-      Case "emoji":F_RunLink("https://www.alt-codes.net/smiley_alt_codes.php")
-      ;Share files
-      Case "share files":F_RunLink("https://files.fm/")
-
-
-      ;РАСПИСАНИЕ
-      ;————————————————————
-
-      Case "tom", "tomorrow":
-         Switch A_WDay 
-         {
-            Default:Run A_WorkingDir . "\Libraries\Time table\Monday.jpg", "Max"
-            Case 2:Run A_WorkingDir . "\Libraries\Time table\Tuesday.jpg", "Max"
-            Case 3:Run A_WorkingDir . "\Libraries\Time table\Wednesday.jpg", "Max"
-            Case 4:Run A_WorkingDir . "\Libraries\Time table\Thursday.jpg", "Max"
-            Case 5:Run A_WorkingDir . "\Libraries\Time table\Friday.jpg", "Max"
-         }
-      Case "today":
-         Switch A_WDay
-         {
-            Default:Run A_WorkingDir . "\Libraries\Time table\Monday.jpg", "Max"
-            Case 3:Run A_WorkingDir . "\Libraries\Time table\Tuesday.jpg", "Max"
-            Case 4:Run A_WorkingDir . "\Libraries\Time table\Wednesday.jpg", "Max"
-            Case 5:Run A_WorkingDir . "\Libraries\Time table\Thursday.jpg", "Max"
-            Case 6:Run A_WorkingDir . "\Libraries\Time table\Friday.jpg", "Max"
-         }
-      Case "monday":Run A_WorkingDir . "\Libraries\Time table\Monday.jpg", "Max"
-      Case "tuesday":Run A_WorkingDir . "\Libraries\Time table\Tuesday.jpg", "Max"
-      Case "wednesday":Run A_WorkingDir . "\Libraries\Time table\Wednesday.jpg", "Max"
-      Case "thursday":Run A_WorkingDir . "\Libraries\Time table\Thursday.jpg", "Max"
-      Case "friday":Run A_WorkingDir . "\Libraries\Time table\Friday.jpg", "Max"
+         ;Reddit
+         Case "reddit":F_RunLink("https://www.reddit.com/notifications")
+         ;Instagram
+         Case "inst", "instagram":F_RunLink("https://www.instagram.com/")
+         ;Twitter
+         Case "twit", "twitter":F_RunLink("https://twitter.com/home")
+         ;Eкурсы
+         Case "eku":F_RunLink("https://e.sfu-kras.ru/calendar/view.php?view=month&time=" . ekursTime)
+         ;MyAnimeList
+         Case "mal":F_RunLink("https://myanimelist.net/profile/Axlefublr")
+         ;Metta
+         Case "metta":F_RunLink("https://mettalife.ru/pl/my?gcmes=5779290672&gcmlg=-4")
+         ;Weather
+         Case "weather":F_RunLink("https://yandex.ru/pogoda/krasnoyarsk")
+         ;GitHub
+         Case "git":F_RunLink("https://github.com/Axlefublr")
+         ;Watch movies
+         Case "movies":F_RunLink("https://watchmovieshd.ru/")
+         ;Gogoanime
+         Case "gogoanime":F_RunLink("https://gogoanime.fi/")
+         ;Mvideo
+         Case "mvideo":F_RunLink("https://www.mvideo.ru/")
+         ;Steam keys
+         Case "zaka", "zakazaka":F_RunLink("https://zaka-zaka.com/")
+         ;Barbershop
+         Case "barber":F_RunLink("https://b73723.yclients.com/company/89170/menu?o=")
+         ;Emoji unicodes
+         Case "emoji":F_RunLink("https://www.alt-codes.net/smiley_alt_codes.php")
+         ;Share files
+         Case "share files":F_RunLink("https://files.fm/")
 
 
-      ;VS CODE
-      ;—————————————————
+         ;РАСПИСАНИЕ
+         ;————————————————————
 
-      ;Important files
-      Case "syntax":Run "C:\Users\serge\.vscode\extensions\mark-wiemer.vscode-autohotkey-plus-plus-2.8.1\syntaxes\ahk.tmLanguage.json"
-      Case "keybind":Run "C:\Users\serge\AppData\Roaming\Code\User\keybindings.json"
-      Case "settings":Run "C:\Files\Programming\Personal\Backups\settings.json"
-      Case "tasks":Run "C:\Users\serge\AppData\Roaming\Code\User\tasks.json"
-      Case "extensions":Run "C:\Users\serge\.vscode\extensions"
-      Case "package":Run "C:\Users\serge\.vscode\extensions\mark-wiemer.vscode-autohotkey-plus-plus-2.8.1\package.json"
+         Case "tom", "tomorrow":
+            Switch A_WDay 
+            {
+               Default:Run A_WorkingDir . "\Libraries\Time table\Monday.jpg", "Max"
+               Case 2:Run A_WorkingDir . "\Libraries\Time table\Tuesday.jpg", "Max"
+               Case 3:Run A_WorkingDir . "\Libraries\Time table\Wednesday.jpg", "Max"
+               Case 4:Run A_WorkingDir . "\Libraries\Time table\Thursday.jpg", "Max"
+               Case 5:Run A_WorkingDir . "\Libraries\Time table\Friday.jpg", "Max"
+            }
+         Case "today":
+            Switch A_WDay
+            {
+               Default:Run A_WorkingDir . "\Libraries\Time table\Monday.jpg", "Max"
+               Case 3:Run A_WorkingDir . "\Libraries\Time table\Tuesday.jpg", "Max"
+               Case 4:Run A_WorkingDir . "\Libraries\Time table\Wednesday.jpg", "Max"
+               Case 5:Run A_WorkingDir . "\Libraries\Time table\Thursday.jpg", "Max"
+               Case 6:Run A_WorkingDir . "\Libraries\Time table\Friday.jpg", "Max"
+            }
+         Case "monday":Run A_WorkingDir . "\Libraries\Time table\Monday.jpg", "Max"
+         Case "tuesday":Run A_WorkingDir . "\Libraries\Time table\Tuesday.jpg", "Max"
+         Case "wednesday":Run A_WorkingDir . "\Libraries\Time table\Wednesday.jpg", "Max"
+         Case "thursday":Run A_WorkingDir . "\Libraries\Time table\Thursday.jpg", "Max"
+         Case "friday":Run A_WorkingDir . "\Libraries\Time table\Friday.jpg", "Max"
 
-      ;Running tasks
-      Case "format table to array":F_FormatTableToArray()
-      Case "new project tasks":Run A_WorkingDir . "\Scripts\New project tasks.py"
-      Case "click counter":Run A_WorkingDir . "\Tools\Click counter.ah2"
-      Case "coin flip":F_CoinFlip()
-      Case "startup":F_StartupRun()
+
+         ;VS CODE
+         ;—————————————————
+
+         ;Important files
+         Case "syntax":Run "C:\Users\serge\.vscode\extensions\mark-wiemer.vscode-autohotkey-plus-plus-2.8.1\syntaxes\ahk.tmLanguage.json"
+         Case "keybind":Run "C:\Users\serge\AppData\Roaming\Code\User\keybindings.json"
+         Case "settings":Run "C:\Files\Programming\Personal\Backups\settings.json"
+         Case "tasks":Run "C:\Users\serge\AppData\Roaming\Code\User\tasks.json"
+         Case "extensions":Run "C:\Users\serge\.vscode\extensions"
+         Case "package":Run "C:\Users\serge\.vscode\extensions\mark-wiemer.vscode-autohotkey-plus-plus-2.8.1\package.json"
+
+         ;Running tasks
+         Case "format table to array":F_FormatTableToArray()
+         Case "new project tasks":Run A_WorkingDir . "\Scripts\New project tasks.py"
+         Case "click counter":Run A_WorkingDir . "\Tools\Click counter.ah2"
+         Case "coin flip":F_CoinFlip()
+         Case "startup":F_StartupRun()
 
 
-      ;SEND
-      ;————————————
+         ;SEND
+         ;————————————
 
-      ;My source is that I made it the fuck up
-      Case "I made it the fuck up", "I made it up":F_ClipSend("https://www.youtube.com/watch?v=r7l0Rq9E8MY")
-      ;A link to a file on github
-      Case "gitpage", "gitfile", "gitlink":
-         gitFile := StrReplace(StrReplace(StrReplace(FileSelect("S", A_WorkingDir), "C:\Files\Programming\Personal\", ""), "\", "/"), " ", "_")
-         F_ClipSend("https://github.com/Axlefublr/Personal/" . gitFile)
+         ;My source is that I made it the fuck up
+         Case "I made it the fuck up", "I made it up":F_ClipSend("https://www.youtube.com/watch?v=r7l0Rq9E8MY")
+         ;Funny mic
+         Case "funny mic":F_ClipSend("https://www.youtube.com/watch?v=jfbKJy_ZuIU")
+         ;A link to a file on github
+         Case "gitpage", "gitfile", "gitlink":
+            gitFile := StrReplace(StrReplace(StrReplace(FileSelect("S", A_WorkingDir), "C:\Files\Programming\Personal\", ""), "\", "/"), " ", "_")
+            F_ClipSend("https://github.com/Axlefublr/Personal/" . gitFile)
+      }
    }
 
    ;Takes a random number out of 1 and 100000, says yes if it's even, no if it's odd
@@ -442,20 +495,6 @@ $+!l::
       }
    }
 }
-
-;Makes sure fn + function key doesn't do its native function. Commented if made into a hotkey
-$Launch_Media::return ;F1
-$Media_Play_Pause::return ;F2
-$Media_Stop::return ;F3
-$Media_Prev::return ;F4
-$Media_Next::return ;F5
-$Volume_Mute::return ;F6
-$Volume_Up::return ;F7
-; $Volume_Down::return ;F8
-$Launch_App1::return ;F9
-; $Launch_Mail::return ;F10
-; $Launch_App2::return ;F11
-$Browser_Home::return ;F12
 
 
 
@@ -725,6 +764,10 @@ $F6::Send "^6"
 $F7::Send "^7"
 $F8::Send "^8"
 
+;Volume
+$F10::Send "{Volume_Up}"
+$F9::Send "{Volume_Down}"
+
 ;Opens a new tab
 $+!e::Send "^t"
 
@@ -742,10 +785,6 @@ $+!w::
 $PgDn::Send "+n"
 $PgUp::Send "+p"
 
-;Volume
-$F10::Send "{Volume_Up}"
-$F9::Send "{Volume_Down}"
-
 
 #HotIf WinActive("YouTube Music")
 
@@ -755,12 +794,13 @@ $F1::ControlClick "X1210 Y78"
 ;Library
 $F2::ControlClick "X1013 Y73"
 
-;Main page
-$F3::ControlClick "X76 Y72"
+;Volume
+$F10::Send "{Volume_Up}"
+$F9::Send "{Volume_Down}"
 
 ;Like and dislike
-$F5::Send "^i"
-$F6::Send "^u"
+$F11::Send "^i"
+$F12::Send "^u"
 
 
 ;Close minimized window 
@@ -955,20 +995,10 @@ $WheelDown::Send "{Right}"
 $#F5::Run A_WorkingDir . "\Tools\Basic timer.ah2"
 
 ;Get the root to the exe of the active window and put it into your clipboard
-$#F6::
-{
-   windowExe := WinGetProcessPath("A")
-   if windowExe
-      A_Clipboard := windowExe
-}
+$#F6::A_Clipboard := WinGetProcessPath("A")
 
 ;Get the name of the active window and put it into your clipboard
-$#F7::
-{
-   windowTitle := WinGetTitle("A")
-   if windowTitle
-      A_Clipboard := windowTitle
-}
+$#F7::A_Clipboard := WinGetTitle("A")
 
 ;Opens a fileselect in the current folder for you to choose a file to get the path of into your clipboard
 $#F8::
@@ -1133,7 +1163,7 @@ $<!g::
    ;ahk_exe of the main 6 apps 
 
    ;Google Chrome
-   chrome := "ahk_exe chrome.exe"
+   chrome := "Google Chrome"
    chrome_exe := "C:\Program Files\Google\Chrome\Application\chrome.exe" 
    ;Todoist
    todoist := "ahk_exe Todoist.exe"
@@ -1153,11 +1183,7 @@ $<!g::
    ;Variable for ALL the main 6 apps existing
    mainAppsExist := (WinExist(chrome) && WinExist(todoist) && WinExist(telegram) && WinExist(vscode) && WinExist(discord))
 
-   if WinExist("ahk_group Game")
-      F_MinMax("ahk_group Game")
-   else
-      (mainAppsExist ? WinClose("ahk_group Main")
-      : F_ifWinClose(steam), F_ifRunApp(chrome, chrome_exe), F_ifRunApp(todoist, todoist_exe), F_ifRunApp(telegram, telegram_exe), F_ifRunApp(vscode, vscode_exe), F_ifRunApp(discord, discord_exe), F_ifRunApp_WinNum("YouTube Music", "6"))
+   (WinExist("ahk_group Game") ? F_MinMax("ahk_group Game") : (mainAppsExist ? WinClose("ahk_group Main") : (F_ifWinClose(steam), F_ifRunApp(chrome, chrome_exe), F_ifRunApp(todoist, todoist_exe), F_ifRunApp(telegram, telegram_exe), F_ifRunApp(vscode, vscode_exe), F_ifRunApp(discord, discord_exe), F_ifRunApp_WinNum("YouTube Music", "6"))))
 }
 
 #HotIf !WinActive("ahk_group Game")

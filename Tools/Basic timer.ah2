@@ -1,28 +1,26 @@
 SetWorkingDir A_ScriptDir "\..\" ;Ensures a consistent A_WorkingDir.
 #SingleInstance Force ;Launches the new instance of the script always, instead of asking whether it should
 
-timerInput := InputBox("Enter time in minutes:", "Timer")
-if (!timerInput.Value) || ((timerInput.Value // timerInput.Value) != 1)
+O_timerInput := InputBox("Enter time in minutes:", "Timer")
+if (!O_timerInput.Value) || ((O_timerInput.Value // O_timerInput.Value) != 1) || (O_timerInput.Result == "Cancel")
    ExitApp
-else if timerInput.Value < 0
+else if O_timerInput.Value < 0
 {
    MsgBox "Go fuck yourself smartass", "Timer", "4096"
    ExitApp
 }
-else if timerInput.Result == "Cancel"
-   ExitApp
 else 
 {
    endSecond := A_Sec
-   if ((timerInput.Value // 60) >= 1) ;calculates for if the time is more than an hour
+   if ((O_timerInput.Value // 60) >= 1) ;calculates for if the time is more than an hour
    {
-      endHour := A_Hour + (timerInput.Value // 60), endMinute := A_Min + Mod(timerInput.Value, 60)
+      endHour := A_Hour + (O_timerInput.Value // 60), endMinute := A_Min + Mod(O_timerInput.Value, 60)
       if (endMinute >= 60) ;accounts for if the end time becomes something like 4:78, making it 5:18
          endHour := endHour + (endMinute // 60), endMinute := Mod(endMinute, 60) 
    }
    else 
    {
-      endHour := A_Hour, endMinute := A_Min + timerInput.Value
+      endHour := A_Hour, endMinute := A_Min + O_timerInput.Value
       if (endMinute >= 60) ;line 21 comment
          endHour++, endMinute := Mod(endMinute, 60) 
    }

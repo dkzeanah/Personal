@@ -53,8 +53,7 @@
          "#Hotstring EndChars `t ;Decides the characters that can finish a hotstring",
          "#WinActivateForce ;Forces windows to be activated, skipping the gentle method",
          "CoordMode \"Mouse\", \"Screen\" ;Uses the coordinates of the screen rather than of the window's",
-         "A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seconds",
-         "; Persistent True ;Make the script not autoquit if it doesn't have hotkeys"
+         "A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seconds"
       ],
       "description": ""
    },
@@ -723,7 +722,7 @@
    "SetScrollLockState": {
       "prefix": "SetScrollLockState",
       "body": [
-         "SetScrollLockState"
+         "SetScrollLockState "
       ]
    },
    ".Value": {
@@ -870,5 +869,112 @@
          "SplitPath "
       ]
    },
-   
+   "SetNumLockState": {
+      "prefix": "SetNumLockState",
+      "body": [
+         "SetNumLockState "
+      ]
+   },
+   "NumpadDot": {
+      "prefix": "NumpadDot",
+      "body": [
+         "NumpadDot"
+      ]
+   },
+   "NumLock": {
+      "prefix": "NumLock",
+      "body": [
+         "NumLock"
+      ]
+   },
+   "NumpadDiv": {
+      "prefix": "NumpadDiv",
+      "body": [
+         "NumpadDiv"
+      ]
+   },
+   "NumpadMult": {
+      "prefix": "NumpadMult",
+      "body": [
+         "NumpadMult"
+      ]
+   },
+   "NumpadAdd": {
+      "prefix": "NumpadAdd",
+      "body": [
+         "NumpadAdd"
+      ]
+   },
+   "NumpadSub": {
+      "prefix": "NumpadSub",
+      "body": [
+         "NumpadSub"
+      ]
+   },
+   "NumpadEnter": {
+      "prefix": "NumpadEnter",
+      "body": [
+         "NumpadEnter"
+      ]
+   },
+   "Numpad0": {
+      "prefix": "Numpad0",
+      "body": [
+         "Numpad0"
+      ]
+   },
+   "Numpad1": {
+      "prefix": "Numpad1",
+      "body": [
+         "Numpad1"
+      ]
+   },
+   "Numpad2": {
+      "prefix": "Numpad2",
+      "body": [
+         "Numpad2"
+      ]
+   },
+   "Numpad3": {
+      "prefix": "Numpad3",
+      "body": [
+         "Numpad3"
+      ]
+   },
+   "Numpad4": {
+      "prefix": "Numpad4",
+      "body": [
+         "Numpad4"
+      ]
+   },
+   "Numpad5": {
+      "prefix": "Numpad5",
+      "body": [
+         "Numpad5"
+      ]
+   },
+   "Numpad6": {
+      "prefix": "Numpad6",
+      "body": [
+         "Numpad6"
+      ]
+   },
+   "Numpad7": {
+      "prefix": "Numpad7",
+      "body": [
+         "Numpad7"
+      ]
+   },
+   "Numpad8": {
+      "prefix": "Numpad8",
+      "body": [
+         "Numpad8"
+      ]
+   },
+   "Numpad9": {
+      "prefix": "Numpad9",
+      "body": [
+         "Numpad9"
+      ]
+   },
 }

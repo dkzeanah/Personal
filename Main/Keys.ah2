@@ -65,6 +65,48 @@ SC051::
 
 
 
+;FUNCTIONS ############################################################################
+;######################################################################################
+;###################################################################################### 
+;###################################################################################### 
+
+
+;Sends one thing if you pressed a button once. A different thing if twice. 
+F_PressSend_Double(keyname, toSend1:="", toSend2:="") {
+   KeyWait(keyname), ((KeyWait(keyname, "D T0.1")) ? (Send(toSend2)) : (Send(toSend1)))
+}
+
+;Only tries to close the window if it exists
+F_ifWinClose(winTitle)
+{
+   if WinExist(winTitle)
+      WinClose(winTitle)
+}
+
+;it literally says what it does
+F_ClickThenGoBack(coordinates)
+{
+   MouseGetPos &initX, &initY
+   Click coordinates
+   MouseMove initX, initY
+}
+
+;clickthengoback, but clicks as an event for extra fucky things
+F_ClickThenGoBack_Event(coordinates)
+{
+   MouseGetPos &initX, &initY
+   SendEvent "{Click " . coordinates . "}"
+   MouseMove initX, initY
+} 
+
+;Sends an emoji using its unicode
+F_Emoji(emojiName) {
+   Send "{" . D_KeyCodes_In[emojiName] . "}"
+}
+
+
+
+
 ;VARIABLES ############################################################################
 ;######################################################################################
 ;######################################################################################
@@ -100,7 +142,7 @@ GroupAdd "Game", "ahk_exe isaac-ng.exe"
 GroupAdd "Game", "ahk_exe nuclearthrone.exe"
 GroupAdd "Game", "ahk_exe METAL GEAR RISING REVENGEANCE.exe"
 
-;Games that don't need built-in remapping
+;Games that use base remapping
 GroupAdd "Game_M", "ahk_exe EtG.exe"
 GroupAdd "Game_M", "ahk_exe isaac-ng.exe"
 GroupAdd "Game_M", "ahk_exe nuclearthrone.exe"
@@ -132,43 +174,6 @@ GroupAdd "Media", "ahk_exe KMPlayer64.exe"
 ;Autohotkey help
 GroupAdd "AutoHotkey_Help", "AutoHotkey Help"
 GroupAdd "AutoHotkey_Help", "AutoHotkey v2 Help"
-
-
-
-
-;FUNCTIONS ############################################################################
-;######################################################################################
-;###################################################################################### 
-;###################################################################################### 
-
-
-;Sends one thing if you pressed a button once. A different thing if twice. 
-F_PressSend_Double(keyname, toSend1:="", toSend2:="") {
-   KeyWait(keyname), ((KeyWait(keyname, "D T0.1")) ? (Send(toSend2)) : (Send(toSend1)))
-}
-
-;Only tries to close the window if it exists
-F_ifWinClose(winTitle)
-{
-   if WinExist(winTitle)
-      WinClose(winTitle)
-}
-
-;it literally says what it does
-F_ClickThenGoBack(coordinates)
-{
-   MouseGetPos &initX, &initY
-   Click coordinates
-   MouseMove initX, initY
-}
-
-;clickthengoback, but clicks as an event for extra fucky things
-F_ClickThenGoBack_Event(coordinates)
-{
-   MouseGetPos &initX, &initY
-   SendEvent "{Click " . coordinates . "}"
-   MouseMove initX, initY
-} 
 
 
 
@@ -236,10 +241,6 @@ $!SC047::
    Send "^x"
 }
 
-
-;INTERACTION
-;————————————————————
-
 ;Media hotkeys
 $!SC029::Media_Play_Pause
 $>^Home::Volume_Up
@@ -254,27 +255,24 @@ $>^Pgdn::Media_Next
 
 ;Alt + number sends the Unicode for a specific emoji, making that work anywhere. These hotkeys only work in windows that are messengers
 ;🥺😋🤯😼😎😭🧐😳🤨🤔—💀
-$!1::Send "{U+1F97A}"
-$!2::Send "{U+1F60B}"
-$!3::Send "{U+1F92F}"
-$!4::Send "{U+1F63C}"
-$!5::Send "{U+1F60E}"
-$!6::Send "{U+1F62D}"
-$!7::Send "{U+1F9D0}"
-$!8::Send "{U+1F633}"
-$!9::Send "{U+1F928}"
-$!0::Send "{U+1F914}"
-$!=::Send "{U+1F480}"
+$!1::F_Emoji("pleading")
+$!2::F_Emoji("yum")
+$!3::F_Emoji("exploding_head")
+$!4::F_Emoji("smirk_cat")
+$!5::F_Emoji("sunglasses")
+$!6::F_Emoji("sob")
+$!7::F_Emoji("face_with_monocle")
+$!8::F_Emoji("flushed")
+$!9::F_Emoji("face_with_raised_eyebrow")
+$!0::F_Emoji("thinking")
+$!=::F_Emoji("skull")
 
 ;Alt + F keys are emojis as well
-;😩💜🙄🥴👉👈🤤😈
-$!F5::Send "{U+1F629}"
-$!F6::Send "{U+1F49C}"
-$!F7::Send "{U+1F644}"
-$!F8::Send "{U+1F974}"
-$!F9::Send "{U+1F449}{U+1F448}"
-$!F10::Send "{U+1F924}"
-$!F11::Send "{U+1F608}"
+;😩🤤💜👉👈
+$!F5::F_Emoji("weary")
+$!F6::F_Emoji("drooling")
+$!F7::F_Emoji("purple_heart")
+$!F8::F_Emoji("finger_right"), F_Emoji("finger_left")
 
 #HotIf 
 
@@ -883,14 +881,12 @@ $+!k::
    prevClip := A_Clipboard
    Send "^c"
    Sleep 40
-   if SubStr(A_Clipboard, 1, 2) == "SC"
+   Try
    {
-      Try
-         MsgBox D_KeyCodes_Out[A_Clipboard], inBoxTitle
-      Catch
-         F_KeyNotFound()
+      MsgBox D_KeyCodes_Out[A_Clipboard], inBoxTitle
+      A_Clipboard := prevClip
    }
-   else 
+   Catch
    {
       Try
       {

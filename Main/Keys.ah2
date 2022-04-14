@@ -122,20 +122,6 @@ F_Emoji(emojiName) {
 ;Often when you want something selected, you'll send down and enter, so this is the variable for that 
 select := "{Down}{Enter}"
 
-;Time part of the ekursы link
-Switch A_MMMM 
-{
-   Case "April":ekursTime := 1648746000
-   Case "May":ekursTime := 1651338000
-   Case "June":ekursTime := 1654016400
-   Case "July":ekursTime := 1656608400
-   Case "August":ekursTime := 1659286800
-   Case "September":ekursTime := 1661965200
-   Case "October":ekursTime := 1664557200
-   Case "November":ekursTime := 1667235600
-   Case "December":ekursTime := 1669827600
-}
-
 ;Games
 GroupAdd "Game", "ahk_exe EtG.exe"
 GroupAdd "Game", "ahk_exe isaac-ng.exe"
@@ -325,6 +311,7 @@ $*CapsLock::Enter
 
 
 
+
 ;SPECIAL HOTKEYS ######################################################################
 ;######################################################################################
 ;######################################################################################
@@ -337,6 +324,19 @@ $+!l::
    O_Runner := InputBox("What do you want to run?", "Runner")
    if O_Runner.Result != "Cancel"
    {
+      ;Time part of the ekursы link
+      Switch A_MMMM 
+      {
+         Case "April":ekursTime := 1648746000
+         Case "May":ekursTime := 1651338000
+         Case "June":ekursTime := 1654016400
+         Case "July":ekursTime := 1656608400
+         Case "August":ekursTime := 1659286800
+         Case "September":ekursTime := 1661965200
+         Case "October":ekursTime := 1664557200
+         Case "November":ekursTime := 1667235600
+         Case "December":ekursTime := 1669827600
+      }
       Switch O_Runner.Value
       {
          ;WEBSITES
@@ -419,6 +419,7 @@ $+!l::
          Case "new project tasks":Run A_WorkingDir . "\Scripts\New project tasks.py"
          Case "startup":F_StartupRun()
          Case "click counter":Run A_WorkingDir . "\Tools\Click counter.ah2"
+         Case "playlist moving":Run A_WorkingDir . "\Tools\Playlist moving.ah2"
          Case "coin flip":F_CoinFlip()
          Case "dr", "$":F_DollarToRub()
          Case "rd":F_RubToDollar()
@@ -788,6 +789,12 @@ $+!w::
 }
 
 
+;Change volume
+#HotIf WinActive("WatchMoviesHD")
+$Up::Send "{Volume_Up}"
+$Down::Send "{Volume_Down}"
+
+
 #HotIf WinActive("YouTube") ;_youtube 
 
 ;Shift n to skip never made sense to begin with
@@ -802,6 +809,9 @@ $F1::ControlClick "X1210 Y78"
 
 ;Library
 $F2::ControlClick "X1013 Y73"
+
+;Exit search
+$F3::ControlClick "X1503 Y81"
 
 ;Volume
 $F10::Send "{Volume_Up}"
@@ -822,31 +832,9 @@ $!Right::Send "l"
 $!Left::Send "j"
 
 
-#HotIf WinActive("ahk_exe Todoist.exe") ;_todoist
-
-;Goes to the project or label or filter or your mom
-F_TodoistSearch(projectToFind) {
-   Send "f" . projectToFind . "{Down}{Enter}"
-}
-
-;Hotkeys to jump to different projects
-$F1::F_TodoistSearch("inbox") 
-$F2::F_TodoistSearch("rappers") 
-$F3::F_TodoistSearch("unfinished")
-$F4::F_TodoistSearch("payments")
-$F5::F_TodoistSearch("desires")
-$F6::F_TodoistSearch("shopping") 
-
-;Gives the current task an unfinished label and lets you edit its description
-$+!e::Send " {#}unfinished — " 
-
-;Enter is always down enter
-$Enter::Send select
 
 
-
-
-;APP SPECIFIC MESSENGERS ##############################################################
+;OTHER ################################################################################
 ;######################################################################################
 ;######################################################################################
 ;######################################################################################
@@ -876,9 +864,31 @@ $^p::Send "^+p"
 $^n::Send "^+x"
 
 
+#HotIf WinActive("ahk_exe Todoist.exe") ;_todoist
+
+;Goes to the project or label or filter or your mom
+F_TodoistSearch(projectToFind) {
+   Send "f" . projectToFind . "{Down}{Enter}"
+}
+
+;Hotkeys to jump to different projects
+$F1::F_TodoistSearch("inbox") 
+$F2::F_TodoistSearch("rappers") 
+$F3::F_TodoistSearch("unfinished")
+$F4::F_TodoistSearch("payments")
+$F5::F_TodoistSearch("desires")
+$F6::F_TodoistSearch("shopping") 
+
+;Gives the current task an unfinished label and lets you edit its description
+$+!e::Send " {#}unfinished — " 
+
+;Enter is always down enter
+$Enter::Send select
 
 
-;APP SPECIFIC TECH ####################################################################
+
+
+;TECH #################################################################################
 ;######################################################################################
 ;######################################################################################
 ;######################################################################################
@@ -929,8 +939,8 @@ $!6::ControlClick "X568 Y98"
 $+!s::Send "^s"
 
 ;Switch between open documents
-$<F3::Send "^+{Tab}"
-$<F4::Send "^{Tab}"
+$F3::Send "^+{Tab}"
+$F4::Send "^{Tab}"
 
 
 #HotIf WinActive("ahk_exe KMPlayer64.exe")
@@ -943,10 +953,14 @@ $Up::Send "{Volume_Up}"
 $Down::Send "{Volume_Down}"
 
 
-;Change volume
-#HotIf WinActive("WatchMoviesHD")
-$Up::Send "{Volume_Up}"
-$Down::Send "{Volume_Down}"
+;Search in docs
+#HotIf WinActive("ahk_group AutoHotkey_Help")
+$F1::Send "!s"
+
+;Scroll to go between pics
+#HotIf WinActive("ahk_group Media")
+$WheelUp::Send "{Left}"
+$WheelDown::Send "{Right}"
 
 
 #HotIf WinActive("ahk_exe ScreenClippingHost.exe")
@@ -989,24 +1003,6 @@ F_ScreenshotOptions(direction)
 $WheelUp::F_ScreenshotOptions("left")
 $WheelDown::F_ScreenshotOptions("right")
 $MButton::F_ClickThenGoBack("1017 29") ;Takes a full-screen screenshot
-
-
-
-
-;APP SPECIFIC SINGLE ##################################################################
-;######################################################################################
-;######################################################################################
-;######################################################################################
-
-
-;Search in docs
-#HotIf WinActive("ahk_group AutoHotkey_Help")
-$F1::Send "!s"
-
-;Scroll to go between pics
-#HotIf WinActive("ahk_group Media")
-$WheelUp::Send "{Left}"
-$WheelDown::Send "{Right}"
 #HotIf
 
 
@@ -1039,7 +1035,7 @@ $#F8::
 $+!f::Run A_WorkingDir . "\Tools\MouseGetPos.ah2"
 
 ;Opens a msgbox showing the exact time
-$+!q::
+$+!t::
 {
    clock_time := FormatTime(, "H:mm")
    clock_weekDay := FormatTime(, "dddd")
@@ -1074,8 +1070,7 @@ F_ifMinMax(title)
 }
 
 ;If the window exists and is not active, activate it
-F_ifAct(title)
-{
+F_ifAct(title) {
    if WinExist(title) && !WinActive(title)
       WinActivate title
 }
@@ -1089,21 +1084,18 @@ F_RunApp(winTitle, exePath)
 } 
 
 ;Run app, but only if it doesn't exist already
-F_ifRunApp(winTitle, exePath)
-{
+F_ifRunApp(winTitle, exePath) {
    if !WinExist(winTitle)
       Run exePath
 }
 
-F_ifRunApp_WinNum(winTitle, winNum)
-{
+F_ifRunApp_WinNum(winTitle, winNum) {
    if !WinExist(winTitle)
       Send "#" . winNum
 }
 
 ;If the app doesn't exist, launches it. If it does and is active, minimizes it. If it's minimized, activates it
-F_WindowsApp(winTitle, exePath) 
-{
+F_WindowsApp(winTitle, exePath) {
    if !F_ifMinMax(winTitle)
       F_RunApp(winTitle, exePath)
 }
@@ -1226,8 +1218,7 @@ $<!f::
 }
 
 ;Photos
-$<!r::
-{
+$<!r:: {
    if !F_ifMinMax("ahk_group Media")
       F_WindowsApp("ahk_exe steam.exe", "C:\Programs\Steam\steam.exe")
 }

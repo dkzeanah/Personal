@@ -47,7 +47,7 @@ e — open tab
 r — 
    [youtube] — PiP
    [vs code] — rename file
-t — 
+t — time
 y —! reload window, add to workspace, remove from workspace
 u —! git
 i —! snippets
@@ -56,7 +56,7 @@ p —! palletes
 [ —! new file/folder
 ] —! settings
 \ — 
-a — select all
+a — 
 s — 
 d — find all references
 f — get mouse pos and bring up a gui with options for formatting 

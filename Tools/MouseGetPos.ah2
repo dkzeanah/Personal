@@ -1,6 +1,4 @@
-SetWorkingDir A_ScriptDir "\..\" ;Ensures a consistent A_WorkingDir.
-#SingleInstance Force ;Launches the new instance of the script always, instead of asking whether it should
-#WinActivateForce ;Forces windows to be activated, skipping the gentle method
+#SingleInstance Force 
 CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of the window's
 
 MouseGetPos &locX, &locY

@@ -1,5 +1,4 @@
-SetWorkingDir A_ScriptDir "\..\" ;Ensures a consistent A_WorkingDir.
-#SingleInstance Force ;Launches the new instance of the script always, instead of asking whether it should
+#SingleInstance Force 
 
 O_timerInput := InputBox("Enter time in minutes:", "Timer")
 if (!O_timerInput.Value) || ((O_timerInput.Value // O_timerInput.Value) != 1) || (O_timerInput.Result == "Cancel")

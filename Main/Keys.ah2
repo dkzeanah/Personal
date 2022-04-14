@@ -143,10 +143,8 @@ GroupAdd "AutoHotkey_Help", "AutoHotkey v2 Help"
 
 
 ;Sends one thing if you pressed a button once. A different thing if twice. 
-F_PressSend_Double(keyname, toSend1:="", toSend2:="")
-{
-   KeyWait keyname
-   ((KeyWait(keyname, "D T0.1")) ? (Send(toSend2)) : (Send(toSend1)))
+F_PressSend_Double(keyname, toSend1:="", toSend2:="") {
+   KeyWait(keyname), ((KeyWait(keyname, "D T0.1")) ? (Send(toSend2)) : (Send(toSend1)))
 }
 
 ;Only tries to close the window if it exists
@@ -399,6 +397,7 @@ $+!l::
                Case 5:Run A_WorkingDir . "\Libraries\Time table\Thursday.jpg", "Max"
                Case 6:Run A_WorkingDir . "\Libraries\Time table\Friday.jpg", "Max"
             }
+         Case "week":Run "https://edu.sfu-kras.ru/timetable?group=%D0%98%D0%9A21-08%D0%91+%28%D0%BF%D0%BE%D0%B4%D0%B3%D1%80%D1%83%D0%BF%D0%BF%D0%B0+2%29"
          Case "monday":Run A_WorkingDir . "\Libraries\Time table\Monday.jpg", "Max"
          Case "tuesday":Run A_WorkingDir . "\Libraries\Time table\Tuesday.jpg", "Max"
          Case "wednesday":Run A_WorkingDir . "\Libraries\Time table\Wednesday.jpg", "Max"
@@ -447,7 +446,7 @@ $+!l::
       MsgBox result
    }
    
-   ;Intakes text that's written on multiple lines. For every line ending character, replaces it with ", ", formatting every line into a 
+   ;Takes a multiline text and turns every line into a key in an array
    F_FormatTableToArray()
    {
       A_Clipboard := StrReplace(A_Clipboard, "`r`n", '", "') 
@@ -456,15 +455,12 @@ $+!l::
    }
 
    ;Runs the link and makes sure the browser is activated
-   F_RunLink(link)
-   {
-      Run link
-      WinActivate "Google Chrome"
+   F_RunLink(link) {
+      Run(link), WinActivate("Google Chrome")
    }
 
    ;A faster send for discord. Sending stuff can take too long, but if you copy and paste it, it's much faster. Takes care of your previous clipboard disappearing as well
-   F_ClipSend(linkText)
-   {
+   F_ClipSend(linkText) {
       prevClip := A_Clipboard, A_Clipboard := linkText . " ", KeyWait("End", "D"), Send("^v"), KeyWait("End", "U"), A_Clipboard := prevClip
    }
    
@@ -749,10 +745,8 @@ $XButton1::
 #HotIf WinActive("Google Chrome") ;_chrome
 
 ;Single press is copy, double press will get current tab's link to clipboard
-Volume_Down & XButton1::
-{
-   KeyWait "XButton1", "U"
-   (KeyWait("XButton1", "D T0.2") ? (Send("{F6}"), Sleep(40), Send("^c")) : Send("^c"))
+Volume_Down & XButton1:: {
+   KeyWait("XButton1", "U"), (KeyWait("XButton1", "D T0.2") ? (Send("{F6}"), Sleep(40), Send("^c")) : Send("^c"))
 }
 
 ;Ctrl numbers aren't easy to press, so F keys instead
@@ -847,10 +841,8 @@ $Enter::Send select
 #HotIf WinActive("ahk_exe Telegram.exe") ;_telegram
 
 ;Clicks the search bar for you to search for channels, finds and goes to the channel you want
-F_TelegramSearch(channelToFind)
-{
-   ControlClick "X422 Y78"
-   Send channelToFind . "{Down}{Enter}"
+F_TelegramSearch(channelToFind) {
+   ControlClick("X422 Y78"), Send(channelToFind . "{Down}{Enter}")
 } 
 
 ;Press an F key -> go to a channel
@@ -883,15 +875,37 @@ $^n::Send "^+x"
 ;Copies the most important setting files of vs code into the /Backups folder
 $^!u::Run A_WorkingDir . "\Scripts\Pull vs code settings.py"
 
-;Gets the selected SC code by copying and shows you the key it references
-; XButton2 & Volume_Down::
-; {
-;    tempClip := A_Clipboard
-;    Send "^c"
-;    ClipWait 10, 1
-;    MsgBox D_SCCodes_In[A_Clipboard], "Key name by SC key"
-;    A_Clipboard := tempClip
-; }
+;Opens an inputbox for you to put in the name of the key to get its SC code into your clipboard, or takes the SC code to then show you to which key it belongs in a msgbox; if it finds neither, says so
+Volume_Down & LButton::
+$+!k::
+{
+   inBoxTitle := "Key codes"
+   prevClip := A_Clipboard
+   Send "^c"
+   Sleep 40
+   if SubStr(A_Clipboard, 1, 2) == "SC"
+   {
+      Try
+         MsgBox D_KeyCodes_Out[A_Clipboard], inBoxTitle
+      Catch
+         F_KeyNotFound()
+   }
+   else 
+   {
+      Try
+      {
+         keyPointer := InputBox("Key pointer:", inBoxTitle)
+         if keyPointer.Result != "Cancel"
+            A_Clipboard := D_KeyCodes_In[keyPointer.Value]
+      }
+      Catch
+         F_KeyNotFound()
+   }
+
+   F_KeyNotFound() {
+      MsgBox "Key not found!", inBoxTitle, "T1"
+   }
+}
 
 
 #HotIf WinActive("ahk_exe wps.exe") ;_wps
@@ -1019,24 +1033,6 @@ $+!q::
    clock_weekDay := FormatTime(, "dddd")
    clock_date := FormatTime(, "d MMMM")
    MsgBox clock_time . "`n" . clock_weekDay . "`n" . clock_date, "Current time", "4096"
-}
-
-;Opens an inputbox for you to put in the name of the key to get its SC code into your clipboard, or takes the SC code to then show you to which key it belongs in a msgbox; if it finds neither, says so
-$+!k::
-{
-   inputBoxWindowName := "Key codes"
-   Try
-   {
-      keyPointer := InputBox("Key pointer:", inputBoxWindowName).value
-      A_Clipboard := D_KeyCodes_In[keyPointer]
-   }
-   Catch
-   {
-      Try
-         MsgBox D_KeyCodes_Out[keyPointer], inputBoxWindowName
-      Catch
-         MsgBox "Key not found!", inputBoxWindowName, "T1"
-   }
 }
 
 
@@ -1212,8 +1208,7 @@ $<!t::
 ;Projects folder on single press, FL Studio on double press
 $<!f::
 {
-   KeyWait "f"
-   (KeyWait("f", "D T0.1") 
+   KeyWait("f"), (KeyWait("f", "D T0.1") 
    ? F_WindowsApp("ahk_exe FL64.exe", "C:\Programs\FL Studio 20\FL64.exe") 
    : F_WindowsApp_Folders("C:\Files\Projects"))
 }

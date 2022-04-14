@@ -417,11 +417,13 @@ $+!l::
          ;Running tasks
          Case "format table to array":F_FormatTableToArray()
          Case "new project tasks":Run A_WorkingDir . "\Scripts\New project tasks.py"
+         Case "startup":F_StartupRun()
          Case "click counter":Run A_WorkingDir . "\Tools\Click counter.ah2"
          Case "coin flip":F_CoinFlip()
-         Case "startup":F_StartupRun()
+         Case "dr", "$":F_DollarToRub()
+         Case "rd":F_RubToDollar()
 
-
+ 
          ;SEND
          ;————————————
 
@@ -447,8 +449,7 @@ $+!l::
    ;Takes a multiline text and turns every line into a key in an array
    F_FormatTableToArray()
    {
-      A_Clipboard := StrReplace(A_Clipboard, "`r`n", '", "') 
-      A_Clipboard := "`"" . A_Clipboard . "`""
+      A_Clipboard := "`"" . StrReplace(A_Clipboard, "`r`n", '", "') . "`""
       MsgBox "Done formatting table to array"
    }
 
@@ -470,6 +471,21 @@ $+!l::
       FileCreateShortcut selectedFile, A_AppData . "\Microsoft\Windows\Start Menu\Programs\Startup\" . fileName . ".lnk"
    }
 
+   ;Googles how many rubles are there in a specified amount of dollars
+   F_DollarToRub()
+   {
+      O_DollarToRub := InputBox("How much in dollars?: ", "Currency converter")
+      if O_DollarToRub.Result != "Cancel"
+         F_RunLink("https://www.google.com/search?q=" . O_DollarToRub.Value . "+dollars+in+rubles&oq=" . O_DollarToRub.Value . "+dollars+in+rubles&aqs=chrome..69i57.5947j0j7&sourceid=chrome&ie=UTF-8")
+   }
+
+   ;The thing above, but reversed
+   F_RubToDollar()
+   {
+      O_RubToDollar := InputBox("How much in rubles?: ", "Currency converter")
+      if O_RubToDollar.Result != "Cancel"
+         F_RunLink("https://www.google.com/search?q=" . O_RubToDollar.Value . "+rubles+in+dollars&oq=" . O_RubToDollar.Value . "+rubles+in+dollars&aqs=chrome..69i57.4182j1j9&sourceid=chrome&ie=UTF-8")
+   }
 }
 
 ;Easy way to reactivate the previous window after using the quick add task of todoist

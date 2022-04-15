@@ -77,23 +77,20 @@ F_PressSend_Double(keyname, toSend1:="", toSend2:="") {
 }
 
 ;Only tries to close the window if it exists
-F_ifWinClose(winTitle)
-{
+F_ifWinClose(winTitle) {
    if WinExist(winTitle)
       WinClose(winTitle)
 }
 
 ;it literally says what it does
-F_ClickThenGoBack(coordinates)
-{
+F_ClickThenGoBack(coordinates) {
    MouseGetPos &initX, &initY
    Click coordinates
    MouseMove initX, initY
 }
 
 ;clickthengoback, but clicks as an event for extra fucky things
-F_ClickThenGoBack_Event(coordinates)
-{
+F_ClickThenGoBack_Event(coordinates) {
    MouseGetPos &initX, &initY
    SendEvent "{Click " . coordinates . "}"
    MouseMove initX, initY
@@ -177,16 +174,14 @@ GroupAdd "AutoHotkey_Help", "AutoHotkey v2 Help"
 $!-::Send "{ASC 0151}"
 
 ;Hotstring that turns into a random english word every time
-:B0*?:uclanr::
-{
+:B0*?:uclanr:: {
    Send "{BackSpace 6}"
    Ri_randomWords_Eng := Random(1, 3003)
    Send R_randomWords_Eng[Ri_randomWords_Eng]
 }
 
 ;Hotstring that turns into a random russian word every time
-:B0*?:ilandh::
-{
+:B0*?:ilandh:: {
    Send "{BackSpace 6}"
    Ri_randomWords_Rus := Random(1, 3000)
    Send R_randomWords_Rus[Ri_randomWords_Rus]
@@ -294,7 +289,7 @@ SC048::Home
 SC04C::End
 SC049::PgUp
 SC04D::PgDn
-AppsKey::LCtrl 
+AppsKey::LCtrl
 
 ;Makes sure the side mouse buttons work as intended ingame, despite their remapping outside of game 
 #HotIf WinActive("ahk_group Game_M")
@@ -319,14 +314,11 @@ $*CapsLock::Enter
 
 
 ;Gives you a place to essentially type a hotstring. Runs what you entered
-$+!l::
-{
+$+!l:: {
    O_Runner := InputBox("What do you want to run?", "Runner")
-   if O_Runner.Result != "Cancel"
-   {
+   if O_Runner.Result != "Cancel" {
       ;Time part of the ekursы link
-      Switch A_MMMM 
-      {
+      Switch A_MMMM {
          Case "April":ekursTime := 1648746000
          Case "May":ekursTime := 1651338000
          Case "June":ekursTime := 1654016400
@@ -337,8 +329,7 @@ $+!l::
          Case "November":ekursTime := 1667235600
          Case "December":ekursTime := 1669827600
       }
-      Switch O_Runner.Value
-      {
+      Switch O_Runner.Value {
          ;WEBSITES
          ;——————————————————
 
@@ -378,8 +369,7 @@ $+!l::
          ;————————————————————
 
          Case "tom", "tomorrow":
-            Switch A_WDay 
-            {
+            Switch A_WDay {
                Default:Run A_WorkingDir . "\Libraries\Time table\Monday.jpg", "Max"
                Case 2:Run A_WorkingDir . "\Libraries\Time table\Tuesday.jpg", "Max"
                Case 3:Run A_WorkingDir . "\Libraries\Time table\Wednesday.jpg", "Max"
@@ -387,8 +377,7 @@ $+!l::
                Case 5:Run A_WorkingDir . "\Libraries\Time table\Friday.jpg", "Max"
             }
          Case "today":
-            Switch A_WDay
-            {
+            Switch A_WDay {
                Default:Run A_WorkingDir . "\Libraries\Time table\Monday.jpg", "Max"
                Case 3:Run A_WorkingDir . "\Libraries\Time table\Tuesday.jpg", "Max"
                Case 4:Run A_WorkingDir . "\Libraries\Time table\Wednesday.jpg", "Max"
@@ -432,6 +421,8 @@ $+!l::
          Case "I made it the fuck up", "I made it up":F_ClipSend("https://www.youtube.com/watch?v=r7l0Rq9E8MY")
          ;Funny mic
          Case "funny mic":F_ClipSend("https://www.youtube.com/watch?v=jfbKJy_ZuIU")
+         ;Delay lama vs meowsynth
+         Case "delay lama":F_ClipSend("https://www.youtube.com/watch?v=Np4iG7-se7I")
          ;A link to a file on github
          Case "gitpage", "gitfile", "gitlink":
             gitFile := StrReplace(StrReplace(StrReplace(FileSelect("S", A_WorkingDir), "C:\Files\Programming\Personal\", ""), "\", "/"), " ", "_")
@@ -440,16 +431,14 @@ $+!l::
    }
 
    ;Takes a random number out of 1 and 100000, says yes if it's even, no if it's odd
-   F_CoinFlip()
-   {
+   F_CoinFlip() {
       coinFlip := Random(1, 100000)
       ((Mod(coinFlip, 2)) ? (result := "Yes") : (result := "No"))
       MsgBox result
    }
    
    ;Takes a multiline text and turns every line into a key in an array
-   F_FormatTableToArray()
-   {
+   F_FormatTableToArray() {
       A_Clipboard := "`"" . StrReplace(A_Clipboard, "`r`n", '", "') . "`""
       MsgBox "Done formatting table to array"
    }
@@ -465,24 +454,21 @@ $+!l::
    }
    
    ;Select a file to run on startup
-   F_StartupRun()
-   {
+   F_StartupRun() {
       selectedFile := FileSelect("S", A_WorkingDir)
       SplitPath selectedFile, &fileName
       FileCreateShortcut selectedFile, A_AppData . "\Microsoft\Windows\Start Menu\Programs\Startup\" . fileName . ".lnk"
    }
 
    ;Googles how many rubles are there in a specified amount of dollars
-   F_DollarToRub()
-   {
+   F_DollarToRub() {
       O_DollarToRub := InputBox("How much in dollars?: ", "Currency converter")
       if O_DollarToRub.Result != "Cancel"
          F_RunLink("https://www.google.com/search?q=" . O_DollarToRub.Value . "+dollars+in+rubles&oq=" . O_DollarToRub.Value . "+dollars+in+rubles&aqs=chrome..69i57.5947j0j7&sourceid=chrome&ie=UTF-8")
    }
 
    ;The thing above, but reversed
-   F_RubToDollar()
-   {
+   F_RubToDollar() {
       O_RubToDollar := InputBox("How much in rubles?: ", "Currency converter")
       if O_RubToDollar.Result != "Cancel"
          F_RunLink("https://www.google.com/search?q=" . O_RubToDollar.Value . "+rubles+in+dollars&oq=" . O_RubToDollar.Value . "+rubles+in+dollars&aqs=chrome..69i57.4182j1j9&sourceid=chrome&ie=UTF-8")
@@ -490,18 +476,15 @@ $+!l::
 }
 
 ;Easy way to reactivate the previous window after using the quick add task of todoist
-+!x::
-{
++!x:: {
    prevActWin := WinGetID("A")
    Send "^+!x"
    if WinWait("ahk_exe Todoist.exe",, 7)
       SetTimer F_ReactivatePrevActWin, 100 ;Bind by calling the function (works like this if no params)
    
    ;Waits for the quick add task window to disappear and as soon as it does, reactivates the window it was called from
-   F_ReactivatePrevActWin() ;You can actually put it inside of the hotkey
-   {
-      if !WinActive("ahk_exe Todoist.exe") 
-      {
+   F_ReactivatePrevActWin() { ;You can actually put it inside of the hotkey
+      if !WinActive("ahk_exe Todoist.exe") {
          WinActivate "ahk_id " . prevActWin ;No need to make it a param, since same scope
          SetTimer F_ReactivatePrevActWin, 0
       }
@@ -519,10 +502,8 @@ $+!l::
 
 #HotIf !WinActive("ahk_group Game")
 
-XButton1 & Volume_Down::
-{
-   Switch
-   {
+XButton1 & Volume_Down:: {
+   Switch {
       ;Leave search
       Case WinActive("YouTube Music"):ControlClick "X1503 Y81"
       ;Maximize pop out window
@@ -538,10 +519,8 @@ XButton1 & Volume_Down::
    }
 }
 
-XButton2 & Volume_Down::
-{
-   Switch
-   {
+XButton2 & Volume_Down:: {
+   Switch {
       ;Switch channels in youtube music
       Case WinActive("YouTube Music"):
          ControlClick "X1861 Y75"
@@ -567,10 +546,8 @@ XButton2 & Volume_Down::
    }
 }
 
-$^m::
-{
-   Switch
-   {
+$^m:: {
+   Switch {
       Default:Send "^m"
       Case WinActive("ahk_exe Discord.exe"):
          ;Markdown
@@ -605,12 +582,10 @@ Volume_Down & MButton::F5
 Volume_Down & RButton::Send "!{Tab}"
 
 ;Special button by itself pressed in different sections of the screen does different things
-$Volume_Down::
-{ 
+$Volume_Down:: { 
    MouseGetPos &sectionX, &sectionY
    right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347) 
-   Switch
-   {
+   Switch {
       Case right:Send "#{Right}"
       Case left:Send "#{Left}"
       Case down:Send "#{Down}"
@@ -653,22 +628,18 @@ XButton2 & LButton::Enter
 
 
 ;Far side button, does different things depending on what section of the screen it was pressed on. Right, left, down, up or middle
-$XButton2::
-{ 
+$XButton2:: { 
    MouseGetPos &sectionX, &sectionY
    right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347) ;Here I define the sections
-   Switch
-   {
+   Switch {
       Case right:
-         Switch
-         {
+         Switch {
             Case WinActive("YouTube Music"), WinActive(" - YouTube") && !WinActive("Watch later") && !WinActive("Subscriptions"):Send "+n"
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgDn}"
             Default:Send "{Media_Next}"
          }
       Case left:
-         Switch
-         {
+         Switch {
             Case WinActive("YouTube Music"), WinActive(" - YouTube") && !WinActive("Watch later") && !WinActive("Subscriptions"):Send "+p"
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgUp}"
             Default:Send "{Media_Prev}"
@@ -680,15 +651,12 @@ $XButton2::
 }
 
 ;Close side button, does different things depending on what section of the screen it was pressed on. Right, left, down, up or middle
-$XButton1::
-{ 
+$XButton1:: { 
    MouseGetPos &sectionX, &sectionY
    right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347)
-   Switch
-   {
+   Switch {
       Case WinActive("Google Chrome"): ;_chrome
-         Switch
-         {
+         Switch {
             Default:Send "{Browser_Back}"
             Case right:Send "^{PgDn}"
             Case left:Send "^{PgUp}"
@@ -696,8 +664,7 @@ $XButton1::
             Case down:((WinActive("Messenger")) ? (ControlClick("X1750 Y903")) : (Send("^w")))
          }
       Case WinActive("ahk_exe Code.exe"): ;_vscode
-         Switch
-         {
+         Switch {
             Default:Send "^/"
             Case right:Send "^!{Right}"
             Case left:Send "^!{Left}"
@@ -709,8 +676,7 @@ $XButton1::
                SoundPlay "*-1" 
          }
       Case WinActive("YouTube Music"): ;_youtube music
-         Switch
-         {
+         Switch {
             Default:Send "{Browser_Back}"
             Case right:
                ;Launches a script that counts how many tracks you've added to a playlist (counts every shift you press) if it isn't already running, otherwise exits it by sending a button that is binded to an exitapp in that script
@@ -724,8 +690,7 @@ $XButton1::
             Case down:Send "^u"
          }
       Case WinActive("ahk_exe wps.exe"): 
-         Switch
-         {
+         Switch {
             Default:Send "{Browser_Back}"
             Case right:Send "^{Tab}"
             Case left:Send "^+{Tab}"
@@ -733,8 +698,7 @@ $XButton1::
             Case up:Send "^s"
          }
       Case WinActive("ahk_exe Todoist.exe"): ;_todoist
-         Switch
-         {
+         Switch {
             Default:Send "{Browser_Back}"
             Case right:F_TodoistSearch("unfinished")
             Case left:F_TodoistSearch("rappers")
@@ -782,8 +746,7 @@ $F9::Send "{Volume_Down}"
 $+!e::Send "^t"
 
 ;Shift alt w closes a tab
-$+!w::
-{
+$+!w:: {
    if !WinActive("Messenger")
       Send "^w"
 }
@@ -856,6 +819,7 @@ $F5::F_TelegramSearch("gallery")
 $F6::F_TelegramSearch("мама")
 $F7::F_TelegramSearch("кристина")
 $F8::F_TelegramSearch("алена")
+$F9::F_TelegramSearch("invie")
 
 ;Spoiler
 $^p::Send "^+p" 
@@ -907,15 +871,12 @@ $+!k::
    prevClip := A_Clipboard
    Send "^c"
    Sleep 40
-   Try
-   {
+   Try {
       MsgBox D_KeyCodes_Out[A_Clipboard], inBoxTitle
       A_Clipboard := prevClip
    }
-   Catch
-   {
-      Try
-      {
+   Catch {
+      Try {
          keyPointer := InputBox("Key pointer:", inBoxTitle)
          if keyPointer.Result != "Cancel"
             A_Clipboard := D_KeyCodes_In[keyPointer.Value]
@@ -966,8 +927,7 @@ $WheelDown::Send "{Right}"
 #HotIf WinActive("ahk_exe ScreenClippingHost.exe")
 
 ;In the screenshot tool there are three options that can be selected. Selects those options in a rotary manner, depending on direction
-F_ScreenshotOptions(direction)
-{
+F_ScreenshotOptions(direction) {
    MouseGetPos &initX, &initY
    static optionYoureOn := 1
    if (direction == "left")
@@ -1024,8 +984,7 @@ $#F6::A_Clipboard := WinGetProcessPath("A")
 $#F7::A_Clipboard := WinGetTitle("A")
 
 ;Opens a fileselect in the current folder for you to choose a file to get the path of into your clipboard
-$#F8::
-{
+$#F8:: {
    windowTitle := WinGetTitle("A")
    if SubStr(windowTitle, 1, 3) == "C:\"
       A_Clipboard := FileSelect("S", windowTitle)
@@ -1035,8 +994,7 @@ $#F8::
 $+!f::Run A_WorkingDir . "\Tools\MouseGetPos.ah2"
 
 ;Opens a msgbox showing the exact time
-$+!t::
-{
+$+!t:: {
    clock_time := FormatTime(, "H:mm")
    clock_weekDay := FormatTime(, "dddd")
    clock_date := FormatTime(, "d MMMM")
@@ -1058,10 +1016,8 @@ F_MinMax(title) {
 }
 
 ;If the window exists, minimize or maximize it depending on its state and return 1, otherwise return 0
-F_ifMinMax(title)
-{
-   if WinExist(title)
-   {
+F_ifMinMax(title) {
+   if WinExist(title) {
       F_MinMax(title)
       return 1
    }
@@ -1076,8 +1032,7 @@ F_ifAct(title) {
 }
 
 ;Run an exe, activate its window
-F_RunApp(winTitle, exePath)
-{
+F_RunApp(winTitle, exePath) {
    Run exePath,, "Max"
    WinWait winTitle,, 10
    WinActivate winTitle
@@ -1101,10 +1056,8 @@ F_WindowsApp(winTitle, exePath) {
 }
 
 ;Windows app name, but there's no exe fot the app so you put it in your taskbar and use windows + number to launch it and then this optimized way of activating it and minimizing it
-F_WindowsApp_WinNum(winTitle, windowsNumber)
-{
-   if !F_ifMinMax(winTitle)
-   {
+F_WindowsApp_WinNum(winTitle, windowsNumber) {
+   if !F_ifMinMax(winTitle) {
       Send "#" . windowsNumber
       WinWait winTitle,, 10
       WinActivate winTitle
@@ -1112,10 +1065,8 @@ F_WindowsApp_WinNum(winTitle, windowsNumber)
 }
 
 ;WindowsApp, but for folders
-F_WindowsApp_Folders(folderPath)
-{
-   Switch
-   {
+F_WindowsApp_Folders(folderPath) {
+   Switch {
       Case !WinExist(folderPath):Run(folderPath), WinWait(folderPath), WinActivate(folderPath)
       Case WinActive(folderPath):WinMinimize folderPath
       Case !WinActive(folderPath):WinActivate folderPath
@@ -1159,10 +1110,7 @@ $<!y::F_WindowsApp("ahk_exe atom.exe", "C:\Users\serge\AppData\Local\atom\app-1.
 $<!SC01B::F_WindowsApp("ahk_exe Resolve.exe", "C:\Programs\Davinci Resolve\Resolve.exe")
 
 ;MinMaxes a game if it exists, closes all apps but spotify if all main 6 apps exist, if they don't: launches those apps of the main 6, that do not yet exist
-$<!g:: 
-{
-   ;ahk_exe of the main 6 apps 
-
+$<!g:: {
    ;Google Chrome
    chrome := "Google Chrome"
    chrome_exe := "C:\Program Files\Google\Chrome\Application\chrome.exe" 
@@ -1190,15 +1138,12 @@ $<!g::
 #HotIf !WinActive("ahk_group Game")
 
 ;Telegram, whatsapp, viber on one, two and three presses
-$<!t::
-{
+$<!t:: {
    KeyWait "t"
-   Switch KeyWait("t", "D T0.1")
-   {
+   Switch KeyWait("t", "D T0.1") {
       Case True:
          KeyWait "t"
-         Switch KeyWait("t", "D T0.1")
-         {
+         Switch KeyWait("t", "D T0.1") {
             ; You pressed three times
             Case True:F_WindowsApp("ahk_exe Viber.exe", "C:\Users\serge\AppData\Local\Viber\Viber.exe") 
             ; You pressed twice
@@ -1210,8 +1155,7 @@ $<!t::
 }
 
 ;Projects folder on single press, FL Studio on double press
-$<!f::
-{
+$<!f:: {
    KeyWait("f"), (KeyWait("f", "D T0.1") 
    ? F_WindowsApp("ahk_exe FL64.exe", "C:\Programs\FL Studio 20\FL64.exe") 
    : F_WindowsApp_Folders("C:\Files\Projects"))

@@ -395,7 +395,6 @@ $+!l:: {
          ;VS CODE
          ;—————————————————
 
-         ;Important files
          Case "syntax":Run "C:\Users\serge\.vscode\extensions\mark-wiemer.vscode-autohotkey-plus-plus-2.8.1\syntaxes\ahk.tmLanguage.json"
          Case "keybind":Run "C:\Users\serge\AppData\Roaming\Code\User\keybindings.json"
          Case "settings":Run "C:\Files\Programming\Personal\Backups\settings.json"
@@ -403,15 +402,19 @@ $+!l:: {
          Case "extensions":Run "C:\Users\serge\.vscode\extensions"
          Case "package":Run "C:\Users\serge\.vscode\extensions\mark-wiemer.vscode-autohotkey-plus-plus-2.8.1\package.json"
 
-         ;Running tasks
-         Case "format table to array":F_FormatTableToArray()
+
+         ;TASKS
+         ;———————————————————
+
          Case "new project tasks":Run A_WorkingDir . "\Scripts\New project tasks.py"
-         Case "startup":F_StartupRun()
          Case "click counter":Run A_WorkingDir . "\Tools\Click counter.ah2"
          Case "playlist moving":Run A_WorkingDir . "\Tools\Playlist moving.ah2"
+         Case "format table to array":F_FormatTableToArray()
+         Case "startup":F_StartupRun()
          Case "coin flip":F_CoinFlip()
          Case "dr", "$":F_DollarToRub()
          Case "rd":F_RubToDollar()
+         Case "gitpage", "gitfile", "gitlink":F_GitPage()
 
  
          ;SEND
@@ -423,13 +426,21 @@ $+!l:: {
          Case "funny mic":F_ClipSend("https://www.youtube.com/watch?v=jfbKJy_ZuIU")
          ;Delay lama vs meowsynth
          Case "delay lama":F_ClipSend("https://www.youtube.com/watch?v=Np4iG7-se7I")
-         ;A link to a file on github
-         Case "gitpage", "gitfile", "gitlink":
-            gitFile := StrReplace(StrReplace(StrReplace(FileSelect("S", A_WorkingDir), "C:\Files\Programming\Personal\", ""), "\", "/"), " ", "_")
-            F_ClipSend("https://github.com/Axlefublr/Personal/" . gitFile)
+         ;I quickly became homophobic
+         Case "I quickly became homophobic":F_ClipSend("https://www.youtube.com/watch?v=m2ksGuqf8eo")
       }
    }
 
+   ;Runs the link and makes sure the browser is activated
+   F_RunLink(link) {
+      Run(link), WinActivate("Google Chrome")
+   }
+
+   ;A faster send for discord. Sending stuff can take too long, but if you copy and paste it, it's much faster. Takes care of your previous clipboard disappearing as well
+   F_ClipSend(linkText) {
+      prevClip := A_Clipboard, A_Clipboard := linkText . " ", KeyWait("End", "D"), Send("^v"), KeyWait("End", "U"), A_Clipboard := prevClip
+   }
+   
    ;Takes a random number out of 1 and 100000, says yes if it's even, no if it's odd
    F_CoinFlip() {
       coinFlip := Random(1, 100000)
@@ -443,16 +454,6 @@ $+!l:: {
       MsgBox "Done formatting table to array"
    }
 
-   ;Runs the link and makes sure the browser is activated
-   F_RunLink(link) {
-      Run(link), WinActivate("Google Chrome")
-   }
-
-   ;A faster send for discord. Sending stuff can take too long, but if you copy and paste it, it's much faster. Takes care of your previous clipboard disappearing as well
-   F_ClipSend(linkText) {
-      prevClip := A_Clipboard, A_Clipboard := linkText . " ", KeyWait("End", "D"), Send("^v"), KeyWait("End", "U"), A_Clipboard := prevClip
-   }
-   
    ;Select a file to run on startup
    F_StartupRun() {
       selectedFile := FileSelect("S", A_WorkingDir)
@@ -472,6 +473,12 @@ $+!l:: {
       O_RubToDollar := InputBox("How much in rubles?: ", "Currency converter")
       if O_RubToDollar.Result != "Cancel"
          F_RunLink("https://www.google.com/search?q=" . O_RubToDollar.Value . "+rubles+in+dollars&oq=" . O_RubToDollar.Value . "+rubles+in+dollars&aqs=chrome..69i57.4182j1j9&sourceid=chrome&ie=UTF-8")
+   }
+
+   ;Gets the github link to a file of your choosing
+   F_GitPage() {
+      gitFile := StrReplace(StrReplace(StrReplace(FileSelect("S", A_WorkingDir), "C:\Files\Programming\Personal\", ""), "\", "/"), " ", "_")
+      F_ClipSend("https://github.com/Axlefublr/Personal/" . gitFile)
    }
 }
 

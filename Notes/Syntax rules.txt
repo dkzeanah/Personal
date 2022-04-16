@@ -1,3 +1,5 @@
+This files explains my personal syntax and naming conventions
+
 Omit brackets if you can, unless it's your own function
 
 ahk_exe is preferred when possible

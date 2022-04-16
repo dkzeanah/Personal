@@ -1,3 +1,6 @@
+This is an overview to a large amount of hotkeys in the Keys.ah2 file
+Instead of looking through code, you can just look here to realise what does what
+
 WINDOWS APP (which is now alt lmao)
 ###########################################################################################
 q — discord

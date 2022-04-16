@@ -5,7 +5,7 @@ SetWorkingDir A_ScriptDir . "\..\" ;Ensures a consistent A_WorkingDir.
 CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of the window's
 A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seconds
 SetScrollLockState "AlwaysOff"
-#HotIf
+#HotIf ;At the start to autoresolve "this hotkey already exists" conflicts
 
 
 
@@ -370,26 +370,26 @@ $+!l:: {
 
          Case "tom", "tomorrow":
             Switch A_WDay {
-               Default:Run A_WorkingDir . "\Libraries\Time table\Monday.jpg", "Max"
-               Case 2:Run A_WorkingDir . "\Libraries\Time table\Tuesday.jpg", "Max"
-               Case 3:Run A_WorkingDir . "\Libraries\Time table\Wednesday.jpg", "Max"
-               Case 4:Run A_WorkingDir . "\Libraries\Time table\Thursday.jpg", "Max"
-               Case 5:Run A_WorkingDir . "\Libraries\Time table\Friday.jpg", "Max"
+               Default:Run A_WorkingDir . "\Files\Time table\Monday.jpg", "Max"
+               Case 2:Run A_WorkingDir . "\Files\Time table\Tuesday.jpg", "Max"
+               Case 3:Run A_WorkingDir . "\Files\Time table\Wednesday.jpg", "Max"
+               Case 4:Run A_WorkingDir . "\Files\Time table\Thursday.jpg", "Max"
+               Case 5:Run A_WorkingDir . "\Files\Time table\Friday.jpg", "Max"
             }
          Case "today":
             Switch A_WDay {
-               Default:Run A_WorkingDir . "\Libraries\Time table\Monday.jpg", "Max"
-               Case 3:Run A_WorkingDir . "\Libraries\Time table\Tuesday.jpg", "Max"
-               Case 4:Run A_WorkingDir . "\Libraries\Time table\Wednesday.jpg", "Max"
-               Case 5:Run A_WorkingDir . "\Libraries\Time table\Thursday.jpg", "Max"
-               Case 6:Run A_WorkingDir . "\Libraries\Time table\Friday.jpg", "Max"
+               Default:Run A_WorkingDir . "\Files\Time table\Monday.jpg", "Max"
+               Case 3:Run A_WorkingDir . "\Files\Time table\Tuesday.jpg", "Max"
+               Case 4:Run A_WorkingDir . "\Files\Time table\Wednesday.jpg", "Max"
+               Case 5:Run A_WorkingDir . "\Files\Time table\Thursday.jpg", "Max"
+               Case 6:Run A_WorkingDir . "\Files\Time table\Friday.jpg", "Max"
             }
          Case "week":Run "https://edu.sfu-kras.ru/timetable?group=%D0%98%D0%9A21-08%D0%91+%28%D0%BF%D0%BE%D0%B4%D0%B3%D1%80%D1%83%D0%BF%D0%BF%D0%B0+2%29"
-         Case "monday":Run A_WorkingDir . "\Libraries\Time table\Monday.jpg", "Max"
-         Case "tuesday":Run A_WorkingDir . "\Libraries\Time table\Tuesday.jpg", "Max"
-         Case "wednesday":Run A_WorkingDir . "\Libraries\Time table\Wednesday.jpg", "Max"
-         Case "thursday":Run A_WorkingDir . "\Libraries\Time table\Thursday.jpg", "Max"
-         Case "friday":Run A_WorkingDir . "\Libraries\Time table\Friday.jpg", "Max"
+         Case "monday":Run A_WorkingDir . "\Files\Time table\Monday.jpg", "Max"
+         Case "tuesday":Run A_WorkingDir . "\Files\Time table\Tuesday.jpg", "Max"
+         Case "wednesday":Run A_WorkingDir . "\Files\Time table\Wednesday.jpg", "Max"
+         Case "thursday":Run A_WorkingDir . "\Files\Time table\Thursday.jpg", "Max"
+         Case "friday":Run A_WorkingDir . "\Files\Time table\Friday.jpg", "Max"
 
 
          ;VS CODE

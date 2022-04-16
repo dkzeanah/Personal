@@ -222,8 +222,7 @@
    "Switch": {
       "prefix": "Switch",
       "body": [
-         "Switch",
-         "{",
+         "Switch $1{",
          "\t$0",
          "}"
       ]
@@ -768,9 +767,9 @@
       ]
    },
    ".Add": {
-      "prefix": "",
+      "prefix": ".Add",
       "body": [
-         ""
+         ".Add($0)"
       ]
    },
    ".OnEvent": {
@@ -977,4 +976,41 @@
          "Numpad9"
       ]
    },
+   "SoundBeep": {
+      "prefix": "SoundBeep",
+      "body": [
+         "SoundBeep"
+      ]
+   },
+   "A_IsAdmin": {
+      "prefix": "A_IsAdmin",
+      "body": [
+         "A_IsAdmin"
+      ]
+   },
+   "StrLower": {
+      "prefix": "StrLower",
+      "body": [
+         "StrLower($0)"
+      ]
+   },
+   "StrUpper": {
+      "prefix": "StrUpper",
+      "body": [
+         "StrUpper($0)"
+      ]
+   },
+   "A_LoopField": {
+      "prefix": "A_LoopField",
+      "body": [
+         "A_LoopField"
+      ]
+   },
+   "Chr": {
+      "prefix": "Chr",
+      "body": [
+         "Chr($0)"
+      ]
+   },
+   
 }

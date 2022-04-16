@@ -484,11 +484,6 @@
       "when": "!editorFocus"
    },
    {
-      "key": "shift+enter",
-      "command": "hideSuggestWidget",
-      "when": "suggestWidgetVisible && textInputFocus"
-   },
-   {
       "key": "win+end",
       "command": "editor.action.commentLine",
       "when": "editorTextFocus && !editorReadonly"
@@ -1313,19 +1308,14 @@
       "when": "inSearchEditor"
    },
    {
-      "key": "shift+enter",
-      "command": "closeParameterHints",
-      "when": "editorFocus && parameterHintsVisible"
-   },
-   {
       "key": "shift+escape",
       "command": "-closeParameterHints",
       "when": "editorFocus && parameterHintsVisible"
    },
    {
-      "key": "ctrl+shift+space",
+      "key": "shift+space",
       "command": "editor.action.triggerParameterHints",
-      "when": "editorHasSignatureHelpProvider && editorTextFocus"
+      "when": "editorHasSignatureHelpProvider && editorTextFocus && !suggestWidgetVisible && !parameterHintsVisible"
    },
    {
       "key": "ctrl+shift+space",
@@ -1342,14 +1332,9 @@
       "command": "git.pushForce"
    },
    {
-      "key": "ctrl+space",
+      "key": "ctrl+shift+space",
       "command": "hideSuggestWidget",
       "when": "suggestWidgetVisible && textInputFocus"
-   },
-   {
-      "key": "ctrl+shift+space",
-      "command": "closeParameterHints",
-      "when": "editorFocus && parameterHintsVisible"
    },
    {
       "key": "tab",
@@ -1471,11 +1456,6 @@
       "when": "!findInputFocussed"
    },
    {
-      "key": "shift+space",
-      "command": "selectPrevSuggestion",
-      "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
-   },
-   {
       "key": "ctrl+up",
       "command": "-selectPrevSuggestion",
       "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
@@ -1483,5 +1463,87 @@
    {
       "key": "ctrl+alt+e",
       "command": "ahk++.compile"
+   },
+   {
+      "key": "shift+alt+w",
+      "command": "workbench.action.closeActiveEditor"
+   },
+   {
+      "key": "ctrl+w",
+      "command": "-workbench.action.closeActiveEditor"
+   },
+   {
+      "key": "ctrl+k ctrl+0",
+      "command": "-editor.foldAll",
+      "when": "editorTextFocus && foldingEnabled"
+   },
+   {
+      "key": "ctrl+k ctrl+j",
+      "command": "-editor.unfoldAll",
+      "when": "editorTextFocus && foldingEnabled"
+   },
+   {
+      "key": "ctrl+space",
+      "command": "-editor.action.triggerSuggest",
+      "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly"
+   },
+   {
+      "key": "ctrl+space",
+      "command": "editor.action.triggerSuggest",
+      "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly && !suggestWidgetVisible"
+   },
+   {
+      "key": "ctrl+i",
+      "command": "-editor.action.triggerSuggest",
+      "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly"
+   },
+   {
+      "key": "shift+space",
+      "command": "toggleSuggestionDetails",
+      "when": "suggestWidgetVisible && textInputFocus"
+   },
+   {
+      "key": "ctrl+space",
+      "command": "-toggleSuggestionDetails",
+      "when": "suggestWidgetVisible && textInputFocus"
+   },
+   {
+      "key": "ctrl+space",
+      "command": "hideSuggestWidget",
+      "when": "suggestWidgetVisible && textInputFocus && !suggestWidgetMultipleSuggestions"
+   },
+   {
+      "key": "shift+escape",
+      "command": "-hideSuggestWidget",
+      "when": "suggestWidgetVisible && textInputFocus"
+   },
+   {
+      "key": "alt+down",
+      "command": "-showNextParameterHint",
+      "when": "editorFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
+   },
+   {
+      "key": "alt+up",
+      "command": "-showPrevParameterHint",
+      "when": "editorFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
+   },
+   {
+      "key": "shift+space",
+      "command": "closeParameterHints",
+      "when": "editorFocus && parameterHintsVisible"
+   },
+   {
+      "key": "ctrl+alt+l",
+      "command": "workbench.files.action.collapseExplorerFolders"
+   },
+   {
+      "key": "ctrl+shift+l",
+      "command": "editor.toggleFold",
+      "when": "editorTextFocus && foldingEnabled"
+   },
+   {
+      "key": "ctrl+k ctrl+l",
+      "command": "-editor.toggleFold",
+      "when": "editorTextFocus && foldingEnabled"
    }
 ]

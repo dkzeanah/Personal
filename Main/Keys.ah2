@@ -477,8 +477,29 @@ $+!l:: {
 
    ;Gets the github link to a file of your choosing
    F_GitPage() {
-      gitFile := StrReplace(StrReplace(StrReplace(FileSelect("S", A_WorkingDir), "C:\Files\Programming\Personal\", ""), "\", "/"), " ", "%20")
-      F_ClipSend("https://github.com/Axlefublr/Personal/blob/main/" . gitFile)
+
+      ;Formats a full file path into a relative one
+      F_PathToLink(fullPath) {
+         ;Removes the start of the path, since it's irrelevant in the link that just uses the project folder
+         relativePath := StrReplace(fullPath, "C:\Files\Programming\", "")
+         ;Links use forward slashes while paths use backslashes
+         relativePath := StrReplace(relativePath, "\", "/")
+         ;Spaces are replaced with %20 in links
+         relativePath := StrReplace(relativePath, " ", "%20")
+         return relativePath
+      }
+
+      relativePath_projectFolder := F_PathToLink(FileSelect("S", A_WorkingDir))
+      Switch {
+         Case 
+         Case InStr(relativePath_projectFolder, "Personal/"):
+            relativePath := LTrim(relativePath_projectFolder, "Personal/")
+            projectFolder := "Personal/"
+         Case InStr(relativePath_projectFolder, "Other/"):
+            relativePath := LTrim(relativePath_projectFolder, "Other/")
+            projectFolder := "Other/"
+      }
+      F_ClipSend("https://github.com/Axlefublr/" . projectFolder . "blob/main/" . relativePath)
    }
 }
 

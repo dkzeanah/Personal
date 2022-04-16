@@ -1012,5 +1012,11 @@
          "Chr($0)"
       ]
    },
+   "InStr": {
+      "prefix": "InStr",
+      "body": [
+         "InStr($0)"
+      ]
+   },
    
 }

@@ -17,50 +17,30 @@ SetScrollLockState "AlwaysOff"
 
 
 ;Reload this script
-ScrollLock::
-SC050::
-{
-   Run(A_ScriptFullPath), SoundPlay("*-1")
-}
+ScrollLock::F_Reload()
+SC050::F_Reload()
 
 ;Exit this script
-!ScrollLock::
-!SC050::
-{
-   SoundPlay("*16"), ExitApp()
-}
+!ScrollLock::F_ExitApp()
+!SC050::F_ExitApp()
 
 ;Suspend this script 
 #SuspendExempt True
-+ScrollLock::
-+SC050::
-{
-   if A_IsSuspended
-      Suspend(False), SoundPlay("*-1")
-   else 
-      Suspend(True), SoundPlay("*16")
-}
++ScrollLock::F_Suspend()
++SC050::F_Suspend()
 #SuspendExempt False
 
 ;Run Testscript v2
-Pause::
-SC051::
-{
-   SoundPlay("*-1"), Run(A_WorkingDir . "\Test\Tests.ah2") 
-}
-;Run Testscript v1
-+Pause::
-+SC051::
-{
-   SoundPlay("*-1"), Run(A_WorkingDir . "\Test\Testsv1.ahk")
-}
+Pause::F_Test()
+SC051::F_Test()
 
-;Restart system
-#ScrollLock::
-#SC050::
-{
-   Shutdown 2
-}
+;Run Testscript v1
++Pause::F_Test("v1.ahk")
++SC051::F_Test("v1.ahk")
+
+;Reboot system
+#ScrollLock::F_Reboot()
+#SC050::F_Reboot()
 
 
 
@@ -74,12 +54,6 @@ SC051::
 ;Sends one thing if you pressed a button once. A different thing if twice. 
 F_PressSend_Double(keyname, toSend1:="", toSend2:="") {
    KeyWait(keyname), ((KeyWait(keyname, "D T0.1")) ? (Send(toSend2)) : (Send(toSend1)))
-}
-
-;Only tries to close the window if it exists
-F_ifWinClose(winTitle) {
-   if WinExist(winTitle)
-      WinClose(winTitle)
 }
 
 ;it literally says what it does
@@ -115,6 +89,9 @@ F_Emoji(emojiName) {
 
 ;A dictionary of key names and SC codes of them
 #Include "%A_ScriptDir%\..\Libraries\Key codes.ah2"
+
+;Functions that do something with the current script
+#Include "%A_ScriptDir%\..\Libraries\Script interaction.ah2"
 
 ;Often when you want something selected, you'll send down and enter, so this is the variable for that 
 select := "{Down}{Enter}"
@@ -706,12 +683,8 @@ $XButton1:: {
             Default:Send "^/"
             Case right:Send "^!{Right}"
             Case left:Send "^!{Left}"
-            Case down:
-               Run A_WorkingDir . "\Test\Tests.ah2"
-               SoundPlay "*-1" 
-            Case up: 
-               Run A_ScriptFullPath
-               SoundPlay "*-1" 
+            Case down:F_Test()
+            Case up:F_Reload()
          }
       Case WinActive("YouTube Music"): ;_youtube music
          Switch {
@@ -993,8 +966,8 @@ $!F7::ControlClick "X568 Y98"
 $Delete::Send "{Delete 6}{Right 4}"
 
 ;Volume
-$Up::Send "{Volume_Up}"
-$Down::Send "{Volume_Down}"
+$Up::Volume_Up
+$Down::Volume_Down
 
 
 ;Search in docs
@@ -1115,10 +1088,15 @@ F_ifAct(title) {
 }
 
 ;Run an exe, activate its window
-F_RunApp(winTitle, exePath) {
+F_RunApp(winTitle, exePath, closeWin:=False) {
    Run exePath,, "Max"
    WinWait winTitle,, 10
    WinActivate winTitle
+   ;If there's an unnesesary window that likes to pop up, it will get closed
+   if closeWin {
+      WinWait closeWin,, 20
+      F_ifWinClose(closeWin)
+   }
 } 
 
 ;Run app, but only if it doesn't exist already
@@ -1127,15 +1105,22 @@ F_ifRunApp(winTitle, exePath) {
       Run exePath
 }
 
+;ifRunApp, but runs using a windows + number hotkey
 F_ifRunApp_WinNum(winTitle, winNum) {
    if !WinExist(winTitle)
       Send "#" . winNum
 }
 
+;Only tries to close the window if it exists
+F_ifWinClose(winTitle) {
+   if WinExist(winTitle)
+      WinClose(winTitle)
+}
+
 ;If the app doesn't exist, launches it. If it does and is active, minimizes it. If it's minimized, activates it
-F_WindowsApp(winTitle, exePath) {
+F_WindowsApp(winTitle, exePath, closeWin:=False) {
    if !F_ifMinMax(winTitle)
-      F_RunApp(winTitle, exePath)
+      F_RunApp(winTitle, exePath, closeWin)
 }
 
 ;Windows app name, but there's no exe fot the app so you put it in your taskbar and use windows + number to launch it and then this optimized way of activating it and minimizing it
@@ -1247,7 +1232,7 @@ $<!f:: {
 ;Photos
 $<!r:: {
    if !F_ifMinMax("ahk_group Media")
-      F_WindowsApp("ahk_exe steam.exe", "C:\Programs\Steam\steam.exe")
+      F_WindowsApp("ahk_exe steam.exe", "C:\Programs\Steam\steam.exe", "Steam - News")
 }
 
 ;Visual studio code

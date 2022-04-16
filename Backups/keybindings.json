@@ -426,7 +426,7 @@
         "when": "webviewFindWidgetFocused && !editorFocus && activeEditor == 'WebviewEditor'"
     },
     {
-        "key": "ctrl+; ctrl+;",
+        "key": "ctrl+; ctrl+l",
         "command": "keybindings.editor.recordSearchKeys",
         "when": "inKeybindings"
     },
@@ -1080,9 +1080,9 @@
       "when": "editorTextFocus && !findInputFocussed && !jupyter.ownsSelection && !notebookEditorFocused && !replaceInputFocussed && editorLangId == 'python'"
    },
    {
-      "key": "ctrl+; ctrl+l",
+      "key": "ctrl+; ctrl+;",
       "command": "keybindings.editor.searchKeybindings",
-      "when": "inKeybindings"
+      "when": "inKeybindings && keybindingFocus"
    },
    {
       "key": "ctrl+f",
@@ -1104,7 +1104,7 @@
       "command": "-workbench.action.keybindingsReference"
    },
    {
-      "key": "ctrl+; ctrl+n",
+      "key": "ctrl+; ctrl+j",
       "command": "keybindings.editor.addKeybinding",
       "when": "inKeybindings && keybindingFocus"
    },
@@ -1533,11 +1533,12 @@
       "when": "editorFocus && parameterHintsVisible"
    },
    {
-      "key": "ctrl+alt+l",
-      "command": "workbench.files.action.collapseExplorerFolders"
+      "key": "ctrl+shift+l",
+      "command": "workbench.files.action.collapseExplorerFolders",
+      "when": "!editorFocus"
    },
    {
-      "key": "ctrl+shift+l",
+      "key": "ctrl+l",
       "command": "editor.toggleFold",
       "when": "editorTextFocus && foldingEnabled"
    },
@@ -1552,23 +1553,75 @@
       "when": "suggestWidgetVisible && textInputFocus"
    },
    {
-      "key": "ctrl+alt+down",
-      "command": "workbench.action.editor.nextChange",
-      "when": "editorTextFocus && !textCompareEditorActive && !findInputFocussed"
-   },
-   {
       "key": "alt+f5",
       "command": "-workbench.action.editor.nextChange",
       "when": "editorTextFocus && !textCompareEditorActive"
    },
    {
-      "key": "ctrl+alt+up",
-      "command": "workbench.action.editor.previousChange",
-      "when": "editorTextFocus && !textCompareEditorActive && !findInputFocussed"
-   },
-   {
       "key": "shift+alt+f5",
       "command": "-workbench.action.editor.previousChange",
       "when": "editorTextFocus && !textCompareEditorActive"
+   },
+   {
+      "key": "ctrl+alt+down",
+      "command": "workbench.action.compareEditor.nextChange",
+      "when": "textCompareEditorVisible && !findInputFocussed"
+   },
+   {
+      "key": "alt+f5",
+      "command": "-workbench.action.compareEditor.nextChange",
+      "when": "textCompareEditorVisible"
+   },
+   {
+      "key": "ctrl+alt+up",
+      "command": "workbench.action.compareEditor.previousChange",
+      "when": "textCompareEditorVisible && !findInputFocussed"
+   },
+   {
+      "key": "shift+alt+f5",
+      "command": "-workbench.action.compareEditor.previousChange",
+      "when": "textCompareEditorVisible"
+   },
+   {
+      "key": "ctrl+shift+l",
+      "command": "editor.foldAll",
+      "when": "editorFocus"
+   },
+   {
+      "key": "ctrl+alt+l",
+      "command": "editor.unfoldAll",
+      "when": "editorFocus"
+   },
+   {
+      "key": "ctrl+u",
+      "command": "editor.action.insertCursorAtEndOfEachLineSelected"
+   },
+   {
+      "key": "ctrl+i",
+      "command": "-toggleSuggestionDetails",
+      "when": "suggestWidgetVisible && textInputFocus"
+   },
+   {
+      "key": "ctrl+; ctrl+;",
+      "command": "keybindings.editor.focusKeybindings",
+      "when": "inKeybindings && inKeybindingsSearch"
+   },
+   {
+      "key": "ctrl+down",
+      "command": "-keybindings.editor.focusKeybindings",
+      "when": "inKeybindings && inKeybindingsSearch"
+   },
+   {
+      "key": "win+pagedown",
+      "command": "editor.toggleFold",
+      "when": "editorTextFocus && foldingEnabled"
+   },
+   {
+      "key": "win+delete",
+      "command": "workbench.action.closeActiveEditor"
+   },
+   {
+      "key": "ctrl+alt+d",
+      "command": "editor.action.revealDefinition"
    }
 ]

@@ -1448,12 +1448,12 @@
    {
       "key": "ctrl+alt+up",
       "command": "editor.action.moveCarretLeftAction",
-      "when": "!findInputFocussed"
+      "when": "editorTextFocus && !findInputFocussed"
    },
    {
       "key": "ctrl+alt+down",
       "command": "editor.action.moveCarretRightAction",
-      "when": "!findInputFocussed"
+      "when": "editorTextFocus && !findInputFocussed"
    },
    {
       "key": "ctrl+up",
@@ -1550,5 +1550,25 @@
       "key": "ctrl+shift+enter",
       "command": "hideSuggestWidget",
       "when": "suggestWidgetVisible && textInputFocus"
+   },
+   {
+      "key": "ctrl+alt+down",
+      "command": "workbench.action.editor.nextChange",
+      "when": "editorTextFocus && !textCompareEditorActive && !findInputFocussed"
+   },
+   {
+      "key": "alt+f5",
+      "command": "-workbench.action.editor.nextChange",
+      "when": "editorTextFocus && !textCompareEditorActive"
+   },
+   {
+      "key": "ctrl+alt+up",
+      "command": "workbench.action.editor.previousChange",
+      "when": "editorTextFocus && !textCompareEditorActive && !findInputFocussed"
+   },
+   {
+      "key": "shift+alt+f5",
+      "command": "-workbench.action.editor.previousChange",
+      "when": "editorTextFocus && !textCompareEditorActive"
    }
 ]

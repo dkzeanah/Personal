@@ -1018,5 +1018,11 @@
          "InStr($0)"
       ]
    },
+   "Trim": {
+      "prefix": "Trim",
+      "body": [
+         "Trim($0)"
+      ]
+   },
    
 }

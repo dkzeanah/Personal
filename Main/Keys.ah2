@@ -146,6 +146,10 @@ GroupAdd "Messenger", "ahk_exe Discord.exe"
 GroupAdd "Messenger", "ahk_exe WhatsApp.exe"
 GroupAdd "Messenger", "ahk_exe Viber.exe"
 
+;Word documents
+GroupAdd "Document", ".doc"
+GroupAdd "Document", ".docx"
+
 ;Whatsapp and viber
 GroupAdd "Whatiber", "ahk_exe WhatsApp.exe"
 GroupAdd "Whatiber", "ahk_exe Viber.exe"
@@ -437,8 +441,8 @@ $+!l:: {
    }
 
    ;A faster send for discord. Sending stuff can take too long, but if you copy and paste it, it's much faster. Takes care of your previous clipboard disappearing as well
-   F_ClipSend(linkText) {
-      prevClip := A_Clipboard, A_Clipboard := linkText . " ", KeyWait("End", "D"), Send("^v"), KeyWait("End", "U"), A_Clipboard := prevClip
+   F_ClipSend(toSend, space:=" ") {
+      prevClip := A_Clipboard, A_Clipboard := toSend . space, KeyWait("End", "D"), Send("^v"), KeyWait("End", "U"), A_Clipboard := prevClip
    }
    
    ;Takes a random number out of 1 and 100000, says yes if it's even, no if it's odd
@@ -478,28 +482,32 @@ $+!l:: {
    ;Gets the github link to a file of your choosing
    F_GitPage() {
 
+      programmingPath := "C:\Files\Programming\"
+
       ;Formats a full file path into a relative one
       F_PathToLink(fullPath) {
          ;Removes the start of the path, since it's irrelevant in the link that just uses the project folder
-         relativePath := StrReplace(fullPath, "C:\Files\Programming\", "")
+         relativePath := StrReplace(fullPath, programmingPath, "")
          ;Links use forward slashes while paths use backslashes
          relativePath := StrReplace(relativePath, "\", "/")
          ;Spaces are replaced with %20 in links
          relativePath := StrReplace(relativePath, " ", "%20")
          return relativePath
       }
-
-      relativePath_projectFolder := F_PathToLink(FileSelect("S", A_WorkingDir))
-      Switch {
-         Case 
-         Case InStr(relativePath_projectFolder, "Personal/"):
-            relativePath := LTrim(relativePath_projectFolder, "Personal/")
-            projectFolder := "Personal/"
-         Case InStr(relativePath_projectFolder, "Other/"):
-            relativePath := LTrim(relativePath_projectFolder, "Other/")
-            projectFolder := "Other/"
+      
+      fullPath := FileSelect("S", programmingPath)
+      if fullPath {
+         relativePath_projectFolder := F_PathToLink(fullPath)
+         Switch {
+            Case InStr(relativePath_projectFolder, "Personal/"):
+               relativePath := LTrim(relativePath_projectFolder, "Personal/")
+               projectFolder := "Personal/"
+            Case InStr(relativePath_projectFolder, "Other/"):
+               relativePath := LTrim(relativePath_projectFolder, "Other/")
+               projectFolder := "Other/"
+         }
+         F_ClipSend("https://github.com/Axlefublr/" . projectFolder . "blob/main/" . relativePath, "")
       }
-      F_ClipSend("https://github.com/Axlefublr/" . projectFolder . "blob/main/" . relativePath)
    }
 }
 
@@ -602,11 +610,11 @@ $^m:: {
 ;Special button + side buttons
 #HotIf !WinActive("ahk_group Game") && !WinActive("Google Chrome")
 Volume_Down & XButton1::F_PressSend_Double("XButton1","^c","^x")
+Volume_Down & MButton::Send "^a"
+#HotIf !WinActive("ahk_group Game") && !WinActive("ahk_exe Code.exe")
+Volume_Down & LButton::Space
 #HotIf !WinActive("ahk_group Game")
 Volume_Down & XButton2::F_PressSend_Double("XButton2","^v","#v")
-Volume_Down & MButton::F5
-
-;Alt tab
 Volume_Down & RButton::Send "!{Tab}"
 
 ;Special button by itself pressed in different sections of the screen does different things
@@ -623,6 +631,8 @@ $Volume_Down:: {
          KeyWait "LButton", "D"
          Sleep 150
          Send "{AltUp}"
+         if WinActive("ahk_exe wps.exe")
+            Send "{Esc}"
    } 
 }
 
@@ -674,7 +684,7 @@ $XButton2:: {
          }
       Case down:PostMessage "0x0010",,,, "A" ;Closes the active window
       Case up:PostMessage "0x112", "0xF020",,, "A" ;Minimizes the active window
-      Default:WinActive("ahk_exe Code.exe") ? Send("^a") : Send("{Browser_Forward}")
+      Default:WinActive("ahk_exe Code.exe") ? Send("{Space}") : Send("{Browser_Forward}")
    }
 }
 
@@ -755,6 +765,9 @@ $XButton1:: {
 Volume_Down & XButton1:: {
    KeyWait("XButton1", "U"), (KeyWait("XButton1", "D T0.2") ? (Send("{F6}"), Sleep(40), Send("^c")) : Send("^c"))
 }
+
+;Reload page
+Volume_Down & MButton::F5
 
 ;Ctrl numbers aren't easy to press, so F keys instead
 $F1::Send "^1"
@@ -878,6 +891,12 @@ $+!e::Send " {#}unfinished — "
 $Enter::Send select
 
 
+#HotIf WinActive("ahk_exe Discord.exe")
+
+;Convert a youtube music link into a youtube video link
+$+!r::A_Clipboard := StrReplace(StrReplace(A_Clipboard, "&feature=share", ""), "//music.", "//www."), Send("^v")
+
+
 
 
 ;TECH #################################################################################
@@ -921,15 +940,51 @@ $+!k::
 
 #HotIf WinActive("ahk_exe wps.exe") ;_wps
 
-;Bullets
-$!6::ControlClick "X568 Y98"
+;Switch between open documents
+$^+Space::Send "^{Tab}"
+$^Space::Send "^+{Tab}"
 
 ;Save 
 $+!s::Send "^s"
+;Close tab
+$+!w::Send "^w"
 
-;Switch between open documents
-$F3::Send "^+{Tab}"
-$F4::Send "^{Tab}"
+
+#HotIf WinActive("ahk_exe wps.exe") && WinActive(".pptx")
+
+;Uses an alt shortcut without the letters popping up
+F_WpsShortcut(letter) {
+   Send("{LAlt Down}{LAlt Up}" . letter . "{LAlt Down}{LAlt Up}")
+}
+
+;Menu tabs
+$F1::F_WpsShortcut("h")
+$F2::F_WpsShortcut("n")
+$F3::F_WpsShortcut("g")
+$F4::F_WpsShortcut("t")
+$F5::F_WpsShortcut("a")
+$F6::F_WpsShortcut("s")
+$F7::F_WpsShortcut("r")
+$F8::F_WpsShortcut("w")
+$F9::F_WpsShortcut("k")
+$F10::F_WpsShortcut("jd")
+$F11::F_WpsShortcut("je")
+
+
+#HotIf WinActive("ahk_exe wps.exe") && WinActive("ahk_group Document")
+
+;Menu tabs
+$F1::F_WpsShortcut("h")
+$F2::F_WpsShortcut("n")
+$F3::F_WpsShortcut("p")
+$F4::F_WpsShortcut("s")
+$F5::F_WpsShortcut("r")
+$F6::F_WpsShortcut("w")
+$F7::F_WpsShortcut("z")
+$F8::F_WpsShortcut("k")
+
+;Bullets
+$!F7::ControlClick "X568 Y98"
 
 
 #HotIf WinActive("ahk_exe KMPlayer64.exe")
@@ -1208,7 +1263,7 @@ $<!c::F_WindowsApp("Google Chrome", "C:\Program Files\Google\Chrome\Application\
 $<!x::F_WindowsApp("ahk_exe Todoist.exe", "C:\Users\serge\AppData\Local\Programs\todoist\Todoist.exe")
 
 ;Wps
-$<!w::F_WindowsApp("ahk_exe wps.exe", "C:\Users\serge\AppData\Local\Kingsoft\WPS Office\11.2.0.10463\office6\wps.exe")
+$<!w::F_WindowsApp("ahk_exe wps.exe", "C:\Users\serge\AppData\Local\Kingsoft\WPS Office\ksolaunch.exe")
 
 ;Discord
 $<!q::F_WindowsApp("ahk_exe Discord.exe", "C:\Users\serge\AppData\Local\Discord\app-1.0.9004\Discord.exe")

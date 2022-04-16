@@ -410,11 +410,11 @@ $+!l:: {
          Case "click counter":Run A_WorkingDir . "\Tools\Click counter.ah2"
          Case "playlist moving":Run A_WorkingDir . "\Tools\Playlist moving.ah2"
          Case "format table to array":F_FormatTableToArray()
+         Case "gitpage", "gitfile", "gitlink":F_GitPage()
          Case "startup":F_StartupRun()
          Case "coin flip":F_CoinFlip()
-         Case "dr", "$":F_DollarToRub()
+         Case "dr":F_DollarToRub()
          Case "rd":F_RubToDollar()
-         Case "gitpage", "gitfile", "gitlink":F_GitPage()
 
  
          ;SEND
@@ -477,8 +477,8 @@ $+!l:: {
 
    ;Gets the github link to a file of your choosing
    F_GitPage() {
-      gitFile := StrReplace(StrReplace(StrReplace(FileSelect("S", A_WorkingDir), "C:\Files\Programming\Personal\", ""), "\", "/"), " ", "_")
-      F_ClipSend("https://github.com/Axlefublr/Personal/" . gitFile)
+      gitFile := StrReplace(StrReplace(StrReplace(FileSelect("S", A_WorkingDir), "C:\Files\Programming\Personal\", ""), "\", "/"), " ", "%20")
+      F_ClipSend("https://github.com/Axlefublr/Personal/blob/main/" . gitFile)
    }
 }
 

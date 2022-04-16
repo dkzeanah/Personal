@@ -2,6 +2,8 @@ Omit brackets if you can, unless it's your own function
 
 ahk_exe is preferred when possible
 
+OTB everywhere except after more than one hotkey for one function
+
 ternary for if else
    if for single
       switch for three or more

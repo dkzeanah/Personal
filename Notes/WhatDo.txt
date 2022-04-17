@@ -88,10 +88,10 @@ FUNCTION KEYS
 #F2 
 #F3 
 #F4 
-#F5 Path to exe of active window
-#F6 Timer
+#F5 Timer
+#F6 Path to exe of active window
 #F7 Name of the active window
-#F8 
+#F8 Get path to a file
 #F9 Command prompt
 #F10 Python command prompt
 #F11 

@@ -51,11 +51,6 @@ SC051::F_Test()
 ;###################################################################################### 
 
 
-;Sends one thing if you pressed a button once. A different thing if twice. 
-F_PressSend_Double(keyname, toSend1:="", toSend2:="") {
-   KeyWait(keyname), ((KeyWait(keyname, "D T0.1")) ? (Send(toSend2)) : (Send(toSend1)))
-}
-
 ;it literally says what it does
 F_ClickThenGoBack(coordinates) {
    MouseGetPos &initX, &initY
@@ -92,6 +87,9 @@ F_Emoji(emojiName) {
 
 ;Functions that do something with the current script
 #Include "%A_ScriptDir%\..\Libraries\Script interaction.ah2"
+
+;Functions for multiple presses
+#Include "%A_ScriptDir%\..\Libraries\Multiple Presses.ah2"
 
 ;Often when you want something selected, you'll send down and enter, so this is the variable for that 
 select := "{Down}{Enter}"
@@ -409,6 +407,8 @@ $+!l:: {
          Case "delay lama":F_ClipSend("https://www.youtube.com/watch?v=Np4iG7-se7I")
          ;I quickly became homophobic
          Case "I quickly became homophobic":F_ClipSend("https://www.youtube.com/watch?v=m2ksGuqf8eo")
+         ;If you design a quest
+         Case "If you design a quest":F_ClipSend("https://www.youtube.com/watch?v=chn0ggv9TdY")
       }
    }
 
@@ -586,19 +586,20 @@ $^m:: {
 
 ;Special button + side buttons
 #HotIf !WinActive("ahk_group Game") && !WinActive("Google Chrome")
-Volume_Down & XButton1::F_PressSend_Double("XButton1","^c","^x")
+Volume_Down & XButton1::F_ifSameHotkeyTwice_Send("^c", "^x")
 Volume_Down & MButton::Send "^a"
 #HotIf !WinActive("ahk_group Game") && !WinActive("ahk_exe Code.exe")
 Volume_Down & LButton::Space
 #HotIf !WinActive("ahk_group Game")
-Volume_Down & XButton2::F_PressSend_Double("XButton2","^v","#v")
+Volume_Down & XButton2::F_ifKeyHeld_Send("XButton2", "^v", "#v")
 Volume_Down & RButton::Send "!{Tab}"
 
 ;Special button by itself pressed in different sections of the screen does different things
 $Volume_Down:: { 
    MouseGetPos &sectionX, &sectionY
-   right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347) 
+   right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), discard := ((sectionX > 1676) && (sectionY < 246))
    Switch {
+      Case discard:return
       Case right:Send "#{Right}"
       Case left:Send "#{Left}"
       Case down:Send "#{Down}"
@@ -690,14 +691,18 @@ $XButton1:: {
          Switch {
             Default:Send "{Browser_Back}"
             Case right:
-               ;Launches a script that counts how many tracks you've added to a playlist (counts every shift you press) if it isn't already running, otherwise exits it by sending a button that is binded to an exitapp in that script
-               static discoveryAddPID := 0
-               if ProcessExist(discoveryAddPID)
-                  Send "{Launch_App2}"
-               else 
-                  Run A_WorkingDir . "\Tools\Discovery add.ah2",,, &discoveryAddPID
-            Case left:ControlClick "X1013 Y73"
-            Case up:Send "^i"
+               if F_isDoublePressed("XButton1") {
+                  ;Launches a script that counts how many tracks you've added to a playlist (counts every shift you press) if it isn't already running, otherwise exits it by sending a button that is binded to an exitapp in that script
+                  static discoveryAddPID := 0
+                  if ProcessExist(discoveryAddPID)
+                     Send "{Launch_App2}"
+                  else 
+                     Run A_WorkingDir . "\Tools\Discovery add.ah2",,, &discoveryAddPID
+               }
+               else
+                  ControlClick "X1471 Y1033",,, "R"
+            Case left:F_ifDoublePressed_ControlClick("XButton1", "X447 Y913", "X1013 Y73")
+            Case up:(F_isDoublePressed("XButton1") ? ControlClick("X1206 Y914") : Send("^i"))
             Case down:Send "^u"
          }
       Case WinActive("ahk_exe wps.exe"): 
@@ -735,9 +740,7 @@ $XButton1:: {
 #HotIf WinActive("Google Chrome") ;_chrome
 
 ;Single press is copy, double press will get current tab's link to clipboard
-Volume_Down & XButton1:: {
-   KeyWait("XButton1", "U"), (KeyWait("XButton1", "D T0.2") ? (Send("{F6}"), Sleep(40), Send("^c")) : Send("^c"))
-}
+Volume_Down & XButton1::(F_isSameHotkeyTwice() ? (Send("{F6}"), Sleep(40), Send("^c")) : Send("^c"))
 
 ;Reload page
 Volume_Down & MButton::F5
@@ -881,7 +884,7 @@ $+!r::A_Clipboard := StrReplace(StrReplace(A_Clipboard, "&feature=share", ""), "
 #HotIf WinActive("ahk_exe Code.exe") ;_vscode 
 
 ;Copies the most important setting files of vs code into the /Backups folder
-$^!u::Run A_WorkingDir . "\Scripts\Pull vs code settings.py"
+$^u::Run A_WorkingDir . "\Scripts\Pull vs code settings.py"
 
 ;Opens an inputbox for you to put in the name of the key to get its SC code into your clipboard, or takes the SC code to then show you to which key it belongs in a msgbox; if it finds neither, says so
 Volume_Down & LButton::
@@ -1205,13 +1208,11 @@ $<!g:: {
 
 #HotIf !WinActive("ahk_group Game")
 
-;Telegram, whatsapp, viber on one, two and three presses
+; Telegram, whatsapp, viber on one, two and three presses
 $<!t:: {
-   KeyWait "t"
-   Switch KeyWait("t", "D T0.1") {
+   Switch F_isDoublePressed("t") {
       Case True:
-         KeyWait "t"
-         Switch KeyWait("t", "D T0.1") {
+         Switch F_isDoublePressed("t") {
             ; You pressed three times
             Case True:F_WindowsApp("ahk_exe Viber.exe", "C:\Users\serge\AppData\Local\Viber\Viber.exe") 
             ; You pressed twice
@@ -1224,7 +1225,7 @@ $<!t:: {
 
 ;Projects folder on single press, FL Studio on double press
 $<!f:: {
-   KeyWait("f"), (KeyWait("f", "D T0.1") 
+   (F_isDoublePressed("f")
    ? F_WindowsApp("ahk_exe FL64.exe", "C:\Programs\FL Studio 20\FL64.exe") 
    : F_WindowsApp_Folders("C:\Files\Projects"))
 }

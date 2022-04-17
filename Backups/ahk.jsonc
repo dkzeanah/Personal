@@ -1024,5 +1024,47 @@
          "Trim($0)"
       ]
    },
+   "A_PriorHotkey": {
+      "prefix": "A_PriorHotkey",
+      "body": [
+         "A_PriorHotkey"
+      ]
+   },
+   "A_ThisHotkey": {
+      "prefix": "A_ThisHotkey",
+      "body": [
+         "A_ThisHotkey"
+      ]
+   },
+   "A_TimeSinceThisHotkey": {
+      "prefix": "A_TimeSinceThisHotkey",
+      "body": [
+         "A_TimeSinceThisHotkey"
+      ]
+   },
+   "A_TimeSincePriorHotkey": {
+      "prefix": "A_TimeSincePriorHotkey",
+      "body": [
+         "A_TimeSincePriorHotkey"
+      ]
+   },
+   "doublePress": {
+      "prefix": "doublePress",
+      "body": [
+         "(A_PriorHotkey == A_ThisHotkey) && (A_TimeSincePriorHotkey <= 200)"
+      ]
+   },
+   "WinWaitActive": {
+      "prefix": "WinWaitActive",
+      "body": [
+         "WinWaitActive"
+      ]
+   },
+   "WinWaitNotActive": {
+      "prefix": "WinWaitNotActive",
+      "body": [
+         "WinWaitNotActive"
+      ]
+   },
    
 }

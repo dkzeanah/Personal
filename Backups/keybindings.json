@@ -353,7 +353,7 @@
     {
         "key": "ctrl+alt+down",
         "command": "editor.action.nextMatchFindAction",
-        "when": "editorFocus && findInputFocussed"
+        "when": "replaceActive || findWidgetVisible"
     },
     {
         "key": "enter",
@@ -363,7 +363,7 @@
     {
         "key": "ctrl+alt+up",
         "command": "editor.action.previousMatchFindAction",
-        "when": "editorFocus && findInputFocussed"
+        "when": "replaceActive || findWidgetVisible"
     },
     {
         "key": "shift+enter",
@@ -405,22 +405,12 @@
         "command": "-workbench.action.terminal.findPrevious",
         "when": "terminalFindInputFocused && terminalHasBeenCreated || terminalFindInputFocused && terminalProcessSupported"
     },
-    {
-        "key": "ctrl+alt+down",
-        "command": "editor.action.extensioneditor.findNext",
-        "when": "webviewFindWidgetFocused && !editorFocus && activeEditor == 'workbench.editor.extension'"
-    },
-    {
+   {
         "key": "enter",
         "command": "-editor.action.extensioneditor.findNext",
         "when": "webviewFindWidgetFocused && !editorFocus && activeEditor == 'workbench.editor.extension'"
     },
-    {
-        "key": "ctrl+alt+down",
-        "command": "editor.action.webvieweditor.findNext",
-        "when": "webviewFindWidgetFocused && !editorFocus && activeEditor == 'WebviewEditor'"
-    },
-    {
+   {
         "key": "enter",
         "command": "-editor.action.webvieweditor.findNext",
         "when": "webviewFindWidgetFocused && !editorFocus && activeEditor == 'WebviewEditor'"
@@ -1448,12 +1438,12 @@
    {
       "key": "ctrl+alt+up",
       "command": "editor.action.moveCarretLeftAction",
-      "when": "editorTextFocus && !findInputFocussed"
+      "when": "editorTextFocus && !findWidgetVisible && !replaceActive "
    },
    {
       "key": "ctrl+alt+down",
       "command": "editor.action.moveCarretRightAction",
-      "when": "editorTextFocus && !findInputFocussed"
+      "when": "!replaceActive && editorTextFocus && !findWidgetVisible"
    },
    {
       "key": "ctrl+up",
@@ -1565,7 +1555,7 @@
    {
       "key": "ctrl+alt+down",
       "command": "workbench.action.compareEditor.nextChange",
-      "when": "textCompareEditorVisible && !findInputFocussed"
+      "when": "textCompareEditorVisible && !findWidgetVisible && !replaceActive "
    },
    {
       "key": "alt+f5",
@@ -1575,7 +1565,7 @@
    {
       "key": "ctrl+alt+up",
       "command": "workbench.action.compareEditor.previousChange",
-      "when": "textCompareEditorVisible && !findInputFocussed"
+      "when": "textCompareEditorVisible && !findWidgetVisible && !replaceActive  "
    },
    {
       "key": "shift+alt+f5",
@@ -1623,5 +1613,25 @@
    {
       "key": "ctrl+alt+d",
       "command": "editor.action.revealDefinition"
+   },
+   {
+      "key": "ctrl+shift+enter",
+      "command": "editor.action.replaceOne",
+      "when": "editorFocus && findWidgetVisible"
+   },
+   {
+      "key": "ctrl+shift+1",
+      "command": "-editor.action.replaceOne",
+      "when": "editorFocus && findWidgetVisible"
+   },
+   {
+      "key": "ctrl+shift+enter",
+      "command": "search.action.replace",
+      "when": "matchFocus && replaceActive && searchViewletVisible"
+   },
+   {
+      "key": "ctrl+shift+1",
+      "command": "-search.action.replace",
+      "when": "matchFocus && replaceActive && searchViewletVisible"
    }
 ]

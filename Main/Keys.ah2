@@ -20,9 +20,9 @@ SetScrollLockState "AlwaysOff"
 $ScrollLock::F_Reload()
 $SC050::F_Reload()
 
-;Exit this script
-$!ScrollLock::F_ExitApp()
-$!SC050::F_ExitApp()
+;Hard reload this script
+$!ScrollLock::F_HardReload()
+$!SC050::F_HardReload()
 
 ;Suspend this script 
 #SuspendExempt True

@@ -407,6 +407,9 @@ $+!l:: {
          ;SEND
          ;————————————
 
+         ;Micha github nickname
+         Case "Micha":F_ClipSend("@Micha-ohne-el")
+
          ;My source is that I made it the fuck up
          Case "I made it the fuck up", "I made it up":F_ClipSend("https://www.youtube.com/watch?v=r7l0Rq9E8MY")
          ;Funny mic

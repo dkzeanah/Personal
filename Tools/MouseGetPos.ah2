@@ -16,25 +16,30 @@ G_MouseGetPos_Click.OnEvent("Click", Gb_Click)
 G_MouseGetPos_Pure.OnEvent("Click", Gb_Pure)
 G_MouseGetPos_Exit.OnEvent("Click", Gb_Exit)
 
+$F1::Gb_ControlClick()
 Gb_ControlClick(*)
 {
    A_Clipboard := "`"X" . locX . " Y" . locY . "`""
    ExitApp
 }
 
+$F2::Gb_ControlClick()
 Gb_Click(*)
 {
    A_Clipboard := "`"" . locX . " " . locY . "`""
    ExitApp
 }
 
+$F3::Gb_Pure()
 Gb_Pure(*)
 {
    A_Clipboard := locX . " " . locY
    ExitApp
 }
 
+$F4::Gb_Exit()
 Gb_Exit(*)
 {
    ExitApp
 }
+

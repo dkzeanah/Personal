@@ -248,7 +248,7 @@
     },
     {
         "key": "shift+insert",
-        "command": "editor.action.clipboardPasteAction"
+        "command": "pasteAndIndent.action"
     },
    {
         "key": "shift+alt+[",
@@ -1655,5 +1655,13 @@
       "key": "ctrl+k ctrl+o",
       "command": "-workbench.action.files.openFolder",
       "when": "openFolderWorkspaceSupport"
+   },
+   {
+      "key": "ctrl+v",
+      "command": "pasteAndIndent.action"
+   },
+   {
+      "key": "ctrl+w",
+      "command": "workbench.action.closeActiveEditor"
    }
 ]

@@ -19,8 +19,8 @@
       ],
       "description": ""
    },
-   "Section separator": {
-      "prefix": "Section separator",
+   "S_Section comment separator": {
+      "prefix": "S_Section comment separator",
       "body": [
          ";$0######################################################################################",
          ";######################################################################################",
@@ -45,8 +45,8 @@
       ],
       "description": ""
    },
-   "Directories": {
-      "prefix": "Directories",
+   "S_Directories": {
+      "prefix": "S_Directories",
       "body": [
          "SetWorkingDir A_ScriptDir . \"\\..\\\" ;Ensures a consistent A_WorkingDir.",
          "#SingleInstance Force ;Launches the new instance of the script always, instead of asking whether it should",
@@ -222,7 +222,7 @@
    "Switch": {
       "prefix": "Switch",
       "body": [
-         "Switch $1{",
+         "Switch $1 {",
          "\t$0",
          "}"
       ]
@@ -320,8 +320,7 @@
    "Try": {
       "prefix": "Try",
       "body": [
-         "Try",
-         "{",
+         "Try {",
          "\t$0",
          "}"
       ]
@@ -329,8 +328,7 @@
    "Catch": {
       "prefix": "Catch",
       "body": [
-         "Catch",
-         "{",
+         "Catch {",
          "\t$0",
          "}"
       ]
@@ -365,7 +363,7 @@
          "FormatTime($0)"
       ]
    },
-   "Directories_v1": {
+   "S_Directories_v1": {
       "prefix": "Directories_v1",
       "body": [
          "#NoEnv ;Recommended for performance and compatibility with future AutoHotkey releases.",
@@ -395,12 +393,6 @@
       "prefix": "SetTimer",
       "body": [
          "SetTimer"
-      ]
-   },
-   "OnEvent": {
-      "prefix": "OnEvent",
-      "body": [
-         "OnEvent($0)"
       ]
    },
    "ClipWait": {
@@ -604,8 +596,7 @@
    "Hotkey": {
       "prefix": "::",
       "body": [
-         "::",
-         "{",
+         ":: {",
          "\t$0",
          "}"
       ]
@@ -721,7 +712,7 @@
    "SetScrollLockState": {
       "prefix": "SetScrollLockState",
       "body": [
-         "SetScrollLockState "
+         "SetScrollLockState ${1:\"Off\"}"
       ]
    },
    ".Value": {
@@ -811,7 +802,9 @@
    "for in": {
       "prefix": "for in",
       "body": [
-         "for $1 in $0"
+         "for $1 in $2 {",
+         "\t$0",
+         "}"
       ]
    },
    "value": {
@@ -835,7 +828,7 @@
    "FileCreateShortcut": {
       "prefix": "FileCreateShortcut",
       "body": [
-         "FileCreateShortcut "
+         "FileCreateShortcut"
       ]
    },
    "A_AppData": {
@@ -871,7 +864,7 @@
    "SetNumLockState": {
       "prefix": "SetNumLockState",
       "body": [
-         "SetNumLockState "
+         "SetNumLockState ${1:\"Off\"}"
       ]
    },
    "NumpadDot": {
@@ -1048,7 +1041,7 @@
          "A_TimeSincePriorHotkey"
       ]
    },
-   "doublePress": {
+   "S_DoublePress": {
       "prefix": "doublePress",
       "body": [
          "(A_PriorHotkey == A_ThisHotkey) && (A_TimeSincePriorHotkey <= 200)"
@@ -1066,16 +1059,42 @@
          "WinWaitNotActive"
       ]
    },
-   "S_projectFolder": {
-      "prefix": "S_projectFolder",
+   "S_IncludeHigher": {
+      "prefix": "S_IncludeHigher",
       "body": [
-         "\"%A_ScriptDir%\\..\\\""
+         "#Include \"%A_ScriptDir%\\..\\\\$0\""
       ]
    },
    "OnExit": {
       "prefix": "OnExit",
       "body": [
          "OnExit((ExitReason, ExitCode) => $0)"
+      ]
+   },
+   "S_Function": {
+      "prefix": "S_Function",
+      "body": [
+         "F_$1($2) {",
+         "\t$0",
+         "}"
+      ]
+   },
+   "S_Arrow": {
+      "prefix": "S_Arrow",
+      "body": [
+         "${1:F_$2}($3) => ${4:($0)}"
+      ]
+   },
+   "index": {
+      "prefix": "index",
+      "body": [
+         "index"
+      ]
+   },
+   "break": {
+      "prefix": "break",
+      "body": [
+         "break"
       ]
    },
    

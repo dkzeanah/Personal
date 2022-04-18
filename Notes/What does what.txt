@@ -49,6 +49,9 @@ e — open tab
    [vs code] — open file in file explorer
 r — 
    [youtube] — PiP
+   [discord,
+   telegram,
+   chrome] — convert ytm link to yt link
    [vs code] — rename file
 t — time
 y —! reload window, add to workspace, remove from workspace

@@ -53,9 +53,9 @@ F_ifKeyHeld_Send(whichKey, toSend1, toSend2, howLong:="0.15") {
 ;———————————————————————————————————————
 
 ;ControlClicks one place on a single press, a different one on a double press
-F_ifDoublePressed_ControlClick(whichKey, coord1, coord2, winTitle:="", howLong:="0.1") {
+F_ifDoublePressed_ControlClick(whichKey, coord1, mouseButton1:="", coord2:="", mouseButton2:="", winTitle:="", howLong:="0.1") {
    KeyWait(whichKey, "U"), (KeyWait(whichKey, "D T" . howLong) 
-   ? (ControlClick(coord1, winTitle), KeyWait(whichKey, "U")) 
-   : ControlClick(coord2, winTitle))
+   ? (ControlClick(coord1, winTitle,, mouseButton1), KeyWait(whichKey, "U")) 
+   : ControlClick(coord2, winTitle,, mouseButton2))
 }
 

@@ -1,0 +1,16 @@
+{
+	"folders": [
+      {
+         "name": "Personal",
+         "path": "..\\.."
+      },
+      {
+         "name": "Other",
+         "path": "..\\..\\..\\Other"
+      },
+      {
+         "name": "Python tutorials",
+         "path": "..\\..\\..\\Python tutorials"
+      }
+   ]
+}

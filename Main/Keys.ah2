@@ -17,30 +17,30 @@ SetScrollLockState "AlwaysOff"
 
 
 ;Reload this script
-ScrollLock::F_Reload()
-SC050::F_Reload()
+$ScrollLock::F_Reload()
+$SC050::F_Reload()
 
 ;Exit this script
-!ScrollLock::F_ExitApp()
-!SC050::F_ExitApp()
+$!ScrollLock::F_ExitApp()
+$!SC050::F_ExitApp()
 
 ;Suspend this script 
 #SuspendExempt True
-+ScrollLock::F_Suspend()
-+SC050::F_Suspend()
+$+ScrollLock::F_Suspend()
+$+SC050::F_Suspend()
 #SuspendExempt False
 
 ;Run Testscript v2
-Pause::F_Test()
-SC051::F_Test()
+$Pause::F_Test()
+$SC051::F_Test()
 
 ;Run Testscript v1
-+Pause::F_Test("v1.ahk")
-+SC051::F_Test("v1.ahk")
+$+Pause::F_Test("v1.ahk")
+$+SC051::F_Test("v1.ahk")
 
 ;Reboot system
-#ScrollLock::F_Reboot()
-#SC050::F_Reboot()
+$#ScrollLock::F_Reboot()
+$#SC050::F_Reboot()
 
 
 
@@ -64,6 +64,11 @@ F_ClickThenGoBack_Event(coordinates) {
    SendEvent "{Click " . coordinates . "}"
    MouseMove initX, initY
 } 
+
+;A faster send. Sending stuff can take too long, but if you copy and paste it, it's much faster. Takes care of your previous clipboard disappearing as well
+F_ClipSend(toSend, space:=" ", toSleep:=20) {
+   prevClip := A_Clipboard, A_Clipboard := toSend . space, Send("+{Insert}"), SetTimer(() => (A_Clipboard := prevClip), -toSleep) 
+}
 
 ;Sends an emoji using its unicode
 F_Emoji(emojiName) {
@@ -420,11 +425,6 @@ $+!l:: {
       Run(link), WinActivate("Google Chrome")
    }
 
-   ;A faster send for discord. Sending stuff can take too long, but if you copy and paste it, it's much faster. Takes care of your previous clipboard disappearing as well
-   F_ClipSend(toSend, space:=" ") {
-      prevClip := A_Clipboard, A_Clipboard := toSend . space, KeyWait("End", "D"), Send("^v"), KeyWait("End", "U"), A_Clipboard := prevClip
-   }
-   
    ;Takes a random number out of 1 and 100000, says yes if it's even, no if it's odd
    F_CoinFlip() {
       coinFlip := Random(1, 100000)
@@ -888,13 +888,35 @@ $+!r::A_Clipboard := StrReplace(StrReplace(A_Clipboard, "&feature=share", ""), "
 
 #HotIf WinActive("ahk_exe Code.exe") ;_vscode 
 
+F_WorkspaceCorrectPath(vscodeHotkey) {
+   ;Open explorer window
+   Send(vscodeHotkey), WinWait("ahk_exe explorer.exe")
+   ;Paste the correct path to where workspaces are
+   workSpacesFolder := "C:\Files\Programming\Personal\Backups\Workspaces"
+   Send("^l"), SendText(workSpacesFolder), Send("{Enter}")
+}
+
 ;Copies the most important setting files of vs code into the /Backups folder
 $^u::Run A_WorkingDir . "\Scripts\Pull vs code settings.py"
 
+;Choose a workspace to open
+$^!SC02B::F_WorkspaceCorrectPath("^!\")
+
+;Save a workspace
+$^+SC02B::F_WorkspaceCorrectPath("^+\")
+
+;Choose a folder to open, now always starts in the folder where project folders are likely to be
+$+!SC02B:: {
+   ;Open project chooser
+   Send("+!\"), WinWait("ahk_exe explorer.exe")
+   ;Start in the folder that contains the project folders
+   projectsFolder := "C:\Files\Programming"
+   Send("^l"), SendText(projectsFolder), Send("{Enter}")
+}
+
 ;Opens an inputbox for you to put in the name of the key to get its SC code into your clipboard, or takes the SC code to then show you to which key it belongs in a msgbox; if it finds neither, says so
 Volume_Down & LButton::
-$+!k::
-{
+$+!k:: {
    inBoxTitle := "Key codes"
    prevClip := A_Clipboard
    Send "^c"
@@ -910,11 +932,7 @@ $+!k::
             A_Clipboard := D_KeyCodes_In[keyPointer.Value]
       }
       Catch
-         F_KeyNotFound()
-   }
-
-   F_KeyNotFound() {
-      MsgBox "Key not found!", inBoxTitle, "T1"
+         MsgBox "Key not found!", inBoxTitle, "T1"
    }
 }
 

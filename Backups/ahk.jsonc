@@ -1066,5 +1066,11 @@
          "WinWaitNotActive"
       ]
    },
+   "S_projectFolder": {
+      "prefix": "S_projectFolder",
+      "body": [
+         "\"%A_ScriptDir%\\..\\\""
+      ]
+   },
    
 }

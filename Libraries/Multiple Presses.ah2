@@ -2,7 +2,9 @@
 ;———————————————————————————
 
 ;Returns false and then true if you pressed the same hotkey twice in a row, only returns false if pressed once, in your specified period
-F_isSameHotkeyTwice(howLong:=200) => (A_PriorHotkey == A_ThisHotkey) && (A_TimeSincePriorHotkey <= howLong)
+F_isSameHotkeyTwice(howLong:=200) {
+   return (A_PriorHotkey == A_ThisHotkey) && (A_TimeSincePriorHotkey <= howLong)
+}
 
 ;Returns true if you pressed the same hotkey twice in a row; false if pressed only once
 F_isDoublePressed(whichKey, howLong:="0.1") {
@@ -16,7 +18,10 @@ F_isDoublePressed(whichKey, howLong:="0.1") {
 }
 
 ;Returns true if a key was held for your specified time, false if tapped quickly
-F_isKeyHeld(whichKey, howLong:="0.15") => !KeyWait(whichKey, "U T" . howLong)
+F_isKeyHeld(whichKey, howLong:="0.15") {
+   return !KeyWait(whichKey, "U T" . howLong)
+} 
+   
 
 
 ;SEND

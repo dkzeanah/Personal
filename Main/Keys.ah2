@@ -91,6 +91,9 @@ F_Emoji(emojiName) {
 ;Functions for multiple presses
 #Include "%A_ScriptDir%\..\Libraries\Multiple Presses.ah2"
 
+;Functions for app window manipulation
+#Include "%A_ScriptDir%\..\Libraries\WindowsApp.ah2"
+
 ;Often when you want something selected, you'll send down and enter, so this is the variable for that 
 select := "{Down}{Enter}"
 
@@ -586,7 +589,8 @@ $^m:: {
 
 ;Special button + side buttons
 #HotIf !WinActive("ahk_group Game") && !WinActive("Google Chrome")
-Volume_Down & XButton1::F_ifSameHotkeyTwice_Send("^c", "^x")
+Volume_Down & XButton1::F_ifKeyHeld_Send("XButton1", "^c", "^x")
+#HotIf !WinActive("ahk_group Game") && !WinActive("ahk_exe chrome.exe")
 Volume_Down & MButton::Send "^a"
 #HotIf !WinActive("ahk_group Game") && !WinActive("ahk_exe Code.exe")
 Volume_Down & LButton::Space
@@ -737,13 +741,14 @@ $XButton1:: {
 ;###################################################################################### 
 
 
+#HotIf WinActive("ahk_exe chrome.exe")
+;Reload page
+Volume_Down & MButton::F5
+
 #HotIf WinActive("Google Chrome") ;_chrome
 
 ;Single press is copy, double press will get current tab's link to clipboard
-Volume_Down & XButton1::(F_isSameHotkeyTwice() ? (Send("{F6}"), Sleep(40), Send("^c")) : Send("^c"))
-
-;Reload page
-Volume_Down & MButton::F5
+Volume_Down & XButton1::(F_isKeyHeld("XButton1") ? (Send("^l"), Sleep(40), Send("^c")) : Send("^c"))
 
 ;Ctrl numbers aren't easy to press, so F keys instead
 $F1::Send "^1"
@@ -1068,81 +1073,6 @@ $+!t:: {
 ;######################################################################################
 ;######################################################################################
 
-
-;Minimizes or maximizes the window depending on its state
-F_MinMax(title) {
-   Try (WinActive(title) ? WinMinimize(title) : WinActivate(title))
-}
-
-;If the window exists, minimize or maximize it depending on its state and return 1, otherwise return 0
-F_ifMinMax(title) {
-   if WinExist(title) {
-      F_MinMax(title)
-      return 1
-   }
-   else
-      return 0
-}
-
-;If the window exists and is not active, activate it
-F_ifAct(title) {
-   if WinExist(title) && !WinActive(title)
-      WinActivate title
-}
-
-;Run an exe, activate its window
-F_RunApp(winTitle, exePath, closeWin:=False) {
-   Run exePath,, "Max"
-   WinWait winTitle,, 10
-   WinActivate winTitle
-   ;If there's an unnesesary window that likes to pop up, it will get closed
-   if closeWin {
-      WinWait closeWin,, 20
-      F_ifWinClose(closeWin)
-   }
-} 
-
-;Run app, but only if it doesn't exist already
-F_ifRunApp(winTitle, exePath) {
-   if !WinExist(winTitle)
-      Run exePath
-}
-
-;ifRunApp, but runs using a windows + number hotkey
-F_ifRunApp_WinNum(winTitle, winNum) {
-   if !WinExist(winTitle)
-      Send "#" . winNum
-}
-
-;Only tries to close the window if it exists
-F_ifWinClose(winTitle) {
-   if WinExist(winTitle)
-      WinClose(winTitle)
-}
-
-;If the app doesn't exist, launches it. If it does and is active, minimizes it. If it's minimized, activates it
-F_WindowsApp(winTitle, exePath, closeWin:=False) {
-   if !F_ifMinMax(winTitle)
-      F_RunApp(winTitle, exePath, closeWin)
-}
-
-;Windows app name, but there's no exe fot the app so you put it in your taskbar and use windows + number to launch it and then this optimized way of activating it and minimizing it
-F_WindowsApp_WinNum(winTitle, windowsNumber) {
-   if !F_ifMinMax(winTitle) {
-      Send "#" . windowsNumber
-      WinWait winTitle,, 10
-      WinActivate winTitle
-   } 
-}
-
-;WindowsApp, but for folders
-F_WindowsApp_Folders(folderPath) {
-   Switch {
-      Case !WinExist(folderPath):Run(folderPath), WinWait(folderPath), WinActivate(folderPath)
-      Case WinActive(folderPath):WinMinimize folderPath
-      Case !WinActive(folderPath):WinActivate folderPath
-   }
-}
 
 ;OBS
 $<!o::F_MinMax("ahk_exe obs64.exe") 

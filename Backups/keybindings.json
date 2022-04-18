@@ -1072,7 +1072,7 @@
    {
       "key": "ctrl+; ctrl+;",
       "command": "keybindings.editor.searchKeybindings",
-      "when": "inKeybindings && keybindingFocus"
+      "when": "inKeybindings && !inKeybindingsSearch"
    },
    {
       "key": "ctrl+f",
@@ -1583,7 +1583,7 @@
       "when": "editorFocus"
    },
    {
-      "key": "ctrl+u",
+      "key": "win+pageup",
       "command": "editor.action.insertCursorAtEndOfEachLineSelected"
    },
    {
@@ -1594,7 +1594,7 @@
    {
       "key": "ctrl+; ctrl+;",
       "command": "keybindings.editor.focusKeybindings",
-      "when": "inKeybindings && inKeybindingsSearch"
+      "when": "inKeybindings && !keybindingFocus"
    },
    {
       "key": "ctrl+down",
@@ -1633,5 +1633,27 @@
       "key": "ctrl+shift+1",
       "command": "-search.action.replace",
       "when": "matchFocus && replaceActive && searchViewletVisible"
+   },
+   {
+      "key": "ctrl+alt+u",
+      "command": "git.openChange"
+   },
+   {
+      "key": "ctrl+shift+\\",
+      "command": "workbench.action.saveWorkspaceAs"
+   },
+   {
+      "key": "ctrl+alt+\\",
+      "command": "workbench.action.openWorkspace"
+   },
+   {
+      "key": "shift+alt+\\",
+      "command": "workbench.action.files.openFolder",
+      "when": "openFolderWorkspaceSupport"
+   },
+   {
+      "key": "ctrl+k ctrl+o",
+      "command": "-workbench.action.files.openFolder",
+      "when": "openFolderWorkspaceSupport"
    }
 ]

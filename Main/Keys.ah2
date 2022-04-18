@@ -45,105 +45,74 @@ $#SC050::F_Reboot()
 
 
 
-;FUNCTIONS ############################################################################
-;######################################################################################
-;###################################################################################### 
-;###################################################################################### 
-
-
-;it literally says what it does
-F_ClickThenGoBack(coordinates) {
-   MouseGetPos &initX, &initY
-   Click coordinates
-   MouseMove initX, initY
-}
-
-;clickthengoback, but clicks as an event for extra fucky things
-F_ClickThenGoBack_Event(coordinates) {
-   MouseGetPos &initX, &initY
-   SendEvent "{Click " . coordinates . "}"
-   MouseMove initX, initY
-} 
-
-;A faster send. Sending stuff can take too long, but if you copy and paste it, it's much faster. Takes care of your previous clipboard disappearing as well
-F_ClipSend(toSend, space:=" ", toSleep:=20) {
-   prevClip := A_Clipboard, A_Clipboard := toSend . space, Send("+{Insert}"), SetTimer(() => (A_Clipboard := prevClip), -toSleep) 
-}
-
-;Sends an emoji using its unicode
-F_Emoji(emojiName) => Send("{" . D_KeyCodes_In[emojiName] . "}")
-
-;Converts a YT music link into a youtube link and pastes it
-F_YTMusic() => (A_Clipboard := StrReplace(StrReplace(A_Clipboard, "&feature=share", ""), "//music.", "//www."), Send("^v"))
-
-
-
-
 ;VARIABLES ############################################################################
 ;######################################################################################
 ;######################################################################################
 ;###################################################################################### 
 
 
-;An array of the 1000 most used english words
-#Include "%A_ScriptDir%\..\Libraries\Random words.ah2"
+;Functions that send hotkeys that work pretty much everywhere (for readability)
+#Include "%A_ScriptDir%\..\Libraries\1. Base shortcuts.ah2"
 
 ;A dictionary of key names and SC codes of them
-#Include "%A_ScriptDir%\..\Libraries\Key codes.ah2"
+#Include "%A_ScriptDir%\..\Libraries\2. Key codes.ah2"
+
+;Functions for multiple presses
+#Include "%A_ScriptDir%\..\Libraries\3. Multiple presses.ah2"
+
+;An array of the 1000 most used english words
+#Include "%A_ScriptDir%\..\Libraries\4. Random words.ah2"
+
+;Functions for app window manipulation
+#Include "%A_ScriptDir%\..\Libraries\5. WindowsApp.ah2"
+
+;Other functions that work everywhere
+#Include "%A_ScriptDir%\..\Libraries\6. Global functions.ah2"
 
 ;Functions that do something with the current script
 #Include "%A_ScriptDir%\..\Libraries\Script interaction.ah2"
-
-;Functions for multiple presses
-#Include "%A_ScriptDir%\..\Libraries\Multiple presses.ah2"
-
-;Functions for app window manipulation
-#Include "%A_ScriptDir%\..\Libraries\WindowsApp.ah2"
-
-;Functions that send hotkeys that work pretty much everywhere (for readability)
-#Include "%A_ScriptDir%\..\Libraries\Base shortcuts.ah2"
 
 ;Often when you want something selected, you'll send down and enter, so this is the variable for that 
 select := "{Down}{Enter}"
 
 ;Games
-GroupAdd "Game", "ahk_exe EtG.exe"
-GroupAdd "Game", "ahk_exe isaac-ng.exe"
-GroupAdd "Game", "ahk_exe nuclearthrone.exe"
-GroupAdd "Game", "ahk_exe METAL GEAR RISING REVENGEANCE.exe"
+GroupAdd "Game",            "ahk_exe EtG.exe"
+GroupAdd "Game",            "ahk_exe isaac-ng.exe"
+GroupAdd "Game",            "ahk_exe nuclearthrone.exe"
+GroupAdd "Game",            "ahk_exe METAL GEAR RISING REVENGEANCE.exe"
 
 ;Games that use base remapping
-GroupAdd "Game_M", "ahk_exe EtG.exe"
-GroupAdd "Game_M", "ahk_exe isaac-ng.exe"
-GroupAdd "Game_M", "ahk_exe nuclearthrone.exe"
+GroupAdd "Game_M",          "ahk_exe EtG.exe"
+GroupAdd "Game_M",          "ahk_exe isaac-ng.exe"
+GroupAdd "Game_M",          "ahk_exe nuclearthrone.exe"
 
 ;Main apps
-GroupAdd "Main", "ahk_exe chrome.exe"
-GroupAdd "Main", "ahk_exe Todoist.exe"
-GroupAdd "Main", "ahk_exe Telegram.exe"
-GroupAdd "Main", "ahk_exe Code.exe"
-GroupAdd "Main", "ahk_exe Discord.exe" 
-GroupAdd "Main", "AutoHotkey Help"
-GroupAdd "Main", "AutoHotkey v2 Help"
+GroupAdd "Main",            "ahk_exe chrome.exe"
+GroupAdd "Main",            "ahk_exe Todoist.exe"
+GroupAdd "Main",            "ahk_exe Telegram.exe"
+GroupAdd "Main",            "ahk_exe Code.exe"
+GroupAdd "Main",            "ahk_exe Discord.exe" 
+GroupAdd "Main",            "AutoHotkey Help"
+GroupAdd "Main",            "AutoHotkey v2 Help"
 
 ;Messengers
-GroupAdd "Messenger", "Google Chrome"
-GroupAdd "Messenger", "ahk_exe Telegram.exe"
-GroupAdd "Messenger", "ahk_exe Discord.exe"
-GroupAdd "Messenger", "ahk_exe WhatsApp.exe"
-GroupAdd "Messenger", "ahk_exe Viber.exe"
+GroupAdd "Messenger",       "Google Chrome"
+GroupAdd "Messenger",       "ahk_exe Telegram.exe"
+GroupAdd "Messenger",       "ahk_exe Discord.exe"
+GroupAdd "Messenger",       "ahk_exe WhatsApp.exe"
+GroupAdd "Messenger",       "ahk_exe Viber.exe"
 
 ;Word documents
-GroupAdd "Document", ".doc"
-GroupAdd "Document", ".docx"
+GroupAdd "Document",        ".doc"
+GroupAdd "Document",        ".docx"
 
 ;Whatsapp and viber
-GroupAdd "Whatiber", "ahk_exe WhatsApp.exe"
-GroupAdd "Whatiber", "ahk_exe Viber.exe"
+GroupAdd "Whatiber",        "ahk_exe WhatsApp.exe"
+GroupAdd "Whatiber",        "ahk_exe Viber.exe"
 
 ;Media
-GroupAdd "Media", "Photos"
-GroupAdd "Media", "ahk_exe KMPlayer64.exe"
+GroupAdd "Media",           "Photos"
+GroupAdd "Media",           "ahk_exe KMPlayer64.exe"
 
 ;Autohotkey help
 GroupAdd "AutoHotkey_Help", "AutoHotkey Help"
@@ -429,103 +398,7 @@ $+!l:: {
       ;If you design a quest
       Case "If you design a quest":F_ClipSend("https://www.youtube.com/watch?v=chn0ggv9TdY")
    }
-
-   ;Runs the link and makes sure the browser is activated
-   F_RunLink(link) {
-      Run(link), WinActivate("Google Chrome")
-   }
-
-   ;Takes a random number out of 1 and 100000, says yes if it's even, no if it's odd
-   F_CoinFlip() => (
-      coinFlip := Random(1, 100000),
-      ((Mod(coinFlip, 2)) 
-         ? (result := "Yes") 
-         : (result := "No")),
-      MsgBox(result)
-   )
-   
-   ;Takes a multiline text and turns every line into a key in an array
-   F_FormatTableToArray() => (
-      A_Clipboard := "`"" . StrReplace(A_Clipboard, "`r`n", '", "') . "`"",
-      MsgBox("Done formatting table to array")
-   )
-
-   ;Select a file to run on startup
-   F_StartupRun() => (
-      selectedFile := FileSelect("S", A_WorkingDir),
-      SplitPath(selectedFile, &fileName),
-      FileCreateShortcut(selectedFile, A_AppData . "\Microsoft\Windows\Start Menu\Programs\Startup\" . fileName . ".lnk")
-   )
-
-   ;Googles how many rubles are there in a specified amount of dollars
-   F_DollarToRub() {
-      O_DollarToRub := InputBox("How much in dollars?: ", "Currency converter")
-      if O_DollarToRub.Result != "Cancel"
-         F_RunLink("https://www.google.com/search?q=" . O_DollarToRub.Value . "+dollars+in+rubles&oq=" . O_DollarToRub.Value . "+dollars+in+rubles&aqs=chrome..69i57.5947j0j7&sourceid=chrome&ie=UTF-8")
-   }
-
-   ;The thing above, but reversed
-   F_RubToDollar() {
-      O_RubToDollar := InputBox("How much in rubles?: ", "Currency converter")
-      if O_RubToDollar.Result != "Cancel"
-         F_RunLink("https://www.google.com/search?q=" . O_RubToDollar.Value . "+rubles+in+dollars&oq=" . O_RubToDollar.Value . "+rubles+in+dollars&aqs=chrome..69i57.4182j1j9&sourceid=chrome&ie=UTF-8")
-   }
-
-   ;Clicks on all the libraries consequentially, loading them into Intellisense
-   F_LibLoad() {
-      D_Libraries := Map(
-         "Base shortcuts", "X194 Y262",
-         "Key codes", "X194 Y287",
-         "Multiple presses", "X194 Y315",
-         "Random words", "X194 Y346",
-         "Runner functions", "X194 Y370",
-         "Script interaction", "X194 Y396",
-         "WindowsApp", "X194 Y422"
-      )
-      
-      for key, value in D_Libraries 
-         ControlClick(value, "ahk_exe Code.exe"), WinWait(key)
-      F_CloseTab()
-   }
-
-   ;Gets the github link to a file of your choosing
-   F_GitPage(doWhat) {
-
-      programmingPath := "C:\Files\Programming\"
-
-      fullPath := FileSelect("S", programmingPath)
-
-      if !fullPath 
-         return
-      faultyLink := F_PathToLink(fullPath)
-
-      ;Formats a full file path into a relative one
-      F_PathToLink(fullPath) => (
-         ;Removes the start of the path, since it's irrelevant in the link that just uses the project folder
-         relativePath := StrReplace(fullPath, programmingPath, ""),
-         ;Links use forward slashes while paths use backslashes
-         relativePath := StrReplace(relativePath, "\", "/"),
-         ;Spaces are replaced with %20 in links
-         relativePath := StrReplace(relativePath, " ", "%20")
-      )
-      
-      R_ProjectFolders := ["Python-tutorials/", "Other/", "Personal/"]
-
-      for index in R_ProjectFolders {
-         noIndex := StrReplace(faultyLink, index, "")
-         if noIndex != faultyLink {
-            workingLink := index . "blob/main/" . noIndex
-            break
-         }
-      }
-      
-      fullLink := "https://github.com/Axlefublr/" . workingLink
-
-      Switch doWhat {
-         Case "run":F_RunLink(fullLink)
-         Case "paste":F_ClipSend(fullLink, "")
-      }
-   }
+   #Include "%A_ScriptDir%\..\Libraries\Runner functions.ah2"
 }
 
 ;Easy way to reactivate the previous window after using the quick add task of todoist

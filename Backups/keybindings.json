@@ -514,14 +514,6 @@
       "command": "-workbench.action.navigateForward"
    },
    {
-      "key": "ctrl+shift+down",
-      "command": "editor.action.insertCursorBelow"
-   },
-   {
-      "key": "ctrl+shift+up",
-      "command": "editor.action.insertCursorAbove"
-   },
-   {
       "key": "ctrl+u",
       "command": "-cursorUndo",
       "when": "textInputFocus"
@@ -1663,5 +1655,121 @@
    {
       "key": "ctrl+w",
       "command": "workbench.action.closeActiveEditor"
-   }
+   },
+   {
+      "key": "ctrl+i",
+      "command": "editor.action.transpose"
+   },
+   {
+      "key": "ctrl+shift+pageup",
+      "command": "cursorUndo"
+   },
+   {
+      "key": "ctrl+\\",
+      "command": "git.revertSelectedRanges",
+      "when": "isInDiffEditor"
+   },
+   {
+      "key": "ctrl+k ctrl+r",
+      "command": "-git.revertSelectedRanges",
+      "when": "isInDiffEditor"
+   },
+   {
+      "key": "ctrl+o",
+      "command": "-workbench.action.files.openFile",
+      "when": "true"
+   },
+   {
+      "key": "ctrl+o",
+      "command": "-workbench.action.files.openFolderViaWorkspace",
+      "when": "!openFolderWorkspaceSupport && workbenchState == 'workspace'"
+   },
+   {
+      "key": "ctrl+o",
+      "command": "-workbench.action.files.openFileFolder",
+      "when": "isMacNative && openFolderWorkspaceSupport"
+   },
+   {
+      "key": "ctrl+o",
+      "command": "-workbench.action.files.openLocalFile",
+      "when": "remoteFileDialogVisible"
+   },
+   {
+      "key": "alt+win+pageup",
+      "command": "yo1dog.cursor-align.alignCursors",
+      "when": "editorTextFocus"
+   },
+   {
+      "key": "alt+a",
+      "command": "-yo1dog.cursor-align.alignCursors",
+      "when": "editorTextFocus"
+   },
+   {
+      "key": "ctrl+shift+pagedown",
+      "command": "cursorRedo"
+   },
+   { 
+     "key": "ctrl+insert",          
+     "command": "copy-word.copy",
+     "when": "editorTextFocus"      
+   },
+   { 
+     "key": "ctrl+c",
+     "command": "copy-word.copy",
+     "when": "editorTextFocus"      
+   },
+   {
+     "key": "ctrl+x",          
+     "command": "copy-word.cut",
+     "when": "editorTextFocus" 
+   },
+   {
+      "key": "ctrl+shift+down",
+      "command": "smartmulticursor.insertCursorBelow",
+      "when": "editorTextFocus"
+   },
+   {
+      "key": "shift+alt+down",
+      "command": "-smartmulticursor.insertCursorBelow",
+      "when": "editorTextFocus"
+   },
+   {
+      "key": "ctrl+shift+up",
+      "command": "smartmulticursor.insertCursorAbove",
+      "when": "editorTextFocus"
+   },
+   {
+      "key": "shift+alt+up",
+      "command": "-smartmulticursor.insertCursorAbove",
+      "when": "editorTextFocus"
+   },
+   {
+      "key": "ctrl+shift+up",
+      "command": "-cursorUpSelect",
+      "when": "textInputFocus"
+   },
+   {
+      "key": "ctrl+shift+down",
+      "command": "-cursorDownSelect",
+      "when": "textInputFocus"
+   },
+   {
+      "key": "alt+win+pagedown",
+      "command": "yo1dog.cursor-trim.rTrimCursor",
+      "when": "editorTextFocus"
+   },
+   {
+      "key": "alt+.",
+      "command": "-yo1dog.cursor-trim.rTrimCursor",
+      "when": "editorTextFocus"
+   },
+   {
+      "key": "ctrl+o",
+      "command": "findJump.activate"
+   },
+   {
+      "key": "ctrl+d",
+      "command": "editor.action.addSelectionToNextFindMatch",
+      "when": "editorFocus"
+   },
 ]

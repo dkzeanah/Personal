@@ -1,0 +1,24 @@
+;it literally says what it does
+F_ClickThenGoBack(coordinates) {
+   MouseGetPos &initX, &initY
+   Click coordinates
+   MouseMove initX, initY
+}
+
+;clickthengoback, but clicks as an event for extra fucky things
+F_ClickThenGoBack_Event(coordinates) {
+   MouseGetPos &initX, &initY
+   SendEvent "{Click " . coordinates . "}"
+   MouseMove initX, initY
+} 
+
+;A faster send. Sending stuff can take too long, but if you copy and paste it, it's much faster. Takes care of your previous clipboard disappearing as well
+F_ClipSend(toSend, space:=" ", toSleep:=20) {
+   prevClip := A_Clipboard, A_Clipboard := toSend . space, Send("+{Insert}"), SetTimer(() => (A_Clipboard := prevClip), -toSleep) 
+}
+
+;Sends an emoji using its unicode
+F_Emoji(emojiName) => Send("{" . D_KeyCodes_In[emojiName] . "}")
+
+;Converts a YT music link into a youtube link and pastes it
+F_YTMusic() => (A_Clipboard := StrReplace(StrReplace(A_Clipboard, "&feature=share", ""), "//music.", "//www."), Send("^v"))

@@ -4,9 +4,6 @@ F_MinMax(title) => (WinActive(title) ? WinMinimize(title) : WinActivate(title))
 ;If the window exists, minimize or maximize it depending on its state and return 1, otherwise return 0
 F_ifMinMax(title) => (WinExist(title) ? (F_MinMax(title), 1) : 0)
 
-;If the window exists and is not active, activate it
-F_ifAct(title) => (WinExist(title) && !WinActive(title) ? WinActivate(title) : "")
-
 ;Run app, but only if it doesn't exist already
 F_ifRunApp(winTitle, exePath) => (!WinExist(winTitle) ? Run(exePath) : "")
 

@@ -18,7 +18,6 @@ F_ClipSend(toSend, space:=" ", toSleep:=40) {
 }
 
 ;Sends an emoji using its unicode
-F_Emoji(emojiName) => Send("{" . D_KeyCodes_In[emojiName] . "}")
-
-;Converts a YT music link into a youtube link and pastes it
-F_YTMusic_LinkConverter() => (A_Clipboard := StrReplace(StrReplace(A_Clipboard, "&feature=share", ""), "//music.", "//www."), Send("^v"))
+F_Emoji(emojiName) {
+   Send("{" . D_KeyCodes_In[emojiName] . "}")
+}

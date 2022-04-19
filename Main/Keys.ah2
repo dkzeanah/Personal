@@ -17,30 +17,30 @@ SetScrollLockState "AlwaysOff"
 
 
 ;Reload this script
-$ScrollLock::F_Reload()
-$SC050::F_Reload()
+$ScrollLock::Script.scr_Reload()
+$SC050::Script.scr_Reload()
 
 ;Hard reload this script
-$!ScrollLock::F_HardReload()
-$!SC050::F_HardReload()
+$!ScrollLock::Script.scr_HardReload()
+$!SC050::Script.scr_HardReload()
 
 ;Suspend this script 
 #SuspendExempt True
-$+ScrollLock::F_Suspend()
-$+SC050::F_Suspend()
+$+ScrollLock::Script.scr_Suspend()
+$+SC050::Script.scr_Suspend()
 #SuspendExempt False
 
 ;Run Testscript v2
-$Pause::F_Test()
-$SC051::F_Test()
+$Pause::Script.scr_Test()
+$SC051::Script.scr_Test()
 
 ;Run Testscript v1
-$+Pause::F_Test("v1.ahk")
-$+SC051::F_Test("v1.ahk")
+$+Pause::Script.scr_Test("v1.ahk")
+$+SC051::Script.scr_Test("v1.ahk")
 
 ;Reboot system
-$#ScrollLock::F_Reboot()
-$#SC050::F_Reboot()
+$#ScrollLock::Script.scr_Reboot()
+$#SC050::Script.scr_Reboot()
 
 
 
@@ -52,28 +52,31 @@ $#SC050::F_Reboot()
 
 
 ;Functions that send hotkeys that work pretty much everywhere (for readability)
-#Include "%A_ScriptDir%\..\Libraries\1. Base shortcuts.ah2"
+#Include "%A_ScriptDir%\..\Libraries\1. Base.ah2"
 
 ;A dictionary of key names and SC codes of them
-#Include "%A_ScriptDir%\..\Libraries\2. Key codes.ah2"
+#Include "%A_ScriptDir%\..\Libraries\2. KeyCodes.ah2"
 
 ;Functions for multiple presses
-#Include "%A_ScriptDir%\..\Libraries\3. Multiple presses.ah2"
+#Include "%A_ScriptDir%\..\Libraries\3. Press.ah2"
 
 ;An array of the 1000 most used english words
-#Include "%A_ScriptDir%\..\Libraries\4. Random words.ah2"
+#Include "%A_ScriptDir%\..\Libraries\4. RandomWords.ah2"
 
 ;Functions for app window manipulation
-#Include "%A_ScriptDir%\..\Libraries\5. WindowsApp.ah2"
+#Include "%A_ScriptDir%\..\Libraries\5. Win.ah2"
 
 ;Other functions that work everywhere
-#Include "%A_ScriptDir%\..\Libraries\6. Global functions.ah2"
+#Include "%A_ScriptDir%\..\Libraries\6. Global.ah2"
 
 ;Functions for clicking and opening stuff in different apps, for readability
-#Include "%A_ScriptDir%\..\Libraries\7. App clicks and shortcuts.ah2"
+#Include "%A_ScriptDir%\..\Libraries\7. App.ah2"
 
 ;Functions that do something with the current script
-#Include "%A_ScriptDir%\..\Libraries\8. Script interaction.ah2"
+#Include "%A_ScriptDir%\..\Libraries\8. Script.ah2"
+
+;Functions that are used in the runner
+#Include "%A_ScriptDir%\..\Libraries\9. Runner.ah2"
 
 ;Often when you want something selected, you'll send down and enter, so this is the variable for that 
 select := "{Down}{Enter}"
@@ -293,33 +296,33 @@ $+!l:: {
       ;——————————————————
 
       ;Reddit
-      Case "reddit":F_RunLink("https://www.reddit.com/notifications")
+      Case "reddit":Runner.nur_RunLink("https://www.reddit.com/notifications")
       ;Instagram
-      Case "inst", "instagram":F_RunLink("https://www.instagram.com/")
+      Case "inst", "instagram":Runner.nur_RunLink("https://www.instagram.com/")
       ;Twitter
-      Case "twit", "twitter":F_RunLink("https://twitter.com/home")
+      Case "twit", "twitter":Runner.nur_RunLink("https://twitter.com/home")
       ;Eкурсы
-      Case "eku":F_RunLink("https://e.sfu-kras.ru/calendar/view.php?view=month&time=" . ekursTime)
+      Case "eku":Runner.nur_RunLink("https://e.sfu-kras.ru/calendar/view.php?view=month&time=" . ekursTime)
       ;MyAnimeList
-      Case "mal":F_RunLink("https://myanimelist.net/profile/Axlefublr")
+      Case "mal":Runner.nur_RunLink("https://myanimelist.net/profile/Axlefublr")
       ;Metta
-      Case "metta":F_RunLink("https://mettalife.ru/pl/my?gcmes=5779290672&gcmlg=-4")
+      Case "metta":Runner.nur_RunLink("https://mettalife.ru/pl/my?gcmes=5779290672&gcmlg=-4")
       ;Weather
-      Case "weather":F_RunLink("https://yandex.ru/pogoda/krasnoyarsk")
+      Case "weather":Runner.nur_RunLink("https://yandex.ru/pogoda/krasnoyarsk")
       ;Watch movies
-      Case "movies":F_RunLink("https://watchmovieshd.ru/")
+      Case "movies":Runner.nur_RunLink("https://watchmovieshd.ru/")
       ;Gogoanime
-      Case "gogoanime":F_RunLink("https://gogoanime.fi/")
+      Case "gogoanime":Runner.nur_RunLink("https://gogoanime.fi/")
       ;Mvideo
-      Case "mvideo":F_RunLink("https://www.mvideo.ru/")
+      Case "mvideo":Runner.nur_RunLink("https://www.mvideo.ru/")
       ;Steam keys
-      Case "zaka", "zakazaka":F_RunLink("https://zaka-zaka.com/")
+      Case "zaka", "zakazaka":Runner.nur_RunLink("https://zaka-zaka.com/")
       ;Barbershop
-      Case "barber":F_RunLink("https://b73723.yclients.com/company/89170/menu?o=")
+      Case "barber":Runner.nur_RunLink("https://b73723.yclients.com/company/89170/menu?o=")
       ;Emoji unicodes
-      Case "emoji":F_RunLink("https://www.alt-codes.net/smiley_alt_codes.php")
+      Case "emoji":Runner.nur_RunLink("https://www.alt-codes.net/smiley_alt_codes.php")
       ;Share files
-      Case "share files":F_RunLink("https://files.fm/")
+      Case "share files":Runner.nur_RunLink("https://files.fm/")
 
 
       ;РАСПИСАНИЕ
@@ -367,21 +370,21 @@ $+!l:: {
       Case "click counter":Run A_WorkingDir . "\Tools\Click counter.ah2"
       Case "discovery add":Run A_WorkingDir . "\Tools\Discovery add.ah2"
       Case "playlist moving":Run A_WorkingDir . "\Tools\Playlist moving.ah2"
-      Case "format table to array":F_FormatTableToArray()
-      Case "startup":F_StartupRun()
-      Case "coin flip":F_CoinFlip()
-      Case "dr":F_DollarToRub()
-      Case "rd":F_RubToDollar()
-      Case "ytm":F_YTMusic_LinkConverter()
-      Case "lib", "libload":F_LibLoad()
+      Case "format table to array":Runner.nur_FormatTableToArray()
+      Case "startup":Runner.nur_StartupRun()
+      Case "coin flip":Runner.nur_CoinFlip()
+      Case "dr":Runner.nur_DollarToRub()
+      Case "rd":Runner.nur_RubToDollar()
+      Case "ytm":YTMusic.ytm_LinkConverter()
+      Case "lib", "libload":Runner.nur_LibLoad()
 
 
       ;GITHUB
       ;————————————————————
       
-      Case "gitpage", "gitfile", "gitlink":F_GitPage("paste")
-      Case "git":F_GitPage("run")
-      Case "github":F_RunLink("https://github.com/Axlefublr")
+      Case "gitpage", "gitfile", "gitlink":Runner.nur_GitPage("paste")
+      Case "git":Runner.nur_GitPage("run")
+      Case "github":Runner.nur_RunLink("https://github.com/Axlefublr")
 
 
       ;SEND
@@ -401,7 +404,6 @@ $+!l:: {
       ;If you design a quest
       Case "If you design a quest":F_ClipSend("https://www.youtube.com/watch?v=chn0ggv9TdY")
    }
-   #Include "%A_ScriptDir%\..\Libraries\9. Runner functions.ah2"
 }
 
 ;Easy way to reactivate the previous window after using the quick add task of todoist
@@ -435,9 +437,9 @@ XButton1 & Volume_Down:: {
       ;Leave search
       Case WinActive("YouTube Music"):YTMusic.ytm_CancelSearch()
       ;Maximize pop out window
-      Case YouTube.ytt_isNotWatchingVid():Send "i"
+      Case YouTube.ytt_isNotWatchingVid:Send "i"
       ;Fullscreen
-      Case YouTube.ytt_isWatchingVid(), WinActive("WatchMoviesHD"):Send "f"
+      Case YouTube.ytt_isWatchingVid, WinActive("WatchMoviesHD"):Send "f"
       ;Notifications
       Case WinActive("Messenger"):ControlClick "X788 Y126"
       ;Emoji tab
@@ -487,7 +489,7 @@ $+!r:: {
    ((WinActive("ahk_exe Discord.exe")
    || WinActive("ahk_exe Telegram.exe")
    || (WinActive("ahk_exe chrome.exe") && !WinActive("YouTube")))
-      ? F_YTMusic_LinkConverter()
+      ? YTMusic.ytm_LinkConverter()
       : Send("+!r"))
 }
 
@@ -566,7 +568,7 @@ $XButton2:: {
       Case right:
          Switch {
             Case topRight:Base.bsd_NextWin()
-            Case WinActive("YouTube Music"), YouTube.ytt_isWatchingVid():
+            Case WinActive("YouTube Music"), YouTube.ytt_isWatchingVid:
                YouTube.ytt_SkipNext()
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgDn}"
             Default:Send "{Media_Next}"
@@ -608,8 +610,8 @@ $XButton1:: {
             Default:Send "^/"
             Case right:Send "^!{Right}"
             Case left:Send "^!{Left}"
-            Case down:F_Test()
-            Case up:F_Reload()
+            Case down:Script.scr_Test() 
+            Case up:Script.scr_Reload()
          }
       Case WinActive("YouTube Music"): ;_youtube music
          ytmCover := ((sectionX > 1594) && (sectionY > 686))

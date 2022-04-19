@@ -165,19 +165,19 @@ $!Escape::PostMessage("0x0010",,,, "A")
 $!Enter::Send select
 
 ;Undo/redo
-$+!Left::Base.Undo()
-$+!Right::Base.Redo()
+$+!Left::Base.bsd_Undo()
+$+!Right::Base.bsd_Redo()
 
 ;Select all
-$Insert::Base.SelectAll()
-$SC047::Base.SelectAll()
+$Insert::Base.bsd_SelectAll()
+$SC047::Base.bsd_SelectAll()
 
 ;Easily accessible paste window
-$#Insert::Base.WinPaste()
+$#Insert::Base.bsd_WinPaste()
 
 ;Cut
-$!Insert::Base.Cut()
-$!SC047::Base.Cut()
+$!Insert::Base.bsd_Cut()
+$!SC047::Base.bsd_Cut()
 
 ;Media hotkeys
 $!SC029::Media_Play_Pause
@@ -433,11 +433,11 @@ $+!l:: {
 XButton1 & Volume_Down:: {
    Switch {
       ;Leave search
-      Case WinActive("YouTube Music"):YTM.CancelSearch()
+      Case WinActive("YouTube Music"):YTMusic.ytm_CancelSearch()
       ;Maximize pop out window
-      Case YT.isNotWatchingVid():Send "i"
+      Case YouTube.ytt_isNotWatchingVid():Send "i"
       ;Fullscreen
-      Case YT.isWatchingVid(), WinActive("WatchMoviesHD"):Send "f"
+      Case YouTube.ytt_isWatchingVid(), WinActive("WatchMoviesHD"):Send "f"
       ;Notifications
       Case WinActive("Messenger"):ControlClick "X788 Y126"
       ;Emoji tab
@@ -450,9 +450,9 @@ XButton1 & Volume_Down:: {
 XButton2 & Volume_Down:: {
    Switch {
       ;Switch channels in youtube music
-      Case WinActive("YouTube Music"):YTM.ChannelSwitch()
+      Case WinActive("YouTube Music"):YTMusic.ytm_ChannelSwitch()
       ;Switch channels in youtube
-      Case WinActive("YouTube"):YT.ChannelSwitch()
+      Case WinActive("YouTube"):YouTube.ytt_ChannelSwitch()
       ;Clicks the send button to either start recording or send a voice message
       Case WinActive("Messenger"):ControlClick "X1757 Y1014"
       ;Clicks the send button to send a voice message
@@ -502,12 +502,12 @@ $+!r:: {
 
 ;Special button + side buttons
 #HotIf !WinActive("ahk_group Game") && !WinActive("Google Chrome")
-Volume_Down & XButton1::F_ifKeyHeld_Send("XButton1", Base.Copy, Base.Cut)
+Volume_Down & XButton1::F_ifKeyHeld_Send("XButton1", Base.bsd_Copy(), Base.bsd_Cut())
 #HotIf !WinActive("ahk_group Game") && !WinActive("ahk_exe chrome.exe")
-Volume_Down & MButton::Send "^a"
+Volume_Down & MButton::Base.bsd_SelectAll()
 #HotIf !WinActive("ahk_group Game")
 Volume_Down & LButton::Space
-Volume_Down & XButton2::F_ifKeyHeld_Send("XButton2", Base.Paste, Base.WinPaste)
+Volume_Down & XButton2::F_ifKeyHeld_Send("XButton2", Base.bsd_Paste(), Base.bsd_WinPaste())
 
 ;Special button by itself pressed in different sections of the screen does different things
 $Volume_Down:: { 
@@ -538,8 +538,8 @@ XButton2 & WheelUp::Volume_Up
 XButton2 & WheelDown::Volume_Down
 
 ;Close side button and Wheel
-XButton1 & WheelUp::Send "^y"
-XButton1 & WheelDown::Send "^z"
+XButton1 & WheelUp::Base.bsd_Redo()
+XButton1 & WheelDown::Base.bsd_Undo()
 
 ;Close side button with L and R buttons 
 XButton1 & LButton::BackSpace
@@ -565,20 +565,22 @@ $XButton2:: {
    Switch {
       Case right:
          Switch {
-            Case topRight:Send "!{Tab}"
-            Case WinActive("YouTube Music"), YT.isWatchingVid():YT.SkipNext()
+            Case topRight:Base.bsd_NextWin()
+            Case WinActive("YouTube Music"), YouTube.ytt_isWatchingVid():
+               YouTube.ytt_SkipNext()
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgDn}"
             Default:Send "{Media_Next}"
          }
       Case left:
          Switch {
-            Case topLeft:Send "+!{Tab}"
-            Case WinActive("YouTube Music"), YT.isWatchingVid():YT.SkipPrev()
+            Case topLeft:Base.bsd_PrevWin()
+            Case WinActive("YouTube Music"), YouTube.ytt_isWatchingVid():
+               YouTube.ytt_SkipPrev()
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgUp}"
             Default:Send "{Media_Prev}"
          }
-      Case down:Base.CloseWin()
-      Case up:Base.MinimizeWin()()
+      Case down:Base.bsd_CloseWin()
+      Case up:Base.MinimizeWin()
       Default:
          Send(WinActive("ahk_exe Code.exe") 
             ? "^!{Insert}" 
@@ -594,10 +596,12 @@ $XButton1:: {
       Case WinActive("Google Chrome"): ;_chrome
          Switch {
             Default:Send "{Browser_Back}"
-            Case right:Send "^{PgDn}"
-            Case left:Send "^{PgUp}"
-            Case up:Send "^t"
-            Case down:(WinActive("Messenger") ? ControlClick("X1750 Y903") : Send("^w"))
+            Case right:Base.bsd_NextTab()
+            Case left:Base.bsd_PrevTab()
+            Case up:Base.bsd_NewTab()
+            Case down:(WinActive("Messenger") 
+               ? ControlClick("X1750 Y903") 
+               : Base.bsd_CloseTab())
          }
       Case WinActive("ahk_exe Code.exe"): ;_vscode
          Switch {
@@ -612,15 +616,15 @@ $XButton1:: {
          Switch {
             Default:          Send "{Browser_Back}"
             Case right:
-               ( topRight   ? YTM.Discovery()
-               : ytmCover   ? YTM.Options()
-               :              YTM.Fullscreen())
+               ( topRight   ? YTMusic.ytm_Discovery()
+               : ytmCover   ? YTMusic.ytm_Options()
+               :              YTMusic.ytm_Fullscreen())
             Case left:
-               ( topLeft    ? YTM.Best()
-               : bottomLeft ? YTM.Liked()
-               :              YTM.Library())
-            Case up:          YTM.Like()
-            Case down:        YTM.Dislike()
+               ( topLeft    ? YTMusic.ytm_Best()
+               : bottomLeft ? YTMusic.ytm_Liked()
+               :              YTMusic.ytm_Library())
+            Case up:          YTMusic.ytm_Like()
+            Case down:        YTMusic.ytm_Dislike()
          }
       Case WinActive("ahk_exe wps.exe"): 
          Switch {
@@ -661,7 +665,7 @@ Volume_Down & MButton::F5
 #HotIf WinActive("Google Chrome") ;_chrome
 
 ;Single press is copy, double press will get current tab's link to clipboard
-Volume_Down & XButton1::(F_isKeyHeld("XButton1") ? (Send("^l"), Sleep(40), Send("^c")) : Send("^c"))
+Volume_Down & XButton1::(F_isKeyHeld("XButton1") ? (Send("^l"), Sleep(40), Base.bsd_Copy()) : Base.bsd_Copy())
 
 ;Ctrl numbers aren't easy to press, so F keys instead
 $F1::Send "^1"
@@ -678,38 +682,38 @@ $F10::Send "{Volume_Up}"
 $F9::Send "{Volume_Down}"
 
 ;Opens a new tab
-$+!e::Base.NewTab()
+$+!e::Base.bsd_NewTab()
 
 ;Closes a tab
-$#Delete::Base.CloseTab()
+$#Delete::Base.bsd_CloseTab()
 
 ;Shift alt w closes a tab
-$+!w::(!WinActive("Messenger") ? Base.CloseTab() : "")
+$+!w::(!WinActive("Messenger") ? Base.bsd_CloseTab() : "")
 
 
 ;Shift n to skip never made sense to begin with
 #HotIf WinActive("YouTube") ;_youtube 
-$PgDn::YT.SkipNext()
-$PgUp::YT.SkipPrev()
+$PgDn::YouTube.ytt_SkipNext()
+$PgUp::YouTube.ytt_SkipPrev()
 
 
 #HotIf WinActive("YouTube Music")
 
-$F1::YTM.Search()
-$F2::YTM.Library()
-$F3::YTM.CancelSearch()
-$F4::YTM.Fullscreen()
-$F5::YTM.Liked()
-$F6::YTM.Best()
-$F7::YTM.Discovery()
+$F1::YTMusic.ytm_Search()
+$F2::YTMusic.ytm_Library()
+$F3::YTMusic.ytm_CancelSearch()
+$F4::YTMusic.ytm_Fullscreen()
+$F5::YTMusic.ytm_Liked()
+$F6::YTMusic.ytm_Best()
+$F7::YTMusic.ytm_Discovery()
 
 ;Volume
 $F10::Send "{Volume_Up}"
 $F9::Send "{Volume_Down}"
 
 ;Like and dislike
-$F12::YTM.Like()
-$F11::YTM.Dislike()
+$F12::YTMusic.ytm_Like()
+$F11::YTMusic.ytm_Dislike()
 
 
 ;Close minimized window 
@@ -822,7 +826,7 @@ $+!SC02B:: {
 $+!k:: {
    inBoxTitle := "Key codes"
    prevClip := A_Clipboard
-   Send "^c"
+   Base.bsd_Copy()
    Sleep 40
    Try {
       MsgBox D_KeyCodes_Out[A_Clipboard], inBoxTitle
@@ -849,7 +853,7 @@ $^Space::Send "^+{Tab}"
 ;Save 
 $+!s::Send "^s"
 ;Close tab
-$+!w::Send "^w"
+$+!w::Base.bsd_CloseTab()
 
 
 #HotIf WinActive("ahk_exe wps.exe") && WinActive(".pptx")

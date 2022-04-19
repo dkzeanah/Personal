@@ -35,6 +35,9 @@ V_ for conflicting variables (usually params)
 O_ for objects
 
 C_ for class
+(the class' object is _ less)
+
+abbreviation of the class name + _ for class methods and properties
 
 G_ for guis
 

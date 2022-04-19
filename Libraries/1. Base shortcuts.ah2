@@ -1,76 +1,76 @@
 Class C_Base {
-   Copy() {
+   bsd_Copy() {
       Send "^c"
    }
-   Copy => "^c"
+   bsd_Copy => "^c"
 
-   Paste() {
+   bsd_Paste() {
       Send "^v"
    }
-   Paste => "^v"
+   bsd_Paste => "^v"
 
-   WinPaste() {
+   bsd_WinPaste() {
       Send "#v"
    }
-   WinPaste => "#v"
+   bsd_WinPaste => "#v"
 
-   Cut() {
+   bsd_Cut() {
       Send "^x"
    }
-   Cut => "^x"
+   bsd_Cut => "^x"
 
-   SelectAll() {
+   bsd_SelectAll() {
       Send "^a"
    }
-   SelectAll => "^a"
+   bsd_SelectAll => "^a"
 
-   Undo() {
+   bsd_Undo() {
       Send "^z"
    }
-   Undo => "^z"
+   bsd_Undo => "^z"
 
-   Redo() {
+   bsd_Redo() {
       Send "^y"
    }
-   Redo => "^y"
+   bsd_Redo => "^y"
 
-   CloseTab() {
+   bsd_CloseTab() {
       Send "^w"
    }
-   CloseTab => "^w"
+   bsd_CloseTab => "^w"
 
-   NewTab() {
+   bsd_NewTab() {
       Send "^t"
    }
-   NewTab => "^t"
+   bsd_NewTab => "^t"
 
-   NextTab() {
+   bsd_NextTab() {
       Send "^{PgDn}"
    }
-   NextTab => "^{PgDn}"
+   bsd_NextTab => "^{PgDn}"
 
-   PrevTab() {
+   bsd_PrevTab() {
       Send "^{PgUp}"
    }
-   PrevTab => "^{PgUp}"
+   bsd_PrevTab => "^{PgUp}"
 
-   NextWin() {
+   bsd_NextWin() {
       Send "!{Tab}"
    }
-   NextWin => "!{Tab}"
+   bsd_NextWin => "!{Tab}"
 
-   PrevWin() {
+   bsd_PrevWin() {
       Send "+!{Tab}"
    }
-   PrevWin => "+!{Tab}"
+   bsd_PrevWin => "+!{Tab}"
 
    ;Defaults to closing the current window
-   CloseWin(winTitle := "A") {
+   bsd_CloseWin(winTitle := "A") {
       PostMessage "0x0010",,,, winTitle
    }
 
    ;Defaults to minimizing the current window
-   MinimizeWin(winTitle := "A") {
+   bsd_MinimizeWin(winTitle := "A") {
       PostMessage "0x112", "0xF020",,, winTitle
    }
 }

@@ -1,29 +1,29 @@
 ;YOUTUBE MUSIC
 ;——————————————————————————————
 
-Class C_YTM {
+Class C_YouTubeMusic {
    
-   Liked() => ControlClick("X447 Y913")
+   ytm_Liked() => ControlClick("X447 Y913")
 
-   Library() => ControlClick("X1013 Y73")
+   ytm_Library() => ControlClick("X1013 Y73")
 
-   Best() => ControlClick("X1206 Y914")
+   ytm_Best() => ControlClick("X1206 Y914")
 
-   Discovery() => ControlClick("X950 Y920")
+   ytm_Discovery() => ControlClick("X950 Y920")
 
-   Fullscreen() => ControlClick("X1863 Y1030")
+   ytm_Fullscreen() => ControlClick("X1863 Y1030")
 
-   Options() => ControlClick("X1542 Y1025",,, "R")
+   ytm_Options() => ControlClick("X1542 Y1025",,, "R")
 
-   Like() => Send("^i")
+   ytm_Like() => Send("^i")
 
-   Dislike() => Send("^u")
+   ytm_Dislike() => Send("^u")
 
-   Search() => ControlClick("X1191 Y77")
+   ytm_Search() => ControlClick("X1191 Y77")
 
-   CancelSearch() => ControlClick("X398 Y78")
+   ytm_CancelSearch() => ControlClick("X398 Y78")
 
-   ChannelSwitch() => (
+   ytm_ChannelSwitch() => (
       ControlClick("X1861 Y75"),
       Sleep(100),
       Send("{Tab 3}{Enter}"),
@@ -31,27 +31,28 @@ Class C_YTM {
       Send("{Tab 5}{Enter}")
    )
 }
-YTM := C_YTM.Call()
+YTMusic := C_YouTubeMusic.Call()
 
 
 
 ;YOUTUBE
 ;—————————————————————————————
 
-Class C_YT {
+Class C_YouTube {
 
-   SkipNext() => Send "+n"
+   ytt_SkipNext() => Send("+n")
 
-   SkipPrev() => Send "+p"
+   ytt_SkipPrev() => Send("+p")
 
-   isWatchingVid() => WinActive(" - YouTube") && !WinActive("Watch later") && !WinActive("Subscriptions")
+   ytt_isWatchingVid() => WinActive(" - YouTube") && !WinActive("Watch later") && !WinActive("Subscriptions")
 
-   isNotWatchingVid() => WinActive("Watch later") || WinActive("Subscriptions") || (WinActive("YouTube") && !WinActive(" - YouTube"))
+   ytt_isNotWatchingVid() => WinActive("Watch later") || WinActive("Subscriptions") || (WinActive("YouTube") && !WinActive(" - YouTube"))
 
-   ChannelSwitch() => (
+   ytt_ChannelSwitch() => (
       ControlClick("X1820 Y133"),
       Sleep(400),
       Send("{Tab 5}{Enter}")
    )
 }
-YT := C_YT.Call()
+YouTube := C_YouTube.Call()
+

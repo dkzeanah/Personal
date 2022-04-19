@@ -34,6 +34,8 @@ V_ for conflicting variables (usually params)
 
 O_ for objects
 
+C_ for class
+
 G_ for guis
 
 Gb_gui_ for guis' buttons

@@ -1,5 +1,5 @@
 ;Minimizes or maximizes the window depending on its state
-F_MinMax(title) => (WinActive(title) ? WinMinimize(title) : WinActivate(title))
+F_MinMax(title) => (WinActive(title) ? PostMessage("0x112", "0xF020",,, title) : WinActivate(title))
 
 ;If the window exists, minimize or maximize it depending on its state and return 1, otherwise return 0
 F_ifMinMax(title) => (WinExist(title) ? (F_MinMax(title), 1) : 0)
@@ -21,10 +21,7 @@ F_RunApp(winTitle, exePath, closeWin:=False) {
 } 
 
 ;Only tries to close the window if it exists
-F_ifWinClose(winTitle) {
-   if WinExist(winTitle)
-      WinClose(winTitle)
-}
+F_ifWinClose(winTitle) => (WinExist(winTitle) ? WinClose(winTitle) : "")
 
 ;If the app doesn't exist, launches it. If it does and is active, minimizes it. If it's minimized, activates it
 F_WindowsApp(winTitle, exePath, closeWin:=False) {

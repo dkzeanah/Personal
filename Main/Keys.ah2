@@ -72,6 +72,9 @@ $#SC050::F_Reboot()
 ;Functions that do something with the current script
 #Include "%A_ScriptDir%\..\Libraries\Script interaction.ah2"
 
+;Functions for clicking and opening stuff in different apps, for readability
+#Include "%A_ScriptDir%\..\Libraries\App clicks and shortcuts.ah2"
+
 ;Often when you want something selected, you'll send down and enter, so this is the variable for that 
 select := "{Down}{Enter}"
 
@@ -162,19 +165,19 @@ $!Escape::PostMessage("0x0010",,,, "A")
 $!Enter::Send select
 
 ;Undo/redo
-$+!Left::F_Undo()
-$+!Right::F_Redo()
+$+!Left::Base.Undo()
+$+!Right::Base.Redo()
 
 ;Select all
-$Insert::F_SelectAll()
-$SC047::F_SelectAll()
+$Insert::Base.SelectAll()
+$SC047::Base.SelectAll()
 
 ;Easily accessible paste window
-$#Insert::F_WinPaste()
+$#Insert::Base.WinPaste()
 
 ;Cut
-$!Insert::F_Cut()
-$!SC047::F_Cut()
+$!Insert::Base.Cut()
+$!SC047::Base.Cut()
 
 ;Media hotkeys
 $!SC029::Media_Play_Pause
@@ -430,11 +433,11 @@ $+!l:: {
 XButton1 & Volume_Down:: {
    Switch {
       ;Leave search
-      Case WinActive("YouTube Music"):ControlClick "X1503 Y81"
+      Case WinActive("YouTube Music"):YTM.CancelSearch()
       ;Maximize pop out window
-      Case WinActive("Watch later"), WinActive("Subscriptions"), (WinActive("YouTube") && !WinActive(" - YouTube")):Send "i"
+      Case YT.isNotWatchingVid():Send "i"
       ;Fullscreen
-      Case WinActive(" - YouTube"), WinActive("WatchMoviesHD"):Send "f"
+      Case YT.isWatchingVid(), WinActive("WatchMoviesHD"):Send "f"
       ;Notifications
       Case WinActive("Messenger"):ControlClick "X788 Y126"
       ;Emoji tab
@@ -447,17 +450,9 @@ XButton1 & Volume_Down:: {
 XButton2 & Volume_Down:: {
    Switch {
       ;Switch channels in youtube music
-      Case WinActive("YouTube Music"):
-         ControlClick "X1861 Y75"
-         Sleep 100
-         Send "{Tab 3}{Enter}"
-         Sleep 350
-         Send "{Tab 5}{Enter}"
+      Case WinActive("YouTube Music"):YTM.ChannelSwitch()
       ;Switch channels in youtube
-      Case WinActive("YouTube"):
-         ControlClick "X1820 Y133"
-         Sleep 400
-         Send "{Tab 5}{Enter}"
+      Case WinActive("YouTube"):YT.ChannelSwitch()
       ;Clicks the send button to either start recording or send a voice message
       Case WinActive("Messenger"):ControlClick "X1757 Y1014"
       ;Clicks the send button to send a voice message
@@ -507,19 +502,17 @@ $+!r:: {
 
 ;Special button + side buttons
 #HotIf !WinActive("ahk_group Game") && !WinActive("Google Chrome")
-Volume_Down & XButton1::F_ifKeyHeld_Send("XButton1", "^c", "^x")
+Volume_Down & XButton1::F_ifKeyHeld_Send("XButton1", Base.Copy, Base.Cut)
 #HotIf !WinActive("ahk_group Game") && !WinActive("ahk_exe chrome.exe")
 Volume_Down & MButton::Send "^a"
-#HotIf !WinActive("ahk_group Game") && !WinActive("ahk_exe Code.exe")
-Volume_Down & LButton::Space
 #HotIf !WinActive("ahk_group Game")
-Volume_Down & XButton2::F_ifKeyHeld_Send("XButton2", "^v", "#v")
-Volume_Down & RButton::Send "!{Tab}"
+Volume_Down & LButton::Space
+Volume_Down & XButton2::F_ifKeyHeld_Send("XButton2", Base.Paste, Base.WinPaste)
 
 ;Special button by itself pressed in different sections of the screen does different things
 $Volume_Down:: { 
    MouseGetPos &sectionX, &sectionY
-   right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), discard := ((sectionX > 1676) && (sectionY < 246))
+   right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), discard := ((sectionX > 1707) && (sectionY < 233))
    Switch {
       Case discard:return
       Case right:Send "#{Right}"
@@ -568,30 +561,35 @@ XButton2 & LButton::Enter
 ;Far side button, does different things depending on what section of the screen it was pressed on. Right, left, down, up or middle
 $XButton2:: { 
    MouseGetPos &sectionX, &sectionY
-   right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347) ;Here I define the sections
+   right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), topRight := ((sectionX > 1707) && (sectionY < 233)), topLeft := ((sectionX < 252) && (sectionY < 229)) ;Here I define the sections
    Switch {
       Case right:
          Switch {
-            Case WinActive("YouTube Music"), WinActive(" - YouTube") && !WinActive("Watch later") && !WinActive("Subscriptions"):Send "+n"
+            Case topRight:Send "!{Tab}"
+            Case WinActive("YouTube Music"), YT.isWatchingVid():YT.SkipNext()
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgDn}"
             Default:Send "{Media_Next}"
          }
       Case left:
          Switch {
-            Case WinActive("YouTube Music"), WinActive(" - YouTube") && !WinActive("Watch later") && !WinActive("Subscriptions"):Send "+p"
+            Case topLeft:Send "+!{Tab}"
+            Case WinActive("YouTube Music"), YT.isWatchingVid():YT.SkipPrev()
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgUp}"
             Default:Send "{Media_Prev}"
          }
-      Case down:PostMessage "0x0010",,,, "A" ;Closes the active window
-      Case up:PostMessage "0x112", "0xF020",,, "A" ;Minimizes the active window
-      Default:Send(WinActive("ahk_exe Code.exe") ? "+{Delete}" : "{Browser_Forward}")
+      Case down:Base.CloseWin()
+      Case up:Base.MinimizeWin()()
+      Default:
+         Send(WinActive("ahk_exe Code.exe") 
+            ? "^!{Insert}" 
+            : "{Browser_Forward}")
    }
 }
 
 ;Close side button, does different things depending on what section of the screen it was pressed on. Right, left, down, up or middle
 $XButton1:: { 
    MouseGetPos &sectionX, &sectionY
-   right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347)
+   right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), topRight := ((sectionX > 1707) && (sectionY < 233)), topLeft := ((sectionX < 252) && (sectionY < 229)), bottomLeft := ((sectionX < 263) && (sectionY > 849)), bottomRight := ((sectionX > 1673) && (sectionY > 839))
    Switch {
       Case WinActive("Google Chrome"): ;_chrome
          Switch {
@@ -610,18 +608,19 @@ $XButton1:: {
             Case up:F_Reload()
          }
       Case WinActive("YouTube Music"): ;_youtube music
+         ytmCover := ((sectionX > 1594) && (sectionY > 686))
          Switch {
-            Default:Send "{Browser_Back}"
-            Case right:F_ifDoublePressed_ControlClick("XButton1", 
-            "X1863 Y1030", "R",
-            "X1471 Y1033")
-            Case left:F_ifDoublePressed_ControlClick("XButton1", 
-               "X447 Y913",,
-               "X1013 Y73")
-            Case up:(F_isDoublePressed("XButton1") 
-               ? ControlClick("X1206 Y914") 
-               : Send("^i"))
-            Case down:Send "^u"
+            Default:          Send "{Browser_Back}"
+            Case right:
+               ( topRight   ? YTM.Discovery()
+               : ytmCover   ? YTM.Options()
+               :              YTM.Fullscreen())
+            Case left:
+               ( topLeft    ? YTM.Best()
+               : bottomLeft ? YTM.Liked()
+               :              YTM.Library())
+            Case up:          YTM.Like()
+            Case down:        YTM.Dislike()
          }
       Case WinActive("ahk_exe wps.exe"): 
          Switch {
@@ -679,51 +678,38 @@ $F10::Send "{Volume_Up}"
 $F9::Send "{Volume_Down}"
 
 ;Opens a new tab
-$+!e::Send "^t"
+$+!e::Base.NewTab()
 
 ;Closes a tab
-$#Delete::F_CloseTab()
+$#Delete::Base.CloseTab()
 
 ;Shift alt w closes a tab
-$+!w::(!WinActive("Messenger") ? F_CloseTab() : "")
+$+!w::(!WinActive("Messenger") ? Base.CloseTab() : "")
 
 
 ;Shift n to skip never made sense to begin with
 #HotIf WinActive("YouTube") ;_youtube 
-$PgDn::Send "+n"
-$PgUp::Send "+p"
+$PgDn::YT.SkipNext()
+$PgUp::YT.SkipPrev()
 
 
 #HotIf WinActive("YouTube Music")
 
-;Search
-$F1::ControlClick "X1210 Y78"
-
-;Library
-$F2::ControlClick "X1013 Y73"
-
-;Exit search
-$F3::ControlClick "X1503 Y81"
-
-;Fullscreen
-$F4::ControlClick "X1863 Y1030"
-
-;Liked
-$F5::ControlClick "X1013 Y73"
-
-;Discovery
-$F6::ControlClick "X950 Y920"
-
-;Best
-$F7::ControlClick "X1206 Y914"
+$F1::YTM.Search()
+$F2::YTM.Library()
+$F3::YTM.CancelSearch()
+$F4::YTM.Fullscreen()
+$F5::YTM.Liked()
+$F6::YTM.Best()
+$F7::YTM.Discovery()
 
 ;Volume
 $F10::Send "{Volume_Up}"
 $F9::Send "{Volume_Down}"
 
 ;Like and dislike
-$F12::Send "^i"
-$F11::Send "^u"
+$F12::YTM.Like()
+$F11::YTM.Dislike()
 
 
 ;Close minimized window 
@@ -833,7 +819,6 @@ $+!SC02B:: {
 }
 
 ;Opens an inputbox for you to put in the name of the key to get its SC code into your clipboard, or takes the SC code to then show you to which key it belongs in a msgbox; if it finds neither, says so
-Volume_Down & LButton::
 $+!k:: {
    inBoxTitle := "Key codes"
    prevClip := A_Clipboard

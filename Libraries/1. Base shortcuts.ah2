@@ -1,39 +1,77 @@
-F_Copy() {
-   Send "^c"
-}
-V_Copy := "^c"
+Class C_Base {
+   Copy() {
+      Send "^c"
+   }
+   Copy => "^c"
 
-F_Paste() {
-   Send "^v"
-}
-V_Paste := "^v"
+   Paste() {
+      Send "^v"
+   }
+   Paste => "^v"
 
-F_WinPaste() {
-   Send "#v"
-}
-V_WinPaste := "#v"
+   WinPaste() {
+      Send "#v"
+   }
+   WinPaste => "#v"
 
-F_Cut() {
-   Send "^x"
-}
-V_Cut := "^x"
+   Cut() {
+      Send "^x"
+   }
+   Cut => "^x"
 
-F_SelectAll() {
-   Send "^a"
-}
-V_SelectAll := "^a"
+   SelectAll() {
+      Send "^a"
+   }
+   SelectAll => "^a"
 
-F_Undo() {
-   Send "^z"
-}
-V_Undo := "^z"
+   Undo() {
+      Send "^z"
+   }
+   Undo => "^z"
 
-F_Redo() {
-   Send "^y"
-}
-V_Redo := "^y"
+   Redo() {
+      Send "^y"
+   }
+   Redo => "^y"
 
-F_CloseTab() {
-   Send "^w"
+   CloseTab() {
+      Send "^w"
+   }
+   CloseTab => "^w"
+
+   NewTab() {
+      Send "^t"
+   }
+   NewTab => "^t"
+
+   NextTab() {
+      Send "^{PgDn}"
+   }
+   NextTab => "^{PgDn}"
+
+   PrevTab() {
+      Send "^{PgUp}"
+   }
+   PrevTab => "^{PgUp}"
+
+   NextWin() {
+      Send "!{Tab}"
+   }
+   NextWin => "!{Tab}"
+
+   PrevWin() {
+      Send "+!{Tab}"
+   }
+   PrevWin => "+!{Tab}"
+
+   ;Defaults to closing the current window
+   CloseWin(winTitle := "A") {
+      PostMessage "0x0010",,,, winTitle
+   }
+
+   ;Defaults to minimizing the current window
+   MinimizeWin(winTitle := "A") {
+      PostMessage "0x112", "0xF020",,, winTitle
+   }
 }
-V_CloseTab := "^w"
+Base := C_Base.Call()

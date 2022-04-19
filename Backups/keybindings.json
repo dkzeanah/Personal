@@ -483,18 +483,8 @@
       "command": "-workbench.action.showAllSymbols"
    },
    {
-      "key": "alt+right",
-      "command": "editor.action.jumpToBracket",
-      "when": "editorTextFocus"
-   },
-   {
       "key": "ctrl+shift+\\",
       "command": "-editor.action.jumpToBracket",
-      "when": "editorTextFocus"
-   },
-   {
-      "key": "alt+left",
-      "command": "editor.action.jumpToBracket",
       "when": "editorTextFocus"
    },
    {
@@ -825,10 +815,6 @@
       "key": "ctrl+backspace",
       "command": "-workbench.action.terminal.sendSequence",
       "when": "terminalFocus && terminalShellType == 'cmd'"
-   },
-   {
-      "key": "shift+alt+backspace",
-      "command": "deleteInsideWord"
    },
    {
       "key": "ctrl+shift+.",
@@ -1226,11 +1212,6 @@
       "when": "inQuickOpen && inRecentFilesPicker"
    },
    {
-      "key": "ctrl+j",
-      "command": "editor.action.addSelectionToNextFindMatch",
-      "when": "editorFocus"
-   },
-   {
       "key": "ctrl+d",
       "command": "-editor.action.addSelectionToNextFindMatch",
       "when": "editorFocus"
@@ -1428,14 +1409,14 @@
       "when": "!jupyter.notebookeditor.debuggingInProgress && !jupyter.notebookeditor.runByLineInProgress && notebookKernelCount > 0"
    },
    {
-      "key": "ctrl+alt+up",
+      "key": "alt+left",
       "command": "editor.action.moveCarretLeftAction",
-      "when": "editorTextFocus && !findWidgetVisible && !replaceActive "
+      "when": "editorTextFocus && !findWidgetVisible && !replaceActive"
    },
    {
-      "key": "ctrl+alt+down",
+      "key": "alt+right",
       "command": "editor.action.moveCarretRightAction",
-      "when": "!replaceActive && editorTextFocus && !findWidgetVisible"
+      "when": "editorTextFocus && !findWidgetVisible && !replaceActive"
    },
    {
       "key": "ctrl+up",
@@ -1575,10 +1556,6 @@
       "when": "editorFocus"
    },
    {
-      "key": "win+pageup",
-      "command": "editor.action.insertCursorAtEndOfEachLineSelected"
-   },
-   {
       "key": "ctrl+i",
       "command": "-toggleSuggestionDetails",
       "when": "suggestWidgetVisible && textInputFocus"
@@ -1657,10 +1634,6 @@
       "command": "workbench.action.closeActiveEditor"
    },
    {
-      "key": "ctrl+i",
-      "command": "editor.action.transpose"
-   },
-   {
       "key": "ctrl+shift+pageup",
       "command": "cursorUndo"
    },
@@ -1695,7 +1668,7 @@
       "when": "remoteFileDialogVisible"
    },
    {
-      "key": "alt+win+pageup",
+      "key": "win+pageup",
       "command": "yo1dog.cursor-align.alignCursors",
       "when": "editorTextFocus"
    },
@@ -1764,12 +1737,48 @@
       "when": "editorTextFocus"
    },
    {
-      "key": "ctrl+o",
+      "key": "ctrl+j",
       "command": "findJump.activate"
    },
    {
       "key": "ctrl+d",
       "command": "editor.action.addSelectionToNextFindMatch",
       "when": "editorFocus"
+   },
+   {
+      "key": "alt+win+pageup",
+      "command": "yo1dog.cursor-trim.lTrimCursor",
+      "when": "editorTextFocus"
+   },
+   {
+      "key": "alt+,",
+      "command": "-yo1dog.cursor-trim.lTrimCursor",
+      "when": "editorTextFocus"
+   },
+   {
+      "key": "ctrl+shift+backspace",
+      "command": "deleteInsideWord"
+   },
+   {
+      "key": "alt+delete",
+      "command": "deleteInsideWord"
+   },
+   {
+      "key": "ctrl+m",
+      "command": "-editor.action.toggleTabFocusMode"
+   },
+   {
+      "key": "ctrl+s",
+      "command": "editor.action.addSelectionToPreviousFindMatch"
+   },
+   {
+      "key": "ctrl+alt+insert",
+      "command": "expandLineSelection",
+      "when": "textInputFocus"
+   },
+   {
+      "key": "ctrl+l",
+      "command": "-expandLineSelection",
+      "when": "textInputFocus"
    },
 ]

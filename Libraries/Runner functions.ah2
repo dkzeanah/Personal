@@ -42,17 +42,17 @@ F_RubToDollar() {
 ;Clicks on all the libraries consequentially, loading them into Intellisense
 F_LibLoad() {
    D_Libraries := Map(
-      "1. Base shortcuts",   "X194 Y262",
-      "2. Key codes",        "X194 Y287",
-      "3. Multiple presses", "X194 Y315",
-      "4. Random words",     "X194 Y346",
-      "5. WindowsApp",       "X194 Y370",
-      "6. Global functions", "X194 Y396"
+      "1. Base shortcuts",               "X194 Y262",
+      "2. Key codes",                    "X194 Y287",
+      "3. Multiple presses",             "X194 Y315",
+      "4. Random words",                 "X194 Y346",
+      "5. WindowsApp",                   "X194 Y370",
+      "6. Global functions",             "X194 Y396"
    )
 
    for key, value in D_Libraries 
       ControlClick(value, "ahk_exe Code.exe"), WinWait(key . ".ah2 - Personal - Visual Studio Code")
-   F_CloseTab()
+   Base.CloseTab()
 }
 
 ;Gets the github link to a file of your choosing
@@ -89,7 +89,7 @@ F_GitPage(doWhat) {
    fullLink := "https://github.com/Axlefublr/" . workingLink
 
    Switch doWhat {
-      Case "run":F_RunLink(fullLink)
+      Case "run":  F_RunLink(fullLink)
       Case "paste":F_ClipSend(fullLink, "")
    }
 }

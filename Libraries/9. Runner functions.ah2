@@ -47,12 +47,15 @@ F_LibLoad() {
       "3. Multiple presses",             "X194 Y315",
       "4. Random words",                 "X194 Y346",
       "5. WindowsApp",                   "X194 Y370",
-      "6. Global functions",             "X194 Y396"
+      "6. Global functions",             "X194 Y396",
+      "7. App clicks and shortcuts",     "X194 Y428",
+      "8. Script interaction",           "X200 Y453",
+      "9. Runner functions",             "X209 Y475"
    )
 
    for key, value in D_Libraries 
       ControlClick(value, "ahk_exe Code.exe"), WinWait(key . ".ah2 - Personal - Visual Studio Code")
-   Base.CloseTab()
+   Base.bsd_CloseTab()
 }
 
 ;Gets the github link to a file of your choosing

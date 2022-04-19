@@ -69,11 +69,11 @@ $#SC050::F_Reboot()
 ;Other functions that work everywhere
 #Include "%A_ScriptDir%\..\Libraries\6. Global functions.ah2"
 
-;Functions that do something with the current script
-#Include "%A_ScriptDir%\..\Libraries\Script interaction.ah2"
-
 ;Functions for clicking and opening stuff in different apps, for readability
-#Include "%A_ScriptDir%\..\Libraries\App clicks and shortcuts.ah2"
+#Include "%A_ScriptDir%\..\Libraries\7. App clicks and shortcuts.ah2"
+
+;Functions that do something with the current script
+#Include "%A_ScriptDir%\..\Libraries\8. Script interaction.ah2"
 
 ;Often when you want something selected, you'll send down and enter, so this is the variable for that 
 select := "{Down}{Enter}"
@@ -159,7 +159,7 @@ $!-::Send "{ASC 0151}"
 ;—————————————————————————————
 
 ;Close active window
-$!Escape::PostMessage("0x0010",,,, "A")
+$!Escape::Base.bsd_CloseWin()
 
 ;Alt enter in down enter
 $!Enter::Send select
@@ -372,7 +372,7 @@ $+!l:: {
       Case "coin flip":F_CoinFlip()
       Case "dr":F_DollarToRub()
       Case "rd":F_RubToDollar()
-      Case "ytm":F_YTMusic()
+      Case "ytm":F_YTMusic_LinkConverter()
       Case "lib", "libload":F_LibLoad()
 
 
@@ -401,7 +401,7 @@ $+!l:: {
       ;If you design a quest
       Case "If you design a quest":F_ClipSend("https://www.youtube.com/watch?v=chn0ggv9TdY")
    }
-   #Include "%A_ScriptDir%\..\Libraries\Runner functions.ah2"
+   #Include "%A_ScriptDir%\..\Libraries\9. Runner functions.ah2"
 }
 
 ;Easy way to reactivate the previous window after using the quick add task of todoist
@@ -487,7 +487,7 @@ $+!r:: {
    ((WinActive("ahk_exe Discord.exe")
    || WinActive("ahk_exe Telegram.exe")
    || (WinActive("ahk_exe chrome.exe") && !WinActive("YouTube")))
-      ? F_YTMusic()
+      ? F_YTMusic_LinkConverter()
       : Send("+!r"))
 }
 
@@ -502,12 +502,12 @@ $+!r:: {
 
 ;Special button + side buttons
 #HotIf !WinActive("ahk_group Game") && !WinActive("Google Chrome")
-Volume_Down & XButton1::F_ifKeyHeld_Send("XButton1", Base.bsd_Copy(), Base.bsd_Cut())
+Volume_Down & XButton1::Hold.hld_Send("XButton1", Base.bsd_Copy, Base.bsd_Cut)
 #HotIf !WinActive("ahk_group Game") && !WinActive("ahk_exe chrome.exe")
 Volume_Down & MButton::Base.bsd_SelectAll()
 #HotIf !WinActive("ahk_group Game")
 Volume_Down & LButton::Space
-Volume_Down & XButton2::F_ifKeyHeld_Send("XButton2", Base.bsd_Paste(), Base.bsd_WinPaste())
+Volume_Down & XButton2::Hold.hld_Send("XButton2", Base.bsd_Paste, Base.bsd_WinPaste)
 
 ;Special button by itself pressed in different sections of the screen does different things
 $Volume_Down:: { 
@@ -580,7 +580,7 @@ $XButton2:: {
             Default:Send "{Media_Prev}"
          }
       Case down:Base.bsd_CloseWin()
-      Case up:Base.MinimizeWin()
+      Case up:Base.bsd_MinimizeWin()
       Default:
          Send(WinActive("ahk_exe Code.exe") 
             ? "^!{Insert}" 
@@ -665,7 +665,7 @@ Volume_Down & MButton::F5
 #HotIf WinActive("Google Chrome") ;_chrome
 
 ;Single press is copy, double press will get current tab's link to clipboard
-Volume_Down & XButton1::(F_isKeyHeld("XButton1") ? (Send("^l"), Sleep(40), Base.bsd_Copy()) : Base.bsd_Copy())
+Volume_Down & XButton1::(Hold.hld_Bool("XButton1") ? (Send("^l"), Sleep(40), Base.bsd_Copy()) : Base.bsd_Copy())
 
 ;Ctrl numbers aren't easy to press, so F keys instead
 $F1::Send "^1"
@@ -1000,40 +1000,40 @@ $+!t:: {
 
 
 ;OBS
-$<!o::F_MinMax("ahk_exe obs64.exe") 
+$<!o::Win.niw_MinMax("ahk_exe obs64.exe") 
 
 ;Command prompt
-$#F9::F_WindowsApp("ahk_exe cmd.exe", "cmd.exe")
+$#F9::Win.niw_App("ahk_exe cmd.exe", "cmd.exe")
 
 ;Python cmd
-$#F10::F_WindowsApp("ahk_exe py.exe", "py.exe")
+$#F10::Win.niw_App("ahk_exe py.exe", "py.exe")
 
 ;Monkeytype
-$<!u::F_WindowsApp_WinNum("Monkeytype", "4")
+$<!u::Win.niw_App_WinNum("Monkeytype", "4")
 
 ;Mail
-$<!SC033::F_WindowsApp_WinNum("Gmail", "1")
+$<!SC033::Win.niw_App_WinNum("Gmail", "1")
 
 ;Calendar
-$<!SC034::F_WindowsApp_WinNum("Google Calendar", "2")
+$<!SC034::Win.niw_App_WinNum("Google Calendar", "2")
 
 ;Calculator
-$<!SC035::F_WindowsApp("Calculator", "calc.exe")
+$<!SC035::Win.niw_App("Calculator", "calc.exe")
 
 ;Autohotkey help file
-$<!SC028::F_WindowsApp("AutoHotkey Help", "C:\Program Files\Autohotkey\AutoHotkey.chm")
+$<!SC028::Win.niw_App("AutoHotkey Help", "C:\Program Files\Autohotkey\AutoHotkey.chm")
 
 ;Autohotkey v2 help file
-$<!SC027::F_WindowsApp("AutoHotkey v2 Help", "C:\Program Files\Autohotkey\v2\AutoHotkey.chm")
+$<!SC027::Win.niw_App("AutoHotkey v2 Help", "C:\Program Files\Autohotkey\v2\AutoHotkey.chm")
 
 ;Gimp 
-$<!SC01A::F_WindowsApp("ahk_exe gimp-2.10.exe", "C:\Programs\GIMP 2\bin\gimp-2.10.exe")
+$<!SC01A::Win.niw_App("ahk_exe gimp-2.10.exe", "C:\Programs\GIMP 2\bin\gimp-2.10.exe")
 
 ;Atom 
-$<!y::F_WindowsApp("ahk_exe atom.exe", "C:\Users\serge\AppData\Local\atom\app-1.58.0\atom.exe") 
+$<!y::Win.niw_App("ahk_exe atom.exe", "C:\Users\serge\AppData\Local\atom\app-1.58.0\atom.exe") 
 
 ;Video editor
-$<!SC01B::F_WindowsApp("ahk_exe Resolve.exe", "C:\Programs\Davinci Resolve\Resolve.exe")
+$<!SC01B::Win.niw_App("ahk_exe Resolve.exe", "C:\Programs\Davinci Resolve\Resolve.exe")
 
 ;MinMaxes a game if it exists, closes all apps but spotify if all main 6 apps exist, if they don't: launches those apps of the main 6, that do not yet exist
 $<!g:: {
@@ -1059,72 +1059,72 @@ $<!g:: {
    mainAppsExist := (WinExist(chrome) && WinExist(todoist) && WinExist(telegram) && WinExist(vscode) && WinExist(discord))
 
    (WinExist("ahk_group Game") 
-      ? F_MinMax("ahk_group Game") 
+      ? Win.niw_MinMax("ahk_group Game") 
       : (mainAppsExist 
          ? WinClose("ahk_group Main") 
-         : (F_ifWinClose(steam), F_ifRunApp(chrome, chrome_exe), F_ifRunApp(todoist, todoist_exe), F_ifRunApp(telegram, telegram_exe), F_ifRunApp(vscode, vscode_exe), F_ifRunApp(discord, discord_exe), F_ifRunApp_WinNum("YouTube Music", "6"))))
+         : (Win.niw_ifClose(steam), Win.niw_ifRun(chrome, chrome_exe), Win.niw_ifRun(todoist, todoist_exe), Win.niw_ifRun(telegram, telegram_exe), Win.niw_ifRun(vscode, vscode_exe), Win.niw_ifRun(discord, discord_exe), Win.niw_ifRun_WinNum("YouTube Music", "6"))))
 }
 
 #HotIf !WinActive("ahk_group Game")
 
 ; Telegram, whatsapp, viber on one, two and three presses
 $<!t:: {
-   Switch F_isDoublePressed("t") {
+   Switch Double.dbl_Bool("t") {
       Case True:
-         Switch F_isDoublePressed("t") {
+         Switch Double.dbl_Bool("t") {
             ; You pressed three times
-            Case True:F_WindowsApp("ahk_exe Viber.exe", "C:\Users\serge\AppData\Local\Viber\Viber.exe") 
+            Case True:Win.niw_App("ahk_exe Viber.exe", "C:\Users\serge\AppData\Local\Viber\Viber.exe") 
             ; You pressed twice
-            Case False:F_WindowsApp("ahk_exe WhatsApp.exe", "C:\Users\serge\AppData\Local\WhatsApp\app-2.2140.12\WhatsApp.exe")
+            Case False:Win.niw_App("ahk_exe WhatsApp.exe", "C:\Users\serge\AppData\Local\WhatsApp\app-2.2140.12\WhatsApp.exe")
          }
       ; You pressed once
-      Case False:F_WindowsApp("Telegram", "C:\Programs\Telegram Desktop\Telegram.exe")
+      Case False:Win.niw_App("Telegram", "C:\Programs\Telegram Desktop\Telegram.exe")
    } 
 }
 
 ;Projects folder on single press, FL Studio on double press
 $<!f:: {
-   (F_isDoublePressed("f")
-      ? F_WindowsApp("ahk_exe FL64.exe", "C:\Programs\FL Studio 20\FL64.exe") 
-      : F_WindowsApp_Folders("C:\Files\Projects"))
+   (Double.dbl_Bool("f")
+      ? Win.niw_App("ahk_exe FL64.exe", "C:\Programs\FL Studio 20\FL64.exe") 
+      : Win.niw_App_Folders("C:\Files\Projects"))
 }
 
 ;Photos
 $<!r:: {
-   (!F_ifMinMax("ahk_group Media")
-      ? F_WindowsApp("ahk_exe steam.exe", "C:\Programs\Steam\steam.exe", "Steam - News")
+   (!Win.niw_ifMinMax("ahk_group Media")
+      ? Win.niw_App("ahk_exe steam.exe", "C:\Programs\Steam\steam.exe", "Steam - News")
       : "")
 }
 
 ;Visual studio code
-$<!a::F_WindowsApp("ahk_exe Code.exe", "C:\Programs\Microsoft VS Code\Code.exe")
+$<!a::Win.niw_App("ahk_exe Code.exe", "C:\Programs\Microsoft VS Code\Code.exe")
 
 ;Youtube music
-$<!s::F_WindowsApp_WinNum("YouTube Music", "6")
+$<!s::Win.niw_App_WinNum("YouTube Music", "6")
 
 ;Chrome 
-$<!c::F_WindowsApp("Google Chrome", "C:\Program Files\Google\Chrome\Application\chrome.exe")
+$<!c::Win.niw_App("Google Chrome", "C:\Program Files\Google\Chrome\Application\chrome.exe")
 
 ;Todoist
-$<!x::F_WindowsApp("ahk_exe Todoist.exe", "C:\Users\serge\AppData\Local\Programs\todoist\Todoist.exe")
+$<!x::Win.niw_App("ahk_exe Todoist.exe", "C:\Users\serge\AppData\Local\Programs\todoist\Todoist.exe")
 
 ;Wps
-$<!w::F_WindowsApp("ahk_exe wps.exe", "C:\Users\serge\AppData\Local\Kingsoft\WPS Office\ksolaunch.exe")
+$<!w::Win.niw_App("ahk_exe wps.exe", "C:\Users\serge\AppData\Local\Kingsoft\WPS Office\ksolaunch.exe")
 
 ;Discord
-$<!q::F_WindowsApp("ahk_exe Discord.exe", "C:\Users\serge\AppData\Local\Discord\app-1.0.9004\Discord.exe")
+$<!q::Win.niw_App("ahk_exe Discord.exe", "C:\Users\serge\AppData\Local\Discord\app-1.0.9004\Discord.exe")
 
 ;VPN
-$<!z::F_WindowsApp("ahk_exe vpncmgr_x64.exe", "C:\Program Files\SoftEther VPN Client\vpncmgr_x64.exe")
+$<!z::Win.niw_App("ahk_exe vpncmgr_x64.exe", "C:\Program Files\SoftEther VPN Client\vpncmgr_x64.exe")
 
 ;Explorer
-$<!e::F_WindowsApp_Folders("C:\")
+$<!e::Win.niw_App_Folders("C:\")
 
 ;Documents 
-$<!d::F_WindowsApp_Folders("C:\Files\Documents")
+$<!d::Win.niw_App_Folders("C:\Files\Documents")
 
 ;Pictures
-$<!v::F_WindowsApp_Folders("C:\Files\Pictures")
+$<!v::Win.niw_App_Folders("C:\Files\Pictures")
 
 ;One Piece
-$<!b::F_WindowsApp_Folders("C:\Files\Pictures\One Piece")
+$<!b::Win.niw_App_Folders("C:\Files\Pictures\One Piece")

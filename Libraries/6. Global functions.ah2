@@ -13,7 +13,7 @@ F_ClickThenGoBack_Event(coordinates) {
 } 
 
 ;A faster send. Sending stuff can take too long, but if you copy and paste it, it's much faster. Takes care of your previous clipboard disappearing as well
-F_ClipSend(toSend, space:=" ", toSleep:=20) {
+F_ClipSend(toSend, space:=" ", toSleep:=40) {
    prevClip := A_Clipboard, A_Clipboard := toSend . space, Send("+{Insert}"), SetTimer(() => (A_Clipboard := prevClip), -toSleep) 
 }
 
@@ -21,4 +21,4 @@ F_ClipSend(toSend, space:=" ", toSleep:=20) {
 F_Emoji(emojiName) => Send("{" . D_KeyCodes_In[emojiName] . "}")
 
 ;Converts a YT music link into a youtube link and pastes it
-F_YTMusic() => (A_Clipboard := StrReplace(StrReplace(A_Clipboard, "&feature=share", ""), "//music.", "//www."), Send("^v"))
+F_YTMusic_LinkConverter() => (A_Clipboard := StrReplace(StrReplace(A_Clipboard, "&feature=share", ""), "//music.", "//www."), Send("^v"))

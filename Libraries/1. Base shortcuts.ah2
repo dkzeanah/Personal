@@ -74,4 +74,4 @@ Class C_Base {
       PostMessage "0x112", "0xF020",,, winTitle
    }
 }
-Base := C_Base.Call()
+Base := C_Base()

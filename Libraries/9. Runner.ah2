@@ -100,3 +100,30 @@ Class C_Runner {
    }
 }
 Runner := C_Runner()
+
+Class C_TimeTable {
+
+   tmt_Day(weekDay) {
+      Run A_WorkingDir . "\Files\Time table\" . weekDay . ".jpg", "Max"
+   }
+
+   tmt_Full => "https://edu.sfu-kras.ru/timetable?group=%D0%98%D0%9A21-08%D0%91+%28%D0%BF%D0%BE%D0%B4%D0%B3%D1%80%D1%83%D0%BF%D0%BF%D0%B0+2%29"
+
+   
+   tmt_Month() {
+      ;Time part of the ekursы link
+      Switch A_MMMM {
+         Case "April":ekursTime := 1648746000
+         Case "May":ekursTime := 1651338000
+         Case "June":ekursTime := 1654016400
+         Case "July":ekursTime := 1656608400
+         Case "August":ekursTime := 1659286800
+         Case "September":ekursTime := 1661965200
+         Case "October":ekursTime := 1664557200
+         Case "November":ekursTime := 1667235600
+         Case "December":ekursTime := 1669827600
+      }
+      return ekursTime
+   }
+}
+TimeTable := C_TimeTable()

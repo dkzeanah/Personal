@@ -1,3 +1,18 @@
+;CHROME
+
+Class C_Chrome {
+   
+   chr_Markdown() {
+      MsgBox "* italic *`n** bold **`n~~ strikethrough ~~`n>! spoiler !<`n[embed](link)`n^(superscript)`n`` code inline ```n # BIG TEXT", "MarkDown", "4096"
+   }
+
+   chr_CopyLink() {
+      Send("^l"), Sleep(40), Base.bsd_Copy()
+   }
+}
+Chrome := C_Chrome()
+
+
 ;YOUTUBE MUSIC
 ;——————————————————————————————
 
@@ -59,18 +74,25 @@ Class C_YouTubeMusic {
 YTMusic := C_YouTubeMusic.Call()
 
 
-
 ;YOUTUBE
 ;—————————————————————————————
 
 Class C_YouTube {
 
    ytt_SkipNext() {
-      Send("+n")
+      Send "+n"
    }
 
    ytt_SkipPrev() {
-      Send("+p")
+      Send "+p"
+   }
+
+   ytt_Fullscreen() {
+      Send "f"
+   }
+
+   ytt_Miniscreen() {
+      Send "i"
    }
 
    ytt_isWatchingVid => (WinActive(" - YouTube") && !WinActive("Watch later") && !WinActive("Subscriptions"))
@@ -91,3 +113,106 @@ Class C_YouTube {
 }
 YouTube := C_YouTube.Call()
 
+
+;VK
+;————————————————————————————————
+
+Class C_VK {
+
+   vk_Notifications() {
+      ControlClick "X788 Y126"
+   }
+
+   vk_Voice() {
+      ControlClick "X1757 Y1014"
+   }
+
+   vk_Scroll() {
+      ControlClick "X1750 Y903"
+   }
+
+   vk_BlankMessage() {
+      Send "&{#}12288;"
+   }
+}
+VK := C_VK()
+
+
+;TELEGRAM
+;————————————————————————————————
+
+Class C_Telegram {
+   
+   tlg_Voice() {
+      F_ClickThenGoBack_Event("1452 1052")
+   }
+
+   tlg_Scroll() {
+      ControlClick "X1434 Y964"
+   }
+}
+Telegram := C_Telegram()
+
+
+;WHATIBER
+;————————————————————————————————
+
+Class C_Whatiber {
+   
+   wtb_Voice() {
+      ControlClick "X1873 Y1047"
+   }
+
+   wtb_Scroll() {
+      ControlClick "X1878 Y961"
+   }
+}
+Whatiber := C_Whatiber()
+
+
+;DISCORD
+;————————————————————————————————
+
+Class C_Discord {
+   
+   dsc_Emoji() {
+      Send "^e"
+   }
+
+   dsc_Gif() {
+      Send "^g"
+   }
+
+   dsc_Markdown() {
+      MsgBox "__ underline __`n* italic *`n** bold **`n~~ strikethrough ~~`n|| spoiler ||`n`````` code ```````n`` code inline ```n_ nothing _", "Markdown", "4096"
+   }
+}
+Discord := C_Discord()
+
+
+;TODOIST
+;————————————————————————————————
+
+Class C_Todoist {
+   
+   tds_Project(projectToFind) {
+      Send "f" . projectToFind . "{Down}{Enter}"
+   }
+}
+Todoist := C_Todoist()
+
+
+;WPS
+;————————————————————————————————
+
+Class C_WPSOffice {
+   
+   wps_NextTab() {
+      Send "^{Tab}"
+   }
+
+   wps_PrevTab() {
+      Send "^+{Tab}"
+   }
+}
+WPS := C_WPSOffice()

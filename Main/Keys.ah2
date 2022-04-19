@@ -78,9 +78,6 @@ $#SC050::Script.scr_Reboot()
 ;Functions that are used in the runner
 #Include "%A_ScriptDir%\..\Libraries\9. Runner.ah2"
 
-;Often when you want something selected, you'll send down and enter, so this is the variable for that 
-select := "{Down}{Enter}"
-
 ;Games
 GroupAdd "Game",            "ahk_exe EtG.exe"
 GroupAdd "Game",            "ahk_exe isaac-ng.exe"
@@ -137,25 +134,17 @@ GroupAdd "AutoHotkey_Help", "AutoHotkey v2 Help"
 ;————————————————————
 
 ;Long dash
-$!-::Send "{ASC 0151}"
+$!-::Send D_KeyCodes_In["long_dash"]
 
 ;Hotstring that turns into a random english word every time
-:B0*?:uclanr:: {
-   Send "{BackSpace 6}"
-   Ri_randomWords_Eng := Random(1, 3003)
-   Send R_randomWords_Eng[Ri_randomWords_Eng]
-}
+:XB0*?:uclanr::F_RandomWord(R_randomWords_Eng)
 
 ;Hotstring that turns into a random russian word every time
-:B0*?:ilandh:: {
-   Send "{BackSpace 6}"
-   Ri_randomWords_Rus := Random(1, 3000)
-   Send R_randomWords_Rus[Ri_randomWords_Rus]
-}
+:XB0*?:ilandh::F_RandomWord(R_randomWords_Rus)
 
 ;If I try to laugh in russian but my language is set to english, it autosets the language to russian
-:*?:[f[f::{LWin Down}{Space}{LWin Up} 
-:*?:[[f[f::{LWin Down}{Space}{LWin Up} 
+:X*?:[f[f::Base.bsd_SwitchLanguage() 
+:X*?:[[f[f::Base.bsd_SwitchLanguage()
 
 
 ;GLOBAL MANIPULATION
@@ -165,7 +154,7 @@ $!-::Send "{ASC 0151}"
 $!Escape::Base.bsd_CloseWin()
 
 ;Alt enter in down enter
-$!Enter::Send select
+$!Enter::Base.bsd_ChooseNext()
 
 ;Undo/redo
 $+!Left::Base.bsd_Undo()
@@ -278,18 +267,6 @@ $+!l:: {
    O_Runner := InputBox("What do you want to run?", "Runner")
    if O_Runner.Result = "Cancel" 
       return
-   ;Time part of the ekursы link
-   Switch A_MMMM {
-      Case "April":ekursTime := 1648746000
-      Case "May":ekursTime := 1651338000
-      Case "June":ekursTime := 1654016400
-      Case "July":ekursTime := 1656608400
-      Case "August":ekursTime := 1659286800
-      Case "September":ekursTime := 1661965200
-      Case "October":ekursTime := 1664557200
-      Case "November":ekursTime := 1667235600
-      Case "December":ekursTime := 1669827600
-   }
    Switch O_Runner.Value {
 
       ;WEBSITES
@@ -302,7 +279,7 @@ $+!l:: {
       ;Twitter
       Case "twit", "twitter":Runner.nur_RunLink("https://twitter.com/home")
       ;Eкурсы
-      Case "eku":Runner.nur_RunLink("https://e.sfu-kras.ru/calendar/view.php?view=month&time=" . ekursTime)
+      Case "eku":Runner.nur_RunLink("https://e.sfu-kras.ru/calendar/view.php?view=month&time=" . TimeTable.tmt_Month())
       ;MyAnimeList
       Case "mal":Runner.nur_RunLink("https://myanimelist.net/profile/Axlefublr")
       ;Metta
@@ -330,26 +307,26 @@ $+!l:: {
 
       Case "tom", "tomorrow":
          Switch A_WDay {
-            Default:Run A_WorkingDir . "\Files\Time table\Monday.jpg", "Max"
-            Case 2:Run A_WorkingDir . "\Files\Time table\Tuesday.jpg", "Max"
-            Case 3:Run A_WorkingDir . "\Files\Time table\Wednesday.jpg", "Max"
-            Case 4:Run A_WorkingDir . "\Files\Time table\Thursday.jpg", "Max"
-            Case 5:Run A_WorkingDir . "\Files\Time table\Friday.jpg", "Max"
+            Default:TimeTable.tmt_Day("Monday")
+            Case 2:TimeTable.tmt_Day("Tuesday")
+            Case 3:TimeTable.tmt_Day("Wednesday")
+            Case 4:TimeTable.tmt_Day("Thursday")
+            Case 5:TimeTable.tmt_Day("Friday")
          }
       Case "today":
          Switch A_WDay {
-            Default:Run A_WorkingDir . "\Files\Time table\Monday.jpg", "Max"
-            Case 3:Run A_WorkingDir . "\Files\Time table\Tuesday.jpg", "Max"
-            Case 4:Run A_WorkingDir . "\Files\Time table\Wednesday.jpg", "Max"
-            Case 5:Run A_WorkingDir . "\Files\Time table\Thursday.jpg", "Max"
-            Case 6:Run A_WorkingDir . "\Files\Time table\Friday.jpg", "Max"
+            Default:TimeTable.tmt_Day("Monday")
+            Case 3:TimeTable.tmt_Day("Tuesday")
+            Case 4:TimeTable.tmt_Day("Wednesday")
+            Case 5:TimeTable.tmt_Day("Thursday")
+            Case 6:TimeTable.tmt_Day("Friday")
          }
-      Case "week":Run "https://edu.sfu-kras.ru/timetable?group=%D0%98%D0%9A21-08%D0%91+%28%D0%BF%D0%BE%D0%B4%D0%B3%D1%80%D1%83%D0%BF%D0%BF%D0%B0+2%29"
-      Case "monday":Run A_WorkingDir . "\Files\Time table\Monday.jpg", "Max"
-      Case "tuesday":Run A_WorkingDir . "\Files\Time table\Tuesday.jpg", "Max"
-      Case "wednesday":Run A_WorkingDir . "\Files\Time table\Wednesday.jpg", "Max"
-      Case "thursday":Run A_WorkingDir . "\Files\Time table\Thursday.jpg", "Max"
-      Case "friday":Run A_WorkingDir . "\Files\Time table\Friday.jpg", "Max"
+      Case "week":Run TimeTable.tmt_Full
+      Case "monday":TimeTable.tmt_Day("Monday")
+      Case "tuesday":TimeTable.tmt_Day("Tuesday")
+      Case "wednesday":TimeTable.tmt_Day("Wednesday")
+      Case "thursday":TimeTable.tmt_Day("Thursday")
+      Case "friday":TimeTable.tmt_Day("Friday")
 
 
       ;VS CODE
@@ -411,13 +388,13 @@ $+!l:: {
    prevActWin := WinGetID("A")
    Send "^+!x"
    (WinWait("ahk_exe Todoist.exe",, 7) 
-      ? SetTimer(F_ReactivatePrevActWin, 100) : "")
+      ? SetTimer(ReactivatePrevActWin, 100) : "")
    
    ;Waits for the quick add task window to disappear and as soon as it does, reactivates the window it was called from
-   F_ReactivatePrevActWin() => (
+   ReactivatePrevActWin() => (
       !WinActive("ahk_exe Todoist.exe")
          ? (WinActivate("ahk_id " . prevActWin),
-            SetTimer(F_ReactivatePrevActWin, 0)) : ""
+            SetTimer(ReactivatePrevActWin, 0)) : ""
    ) 
 }
 
@@ -434,53 +411,35 @@ $+!l:: {
 
 XButton1 & Volume_Down:: {
    Switch {
-      ;Leave search
-      Case WinActive("YouTube Music"):YTMusic.ytm_CancelSearch()
-      ;Maximize pop out window
-      Case YouTube.ytt_isNotWatchingVid:Send "i"
-      ;Fullscreen
-      Case YouTube.ytt_isWatchingVid, WinActive("WatchMoviesHD"):Send "f"
-      ;Notifications
-      Case WinActive("Messenger"):ControlClick "X788 Y126"
-      ;Emoji tab
-      Case WinActive("ahk_exe Discord.exe"):Send "^e"
-      ;Shift click, but entirely on the mouse
-      Case WinActive("ahk_exe Code.exe"):Send "+{Click}"
+      Case WinActive("YouTube Music"):                           YTMusic.ytm_CancelSearch()
+      Case YouTube.ytt_isNotWatchingVid:                         YouTube.ytt_Miniscreen()
+      Case YouTube.ytt_isWatchingVid, WinActive("WatchMoviesHD"):YouTube.ytt_Fullscreen()
+      Case WinActive("Messenger"):                               VK.vk_Notifications()
+      Case WinActive("ahk_exe Discord.exe"):                     Discord.dsc_Emoji()
+      Case WinActive("ahk_exe Code.exe"):                        Base.bsd_ShiftClick()
    }
 }
 
 XButton2 & Volume_Down:: {
    Switch {
-      ;Switch channels in youtube music
-      Case WinActive("YouTube Music"):YTMusic.ytm_ChannelSwitch()
-      ;Switch channels in youtube
-      Case WinActive("YouTube"):YouTube.ytt_ChannelSwitch()
-      ;Clicks the send button to either start recording or send a voice message
-      Case WinActive("Messenger"):ControlClick "X1757 Y1014"
-      ;Clicks the send button to send a voice message
-      Case WinActive("ahk_exe Telegram.exe"):F_ClickThenGoBack_Event("1452 1052")
-      ;Clicks the send button to send a voice message
-      Case WinActive("ahk_group Whatiber"):ControlClick "X1873 Y1047"
-      ;Gif tab
-      Case WinActive("ahk_exe Discord.exe"):Send "^g"
-      ;Search
-      Case WinActive("ahk_exe Code.exe"):Send "^f"
+      Case WinActive("YouTube Music"):       YTMusic.ytm_ChannelSwitch()
+      Case WinActive("YouTube"):             YouTube.ytt_ChannelSwitch()
+      Case WinActive("Messenger"):           VK.vk_Voice()
+      Case WinActive("ahk_exe Telegram.exe"):Telegram.tlg_Voice()
+      Case WinActive("ahk_group Whatiber"):  Whatiber.wtb_Voice()
+      Case WinActive("ahk_exe Discord.exe"): Discord.dsc_Gif()
+      Case WinActive("ahk_exe Code.exe"):    Base.bsd_Search()
    }
 }
 
 $^m:: {
    Switch {
       Default:Send "^m"
-      Case WinActive("ahk_exe Discord.exe"):
-         ;Markdown
-         MsgBox "__ underline __`n* italic *`n** bold **`n~~ strikethrough ~~`n|| spoiler ||`n`````` code ```````n`` code inline ```n_ nothing _", "Markdown", "4096"
+      Case WinActive("ahk_exe Discord.exe"):Discord.dsc_Markdown()
       Case WinActive("Google Chrome"):
-         if WinActive("Messenger")
-            ;Blank message
-            Send "&{#}12288;"
-         else
-            ;Markdown
-            MsgBox("* italic *`n** bold **`n~~ strikethrough ~~`n>! spoiler !<`n[embed](link)`n^(superscript)`n`` code inline ```n # BIG TEXT", "MarkDown", "4096")
+         (WinActive("Messenger")
+            ?                               VK.vk_BlankMessage()
+            :                               Chrome.chr_Markdown())
    }
 }
 
@@ -517,17 +476,11 @@ $Volume_Down:: {
    right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), discard := ((sectionX > 1707) && (sectionY < 233))
    Switch {
       Case discard:return
-      Case right:Send "#{Right}"
-      Case left:Send "#{Left}"
-      Case down:Send "#{Down}"
-      Case up:Send "#{Up}"
-      Default: 
-         Send "{AltDown}{Tab}" 
-         KeyWait "LButton", "D"
-         Sleep 150
-         Send "{AltUp}"
-         if WinActive("ahk_exe wps.exe")
-            Send "{Esc}"
+      Case right:  Base.bsd_WinRight()
+      Case left:   Base.bsd_WinLeft()
+      Case down:   Base.bsd_WinDown()
+      Case up:     Base.bsd_WinUp()
+      Default:     Base.bsd_MouseAltTab()
    } 
 }
 
@@ -576,7 +529,7 @@ $XButton2:: {
       Case left:
          Switch {
             Case topLeft:Base.bsd_PrevWin()
-            Case WinActive("YouTube Music"), YouTube.ytt_isWatchingVid():
+            Case WinActive("YouTube Music"), YouTube.ytt_isWatchingVid:
                YouTube.ytt_SkipPrev()
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgUp}"
             Default:Send "{Media_Prev}"
@@ -597,21 +550,22 @@ $XButton1:: {
    Switch {
       Case WinActive("Google Chrome"): ;_chrome
          Switch {
-            Default:Send "{Browser_Back}"
-            Case right:Base.bsd_NextTab()
-            Case left:Base.bsd_PrevTab()
-            Case up:Base.bsd_NewTab()
-            Case down:(WinActive("Messenger") 
-               ? ControlClick("X1750 Y903") 
-               : Base.bsd_CloseTab())
+            Default:      Send "{Browser_Back}"
+            Case right:   Base.bsd_NextTab()
+            Case left:    Base.bsd_PrevTab()
+            Case up:      Base.bsd_NewTab()
+            Case down:
+               (WinActive("Messenger") 
+                  ?       VK.vk_Scroll() 
+                  :       Base.bsd_CloseTab())
          }
       Case WinActive("ahk_exe Code.exe"): ;_vscode
          Switch {
-            Default:Send "^/"
+            Default:   Send "^/"
             Case right:Send "^!{Right}"
-            Case left:Send "^!{Left}"
-            Case down:Script.scr_Test() 
-            Case up:Script.scr_Reload()
+            Case left: Send "^!{Left}"
+            Case down: Script.scr_Test() 
+            Case up:   Script.scr_Reload()
          }
       Case WinActive("YouTube Music"): ;_youtube music
          ytmCover := ((sectionX > 1594) && (sectionY > 686))
@@ -630,24 +584,23 @@ $XButton1:: {
          }
       Case WinActive("ahk_exe wps.exe"): 
          Switch {
-            Default:Send "{Browser_Back}"
-            Case right:Send "^{Tab}"
-            Case left:Send "^+{Tab}"
-            Case down:Send "{PgDn}"
-            Case up:Send "^s"
+            Default:   Send "{Browser_Back}"
+            Case right:WPS.wps_NextTab()
+            Case left: WPS.wps_PrevTab()
+            Case up:   Base.bsd_Save()
          }
       Case WinActive("ahk_exe Todoist.exe"): ;_todoist
          Switch {
-            Default:Send "{Browser_Back}"
-            Case right:F_TodoistSearch("unfinished")
-            Case left:F_TodoistSearch("rappers")
-            Case down:F_TodoistSearch("payments")
-            Case up:F_TodoistSearch("inbox")
+            Default:   Send "{Browser_Back}"
+            Case right:Todoist.tds_Project("unfinished")
+            Case left: Todoist.tds_Project("rappers")
+            Case down: Todoist.tds_Project("payments")
+            Case up:   Todoist.tds_Project("inbox")
          }
-      Case WinActive("ahk_exe Discord.exe") && down:Send "{Esc}" ;_discord
-      Case WinActive("ahk_exe Telegram.exe") && down:ControlClick "X1434 Y964" ;_telegram
-      Case WinActive("ahk_group Whatiber") && down:ControlClick "X1878 Y961"
-      Default:Send "{Browser_Back}"
+      Case WinActive("ahk_exe Discord.exe") && down: Send "{Esc}"
+      Case WinActive("ahk_exe Telegram.exe") && down:Telegram.tlg_Scroll()
+      Case WinActive("ahk_group Whatiber") && down:  Whatiber.wtb_Scroll()
+      Default:                                       Send "{Browser_Back}"
    } 
 }
 
@@ -660,16 +613,18 @@ $XButton1:: {
 ;###################################################################################### 
 
 
-;Reload page
 #HotIf WinActive("ahk_exe chrome.exe")
 Volume_Down & MButton::F5
 
 #HotIf WinActive("Google Chrome") ;_chrome
 
 ;Single press is copy, double press will get current tab's link to clipboard
-Volume_Down & XButton1::(Hold.hld_Bool("XButton1") ? (Send("^l"), Sleep(40), Base.bsd_Copy()) : Base.bsd_Copy())
+Volume_Down & XButton1:: {
+   (Hold.hld_Bool("XButton1") 
+      ? Chrome.chr_CopyLink()
+      : Base.bsd_Copy())
+}
 
-;Ctrl numbers aren't easy to press, so F keys instead
 $F1::Send "^1"
 $F2::Send "^2"
 $F3::Send "^3"
@@ -679,27 +634,22 @@ $F6::Send "^6"
 $F7::Send "^7"
 $F8::Send "^8"
 
-;Volume
 $F10::Send "{Volume_Up}"
 $F9::Send "{Volume_Down}"
 
-;Opens a new tab
 $+!e::Base.bsd_NewTab()
 
-;Closes a tab
 $#Delete::Base.bsd_CloseTab()
 
-;Shift alt w closes a tab
 $+!w::(!WinActive("Messenger") ? Base.bsd_CloseTab() : "")
 
 
-;Shift n to skip never made sense to begin with
 #HotIf WinActive("YouTube") ;_youtube 
 $PgDn::YouTube.ytt_SkipNext()
 $PgUp::YouTube.ytt_SkipPrev()
 
 
-#HotIf WinActive("YouTube Music")
+#HotIf WinActive("YouTube Music") ;_youtube music
 
 $F1::YTMusic.ytm_Search()
 $F2::YTMusic.ytm_Library()
@@ -709,11 +659,9 @@ $F5::YTMusic.ytm_Liked()
 $F6::YTMusic.ytm_Best()
 $F7::YTMusic.ytm_Discovery()
 
-;Volume
 $F10::Send "{Volume_Up}"
 $F9::Send "{Volume_Down}"
 
-;Like and dislike
 $F12::YTMusic.ytm_Like()
 $F11::YTMusic.ytm_Dislike()
 
@@ -768,24 +716,19 @@ $^n::Send "^+x"
 
 #HotIf WinActive("ahk_exe Todoist.exe") ;_todoist
 
-;Goes to the project or label or filter or your mom
-F_TodoistSearch(projectToFind) {
-   Send "f" . projectToFind . "{Down}{Enter}"
-}
-
 ;Hotkeys to jump to different projects
-$F1::F_TodoistSearch("inbox") 
-$F2::F_TodoistSearch("rappers") 
-$F3::F_TodoistSearch("unfinished")
-$F4::F_TodoistSearch("payments")
-$F5::F_TodoistSearch("desires")
-$F6::F_TodoistSearch("shopping") 
+$F1::Todoist.tds_Project("inbox") 
+$F2::Todoist.tds_Project("rappers") 
+$F3::Todoist.tds_Project("unfinished")
+$F4::Todoist.tds_Project("payments")
+$F5::Todoist.tds_Project("desires")
+$F6::Todoist.tds_Project("shopping") 
 
 ;Gives the current task an unfinished label and lets you edit its description
 $+!e::Send " {#}unfinished — " 
 
 ;Enter is always down enter
-$Enter::Send select
+$Enter::Base.bsd_ChooseNext()
 
 
 

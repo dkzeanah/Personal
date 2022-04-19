@@ -21,3 +21,10 @@ F_ClipSend(toSend, space:=" ", toSleep:=40) {
 F_Emoji(emojiName) {
    Send("{" . D_KeyCodes_In[emojiName] . "}")
 }
+
+;Sends a random word from your specified array
+F_RandomWord(whichArray) {
+   Send "{BackSpace 6}"
+   i := Random(1, 3000)
+   Send whichArray[i]
+}

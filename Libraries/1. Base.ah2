@@ -73,5 +73,65 @@ Class C_Base {
    bsd_MinimizeWin(winTitle := "A") {
       PostMessage "0x112", "0xF020",,, winTitle
    }
+
+   bsd_ChooseNext() {
+      Send "{Down}{Enter}"
+   }
+   bsd_ChooseNext => "{Down}{Enter}"
+
+   bsd_SwitchLanguage() {
+      Send "{LWin Down}{Space}{LWin Up}"
+   }
+   bsd_SwitchLanguage => "{LWin Down}{Space}{LWin Up}"
+
+   bsd_ShiftClick() {
+      Send "+{Click}"
+   }
+   bsd_ShiftClick => "+{Click}"
+
+   bsd_CtrlClick() {
+      Send "^{Click}"
+   }
+   bsd_CtrlClick => "^{Click}"
+
+   bsd_Search() {
+      Send "^f"
+   }
+   bsd_Search => "^f"
+
+   bsd_WinRight() {
+      Send "#{Right}"
+   }
+   bsd_WinRight => "#{Right}"
+
+   bsd_WinLeft() {
+      Send "#{Left}"
+   }
+   bsd_WinLeft => "#{Left}"
+
+   bsd_WinDown() {
+      Send "#{Down}"
+   }
+   bsd_WinDown => "#{Down}"
+
+   bsd_WinUp() {
+      Send "#{Up}"
+   }
+   bsd_WinUp => "#{Up}"
+
+   bsd_MouseAltTab() {
+      Send "{AltDown}{Tab}" 
+      KeyWait "LButton", "D"
+      Sleep 150
+      Send "{AltUp}"
+      if WinActive("ahk_exe wps.exe")
+         Send "{Esc}"
+   }
+
+   bsd_Save() {
+      Send "^s"
+   }
+   bsd_save => "^s"
+
 }
 Base := C_Base()

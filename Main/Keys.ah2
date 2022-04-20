@@ -1,12 +1,12 @@
-SetWorkingDir A_ScriptDir . "\..\" ;Ensures a consistent A_WorkingDir.
+SetWorkingDir A_ScriptDir . "\..\" ;Ensures a consistent A_WorkingDir
 #SingleInstance Force ;Launches the new instance of the script always, instead of asking whether it should
-#Hotstring EndChars `t ;Decides the characters that can finish a hotstring
 #WinActivateForce ;Forces windows to be activated, skipping the gentle method
+#Hotstring EndChars `t ;Decides the characters that can finish a hotstring
+#InputLevel 2 ;Makes sure hotkeys can't activate themselves (effectively $ on every hotkey)
+#HotIf ;At the start to autoresolve "this hotkey already exists" conflicts
+SetScrollLockState "AlwaysOff"
 CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of the window's
 A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seconds
-SetScrollLockState "AlwaysOff"
-InstallKeybdHook 
-#HotIf ;At the start to autoresolve "this hotkey already exists" conflicts
 
 
 
@@ -562,11 +562,17 @@ XButton1:: {
          }
       Case WinActive("ahk_exe Code.exe"): ;_vscode
          Switch {
-            Default:   Send "^/"
-            Case right:Send "^!{Right}"
-            Case left: Send "^!{Left}"
-            Case down: Script.scr_Test() 
-            Case up:   Script.scr_Reload()
+            Default:           VSC.vsc_Comment()
+            Case right:
+               ( topRight ?    VSC.vsc_IndentRight()
+               : bottomRight ? Script.scr_Reload()
+               :               Base.bsd_NextTab())
+            Case left:
+               ( topLeft ?     VSC.vsc_IndentLeft()
+               : bottomLeft ?  Script.scr_Test()
+               :               Base.bsd_PrevTab())
+            Case down:         Base.bsd_CloseTab()
+            Case up:           Base.bsd_RestoreTab()
          }
       Case WinActive("YouTube Music"): ;_youtube music
          ytmCover := ((sectionX > 1594) && (sectionY > 686))

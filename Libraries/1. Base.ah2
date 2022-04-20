@@ -133,5 +133,9 @@ Class C_Base {
    }
    bsd_save => "^s"
 
+   bsd_RestoreTab() {
+      Send "^+t"
+   }
+   bsd_RestoreTab => "^+t"
 }
 Base := C_Base()

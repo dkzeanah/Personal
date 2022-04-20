@@ -230,6 +230,18 @@ Todoist := C_Todoist()
 ;————————————————————————————————
 
 Class C_VSCode {
+
+   vsc_IndentRight() {
+      Send "^!{Right}"
+   }
+
+   vsc_IndentLeft() {
+      Send "^!{Left}"
+   }
+
+   vsc_Comment() {
+      Send "^/"
+   }
    
    vsc_KeyCodeGetter() {
       inputBoxTitle := "Key codes"

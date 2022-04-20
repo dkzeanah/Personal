@@ -552,7 +552,10 @@ XButton1:: {
       Case WinActive("Google Chrome"): ;_chrome
          Switch {
             Default:      Send "{Browser_Back}"
-            Case right:   Base.bsd_NextTab()
+            Case right:
+               ((topRight) 
+                  ?       Base.bsd_RestoreTab()
+                  :       Base.bsd_NextTab())
             Case left:    Base.bsd_PrevTab()
             Case up:      Base.bsd_NewTab()
             Case down:
@@ -572,7 +575,7 @@ XButton1:: {
                : bottomLeft ?  Script.scr_Test()
                :               Base.bsd_PrevTab())
             Case down:         Base.bsd_CloseTab()
-            Case up:           Base.bsd_RestoreTab()
+            Case up:           Send "#{PgUp}"
          }
       Case WinActive("YouTube Music"): ;_youtube music
          ytmCover := ((sectionX > 1594) && (sectionY > 686))

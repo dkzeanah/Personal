@@ -69,7 +69,7 @@ Class C_Runner {
 
       if !fullPath 
          return
-      faultyLink := this.PathToLink(fullPath)
+      faultyLink := PathToLink(fullPath)
 
       ;Formats a full file path into a relative one
       PathToLink(fullPath) => (

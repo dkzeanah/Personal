@@ -5,6 +5,7 @@ SetWorkingDir A_ScriptDir . "\..\" ;Ensures a consistent A_WorkingDir.
 CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of the window's
 A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seconds
 SetScrollLockState "AlwaysOff"
+InstallKeybdHook 
 #HotIf ;At the start to autoresolve "this hotkey already exists" conflicts
 
 

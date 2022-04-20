@@ -18,30 +18,30 @@ InstallKeybdHook
 
 
 ;Reload this script
-$ScrollLock::Script.scr_Reload()
-$SC050::Script.scr_Reload()
+ScrollLock::Script.scr_Reload()
+SC050::Script.scr_Reload()
 
 ;Hard reload this script
-$!ScrollLock::Script.scr_HardReload()
-$!SC050::Script.scr_HardReload()
+!ScrollLock::Script.scr_HardReload()
+!SC050::Script.scr_HardReload()
 
 ;Suspend this script 
 #SuspendExempt True
-$+ScrollLock::Script.scr_Suspend()
-$+SC050::Script.scr_Suspend()
++ScrollLock::Script.scr_Suspend()
++SC050::Script.scr_Suspend()
 #SuspendExempt False
 
 ;Run Testscript v2
-$Pause::Script.scr_Test()
-$SC051::Script.scr_Test()
+Pause::Script.scr_Test()
+SC051::Script.scr_Test()
 
 ;Run Testscript v1
-$+Pause::Script.scr_Test("v1.ahk")
-$+SC051::Script.scr_Test("v1.ahk")
++Pause::Script.scr_Test("v1.ahk")
++SC051::Script.scr_Test("v1.ahk")
 
 ;Reboot system
-$#ScrollLock::Script.scr_Reboot()
-$#SC050::Script.scr_Reboot()
+#ScrollLock::Script.scr_Reboot()
+#SC050::Script.scr_Reboot()
 
 
 
@@ -135,7 +135,7 @@ GroupAdd "AutoHotkey_Help", "AutoHotkey v2 Help"
 ;————————————————————
 
 ;Long dash
-$!-::Send D_KeyCodes_In["long_dash"]
+!-::Send D_KeyCodes_In["long_dash"]
 
 ;Hotstring that turns into a random english word every time
 :XB0*?:uclanr::F_RandomWord(R_randomWords_Eng)
@@ -152,74 +152,74 @@ $!-::Send D_KeyCodes_In["long_dash"]
 ;—————————————————————————————
 
 ;Close active window
-$!Escape::Base.bsd_CloseWin()
+!Escape::Base.bsd_CloseWin()
 
 ;Alt enter in down enter
-$!Enter::Base.bsd_ChooseNext()
+!Enter::Base.bsd_ChooseNext()
 
 ;Undo/redo
-$+!Left::Base.bsd_Undo()
-$+!Right::Base.bsd_Redo()
++!Left::Base.bsd_Undo()
++!Right::Base.bsd_Redo()
 
 ;Select all
-$Insert::Base.bsd_SelectAll()
-$SC047::Base.bsd_SelectAll()
+Insert::Base.bsd_SelectAll()
+SC047::Base.bsd_SelectAll()
 
 ;Easily accessible paste window
-$#Insert::Base.bsd_WinPaste()
+#Insert::Base.bsd_WinPaste()
 
 ;Cut
-$!Insert::Base.bsd_Cut()
-$!SC047::Base.bsd_Cut()
+!Insert::Base.bsd_Cut()
+!SC047::Base.bsd_Cut()
 
 ;Media hotkeys
-$!SC029::Media_Play_Pause
-$>^Home::Volume_Up
-$>^End::Volume_Down
-$>^Insert::Volume_Mute
-$>^Delete::Media_Play_Pause
-$>^PgUp::Media_Prev
-$>^Pgdn::Media_Next
+!SC029::Media_Play_Pause
+>^Home::Volume_Up
+>^End::Volume_Down
+>^Insert::Volume_Mute
+>^Delete::Media_Play_Pause
+>^PgUp::Media_Prev
+>^Pgdn::Media_Next
 
 
 #HotIf WinActive("ahk_group Messenger")
 
 ;Alt + number sends the Unicode for a specific emoji, making that work anywhere. These hotkeys only work in windows that are messengers
 ;🥺😋🤯😼😎😭🧐😳🤨🤔—💀
-$!1::F_Emoji("pleading")
-$!2::F_Emoji("yum")
-$!3::F_Emoji("exploding_head")
-$!4::F_Emoji("smirk_cat")
-$!5::F_Emoji("sunglasses")
-$!6::F_Emoji("sob")
-$!7::F_Emoji("face_with_monocle")
-$!8::F_Emoji("flushed")
-$!9::F_Emoji("face_with_raised_eyebrow")
-$!0::F_Emoji("thinking")
-$!=::F_Emoji("skull")
+!1::F_Emoji("pleading")
+!2::F_Emoji("yum")
+!3::F_Emoji("exploding_head")
+!4::F_Emoji("smirk_cat")
+!5::F_Emoji("sunglasses")
+!6::F_Emoji("sob")
+!7::F_Emoji("face_with_monocle")
+!8::F_Emoji("flushed")
+!9::F_Emoji("face_with_raised_eyebrow")
+!0::F_Emoji("thinking")
+!=::F_Emoji("skull")
 
 ;Alt + F keys are emojis as well
 ;😩🤤💜👉👈
-$!F5::F_Emoji("weary")
-$!F6::F_Emoji("drooling")
-$!F7::F_Emoji("purple_heart")
-$!F8::F_Emoji("finger_right"), F_Emoji("finger_left")
+!F5::F_Emoji("weary")
+!F6::F_Emoji("drooling")
+!F7::F_Emoji("purple_heart")
+!F8::F_Emoji("finger_right"), F_Emoji("finger_left")
 
 #HotIf 
 
 ;Makes sure fn + function key doesn't do its native function. Commented if made into a hotkey
-$Launch_Media::return ;F1
-$Media_Play_Pause::return ;F2
-$Media_Stop::return ;F3
-$Media_Prev::return ;F4
-$Media_Next::return ;F5
-$Volume_Mute::return ;F6
-$Volume_Up::return ;F7
-; $Volume_Down::return ;F8
-$Launch_App1::return ;F9
-; $Launch_Mail::return ;F10
-; $Launch_App2::return ;F11
-$Browser_Home::return ;F12
+Launch_Media::return ;F1
+Media_Play_Pause::return ;F2
+Media_Stop::return ;F3
+Media_Prev::return ;F4
+Media_Next::return ;F5
+Volume_Mute::return ;F6
+Volume_Up::return ;F7
+; Volume_Down::return ;F8
+Launch_App1::return ;F9
+; Launch_Mail::return ;F10
+; Launch_App2::return ;F11
+Browser_Home::return ;F12
 
 ;Useless numpad
 *NumpadMult::return
@@ -243,15 +243,15 @@ AppsKey::LCtrl
 
 ;Makes sure the side mouse buttons work as intended ingame, despite their remapping outside of game 
 #HotIf WinActive("ahk_group Game_M")
-$*XButton1::u
-$*XButton2::y
-$*Volume_Down::i
+*XButton1::u
+*XButton2::y
+*Volume_Down::i
 
 #HotIf WinActive("ahk_exe METAL GEAR RISING REVENGEANCE.exe")
-$*XButton1::u
-$*XButton2::LCtrl
-$*Volume_Down::i
-$*CapsLock::Enter
+*XButton1::u
+*XButton2::LCtrl
+*Volume_Down::i
+*CapsLock::Enter
 #HotIf
 
 
@@ -264,7 +264,7 @@ $*CapsLock::Enter
 
 
 ;Gives you a place to essentially type a hotstring. Runs what you entered
-$+!l:: {
++!l:: {
    O_Runner := InputBox("What do you want to run?", "Runner")
    if O_Runner.Result = "Cancel" 
       return
@@ -433,7 +433,7 @@ XButton2 & Volume_Down:: {
    }
 }
 
-$^m:: {
+^m:: {
    Switch {
       Default:Send "^m"
       Case WinActive("ahk_exe Discord.exe"):Discord.dsc_Markdown()
@@ -445,7 +445,7 @@ $^m:: {
 }
 
 ;Converts a YT Music link into a YT link while these windows are active, otherwise just sends itself
-$+!r:: {
++!r:: {
    ((WinActive("ahk_exe Discord.exe")
    || WinActive("ahk_exe Telegram.exe")
    || (WinActive("ahk_exe chrome.exe") && !WinActive("YouTube")))
@@ -472,7 +472,7 @@ Volume_Down & LButton::Space
 Volume_Down & XButton2::Hold.hld_Send("XButton2", Base.bsd_Paste, Base.bsd_WinPaste)
 
 ;Special button by itself pressed in different sections of the screen does different things
-$Volume_Down:: { 
+Volume_Down:: { 
    MouseGetPos &sectionX, &sectionY
    right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), discard := ((sectionX > 1707) && (sectionY < 233))
    Switch {
@@ -515,7 +515,7 @@ XButton2 & LButton::Enter
 
 
 ;Far side button, does different things depending on what section of the screen it was pressed on. Right, left, down, up or middle
-$XButton2:: { 
+XButton2:: { 
    MouseGetPos &sectionX, &sectionY
    right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), topRight := ((sectionX > 1707) && (sectionY < 233)), topLeft := ((sectionX < 252) && (sectionY < 229)) ;Here I define the sections
    Switch {
@@ -545,7 +545,7 @@ $XButton2:: {
 }
 
 ;Close side button, does different things depending on what section of the screen it was pressed on. Right, left, down, up or middle
-$XButton1:: { 
+XButton1:: { 
    MouseGetPos &sectionX, &sectionY
    right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), topRight := ((sectionX > 1707) && (sectionY < 233)), topLeft := ((sectionX < 252) && (sectionY < 229)), bottomLeft := ((sectionX < 263) && (sectionY > 849)), bottomRight := ((sectionX > 1673) && (sectionY > 839))
    Switch {
@@ -627,45 +627,45 @@ Volume_Down & XButton1:: {
       : Base.bsd_Copy())
 }
 
-$F1::Send "^1"
-$F2::Send "^2"
-$F3::Send "^3"
-$F4::Send "^4"
-$F5::Send "^5"
-$F6::Send "^6"
-$F7::Send "^7"
-$F8::Send "^8"
+F1::Send "^1"
+F2::Send "^2"
+F3::Send "^3"
+F4::Send "^4"
+F5::Send "^5"
+F6::Send "^6"
+F7::Send "^7"
+F8::Send "^8"
 
-$F10::Send "{Volume_Up}"
-$F9::Send "{Volume_Down}"
+F10::Send "{Volume_Up}"
+F9::Send "{Volume_Down}"
 
-$+!e::Base.bsd_NewTab()
++!e::Base.bsd_NewTab()
 
-$#Delete::Base.bsd_CloseTab()
+#Delete::Base.bsd_CloseTab()
 
-$+!w::(!WinActive("Messenger") ? Base.bsd_CloseTab() : "")
++!w::(!WinActive("Messenger") ? Base.bsd_CloseTab() : "")
 
 
 #HotIf WinActive("YouTube") ;_youtube 
-$PgDn::YouTube.ytt_Skip("right")
-$PgUp::YouTube.ytt_Skip("left")
+PgDn::YouTube.ytt_Skip("right")
+PgUp::YouTube.ytt_Skip("left")
 
 
 #HotIf WinActive("YouTube Music") ;_youtube music
 
-$F1::YTMusic.ytm_Search()
-$F2::YTMusic.ytm_Library()
-$F3::YTMusic.ytm_CancelSearch()
-$F4::YTMusic.ytm_Fullscreen()
-$F5::YTMusic.ytm_Liked()
-$F6::YTMusic.ytm_Best()
-$F7::YTMusic.ytm_Discovery()
+F1::YTMusic.ytm_Search()
+F2::YTMusic.ytm_Library()
+F3::YTMusic.ytm_CancelSearch()
+F4::YTMusic.ytm_Fullscreen()
+F5::YTMusic.ytm_Liked()
+F6::YTMusic.ytm_Best()
+F7::YTMusic.ytm_Discovery()
 
-$F10::Send "{Volume_Up}"
-$F9::Send "{Volume_Down}"
+F10::Send "{Volume_Up}"
+F9::Send "{Volume_Down}"
 
-$F12::YTMusic.ytm_Like()
-$F11::YTMusic.ytm_Dislike()
+F12::YTMusic.ytm_Like()
+F11::YTMusic.ytm_Dislike()
 
 
 #HotIf YouTube.ytt_isNotWatchingVid
@@ -673,13 +673,13 @@ Escape::YouTube.ytt_MiniscreenClose()
 
 
 #HotIf Youtube.ytt_isWatchingVid
-$!Right::YouTube.ytt_Seek("right")
-$!Left::YouTube.ytt_Seek("left")
+!Right::YouTube.ytt_Seek("right")
+!Left::YouTube.ytt_Seek("left")
 
 
 #HotIf WinActive("WatchMoviesHD")
-$Up::Send "{Volume_Up}"
-$Down::Send "{Volume_Down}"
+Up::Send "{Volume_Up}"
+Down::Send "{Volume_Down}"
 
 
 
@@ -693,38 +693,38 @@ $Down::Send "{Volume_Down}"
 #HotIf WinActive("ahk_exe Telegram.exe") ;_telegram
 
 ;Press an F key -> go to a channel
-$F1::Telegram.tlg_Channel("diary")
-$F2::Telegram.tlg_Channel("texts")
-$F3::Telegram.tlg_Channel("transfer")
-$F4::Telegram.tlg_Channel("documents")
-$F5::Telegram.tlg_Channel("gallery")
-$F6::Telegram.tlg_Channel("мама")
-$F7::Telegram.tlg_Channel("кристина")
-$F8::Telegram.tlg_Channel("алена")
-$F9::Telegram.tlg_Channel("invie")
+F1::Telegram.tlg_Channel("diary")
+F2::Telegram.tlg_Channel("texts")
+F3::Telegram.tlg_Channel("transfer")
+F4::Telegram.tlg_Channel("documents")
+F5::Telegram.tlg_Channel("gallery")
+F6::Telegram.tlg_Channel("мама")
+F7::Telegram.tlg_Channel("кристина")
+F8::Telegram.tlg_Channel("алена")
+F9::Telegram.tlg_Channel("invie")
 
 ;Spoiler
-$^p::Send "^+p" 
+^p::Send "^+p" 
 
 ;Strikethrough
-$^n::Send "^+x"
+^n::Send "^+x"
 
 
 #HotIf WinActive("ahk_exe Todoist.exe") ;_todoist
 
 ;Hotkeys to jump to different projects
-$F1::Todoist.tds_Project("inbox") 
-$F2::Todoist.tds_Project("rappers") 
-$F3::Todoist.tds_Project("unfinished")
-$F4::Todoist.tds_Project("payments")
-$F5::Todoist.tds_Project("desires")
-$F6::Todoist.tds_Project("shopping") 
+F1::Todoist.tds_Project("inbox") 
+F2::Todoist.tds_Project("rappers") 
+F3::Todoist.tds_Project("unfinished")
+F4::Todoist.tds_Project("payments")
+F5::Todoist.tds_Project("desires")
+F6::Todoist.tds_Project("shopping") 
 
 ;Gives the current task an unfinished label and lets you edit its description
-$+!e::Todoist.tds_toUnfinished()
++!e::Todoist.tds_toUnfinished()
 
 ;Enter is always down enter
-$Enter::Base.bsd_ChooseNext()
+Enter::Base.bsd_ChooseNext()
 
 
 
@@ -738,89 +738,89 @@ $Enter::Base.bsd_ChooseNext()
 #HotIf WinActive("ahk_exe Code.exe") ;_vscode 
 
 ;Copies the most important setting files of vs code into the /Backups folder
-$^u::Run A_WorkingDir . "\Scripts\Pull vs code settings.py"
+^u::Run A_WorkingDir . "\Scripts\Pull vs code settings.py"
 
 ;Choose a workspace to open
-$^!SC02B::VSC.vsc_WorkspaceCorrectPath("^!\")
+^!SC02B::VSC.vsc_WorkspaceCorrectPath("^!\")
 
 ;Save a workspace
-$^+SC02B::VSC.vsc_WorkspaceCorrectPath("^+\")
+^+SC02B::VSC.vsc_WorkspaceCorrectPath("^+\")
 
 ;Choose a folder to open
-$+!SC02B::VSC.vsc_FolderCorrectPath("+!\")
++!SC02B::VSC.vsc_FolderCorrectPath("+!\")
 
 ;Opens an inputbox for you to put in the name of the key to get its SC code into your clipboard, or takes the SC code to then show you to which key it belongs in a msgbox; if it finds neither, says so
-$+!k::VSC.vsc_KeyCodeGetter()
++!k::VSC.vsc_KeyCodeGetter()
 
 
 #HotIf WinActive("ahk_exe wps.exe") ;_wps
 
 ;Switch between open documents
-$^+Space::WPS.wps_NextTab()
-$^Space::WPS.wps_PrevTab()
+^+Space::WPS.wps_NextTab()
+^Space::WPS.wps_PrevTab()
 
 ;Save 
-$+!s::Base.bsd_Save()
++!s::Base.bsd_Save()
 ;Close tab
-$+!w::Base.bsd_CloseTab()
++!w::Base.bsd_CloseTab()
 
 
 #HotIf WinActive("ahk_exe wps.exe") && WinActive(".pptx")
 
 ;Menu tabs
-$F1::WPS.wps_Shortcut("h")
-$F2::WPS.wps_Shortcut("n")
-$F3::WPS.wps_Shortcut("g")
-$F4::WPS.wps_Shortcut("t")
-$F5::WPS.wps_Shortcut("a")
-$F6::WPS.wps_Shortcut("s")
-$F7::WPS.wps_Shortcut("r")
-$F8::WPS.wps_Shortcut("w")
-$F9::WPS.wps_Shortcut("k")
-$F10::WPS.wps_Shortcut("jd")
-$F11::WPS.wps_Shortcut("je")
+F1::WPS.wps_Shortcut("h")
+F2::WPS.wps_Shortcut("n")
+F3::WPS.wps_Shortcut("g")
+F4::WPS.wps_Shortcut("t")
+F5::WPS.wps_Shortcut("a")
+F6::WPS.wps_Shortcut("s")
+F7::WPS.wps_Shortcut("r")
+F8::WPS.wps_Shortcut("w")
+F9::WPS.wps_Shortcut("k")
+F10::WPS.wps_Shortcut("jd")
+F11::WPS.wps_Shortcut("je")
 
 
 #HotIf WinActive("ahk_exe wps.exe") && WinActive("ahk_group Document")
 
 ;Menu tabs
-$F1::WPS.wps_Shortcut("h")
-$F2::WPS.wps_Shortcut("n")
-$F3::WPS.wps_Shortcut("p")
-$F4::WPS.wps_Shortcut("s")
-$F5::WPS.wps_Shortcut("r")
-$F6::WPS.wps_Shortcut("w")
-$F7::WPS.wps_Shortcut("z")
-$F8::WPS.wps_Shortcut("k")
+F1::WPS.wps_Shortcut("h")
+F2::WPS.wps_Shortcut("n")
+F3::WPS.wps_Shortcut("p")
+F4::WPS.wps_Shortcut("s")
+F5::WPS.wps_Shortcut("r")
+F6::WPS.wps_Shortcut("w")
+F7::WPS.wps_Shortcut("z")
+F8::WPS.wps_Shortcut("k")
 
 ;Bullets
-$!F7::WPS.wps_Bullets()
+!F7::WPS.wps_Bullets()
 
 
 #HotIf WinActive("ahk_exe KMPlayer64.exe")
 
-$Delete::Player.plr_SkipOpening()
+Delete::Player.plr_SkipOpening()
 
-$Up::Volume_Up
-$Down::Volume_Down
+Up::Volume_Up
+Down::Volume_Down
 
 
 ;Search in docs
 #HotIf WinActive("ahk_group AutoHotkey_Help")
-$F1::Send "!s"
+F1::Send "!s"
 
 ;Scroll to go between pics
 #HotIf WinActive("ahk_group Media")
-$WheelUp::Send "{Left}"
-$WheelDown::Send "{Right}"
+WheelUp::Send "{Left}"
+WheelDown::Send "{Right}"
 
 
 #HotIf WinActive("ahk_exe ScreenClippingHost.exe")
 
 ;Use the scroll wheel to choose among modes of the screenshot tool
-$WheelUp::Screenshot.scr_Options("left")
-$WheelDown::Screenshot.scr_Options("right")
-$MButton::Screenshot.scr_Fullscreen() 
+WheelUp::Screenshot.scr_Options("left")
+WheelDown::Screenshot.scr_Options("right")
+MButton::Screenshot.scr_Fullscreen() 
 
 #HotIf
 
@@ -834,26 +834,26 @@ $MButton::Screenshot.scr_Fullscreen()
 
 
 ;Opens an inputbox for you to input how many minutes to wait, plays a sound and opens a msgbox saying the time has passed after it has. Press the same hotkey while the timer is running to see when it will ring and three options: start a new timer, discarding the current one, continue on, exit the timer
-$#F5::Run A_WorkingDir . "\Tools\Basic timer.ah2"
+#F5::Run A_WorkingDir . "\Tools\Basic timer.ah2"
 
 ;Get the root to the exe of the active window and put it into your clipboard
-$#F6::A_Clipboard := WinGetProcessPath("A")
+#F6::A_Clipboard := WinGetProcessPath("A")
 
 ;Get the name of the active window and put it into your clipboard
-$#F7::A_Clipboard := WinGetTitle("A")
+#F7::A_Clipboard := WinGetTitle("A")
 
 ;Opens a fileselect in the current folder for you to choose a file to get the path of into your clipboard
-$#F8:: {
+#F8:: {
    windowTitle := WinGetTitle("A")
    if SubStr(windowTitle, 1, 3) == "C:\"
       A_Clipboard := FileSelect("S", windowTitle)
 }
 
 ;Gets current cursor's position and opens a gui giving you the options for formatting the parameters for different commands to put them into your Clipboard or to not copy them into your Clipboard at all and just exit the gui
-$+!f::Run A_WorkingDir . "\Tools\MouseGetPos.ah2"
++!f::Run A_WorkingDir . "\Tools\MouseGetPos.ah2"
 
 ;Opens a msgbox showing the exact time
-$+!t:: {
++!t:: {
    clock_time := FormatTime(, "H:mm")
    clock_weekDay := FormatTime(, "dddd")
    clock_date := FormatTime(, "d MMMM")
@@ -870,43 +870,43 @@ $+!t:: {
 
 
 ;OBS
-$<!o::Win.niw_MinMax("ahk_exe obs64.exe") 
+<!o::Win.niw_MinMax("ahk_exe obs64.exe") 
 
 ;Command prompt
-$#F9::Win.niw_App("ahk_exe cmd.exe", "cmd.exe")
+#F9::Win.niw_App("ahk_exe cmd.exe", "cmd.exe")
 
 ;Python cmd
-$#F10::Win.niw_App("ahk_exe py.exe", "py.exe")
+#F10::Win.niw_App("ahk_exe py.exe", "py.exe")
 
 ;Monkeytype
-$<!u::Win.niw_App_WinNum("Monkeytype", "4")
+<!u::Win.niw_App_WinNum("Monkeytype", "4")
 
 ;Mail
-$<!SC033::Win.niw_App_WinNum("Gmail", "1")
+<!SC033::Win.niw_App_WinNum("Gmail", "1")
 
 ;Calendar
-$<!SC034::Win.niw_App_WinNum("Google Calendar", "2")
+<!SC034::Win.niw_App_WinNum("Google Calendar", "2")
 
 ;Calculator
-$<!SC035::Win.niw_App("Calculator", "calc.exe")
+<!SC035::Win.niw_App("Calculator", "calc.exe")
 
 ;Autohotkey help file
-$<!SC028::Win.niw_App("AutoHotkey Help", "C:\Program Files\Autohotkey\AutoHotkey.chm")
+<!SC028::Win.niw_App("AutoHotkey Help", "C:\Program Files\Autohotkey\AutoHotkey.chm")
 
 ;Autohotkey v2 help file
-$<!SC027::Win.niw_App("AutoHotkey v2 Help", "C:\Program Files\Autohotkey\v2\AutoHotkey.chm")
+<!SC027::Win.niw_App("AutoHotkey v2 Help", "C:\Program Files\Autohotkey\v2\AutoHotkey.chm")
 
 ;Gimp 
-$<!SC01A::Win.niw_App("ahk_exe gimp-2.10.exe", "C:\Programs\GIMP 2\bin\gimp-2.10.exe")
+<!SC01A::Win.niw_App("ahk_exe gimp-2.10.exe", "C:\Programs\GIMP 2\bin\gimp-2.10.exe")
 
 ;Atom 
-$<!y::Win.niw_App("ahk_exe atom.exe", "C:\Users\serge\AppData\Local\atom\app-1.58.0\atom.exe") 
+<!y::Win.niw_App("ahk_exe atom.exe", "C:\Users\serge\AppData\Local\atom\app-1.58.0\atom.exe") 
 
 ;Video editor
-$<!SC01B::Win.niw_App("ahk_exe Resolve.exe", "C:\Programs\Davinci Resolve\Resolve.exe")
+<!SC01B::Win.niw_App("ahk_exe Resolve.exe", "C:\Programs\Davinci Resolve\Resolve.exe")
 
 ;MinMaxes a game if it exists, closes all apps but spotify if all main 6 apps exist, if they don't: launches those apps of the main 6, that do not yet exist
-$<!g:: {
+<!g:: {
    ;Google Chrome
    chrome := "Google Chrome"
    chrome_exe := "C:\Program Files\Google\Chrome\Application\chrome.exe" 
@@ -938,7 +938,7 @@ $<!g:: {
 #HotIf !WinActive("ahk_group Game")
 
 ; Telegram, whatsapp, viber on one, two and three presses
-$<!t:: {
+<!t:: {
    Switch Double.dbl_Bool("t") {
       Case True:
          Switch Double.dbl_Bool("t") {
@@ -953,48 +953,48 @@ $<!t:: {
 }
 
 ;Projects folder on single press, FL Studio on double press
-$<!f:: {
+<!f:: {
    (Double.dbl_Bool("f")
       ? Win.niw_App("ahk_exe FL64.exe", "C:\Programs\FL Studio 20\FL64.exe") 
       : Win.niw_App_Folders("C:\Files\Projects"))
 }
 
 ;Photos or steam
-$<!r:: {
+<!r:: {
    (!Win.niw_ifMinMax("ahk_group Media")
       ? Win.niw_App("ahk_exe steam.exe", "C:\Programs\Steam\steam.exe", "Steam - News")
       : "")
 }
 
 ;Visual studio code
-$<!a::Win.niw_App("ahk_exe Code.exe", "C:\Programs\Microsoft VS Code\Code.exe")
+<!a::Win.niw_App("ahk_exe Code.exe", "C:\Programs\Microsoft VS Code\Code.exe")
 
 ;Youtube music
-$<!s::Win.niw_App_WinNum("YouTube Music", "6")
+<!s::Win.niw_App_WinNum("YouTube Music", "6")
 
 ;Chrome 
-$<!c::Win.niw_App("Google Chrome", "C:\Program Files\Google\Chrome\Application\chrome.exe")
+<!c::Win.niw_App("Google Chrome", "C:\Program Files\Google\Chrome\Application\chrome.exe")
 
 ;Todoist
-$<!x::Win.niw_App("ahk_exe Todoist.exe", "C:\Users\serge\AppData\Local\Programs\todoist\Todoist.exe")
+<!x::Win.niw_App("ahk_exe Todoist.exe", "C:\Users\serge\AppData\Local\Programs\todoist\Todoist.exe")
 
 ;Wps
-$<!w::Win.niw_App("ahk_exe wps.exe", "C:\Users\serge\AppData\Local\Kingsoft\WPS Office\ksolaunch.exe")
+<!w::Win.niw_App("ahk_exe wps.exe", "C:\Users\serge\AppData\Local\Kingsoft\WPS Office\ksolaunch.exe")
 
 ;Discord
-$<!q::Win.niw_App("ahk_exe Discord.exe", "C:\Users\serge\AppData\Local\Discord\app-1.0.9004\Discord.exe")
+<!q::Win.niw_App("ahk_exe Discord.exe", "C:\Users\serge\AppData\Local\Discord\app-1.0.9004\Discord.exe")
 
 ;VPN
-$<!z::Win.niw_App("ahk_exe vpncmgr_x64.exe", "C:\Program Files\SoftEther VPN Client\vpncmgr_x64.exe")
+<!z::Win.niw_App("ahk_exe vpncmgr_x64.exe", "C:\Program Files\SoftEther VPN Client\vpncmgr_x64.exe")
 
 ;Explorer
-$<!e::Win.niw_App_Folders("C:\")
+<!e::Win.niw_App_Folders("C:\")
 
 ;Documents 
-$<!d::Win.niw_App_Folders("C:\Files\Documents")
+<!d::Win.niw_App_Folders("C:\Files\Documents")
 
 ;Pictures
-$<!v::Win.niw_App_Folders("C:\Files\Pictures")
+<!v::Win.niw_App_Folders("C:\Files\Pictures")
 
 ;One Piece
-$<!b::Win.niw_App_Folders("C:\Files\Pictures\One Piece")
+<!b::Win.niw_App_Folders("C:\Files\Pictures\One Piece")

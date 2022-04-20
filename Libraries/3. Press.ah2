@@ -5,6 +5,7 @@ Class C_Twice {
    twc_Bool(howLong:=200) {
       return (A_PriorHotkey == A_ThisHotkey) && (A_TimeSincePriorHotkey <= howLong)
    }
+   twc_Bool => (A_PriorHotkey == A_ThisHotkey) && (A_TimeSincePriorHotkey <= 200)
 
    ;Sends first thing on single press, sends both consecutively on double press
    twc_Send(toSend1, toSend2, howLong:=200) {

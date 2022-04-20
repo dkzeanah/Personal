@@ -79,12 +79,24 @@ YTMusic := C_YouTubeMusic.Call()
 
 Class C_YouTube {
 
-   ytt_SkipNext() {
-      Send "+n"
+   ytt_Skip(direction) {
+      Send(
+           direction == "right"
+            ? "+n"
+         : direction == "left"
+            ? "+p"
+         : ""
+      )
    }
 
-   ytt_SkipPrev() {
-      Send "+p"
+   ytt_Seek(direction) {
+      Send(
+           direction == "right"
+            ? "l"
+         : direction == "left"
+            ? "j"
+         : ""
+      )
    }
 
    ytt_Fullscreen() {
@@ -93,6 +105,10 @@ Class C_YouTube {
 
    ytt_Miniscreen() {
       Send "i"
+   }
+
+   ytt_MiniscreenClose() {
+      ControlClick "X1858 Y665"
    }
 
    ytt_isWatchingVid => (WinActive(" - YouTube") && !WinActive("Watch later") && !WinActive("Subscriptions"))
@@ -150,6 +166,10 @@ Class C_Telegram {
    tlg_Scroll() {
       ControlClick "X1434 Y964"
    }
+
+   tlg_Channel(channelToFind) {
+      ControlClick("X422 Y78"), Send(channelToFind . "{Down}{Enter}")
+   }
 }
 Telegram := C_Telegram()
 
@@ -198,8 +218,56 @@ Class C_Todoist {
    tds_Project(projectToFind) {
       Send "f" . projectToFind . "{Down}{Enter}"
    }
+
+   tds_toUnfinished() {
+      Send " {#}unfinished — " 
+   }
 }
 Todoist := C_Todoist()
+
+
+;VS CODE
+;————————————————————————————————
+
+Class C_VSCode {
+   
+   vsc_KeyCodeGetter() {
+      inputBoxTitle := "Key codes"
+      prevClip := A_Clipboard
+      Base.bsd_Copy()
+      Sleep 40
+      Try {
+         MsgBox D_KeyCodes_Out[A_Clipboard], inputBoxTitle
+         A_Clipboard := prevClip
+      }
+      Catch {
+         Try {
+            keyPointer := InputBox("Key pointer:", inputBoxTitle)
+            if keyPointer.Result != "Cancel"
+               A_Clipboard := D_KeyCodes_In[keyPointer.Value]
+         }
+         Catch
+            MsgBox "Key not found!", inputBoxTitle, "T1"
+      }
+   }
+
+   vsc_WorkspaceCorrectPath(vscodeHotkey) {
+      ;Open explorer window
+      Send(vscodeHotkey), WinWait("ahk_exe explorer.exe"),
+      ;Paste the correct path to where workspaces are
+      workSpacesFolder := "C:\Files\Programming\Personal\Backups\Workspaces",
+      Send("^l"), SendText(workSpacesFolder), Send("{Enter}")
+   }
+
+   vsc_FolderCorrectPath(vscodeHotkey) {
+      ;Open project chooser
+      Send(vscodeHotkey), WinWait("ahk_exe explorer.exe")
+      ;Start in the folder that contains the project folders
+      projectsFolder := "C:\Files\Programming"
+      Send("^l"), SendText(projectsFolder), Send("{Enter}")
+   }
+}
+VSC := C_VSCode()
 
 
 ;WPS
@@ -214,5 +282,70 @@ Class C_WPSOffice {
    wps_PrevTab() {
       Send "^+{Tab}"
    }
+
+   wps_Shortcut(letter) {
+      Send("{LAlt Down}{LAlt Up}" . letter . "{LAlt Down}{LAlt Up}")
+   }
+
+   wps_Bullets() {
+      ControlClick "X568 Y98"
+   }
 }
 WPS := C_WPSOffice()
+
+
+;PLAYER
+;————————————————————————————————
+
+Class C_Player {
+   
+   plr_SkipOpening() {
+      Send "{Delete 6}{Right 4}"
+   }
+}
+Player := C_Player()
+
+
+;SCREENSHOT
+;————————————————————————————————
+
+Class C_Screenshot {
+   
+   ;In the screenshot tool there are three options that can be selected. Selects those options in a rotary manner, depending on direction
+   scr_Options(direction) {
+      MouseGetPos &initX, &initY
+      static optionYoureOn := 1
+      if (direction == "left")
+         Switch optionYoureOn
+         {
+            Case 1:
+               Click "959 27"
+               optionYoureOn := 3
+            Case 2:
+               Click "839 28"
+               optionYoureOn--
+            Case 3:
+               Click "897 31"
+               optionYoureOn--
+         }
+      else 
+         Switch optionYoureOn
+         {
+            Case 1:
+               Click "897 31"
+               optionYoureOn++
+            Case 2:
+               Click "959 27"
+               optionYoureOn++
+            Case 3:
+               Click "839 28"
+               optionYoureOn := 1
+         }
+      MouseMove initX, initY   
+   }
+
+   scr_Fullscreen() {
+      F_ClickThenGoBack("1017 29")
+   }
+}
+Screenshot := C_Screenshot()

@@ -522,7 +522,7 @@ $XButton2:: {
          Switch {
             Case topRight:Base.bsd_NextWin()
             Case WinActive("YouTube Music"), YouTube.ytt_isWatchingVid:
-               YouTube.ytt_SkipNext()
+               YouTube.ytt_Skip("right")
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgDn}"
             Default:Send "{Media_Next}"
          }
@@ -530,7 +530,7 @@ $XButton2:: {
          Switch {
             Case topLeft:Base.bsd_PrevWin()
             Case WinActive("YouTube Music"), YouTube.ytt_isWatchingVid:
-               YouTube.ytt_SkipPrev()
+               YouTube.ytt_Skip("left")
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgUp}"
             Default:Send "{Media_Prev}"
          }
@@ -616,6 +616,7 @@ $XButton1:: {
 #HotIf WinActive("ahk_exe chrome.exe")
 Volume_Down & MButton::F5
 
+
 #HotIf WinActive("Google Chrome") ;_chrome
 
 ;Single press is copy, double press will get current tab's link to clipboard
@@ -645,8 +646,8 @@ $+!w::(!WinActive("Messenger") ? Base.bsd_CloseTab() : "")
 
 
 #HotIf WinActive("YouTube") ;_youtube 
-$PgDn::YouTube.ytt_SkipNext()
-$PgUp::YouTube.ytt_SkipPrev()
+$PgDn::YouTube.ytt_Skip("right")
+$PgUp::YouTube.ytt_Skip("left")
 
 
 #HotIf WinActive("YouTube Music") ;_youtube music
@@ -666,16 +667,15 @@ $F12::YTMusic.ytm_Like()
 $F11::YTMusic.ytm_Dislike()
 
 
-;Close minimized window 
-#HotIf WinActive("Watch later") || WinActive("Subscriptions") || (WinActive("YouTube") && !WinActive(" - YouTube"))
-Escape::ControlClick "X1858 Y665"
+#HotIf YouTube.ytt_isNotWatchingVid
+Escape::YouTube.ytt_MiniscreenClose()
 
-;Seek farther
-#HotIf WinActive(" - YouTube") && !WinActive("Watch later") && !WinActive("Subscriptions")
-$!Right::Send "l"
-$!Left::Send "j"
 
-;Change volume
+#HotIf Youtube.ytt_isWatchingVid
+$!Right::YouTube.ytt_Seek("right")
+$!Left::YouTube.ytt_Seek("left")
+
+
 #HotIf WinActive("WatchMoviesHD")
 $Up::Send "{Volume_Up}"
 $Down::Send "{Volume_Down}"
@@ -691,21 +691,16 @@ $Down::Send "{Volume_Down}"
 
 #HotIf WinActive("ahk_exe Telegram.exe") ;_telegram
 
-;Clicks the search bar for you to search for channels, finds and goes to the channel you want
-F_TelegramSearch(channelToFind) {
-   ControlClick("X422 Y78"), Send(channelToFind . "{Down}{Enter}")
-} 
-
 ;Press an F key -> go to a channel
-$F1::F_TelegramSearch("diary")
-$F2::F_TelegramSearch("texts")
-$F3::F_TelegramSearch("transfer")
-$F4::F_TelegramSearch("documents")
-$F5::F_TelegramSearch("gallery")
-$F6::F_TelegramSearch("мама")
-$F7::F_TelegramSearch("кристина")
-$F8::F_TelegramSearch("алена")
-$F9::F_TelegramSearch("invie")
+$F1::Telegram.tlg_Channel("diary")
+$F2::Telegram.tlg_Channel("texts")
+$F3::Telegram.tlg_Channel("transfer")
+$F4::Telegram.tlg_Channel("documents")
+$F5::Telegram.tlg_Channel("gallery")
+$F6::Telegram.tlg_Channel("мама")
+$F7::Telegram.tlg_Channel("кристина")
+$F8::Telegram.tlg_Channel("алена")
+$F9::Telegram.tlg_Channel("invie")
 
 ;Spoiler
 $^p::Send "^+p" 
@@ -725,7 +720,7 @@ $F5::Todoist.tds_Project("desires")
 $F6::Todoist.tds_Project("shopping") 
 
 ;Gives the current task an unfinished label and lets you edit its description
-$+!e::Send " {#}unfinished — " 
+$+!e::Todoist.tds_toUnfinished()
 
 ;Enter is always down enter
 $Enter::Base.bsd_ChooseNext()
@@ -741,109 +736,70 @@ $Enter::Base.bsd_ChooseNext()
 
 #HotIf WinActive("ahk_exe Code.exe") ;_vscode 
 
-F_WorkspaceCorrectPath(vscodeHotkey) => (
-   ;Open explorer window
-   Send(vscodeHotkey), WinWait("ahk_exe explorer.exe"),
-   ;Paste the correct path to where workspaces are
-   workSpacesFolder := "C:\Files\Programming\Personal\Backups\Workspaces",
-   Send("^l"), SendText(workSpacesFolder), Send("{Enter}")
-)
-
 ;Copies the most important setting files of vs code into the /Backups folder
 $^u::Run A_WorkingDir . "\Scripts\Pull vs code settings.py"
 
 ;Choose a workspace to open
-$^!SC02B::F_WorkspaceCorrectPath("^!\")
+$^!SC02B::VSC.vsc_WorkspaceCorrectPath("^!\")
 
 ;Save a workspace
-$^+SC02B::F_WorkspaceCorrectPath("^+\")
+$^+SC02B::VSC.vsc_WorkspaceCorrectPath("^+\")
 
-;Choose a folder to open, now always starts in the folder where project folders are likely to be
-$+!SC02B:: {
-   ;Open project chooser
-   Send("+!\"), WinWait("ahk_exe explorer.exe")
-   ;Start in the folder that contains the project folders
-   projectsFolder := "C:\Files\Programming"
-   Send("^l"), SendText(projectsFolder), Send("{Enter}")
-}
+;Choose a folder to open
+$+!SC02B::VSC.vsc_FolderCorrectPath("+!\")
 
 ;Opens an inputbox for you to put in the name of the key to get its SC code into your clipboard, or takes the SC code to then show you to which key it belongs in a msgbox; if it finds neither, says so
-$+!k:: {
-   inBoxTitle := "Key codes"
-   prevClip := A_Clipboard
-   Base.bsd_Copy()
-   Sleep 40
-   Try {
-      MsgBox D_KeyCodes_Out[A_Clipboard], inBoxTitle
-      A_Clipboard := prevClip
-   }
-   Catch {
-      Try {
-         keyPointer := InputBox("Key pointer:", inBoxTitle)
-         if keyPointer.Result != "Cancel"
-            A_Clipboard := D_KeyCodes_In[keyPointer.Value]
-      }
-      Catch
-         MsgBox "Key not found!", inBoxTitle, "T1"
-   }
-}
+$+!k::VSC.vsc_KeyCodeGetter()
 
 
 #HotIf WinActive("ahk_exe wps.exe") ;_wps
 
 ;Switch between open documents
-$^+Space::Send "^{Tab}"
-$^Space::Send "^+{Tab}"
+$^+Space::WPS.wps_NextTab()
+$^Space::WPS.wps_PrevTab()
 
 ;Save 
-$+!s::Send "^s"
+$+!s::Base.bsd_Save()
 ;Close tab
 $+!w::Base.bsd_CloseTab()
 
 
 #HotIf WinActive("ahk_exe wps.exe") && WinActive(".pptx")
 
-;Uses an alt shortcut without the letters popping up
-F_WpsShortcut(letter) {
-   Send("{LAlt Down}{LAlt Up}" . letter . "{LAlt Down}{LAlt Up}")
-}
-
 ;Menu tabs
-$F1::F_WpsShortcut("h")
-$F2::F_WpsShortcut("n")
-$F3::F_WpsShortcut("g")
-$F4::F_WpsShortcut("t")
-$F5::F_WpsShortcut("a")
-$F6::F_WpsShortcut("s")
-$F7::F_WpsShortcut("r")
-$F8::F_WpsShortcut("w")
-$F9::F_WpsShortcut("k")
-$F10::F_WpsShortcut("jd")
-$F11::F_WpsShortcut("je")
+$F1::WPS.wps_Shortcut("h")
+$F2::WPS.wps_Shortcut("n")
+$F3::WPS.wps_Shortcut("g")
+$F4::WPS.wps_Shortcut("t")
+$F5::WPS.wps_Shortcut("a")
+$F6::WPS.wps_Shortcut("s")
+$F7::WPS.wps_Shortcut("r")
+$F8::WPS.wps_Shortcut("w")
+$F9::WPS.wps_Shortcut("k")
+$F10::WPS.wps_Shortcut("jd")
+$F11::WPS.wps_Shortcut("je")
 
 
 #HotIf WinActive("ahk_exe wps.exe") && WinActive("ahk_group Document")
 
 ;Menu tabs
-$F1::F_WpsShortcut("h")
-$F2::F_WpsShortcut("n")
-$F3::F_WpsShortcut("p")
-$F4::F_WpsShortcut("s")
-$F5::F_WpsShortcut("r")
-$F6::F_WpsShortcut("w")
-$F7::F_WpsShortcut("z")
-$F8::F_WpsShortcut("k")
+$F1::WPS.wps_Shortcut("h")
+$F2::WPS.wps_Shortcut("n")
+$F3::WPS.wps_Shortcut("p")
+$F4::WPS.wps_Shortcut("s")
+$F5::WPS.wps_Shortcut("r")
+$F6::WPS.wps_Shortcut("w")
+$F7::WPS.wps_Shortcut("z")
+$F8::WPS.wps_Shortcut("k")
 
 ;Bullets
-$!F7::ControlClick "X568 Y98"
+$!F7::WPS.wps_Bullets()
 
 
 #HotIf WinActive("ahk_exe KMPlayer64.exe")
 
-;Skip opening
-$Delete::Send "{Delete 6}{Right 4}"
+$Delete::Player.plr_SkipOpening()
 
-;Volume
 $Up::Volume_Up
 $Down::Volume_Down
 
@@ -860,43 +816,11 @@ $WheelDown::Send "{Right}"
 
 #HotIf WinActive("ahk_exe ScreenClippingHost.exe")
 
-;In the screenshot tool there are three options that can be selected. Selects those options in a rotary manner, depending on direction
-F_ScreenshotOptions(direction) {
-   MouseGetPos &initX, &initY
-   static optionYoureOn := 1
-   if (direction == "left")
-      Switch optionYoureOn
-      {
-         Case 1:
-            Click "959 27"
-            optionYoureOn := 3
-         Case 2:
-            Click "839 28"
-            optionYoureOn--
-         Case 3:
-            Click "897 31"
-            optionYoureOn--
-      }
-   else 
-      Switch optionYoureOn
-      {
-         Case 1:
-            Click "897 31"
-            optionYoureOn++
-         Case 2:
-            Click "959 27"
-            optionYoureOn++
-         Case 3:
-            Click "839 28"
-            optionYoureOn := 1
-      }
-   MouseMove initX, initY   
-}
-
 ;Use the scroll wheel to choose among modes of the screenshot tool
-$WheelUp::F_ScreenshotOptions("left")
-$WheelDown::F_ScreenshotOptions("right")
-$MButton::F_ClickThenGoBack("1017 29") ;Takes a full-screen screenshot
+$WheelUp::Screenshot.scr_Options("left")
+$WheelDown::Screenshot.scr_Options("right")
+$MButton::Screenshot.scr_Fullscreen() 
+
 #HotIf
 
 
@@ -1034,7 +958,7 @@ $<!f:: {
       : Win.niw_App_Folders("C:\Files\Projects"))
 }
 
-;Photos
+;Photos or steam
 $<!r:: {
    (!Win.niw_ifMinMax("ahk_group Media")
       ? Win.niw_App("ahk_exe steam.exe", "C:\Programs\Steam\steam.exe", "Steam - News")

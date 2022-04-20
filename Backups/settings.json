@@ -20,7 +20,6 @@
    "files.autoSaveDelay": 100,
    "editor.detectIndentation": false,
    "editor.tabSize": 3,
-   "editor.multiCursorModifier": "ctrlCmd",
    "git.path": "C:\\Program Files\\Git\\bin\\git.exe",
    "terminal.integrated.defaultProfile.windows": "Command Prompt",
    "window.menuBarVisibility": "compact",
@@ -57,4 +56,5 @@
    "workbench.list.smoothScrolling": true,
    "editor.suggest.showWords": false,
    "workbench.startupEditor": "none",
+   "editor.multiCursorModifier": "ctrlCmd",
 }

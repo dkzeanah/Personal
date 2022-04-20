@@ -364,7 +364,7 @@
       ]
    },
    "S_Directories_v1": {
-      "prefix": "Directories_v1",
+      "prefix": "S_Directories_v1",
       "body": [
          "#NoEnv ;Recommended for performance and compatibility with future AutoHotkey releases.",
          "#Warn ;Enable warnings to assist with detecting common errors.",
@@ -676,7 +676,7 @@
    "return": {
       "prefix": "return",
       "body": [
-         "return"
+         "return "
       ]
    },
    "WheelUp": {
@@ -1041,8 +1041,8 @@
          "A_TimeSincePriorHotkey"
       ]
    },
-   "S_DoublePress": {
-      "prefix": "doublePress",
+   "S_TwicePress": {
+      "prefix": "S_TwicePress",
       "body": [
          "(A_PriorHotkey == A_ThisHotkey) && (A_TimeSincePriorHotkey <= 200)"
       ]
@@ -1095,6 +1095,27 @@
       "prefix": "break",
       "body": [
          "break"
+      ]
+   },
+   "S_Section definition": {
+      "prefix": "S_Section definition",
+      "body": [
+         "right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), topRight := ((sectionX > 1707) && (sectionY < 233)), topLeft := ((sectionX < 252) && (sectionY < 229)), bottomLeft := ((sectionX < 263) && (sectionY > 849)), bottomRight := ((sectionX > 1673) && (sectionY > 839)"
+      ]
+   },
+   "Class": {
+      "prefix": "Class",
+      "body": [
+         "Class C_$1 {",
+         "\t$0",
+         "}",
+         "$2 := C_$3()"
+      ]
+   },
+   "S_SmallSectionSeparator": {
+      "prefix": ";———",
+      "body": [
+         ";————————————————————————————————"
       ]
    },
    

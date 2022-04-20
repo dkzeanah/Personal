@@ -523,7 +523,7 @@ XButton2:: {
          Switch {
             Case topRight:Base.bsd_NextWin()
             Case WinActive("YouTube Music"), YouTube.ytt_isWatchingVid:
-               YouTube.ytt_Skip("right")
+               YouTube.ytt_SkipNext()
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgDn}"
             Default:Send "{Media_Next}"
          }
@@ -531,7 +531,7 @@ XButton2:: {
          Switch {
             Case topLeft:Base.bsd_PrevWin()
             Case WinActive("YouTube Music"), YouTube.ytt_isWatchingVid:
-               YouTube.ytt_Skip("left")
+               YouTube.ytt_SkipPrev()
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgUp}"
             Default:Send "{Media_Prev}"
          }
@@ -656,8 +656,8 @@ F9::Send "{Volume_Down}"
 
 
 #HotIf WinActive("YouTube") ;_youtube 
-PgDn::YouTube.ytt_Skip("right")
-PgUp::YouTube.ytt_Skip("left")
+PgDn::YouTube.ytt_SkipNext()
+PgUp::YouTube.ytt_SkipPrev()
 
 
 #HotIf WinActive("YouTube Music") ;_youtube music
@@ -734,6 +734,10 @@ F6::Todoist.tds_Project("shopping")
 
 ;Enter is always down enter
 Enter::Base.bsd_ChooseNext()
+
+
+#HotIf WinActive("ahk_exe Discord.exe")
+MButton::Base.bsd_CtrlClick()
 
 
 

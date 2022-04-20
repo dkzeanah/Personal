@@ -79,14 +79,12 @@ YTMusic := C_YouTubeMusic.Call()
 
 Class C_YouTube {
 
-   ytt_Skip(direction) {
-      Send(
-           direction == "right"
-            ? "+n"
-         : direction == "left"
-            ? "+p"
-         : ""
-      )
+   ytt_SkipNext() {
+      Send "+n"
+   }
+
+   ytt_SkipPrev() {
+      Send "+p"
    }
 
    ytt_Seek(direction) {

@@ -13,26 +13,22 @@ G_MouseGetPos.OnEvent("Close", (*) => ExitApp())
 F1::MGP.ControlClick()
 F2::MGP.Click()
 F3::MGP.Pure()
-+!f::MGP.mgp_Compared(locX, locY)
++!f::MGP.mgp_Compared()
 Esc::MGP.Exit()
 
 Class C_MouseGetPos {
 
-   X := locX
-   Y := locY
-
-   ControlClick() => (A_Clipboard := "`"X" . this.X . " Y" . this.Y . "`"", ExitApp())
-   Click() => (A_Clipboard := "`"" . this.X . " " . this.Y . "`"", ExitApp())
-   Pure() => (A_Clipboard := this.X . " " . this.Y, ExitApp())
+   ControlClick() => (A_Clipboard := "`"X" . locX . " Y" . locY . "`"", ExitApp())
+   Click() => (A_Clipboard := "`"" . locX . " " . locY . "`"", ExitApp())
+   Pure() => (A_Clipboard := locX . " " . locY, ExitApp())
    Exit() => ExitApp()
 
-   mgp_Compared(locX, locY) {
-      MouseGetPos &locX2, &locY2
-      locX := locX2 - locX
-      locY := locY2 - locY
-      this.X := locX
-      this.Y := locY
-      G_MouseGetPos_Coords.Text := "X = " . this.X . "`nY = " . this.Y
+   mgp_Compared() {
+      MouseGetPos &X2, &Y2 ;Second coordinates to compare with
+      diffX := X2 - locX ;The difference between the first and the second set of coords
+      diffY := Y2 - locY
+      G_MouseGetPos_Coords.Text := "X = " . diffX . "`nY = " . diffY
+      A_Clipboard := diffX . " " . diffY
    }
 }
 MGP := C_MouseGetPos()

@@ -1128,5 +1128,19 @@
          ";————————————————————————————————"
       ]
    },
+   "Close when closed": {
+      "prefix": ".OnEvent(\"Close\", (*) => ExitApp())",
+      "body": [
+         ".OnEvent(\"Close\", (*) => ExitApp())"
+      ],
+      "description": "Exit the script when gui is closed"
+   },
+   "Close when clicked": {
+      "prefix": ".OnEvent(\"Click\", (*) => ExitApp())",
+      "body": [
+         ".OnEvent(\"Click\", (*) => ExitApp())"
+      ],
+      "description": "Exit the script when guicontrol is clicked"
+   },
    
 }

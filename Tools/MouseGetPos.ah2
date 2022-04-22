@@ -27,8 +27,8 @@ Class C_MouseGetPos {
       MouseGetPos &X2, &Y2 ;Second coordinates to compare with
       diffX := X2 - locX ;The difference between the first and the second set of coords
       diffY := Y2 - locY
-      G_MouseGetPos_Coords.Text := "X = " . diffX . "`nY = " . diffY
-      A_Clipboard := diffX . " " . diffY
+      G_MouseGetPos_Coords.Text := "X = " . diffX . "`nY = " . diffY ;Show the difference between coords in gui
+      A_Clipboard := diffX . " " . diffY ;Paste the difference into clipboard, but don't exit the script yet F
    }
 }
 MGP := C_MouseGetPos()

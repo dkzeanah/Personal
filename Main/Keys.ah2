@@ -462,14 +462,19 @@ Volume_Down & XButton2::Hold.hld_Send("XButton2", Base.bsd_Paste, Base.bsd_WinPa
 ;Special button by itself pressed in different sections of the screen does different things
 Volume_Down:: { 
    MouseGetPos &sectionX, &sectionY
-   right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), discard := ((sectionX > 1707) && (sectionY < 233))
+   right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), topRight := ((sectionX > 1707) && (sectionY < 233)), topLeft := ((sectionX < 252) && (sectionY < 229)), bottomLeft := ((sectionX < 263) && (sectionY > 849)), bottomRight := ((sectionX > 1673) && (sectionY > 839))
    Switch {
-      Case discard:return
-      Case right:  Base.bsd_WinRight()
-      Case left:   Base.bsd_WinLeft()
-      Case down:   Base.bsd_WinDown()
-      Case up:     Base.bsd_WinUp()
-      Default:     Base.bsd_MouseAltTab()
+      Case right:
+         ((topRight) ?   Base.bsd_WinUp()
+         : bottomRight ? Base.bsd_WinRight()
+         :               Win.niw_App("ahk_exe Discord.exe", Win.Discord))
+      Case left:
+         ((topLeft) ?    Base.bsd_WinDown()
+         : bottomLeft ?  Base.bsd_WinLeft()
+         :               Win.niw_App("ahk_exe Code.exe", Win.VScode))
+      Case down:         Win.niw_App_WinNum("YouTube Music", "6")
+      Case up:           Win.niw_App("Google Chrome", Win.GoogleChrome)
+      Default:           Base.bsd_MouseAltTab()
    } 
 }
 
@@ -509,7 +514,6 @@ XButton2:: {
    Switch {
       Case right:
          Switch {
-            Case topRight:Base.bsd_NextWin()
             Case WinActive("YouTube Music"), YouTube.ytt_isWatchingVid:
                YouTube.ytt_SkipNext()
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgDn}"
@@ -517,7 +521,6 @@ XButton2:: {
          }
       Case left:
          Switch {
-            Case topLeft:Base.bsd_PrevWin()
             Case WinActive("YouTube Music"), YouTube.ytt_isWatchingVid:
                YouTube.ytt_SkipPrev()
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgUp}"
@@ -885,38 +888,28 @@ MButton::Screenshot.scr_Fullscreen()
 <!SC035::Win.niw_App("Calculator", "calc.exe")
 
 ;Autohotkey help file
-<!SC028::Win.niw_App("AutoHotkey Help", "C:\Program Files\Autohotkey\AutoHotkey.chm")
+<!SC028::Win.niw_App("AutoHotkey Help", Win.AutoHotkeyDocs_v1)
 
 ;Autohotkey v2 help file
-<!SC027::Win.niw_App("AutoHotkey v2 Help", "C:\Program Files\Autohotkey\v2\AutoHotkey.chm")
+<!SC027::Win.niw_App("AutoHotkey v2 Help", Win.AutoHotkeyDocs_v2)
 
 ;Gimp 
-<!SC01A::Win.niw_App("ahk_exe gimp-2.10.exe", "C:\Programs\GIMP 2\bin\gimp-2.10.exe")
+<!SC01A::Win.niw_App("ahk_exe gimp-2.10.exe", Win.Gimp)
 
 ;Atom 
-<!y::Win.niw_App("ahk_exe atom.exe", "C:\Users\serge\AppData\Local\atom\app-1.58.0\atom.exe") 
+<!y::Win.niw_App("ahk_exe atom.exe", Win.Atom) 
 
 ;Video editor
-<!SC01B::Win.niw_App("ahk_exe Resolve.exe", "C:\Programs\Davinci Resolve\Resolve.exe")
+<!SC01B::Win.niw_App("ahk_exe Resolve.exe", Win.DavinciResolve)
 
 ;MinMaxes a game if it exists, closes all apps but spotify if all main 6 apps exist, if they don't: launches those apps of the main 6, that do not yet exist
 <!g:: {
-   ;Google Chrome
+
    chrome := "Google Chrome"
-   chrome_exe := "C:\Program Files\Google\Chrome\Application\chrome.exe" 
-   ;Todoist
    todoist := "ahk_exe Todoist.exe"
-   todoist_exe := "C:\Users\serge\AppData\Local\Programs\todoist\Todoist.exe"
-   ;Telegram
    telegram := "Telegram"
-   telegram_exe := "C:\Programs\Telegram Desktop\Telegram.exe"
-   ;Visual Studio Code
    vscode := "ahk_exe Code.exe"
-   vscode_exe := "C:\Programs\Microsoft VS Code\Code.exe"
-   ;Discord
    discord := "ahk_exe Discord.exe"
-   discord_exe := "C:\Users\serge\AppData\Local\Discord\app-1.0.9004\Discord.exe"
-   ;Steam
    steam := "ahk_exe steam.exe"
 
    ;Variable for ALL the main 6 apps existing
@@ -926,7 +919,13 @@ MButton::Screenshot.scr_Fullscreen()
       ? Win.niw_MinMax("ahk_group Game") 
       : (mainAppsExist 
          ? WinClose("ahk_group Main") 
-         : (Win.niw_ifClose(steam), Win.niw_ifRun(chrome, chrome_exe), Win.niw_ifRun(todoist, todoist_exe), Win.niw_ifRun(telegram, telegram_exe), Win.niw_ifRun(vscode, vscode_exe), Win.niw_ifRun(discord, discord_exe), Win.niw_ifRun_WinNum("YouTube Music", "6"))))
+         : (Win.niw_ifClose(steam),
+            Win.niw_ifRun(chrome, Win.GoogleChrome),
+            Win.niw_ifRun(todoist, Win.Todoist),
+            Win.niw_ifRun(telegram, Win.Telegram),
+            Win.niw_ifRun(vscode, Win.VScode),
+            Win.niw_ifRun(discord, Win.Discord),
+            Win.niw_ifRun_WinNum("YouTube Music", "6"))))
 }
 
 #HotIf !WinActive("ahk_group Game")
@@ -937,51 +936,49 @@ MButton::Screenshot.scr_Fullscreen()
       Case True:
          Switch Double.dbl_Bool("t") {
             ; You pressed three times
-            Case True:Win.niw_App("ahk_exe Viber.exe", "C:\Users\serge\AppData\Local\Viber\Viber.exe") 
+            Case True:Win.niw_App("ahk_exe Viber.exe", Win.Viber) 
             ; You pressed twice
-            Case False:Win.niw_App("ahk_exe WhatsApp.exe", "C:\Users\serge\AppData\Local\WhatsApp\app-2.2140.12\WhatsApp.exe")
+            Case False:Win.niw_App("ahk_exe WhatsApp.exe", Win.WhatsApp)
          }
       ; You pressed once
-      Case False:Win.niw_App("Telegram", "C:\Programs\Telegram Desktop\Telegram.exe")
+      Case False:Win.niw_App("Telegram", Win.Telegram)
    } 
 }
 
 ;Projects folder on single press, FL Studio on double press
 <!f:: {
    (Double.dbl_Bool("f")
-      ? Win.niw_App("ahk_exe FL64.exe", "C:\Programs\FL Studio 20\FL64.exe") 
+      ? Win.niw_App("ahk_exe FL64.exe", Win.FL) 
       : Win.niw_App_Folders("C:\Files\Projects"))
 }
 
 ;Photos or steam
 <!r:: {
    (!Win.niw_ifMinMax("ahk_group Media")
-      ? Win.niw_App("ahk_exe steam.exe", 
-                    "C:\Programs\Steam\steam.exe", 
-                    "Steam - News")
+      ? Win.niw_App("ahk_exe steam.exe", Win.Steam, "Steam - News")
       : "")
 }
 
 ;Visual studio code
-<!a::Win.niw_App("ahk_exe Code.exe", "C:\Programs\Microsoft VS Code\Code.exe")
+<!a::Win.niw_App("ahk_exe Code.exe", Win.VScode)
 
 ;Youtube music
 <!s::Win.niw_App_WinNum("YouTube Music", "6")
 
 ;Chrome 
-<!c::Win.niw_App("Google Chrome", "C:\Program Files\Google\Chrome\Application\chrome.exe")
+<!c::Win.niw_App("Google Chrome", Win.GoogleChrome)
 
 ;Todoist
-<!x::Win.niw_App("ahk_exe Todoist.exe", "C:\Users\serge\AppData\Local\Programs\todoist\Todoist.exe")
+<!x::Win.niw_App("ahk_exe Todoist.exe", Win.Todoist)
 
 ;Wps
-<!w::Win.niw_App("ahk_exe wps.exe", "C:\Users\serge\AppData\Local\Kingsoft\WPS Office\ksolaunch.exe")
+<!w::Win.niw_App("ahk_exe wps.exe", Win.WPS)
 
 ;Discord
-<!q::Win.niw_App("ahk_exe Discord.exe", "C:\Users\serge\AppData\Local\Discord\app-1.0.9004\Discord.exe")
+<!q::Win.niw_App("ahk_exe Discord.exe", Win.Discord)
 
 ;VPN
-<!z::Win.niw_App("ahk_exe vpncmgr_x64.exe", "C:\Program Files\SoftEther VPN Client\vpncmgr_x64.exe")
+<!z::Win.niw_App("ahk_exe vpncmgr_x64.exe", Win.VPN)
 
 ;Explorer
 <!e::Win.niw_App_Folders("C:\")

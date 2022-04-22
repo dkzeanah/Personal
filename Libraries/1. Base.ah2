@@ -128,6 +128,10 @@ Class C_Base {
          Send "{Esc}"
    }
 
+   bsd_WinTab() {
+      Send "#{Tab}"
+   }
+
    bsd_Save() {
       Send "^s"
    }

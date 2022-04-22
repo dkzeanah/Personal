@@ -37,7 +37,8 @@ O_ for objects
 C_ for class
 (the class' object is _ less)
 
-abbreviation of the class name + _ for class methods and properties
+abbreviation of the class name + _ for class methods 
+not for properties since they are vars, not func and won't appear in intellisense anyway
 
 G_ for guis
 

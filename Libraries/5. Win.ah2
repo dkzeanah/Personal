@@ -1,5 +1,40 @@
 Class C_WindowsApp {
 
+   ;EXE PATHS
+   ;————————————————————————————————
+   
+   AutoHotkeyDocs_v1 => "C:\Program Files\Autohotkey\AutoHotkey.chm"
+
+   AutoHotkeyDocs_v2 => "C:\Program Files\Autohotkey\v2\AutoHotkey.chm"
+
+   Gimp => "C:\Programs\GIMP 2\bin\gimp-2.10.exe"
+
+   Atom => "C:\Users\serge\AppData\Local\atom\app-1.58.0\atom.exe"
+
+   DavinciResolve => "C:\Programs\Davinci Resolve\Resolve.exe"
+
+   Viber => "C:\Users\serge\AppData\Local\Viber\Viber.exe"
+
+   WhatsApp => "C:\Users\serge\AppData\Local\WhatsApp\app-2.2140.12\WhatsApp.exe"
+
+   Telegram => "C:\Programs\Telegram Desktop\Telegram.exe"
+
+   FL => "C:\Programs\FL Studio 20\FL64.exe"
+
+   Steam => "C:\Programs\Steam\steam.exe"
+
+   VScode => "C:\Programs\Microsoft VS Code\Code.exe"
+
+   GoogleChrome => "C:\Program Files\Google\Chrome\Application\chrome.exe"
+
+   Todoist => "C:\Users\serge\AppData\Local\Programs\todoist\Todoist.exe"
+
+   WPS => "C:\Users\serge\AppData\Local\Kingsoft\WPS Office\ksolaunch.exe"
+
+   Discord => "C:\Users\serge\AppData\Local\Discord\app-1.0.9004\Discord.exe"
+
+   VPN => "C:\Program Files\SoftEther VPN Client\vpncmgr_x64.exe"
+
    ;Minimizes or maximizes the window depending on its state
    niw_MinMax(title) {
       (WinActive(title) 

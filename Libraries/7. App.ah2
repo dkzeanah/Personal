@@ -126,13 +126,16 @@ Class C_YouTube {
 
    ytt_ChannelSwitch() {
       MouseGetPos &sectionX, &sectionY
-      right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347)
+      right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), topRight := ((sectionX > 1707) && (sectionY < 233)), topLeft := ((sectionX < 252) && (sectionY < 229))
       Switch {
          Case right:this.ytt_ChannelSwitch_Asmr()
-         Case left:this.ytt_ChannelSwitch_Name()
-         Case down:this.ytt_ChannelSwitch_Menu()
-         Case up:this.ytt_ChannelSwitch_Ahk()
-         Default:this.ytt_ChannelSwitch_Switch()
+         Case left:
+            ((topLeft)
+               ?    this.ytt_ChannelSwitch_Ahk()
+               :    this.ytt_ChannelSwitch_Name())
+         Case down: this.ytt_ChannelSwitch_Menu()
+         Case up:   this.ytt_ChannelSwitch_Axlefublr()
+         Default:   this.ytt_ChannelSwitch_Switch()
       }
    }
 
@@ -141,6 +144,7 @@ Class C_YouTube {
    ytt_ChannelSwitch_Name() => ControlClick("X1546 Y334")
    ytt_ChannelSwitch_Ahk() => ControlClick("X1541 Y532")
    ytt_ChannelSwitch_Asmr() => ControlClick("X1532 Y729")
+   ytt_ChannelSwitch_Axlefublr() => ControlClick("X1544 Y633")
 
 }
 YouTube := C_YouTube.Call()

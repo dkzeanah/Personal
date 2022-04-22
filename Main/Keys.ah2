@@ -334,7 +334,7 @@ AppsKey::LCtrl
       Case "new project tasks":Run A_WorkingDir . "\Scripts\New project tasks.py"
       Case "click counter":Run A_WorkingDir . "\Tools\Click counter.ah2"
       Case "discovery add":Run A_WorkingDir . "\Tools\Discovery add.ah2"
-      Case "playlist moving":Run A_WorkingDir . "\Tools\Playlist moving.ah2"
+      Case "add to playlist", "atp":Run A_WorkingDir . "\Tools\Add to Playlist.ah2"
       Case "format table to array":Runner.nur_FormatTableToArray()
       Case "startup":Runner.nur_StartupRun()
       Case "coin flip":Runner.nur_CoinFlip()

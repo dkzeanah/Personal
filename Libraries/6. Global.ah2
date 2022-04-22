@@ -1,11 +1,10 @@
-;it literally says what it does
 F_ClickThenGoBack(coordinates) {
    MouseGetPos &initX, &initY
    Click coordinates
    MouseMove initX, initY
 }
 
-;clickthengoback, but clicks as an event for extra fucky things
+;Clicks as an event for extra fucky things
 F_ClickThenGoBack_Event(coordinates) {
    MouseGetPos &initX, &initY
    SendEvent "{Click " . coordinates . "}"
@@ -16,6 +15,12 @@ F_ClickThenGoBack_Event(coordinates) {
 F_ClipSend(toSend, space:=" ", toSleep:=40) {
    prevClip := A_Clipboard, A_Clipboard := toSend . space, Send("+{Insert}"), SetTimer(() => (A_Clipboard := prevClip), -toSleep) 
 }
+
+;Runs the link and makes sure the browser is activated
+F_RunLink(link) {
+   Run(link), WinActivate("Google Chrome")
+}
+
 
 ;Sends an emoji using its unicode
 F_Emoji(emojiName) {

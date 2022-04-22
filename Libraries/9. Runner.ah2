@@ -1,10 +1,5 @@
 Class C_Runner {
 
-   ;Runs the link and makes sure the browser is activated
-   nur_RunLink(link) {
-      Run(link), WinActivate("Google Chrome")
-   }
-
    ;Takes a random number out of 1 and 100000, says yes if it's even, no if it's odd
    nur_CoinFlip() {
       coinFlip := Random(1, 100000),
@@ -27,18 +22,26 @@ Class C_Runner {
       FileCreateShortcut(selectedFile, A_AppData . "\Microsoft\Windows\Start Menu\Programs\Startup\" . fileName . ".lnk")
    }
 
-   ;Googles how many rubles are there in a specified amount of dollars
-   nur_DollarToRub() {
-      O_DollarToRub := InputBox("How much in dollars?: ", "Currency converter")
-      if O_DollarToRub.Result != "Cancel"
-         this.nur_RunLink("https://www.google.com/search?q=" . O_DollarToRub.Value . "+dollars+in+rubles&oq=" . O_DollarToRub.Value . "+dollars+in+rubles&aqs=chrome..69i57.5947j0j7&sourceid=chrome&ie=UTF-8")
-   }
+   nur_Converter() {
+      O_Converter := InputBox("To convert: ", "Currency converter")
+      if O_Converter.Result == "Cancel"
+         return
 
-   ;The thing above, but reversed
-   nur_RubToDollar() {
-      O_RubToDollar := InputBox("How much in rubles?: ", "Currency converter")
-      if O_RubToDollar.Result != "Cancel"
-         this.nur_RunLink("https://www.google.com/search?q=" . O_RubToDollar.Value . "+rubles+in+dollars&oq=" . O_RubToDollar.Value . "+rubles+in+dollars&aqs=chrome..69i57.4182j1j9&sourceid=chrome&ie=UTF-8")
+      R_Currencies := ["r", "d"]
+      for index in R_Currencies {
+         num := StrReplace(O_Converter.Value, index, "")
+         if num != O_Converter.Value {
+            currency := index
+            break
+         }
+      }
+
+      ((currency == "r")
+         ? (currency := "rubles", oppCurrency := "dollars")
+      : (currency == "d")
+         ? (currency := "dollars", oppCurrency := "rubles") : "")
+
+      F_RunLink("https://www.google.com/search?q=" . num . "+" . currency . "+in+" . oppCurrency . "&oq=" . num . "+" . currency . "+in+" . oppCurrency . "&aqs=chrome..69i57.4182j1j9&sourceid=chrome&ie=UTF-8")
    }
 
    ;Clicks on all the libraries consequentially, loading them into Intellisense
@@ -94,7 +97,7 @@ Class C_Runner {
       fullLink := "https://github.com/Axlefublr/" . workingLink
 
       Switch doWhat {
-         Case "run":  this.nur_RunLink(fullLink)
+         Case "run":  this.F_RunLink(fullLink)
          Case "paste":F_ClipSend(fullLink, "")
       }
    }

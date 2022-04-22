@@ -217,6 +217,7 @@ Browser_Home::return ;F12
 *Numpad1::return
 *NumpadDot::return
 *NumpadEnter::return
+PrintScreen::return
 
 ;Numpad is special buttons
 SC047::Insert
@@ -226,7 +227,6 @@ SC04C::End
 SC049::PgUp
 SC04D::PgDn
 AppsKey::LCtrl
-PrintScreen::return
 
 ;Makes sure the side mouse buttons work as intended ingame, despite their remapping outside of game 
 #HotIf WinActive("ahk_group Game_M")
@@ -261,33 +261,33 @@ PrintScreen::return
       ;——————————————————
 
       ;Reddit
-      Case "reddit":Runner.nur_RunLink("https://www.reddit.com/notifications")
+      Case "reddit":F_RunLink("https://www.reddit.com/notifications")
       ;Instagram
-      Case "inst", "instagram":Runner.nur_RunLink("https://www.instagram.com/")
+      Case "inst", "instagram":F_RunLink("https://www.instagram.com/")
       ;Twitter
-      Case "twit", "twitter":Runner.nur_RunLink("https://twitter.com/home")
+      Case "twit", "twitter":F_RunLink("https://twitter.com/home")
       ;Eкурсы
-      Case "eku":Runner.nur_RunLink("https://e.sfu-kras.ru/calendar/view.php?view=month&time=" . TimeTable.tmt_Month())
+      Case "eku":F_RunLink("https://e.sfu-kras.ru/calendar/view.php?view=month&time=" . TimeTable.tmt_Month())
       ;MyAnimeList
-      Case "mal":Runner.nur_RunLink("https://myanimelist.net/profile/Axlefublr")
+      Case "mal":F_RunLink("https://myanimelist.net/profile/Axlefublr")
       ;Metta
-      Case "metta":Runner.nur_RunLink("https://mettalife.ru/pl/my?gcmes=5779290672&gcmlg=-4")
+      Case "metta":F_RunLink("https://mettalife.ru/pl/my?gcmes=5779290672&gcmlg=-4")
       ;Weather
-      Case "weather":Runner.nur_RunLink("https://yandex.ru/pogoda/krasnoyarsk")
+      Case "weather":F_RunLink("https://yandex.ru/pogoda/krasnoyarsk")
       ;Watch movies
-      Case "movies":Runner.nur_RunLink("https://watchmovieshd.ru/")
+      Case "movies":F_RunLink("https://watchmovieshd.ru/")
       ;Gogoanime
-      Case "gogoanime":Runner.nur_RunLink("https://gogoanime.fi/")
+      Case "gogoanime":F_RunLink("https://gogoanime.fi/")
       ;Mvideo
-      Case "mvideo":Runner.nur_RunLink("https://www.mvideo.ru/")
+      Case "mvideo":F_RunLink("https://www.mvideo.ru/")
       ;Steam keys
-      Case "zaka", "zakazaka":Runner.nur_RunLink("https://zaka-zaka.com/")
+      Case "zaka", "zakazaka":F_RunLink("https://zaka-zaka.com/")
       ;Barbershop
-      Case "barber":Runner.nur_RunLink("https://b73723.yclients.com/company/89170/menu?o=")
+      Case "barber":F_RunLink("https://b73723.yclients.com/company/89170/menu?o=")
       ;Emoji unicodes
-      Case "emoji":Runner.nur_RunLink("https://www.alt-codes.net/smiley_alt_codes.php")
+      Case "emoji":F_RunLink("https://www.alt-codes.net/smiley_alt_codes.php")
       ;Share files
-      Case "share files":Runner.nur_RunLink("https://files.fm/")
+      Case "share files":F_RunLink("https://files.fm/")
 
 
       ;РАСПИСАНИЕ
@@ -309,7 +309,7 @@ PrintScreen::return
             Case 5:TimeTable.tmt_Day("Thursday")
             Case 6:TimeTable.tmt_Day("Friday")
          }
-      Case "week":Run TimeTable.tmt_Full
+      Case "week":F_RunLink(TimeTable.tmt_Full)
       Case "monday":TimeTable.tmt_Day("Monday")
       Case "tuesday":TimeTable.tmt_Day("Tuesday")
       Case "wednesday":TimeTable.tmt_Day("Wednesday")
@@ -338,8 +338,7 @@ PrintScreen::return
       Case "format table to array":Runner.nur_FormatTableToArray()
       Case "startup":Runner.nur_StartupRun()
       Case "coin flip":Runner.nur_CoinFlip()
-      Case "dr":Runner.nur_DollarToRub()
-      Case "rd":Runner.nur_RubToDollar()
+      Case "converter", "conv":Runner.nur_Converter()
       Case "ytm":YTMusic.ytm_LinkConverter()
       Case "lib", "libload":Runner.nur_LibLoad()
 
@@ -349,7 +348,7 @@ PrintScreen::return
       
       Case "gitpage", "gitfile", "gitlink":Runner.nur_GitPage("paste")
       Case "git":Runner.nur_GitPage("run")
-      Case "github":Runner.nur_RunLink("https://github.com/Axlefublr")
+      Case "github":F_RunLink("https://github.com/Axlefublr")
 
 
       ;SEND
@@ -698,12 +697,6 @@ F7::Telegram.tlg_Channel("кристина")
 F8::Telegram.tlg_Channel("алена")
 F9::Telegram.tlg_Channel("invie")
 
-;Spoiler
-^p::Send "^+p" 
-
-;Strikethrough
-^n::Send "^+x"
-
 
 #HotIf WinActive("ahk_exe Todoist.exe") ;_todoist
 
@@ -718,12 +711,11 @@ F6::Todoist.tds_Project("shopping")
 ;Gives the current task an unfinished label and lets you edit its description
 +!e::Todoist.tds_toUnfinished()
 
-;Enter is always down enter
 Enter::Base.bsd_ChooseNext()
 
 
 #HotIf WinActive("ahk_exe Discord.exe")
-MButton::Base.bsd_CtrlClick()
+MButton::Discord.dsc_Reply()
 
 
 

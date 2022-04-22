@@ -19,8 +19,8 @@
       ],
       "description": ""
    },
-   "S_Section comment separator": {
-      "prefix": "S_Section comment separator",
+   "Big section": {
+      "prefix": "S_Big_section",
       "body": [
          ";$0######################################################################################",
          ";######################################################################################",
@@ -45,7 +45,7 @@
       ],
       "description": ""
    },
-   "S_Directories": {
+   "Directories": {
       "prefix": "S_Directories",
       "body": [
          "SetWorkingDir A_ScriptDir . \"\\..\\\" ;Ensures a consistent A_WorkingDir.",
@@ -365,7 +365,7 @@
          "FormatTime($0)"
       ]
    },
-   "S_Directories_v1": {
+   "Directories v1": {
       "prefix": "S_Directories_v1",
       "body": [
          "#NoEnv ;Recommended for performance and compatibility with future AutoHotkey releases.",
@@ -1043,8 +1043,8 @@
          "A_TimeSincePriorHotkey"
       ]
    },
-   "S_TwicePress": {
-      "prefix": "S_TwicePress",
+   "Twice press": {
+      "prefix": "S_Twice_press",
       "body": [
          "(A_PriorHotkey == A_ThisHotkey) && (A_TimeSincePriorHotkey <= 200)"
       ]
@@ -1061,8 +1061,8 @@
          "WinWaitNotActive"
       ]
    },
-   "S_IncludeHigher": {
-      "prefix": "S_IncludeHigher",
+   "Include higher": {
+      "prefix": "S_Include_higher",
       "body": [
          "#Include \"%A_ScriptDir%\\..\\\\$0\""
       ]
@@ -1073,7 +1073,7 @@
          "OnExit((ExitReason, ExitCode) => $0)"
       ]
    },
-   "S_Function": {
+   "Function": {
       "prefix": "S_Function",
       "body": [
          "F_$1($2) {",
@@ -1081,7 +1081,7 @@
          "}"
       ]
    },
-   "S_Arrow": {
+   "Arrow": {
       "prefix": "S_Arrow",
       "body": [
          "${1:F_$2}($3) => ${4:($0)}"
@@ -1099,12 +1099,19 @@
          "break"
       ]
    },
-   "S_ ": {
-      "prefix": "",
+   "Full Gesture vars": {
+      "prefix": "S_Full_Gesture_vars",
       "body": [
          "right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), topRight := ((sectionX > 1707) && (sectionY < 233)), topLeft := ((sectionX < 252) && (sectionY < 229)), bottomLeft := ((sectionX < 263) && (sectionY > 849)), bottomRight := ((sectionX > 1673) && (sectionY > 839))"
       ],
-      "description": "Definition"
+      "description": "Variable definitions"
+   },
+   "Gesture vars": {
+      "prefix": "S_Gesture_vars",
+      "body": [
+         "right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347)"
+      ],
+      "description": "Variable definitions"
    },
    "Class": {
       "prefix": "Class",
@@ -1115,8 +1122,8 @@
          "$2 := C_$3()"
       ]
    },
-   "S_SmallSectionSeparator": {
-      "prefix": ";———",
+   "Small section": {
+      "prefix": "S_Small_section",
       "body": [
          ";————————————————————————————————"
       ]

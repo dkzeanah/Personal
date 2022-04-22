@@ -56,7 +56,7 @@ Class C_WindowsApp {
    }
 
    ;WindowsApp, but for folders
-   F_App_Folders(folderPath) {
+   niw_App_Folders(folderPath) {
       Switch {
          Case !WinExist(folderPath):Run(folderPath), WinWait(folderPath), WinActivate(folderPath)
          Case WinActive(folderPath):WinMinimize folderPath

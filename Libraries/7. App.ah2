@@ -219,6 +219,10 @@ Class C_Discord {
       Send "^g"
    }
 
+   dsc_Reply() {
+      Base.bsd_CtrlClick()
+   }
+
    dsc_Markdown() {
       MsgBox "__ underline __`n* italic *`n** bold **`n~~ strikethrough ~~`n|| spoiler ||`n`````` code ```````n`` code inline ```n_ nothing _", "Markdown", "4096"
    }

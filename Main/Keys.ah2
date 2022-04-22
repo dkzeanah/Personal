@@ -17,29 +17,23 @@ A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seco
 ;######################################################################################
 
 
-;Reload this script
 ScrollLock::Script.scr_Reload()
 SC050::Script.scr_Reload()
 
-;Hard reload this script
 !ScrollLock::Script.scr_HardReload()
 !SC050::Script.scr_HardReload()
 
-;Suspend this script 
 #SuspendExempt True
 +ScrollLock::Script.scr_Suspend()
 +SC050::Script.scr_Suspend()
 #SuspendExempt False
 
-;Run Testscript v2
 Pause::Script.scr_Test()
 SC051::Script.scr_Test()
 
-;Run Testscript v1
 +Pause::Script.scr_Test("v1.ahk")
 +SC051::Script.scr_Test("v1.ahk")
 
-;Reboot system
 #ScrollLock::Script.scr_Reboot()
 #SC050::Script.scr_Reboot()
 
@@ -79,18 +73,15 @@ SC051::Script.scr_Test()
 ;Functions that are used in the runner
 #Include "%A_ScriptDir%\..\Libraries\9. Runner.ah2"
 
-;Games
 GroupAdd "Game",            "ahk_exe EtG.exe"
 GroupAdd "Game",            "ahk_exe isaac-ng.exe"
 GroupAdd "Game",            "ahk_exe nuclearthrone.exe"
 GroupAdd "Game",            "ahk_exe METAL GEAR RISING REVENGEANCE.exe"
 
-;Games that use base remapping
-GroupAdd "Game_M",          "ahk_exe EtG.exe"
+GroupAdd "Game_M",          "ahk_exe EtG.exe" 
 GroupAdd "Game_M",          "ahk_exe isaac-ng.exe"
 GroupAdd "Game_M",          "ahk_exe nuclearthrone.exe"
 
-;Main apps
 GroupAdd "Main",            "ahk_exe chrome.exe"
 GroupAdd "Main",            "ahk_exe Todoist.exe"
 GroupAdd "Main",            "ahk_exe Telegram.exe"
@@ -99,26 +90,21 @@ GroupAdd "Main",            "ahk_exe Discord.exe"
 GroupAdd "Main",            "AutoHotkey Help"
 GroupAdd "Main",            "AutoHotkey v2 Help"
 
-;Messengers
 GroupAdd "Messenger",       "Google Chrome"
 GroupAdd "Messenger",       "ahk_exe Telegram.exe"
 GroupAdd "Messenger",       "ahk_exe Discord.exe"
 GroupAdd "Messenger",       "ahk_exe WhatsApp.exe"
 GroupAdd "Messenger",       "ahk_exe Viber.exe"
 
-;Word documents
 GroupAdd "Document",        ".doc"
 GroupAdd "Document",        ".docx"
 
-;Whatsapp and viber
 GroupAdd "Whatiber",        "ahk_exe WhatsApp.exe"
 GroupAdd "Whatiber",        "ahk_exe Viber.exe"
 
-;Media
 GroupAdd "Media",           "Photos"
 GroupAdd "Media",           "ahk_exe KMPlayer64.exe"
 
-;Autohotkey help
 GroupAdd "AutoHotkey_Help", "AutoHotkey Help"
 GroupAdd "AutoHotkey_Help", "AutoHotkey v2 Help"
 
@@ -240,6 +226,7 @@ SC04C::End
 SC049::PgUp
 SC04D::PgDn
 AppsKey::LCtrl
+PrintScreen::return
 
 ;Makes sure the side mouse buttons work as intended ingame, despite their remapping outside of game 
 #HotIf WinActive("ahk_group Game_M")
@@ -257,13 +244,13 @@ AppsKey::LCtrl
 
 
 
-;SPECIAL HOTKEYS ######################################################################
+;RUNNER ###############################################################################
 ;######################################################################################
 ;######################################################################################
 ;######################################################################################
 
 
-;Gives you a place to essentially type a hotstring. Runs what you entered
+;Runner
 +!l:: {
    O_Runner := InputBox("What do you want to run?", "Runner")
    if O_Runner.Result = "Cancel" 
@@ -380,7 +367,9 @@ AppsKey::LCtrl
       ;I quickly became homophobic
       Case "I quickly became homophobic":F_ClipSend("https://www.youtube.com/watch?v=m2ksGuqf8eo")
       ;If you design a quest
-      Case "If you design a quest":F_ClipSend("https://www.youtube.com/watch?v=chn0ggv9TdY")
+      Case "if you design a quest":F_ClipSend("https://www.youtube.com/watch?v=chn0ggv9TdY")
+      ;Zoro is racist 100% not even imo
+      Case "zoro is racist":F_ClipSend("https://www.youtube.com/watch?v=kb_udP2ZeF8")
    }
 }
 
@@ -389,11 +378,11 @@ AppsKey::LCtrl
    prevActWin := WinGetID("A")
    Send "^+!x"
    (WinWait("ahk_exe Todoist.exe",, 7) 
-      ? SetTimer(ReactivatePrevActWin, 100) : "")
+      ? SetTimer(ReactivatePrevActWin, 200) : "")
    
    ;Waits for the quick add task window to disappear and as soon as it does, reactivates the window it was called from
    ReactivatePrevActWin() => (
-      !WinActive("ahk_exe Todoist.exe")
+      (!WinActive("ahk_exe Todoist.exe"))
          ? (WinActivate("ahk_id " . prevActWin),
             SetTimer(ReactivatePrevActWin, 0)) : ""
    ) 
@@ -623,10 +612,6 @@ XButton1:: {
 ;###################################################################################### 
 
 
-#HotIf WinActive("ahk_exe chrome.exe")
-Volume_Down & MButton::F5
-
-
 #HotIf WinActive("Google Chrome") ;_chrome
 
 ;Single press is copy, double press will get current tab's link to clipboard
@@ -655,11 +640,6 @@ F9::Send "{Volume_Down}"
 +!w::(!WinActive("Messenger") ? Base.bsd_CloseTab() : "")
 
 
-#HotIf WinActive("YouTube") ;_youtube 
-PgDn::YouTube.ytt_SkipNext()
-PgUp::YouTube.ytt_SkipPrev()
-
-
 #HotIf WinActive("YouTube Music") ;_youtube music
 
 F1::YTMusic.ytm_Search()
@@ -677,14 +657,20 @@ F12::YTMusic.ytm_Like()
 F11::YTMusic.ytm_Dislike()
 
 
+#HotIf WinActive("ahk_exe chrome.exe")
+Volume_Down & MButton::F5
+^Space::Send "{Down}"
+
+#HotIf WinActive("YouTube") ;_youtube 
+PgDn::YouTube.ytt_SkipNext()
+PgUp::YouTube.ytt_SkipPrev()
+
 #HotIf YouTube.ytt_isNotWatchingVid
 Escape::YouTube.ytt_MiniscreenClose()
-
 
 #HotIf Youtube.ytt_isWatchingVid
 !Right::YouTube.ytt_Seek("right")
 !Left::YouTube.ytt_Seek("left")
-
 
 #HotIf WinActive("WatchMoviesHD")
 Up::Send "{Volume_Up}"
@@ -752,6 +738,9 @@ MButton::Base.bsd_CtrlClick()
 
 ;Copies the most important setting files of vs code into the /Backups folder
 ^u::Run A_WorkingDir . "\Scripts\Pull vs code settings.py"
+
+PrintScreen::VSC.vsc_RunCurrentInTerminal()
+!PrintScreen::VSC.vsc_KillCurrentTerminal()
 
 ;Choose a workspace to open
 ^!SC02B::VSC.vsc_WorkspaceCorrectPath("^!\")
@@ -975,7 +964,9 @@ MButton::Screenshot.scr_Fullscreen()
 ;Photos or steam
 <!r:: {
    (!Win.niw_ifMinMax("ahk_group Media")
-      ? Win.niw_App("ahk_exe steam.exe", "C:\Programs\Steam\steam.exe", "Steam - News")
+      ? Win.niw_App("ahk_exe steam.exe", 
+                    "C:\Programs\Steam\steam.exe", 
+                    "Steam - News")
       : "")
 }
 

@@ -18,19 +18,19 @@ Chrome := C_Chrome()
 
 Class C_YouTubeMusic {
    
-   ytm_Liked() {
-      ControlClick("X447 Y913")
-   }
-
    ytm_Library() {
       ControlClick("X1013 Y73")
    }
 
-   ytm_Best() {
-      ControlClick("X1206 Y914")
+   ytm_Liked() {
+      ControlClick("X447 Y913")
    }
 
    ytm_Discovery() {
+      ControlClick("X697 Y940")
+   }
+
+   ytm_Best() {
       ControlClick("X950 Y920")
    }
 
@@ -59,12 +59,18 @@ Class C_YouTubeMusic {
    }
 
    ytm_ChannelSwitch() {
-      ControlClick("X1861 Y75")
-      Sleep(100),
-      Send("{Tab 3}{Enter}")
-      Sleep(350),
-      Send("{Tab 5}{Enter}")
+      MouseGetPos &sectionX, &sectionY
+      right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347)
+      Switch {
+         Case down:this.ytm_ChannelSwitch_Menu()
+         Case up:this.ytm_ChannelSwitch_Axlefublr()
+         Default:this.ytm_ChannelSwitch_Switch()
+      }
    }
+
+   ytm_ChannelSwitch_Menu() => ControlClick("X1863 Y75")
+   ytm_ChannelSwitch_Switch() => ControlClick("X1688 Y297")
+   ytm_ChannelSwitch_Axlefublr() => ControlClick("X1691 Y559")
 
    ;Converts a YT music link into a youtube link and pastes it
    ytm_LinkConverter() {
@@ -119,10 +125,22 @@ Class C_YouTube {
    )
 
    ytt_ChannelSwitch() {
-      ControlClick("X1820 Y133")
-      Sleep(400)
-      Send("{Tab 5}{Enter}")
+      MouseGetPos &sectionX, &sectionY
+      right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347)
+      Switch {
+         Case right:this.ytt_ChannelSwitch_Asmr()
+         Case left:this.ytt_ChannelSwitch_Name()
+         Case down:this.ytt_ChannelSwitch_Menu()
+         Case up:this.ytt_ChannelSwitch_Ahk()
+         Default:this.ytt_ChannelSwitch_Switch()
+      }
    }
+
+   ytt_ChannelSwitch_Menu() => ControlClick("X1821 Y131")
+   ytt_ChannelSwitch_Switch() => ControlClick("X1534 Y460")
+   ytt_ChannelSwitch_Name() => ControlClick("X1546 Y334")
+   ytt_ChannelSwitch_Ahk() => ControlClick("X1541 Y532")
+   ytt_ChannelSwitch_Asmr() => ControlClick("X1532 Y729")
 
 }
 YouTube := C_YouTube.Call()
@@ -239,6 +257,14 @@ Class C_VSCode {
 
    vsc_Comment() {
       Send "^/"
+   }
+
+   vsc_RunCurrentInTerminal() {
+      Send "+!h"
+   }
+
+   vsc_KillCurrentTerminal() {
+      Send "+!2"
    }
    
    vsc_KeyCodeGetter() {

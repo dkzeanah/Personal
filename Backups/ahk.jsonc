@@ -50,8 +50,10 @@
       "body": [
          "SetWorkingDir A_ScriptDir . \"\\..\\\" ;Ensures a consistent A_WorkingDir.",
          "#SingleInstance Force ;Launches the new instance of the script always, instead of asking whether it should",
-         "#Hotstring EndChars `t ;Decides the characters that can finish a hotstring",
          "#WinActivateForce ;Forces windows to be activated, skipping the gentle method",
+         "#Hotstring EndChars `t ;Decides the characters that can finish a hotstring",
+         "#InputLevel 2 ;Makes sure hotkeys can't activate themselves (effectively $ on every hotkey)",
+         "#HotIf ;At the start to autoresolve \"this hotkey already exists\" conflicts",
          "CoordMode \"Mouse\", \"Screen\" ;Uses the coordinates of the screen rather than of the window's",
          "A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seconds"
       ],
@@ -1097,11 +1099,12 @@
          "break"
       ]
    },
-   "S_Section definition": {
-      "prefix": "S_Section definition",
+   "S_ ": {
+      "prefix": "",
       "body": [
-         "right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), topRight := ((sectionX > 1707) && (sectionY < 233)), topLeft := ((sectionX < 252) && (sectionY < 229)), bottomLeft := ((sectionX < 263) && (sectionY > 849)), bottomRight := ((sectionX > 1673) && (sectionY > 839)"
-      ]
+         "right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), topRight := ((sectionX > 1707) && (sectionY < 233)), topLeft := ((sectionX < 252) && (sectionY < 229)), bottomLeft := ((sectionX < 263) && (sectionY > 849)), bottomRight := ((sectionX > 1673) && (sectionY > 839))"
+      ],
+      "description": "Definition"
    },
    "Class": {
       "prefix": "Class",

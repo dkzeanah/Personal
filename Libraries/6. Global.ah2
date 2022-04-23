@@ -12,8 +12,8 @@ F_ClickThenGoBack_Event(coordinates) {
 } 
 
 ;A faster send. Sending stuff can take too long, but if you copy and paste it, it's much faster. Takes care of your previous clipboard disappearing as well
-F_ClipSend(toSend, space:=" ", toSleep:=40) {
-   prevClip := A_Clipboard, A_Clipboard := toSend . space, Send("+{Insert}"), SetTimer(() => (A_Clipboard := prevClip), -toSleep) 
+F_ClipSend(toSend, space:=" ") {
+   prevClip := A_Clipboard, A_Clipboard := toSend . space, Send("^v"), F_RevertClipboard(prevClip)
 }
 
 ;Runs the link and makes sure the browser is activated
@@ -32,4 +32,8 @@ F_RandomWord(whichArray) {
    Send "{BackSpace 6}"
    i := Random(1, 3000)
    Send whichArray[i]
+}
+
+F_RevertClipboard(prevClip) {
+   SetTimer () => A_Clipboard := prevClip, -200
 }

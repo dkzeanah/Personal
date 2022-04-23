@@ -19,8 +19,8 @@
       ],
       "description": ""
    },
-   "Big section": {
-      "prefix": "S_Big_section",
+   "Big separator": {
+      "prefix": "~Big separator",
       "body": [
          ";$0######################################################################################",
          ";######################################################################################",
@@ -29,7 +29,7 @@
          "",
          ""
       ],
-      "description": "Commented lines to separate sections of code"
+      "description": "Commented lines to separate large sections of code"
    },
    "Persistent": {
       "prefix": "Persistent",
@@ -46,7 +46,7 @@
       "description": ""
    },
    "Directories": {
-      "prefix": "S_Directories",
+      "prefix": "~Directories",
       "body": [
          "SetWorkingDir A_ScriptDir . \"\\..\\\" ;Ensures a consistent A_WorkingDir.",
          "#SingleInstance Force ;Launches the new instance of the script always, instead of asking whether it should",
@@ -366,7 +366,7 @@
       ]
    },
    "Directories v1": {
-      "prefix": "S_Directories_v1",
+      "prefix": "~Directories v1",
       "body": [
          "#NoEnv ;Recommended for performance and compatibility with future AutoHotkey releases.",
          "#Warn ;Enable warnings to assist with detecting common errors.",
@@ -1043,8 +1043,8 @@
          "A_TimeSincePriorHotkey"
       ]
    },
-   "Twice press": {
-      "prefix": "S_Twice_press",
+   "Same hotkey twice": {
+      "prefix": "~Same hotkey twice",
       "body": [
          "(A_PriorHotkey == A_ThisHotkey) && (A_TimeSincePriorHotkey <= 200)"
       ]
@@ -1062,7 +1062,7 @@
       ]
    },
    "Include higher": {
-      "prefix": "S_Include_higher",
+      "prefix": "~Include higher",
       "body": [
          "#Include \"%A_ScriptDir%\\..\\\\$0\""
       ]
@@ -1074,7 +1074,7 @@
       ]
    },
    "Function": {
-      "prefix": "S_Function",
+      "prefix": "~Function",
       "body": [
          "F_$1($2) {",
          "\t$0",
@@ -1082,7 +1082,7 @@
       ]
    },
    "Arrow": {
-      "prefix": "S_Arrow",
+      "prefix": "~Arrow",
       "body": [
          "${1:F_$2}($3) => ${4:($0)}"
       ]
@@ -1099,15 +1099,15 @@
          "break"
       ]
    },
-   "Full Gesture vars": {
-      "prefix": "S_Full_Gesture_vars",
+   "Full section gesture vars": {
+      "prefix": "~Section gesture vars full",
       "body": [
          "right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), topRight := ((sectionX > 1707) && (sectionY < 233)), topLeft := ((sectionX < 252) && (sectionY < 229)), bottomLeft := ((sectionX < 263) && (sectionY > 849)), bottomRight := ((sectionX > 1673) && (sectionY > 839))"
       ],
       "description": "Variable definitions"
    },
-   "Gesture vars": {
-      "prefix": "S_Gesture_vars",
+   "Section gesture vars": {
+      "prefix": "~Section gesture vars",
       "body": [
          "right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347)"
       ],
@@ -1122,25 +1122,31 @@
          "$2 := C_$3()"
       ]
    },
-   "Small section": {
-      "prefix": "S_Small_section",
+   "Small separator": {
+      "prefix": "~Small separator",
       "body": [
          ";————————————————————————————————"
       ]
    },
    "Close when closed": {
-      "prefix": ".OnEvent(\"Close\", (*) => ExitApp())",
+      "prefix": ".OnEvent(CloseExit)",
       "body": [
          ".OnEvent(\"Close\", (*) => ExitApp())"
       ],
       "description": "Exit the script when gui is closed"
    },
    "Close when clicked": {
-      "prefix": ".OnEvent(\"Click\", (*) => ExitApp())",
+      "prefix": ".OnEvent(ClickExit)",
       "body": [
          ".OnEvent(\"Click\", (*) => ExitApp())"
       ],
       "description": "Exit the script when guicontrol is clicked"
+   },
+   "Include C_Script": {
+      "prefix": "~Include C_Script",
+      "body": [
+         "#Include \"%A_ScriptDir%\\..\\Libraries\\8. Script.ah2\""
+      ]
    },
    
 }

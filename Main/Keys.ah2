@@ -334,13 +334,14 @@ AppsKey::LCtrl
       Case "new project tasks":Run A_WorkingDir . "\Scripts\New project tasks.py"
       Case "click counter":Run A_WorkingDir . "\Tools\Click counter.ah2"
       Case "discovery add":Run A_WorkingDir . "\Tools\Discovery add.ah2"
-      Case "add to playlist", "atp":Run A_WorkingDir . "\Tools\Add to Playlist.ah2"
+      Case "add to playlist", "atp", "ytp":Run A_WorkingDir . "\Tools\Add to Playlist.ah2"
       Case "format table to array":Runner.nur_FormatTableToArray()
       Case "startup":Runner.nur_StartupRun()
       Case "coin flip":Runner.nur_CoinFlip()
       Case "converter", "conv":Runner.nur_Converter()
       Case "ytm":YTMusic.ytm_LinkConverter()
       Case "lib", "libload":Runner.nur_LibLoad()
+      Case "artists count":Runner.nur_ArtistsCount()
 
 
       ;GITHUB
@@ -548,6 +549,8 @@ XButton1:: {
                   ?       Base.bsd_RestoreTab()
                   :       Base.bsd_NextTab())
             Case left:    Base.bsd_PrevTab()
+               ; ((topLeft)
+               ;    ? YouTube.ytt_)   
             Case up:      Base.bsd_NewTab()
             Case down:
                (WinActive("Messenger") 
@@ -978,7 +981,10 @@ MButton::Screenshot.scr_Fullscreen()
 <!q::Win.niw_App("ahk_exe Discord.exe", Win.Discord)
 
 ;VPN
-<!z::Win.niw_App("ahk_exe vpncmgr_x64.exe", Win.VPN)
+<!z:: {
+   (!Win.niw_ifMinMax("SoundCloud")
+      ? Win.niw_App("ahk_exe vpncmgr_x64.exe", Win.VPN) : "")
+}
 
 ;Explorer
 <!e::Win.niw_App_Folders("C:\")

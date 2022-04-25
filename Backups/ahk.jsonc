@@ -1148,5 +1148,11 @@
          "#Include \"%A_ScriptDir%\\..\\Libraries\\8. Script.ah2\""
       ]
    },
+   "InputLevel": {
+      "prefix": "#InputLevel",
+      "body": [
+         "#InputLevel "
+      ]
+   },
    
 }

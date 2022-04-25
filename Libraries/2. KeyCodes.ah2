@@ -68,6 +68,7 @@ D_KeyCodes_In := Map(
 "CtrlBreak",                "SC146",
 "Pause",                    "SC045",
 "ScrollLock",               "SC046",
+"Insert",                   "SC152",
 "AppsKey",                  "SC15D", 
 "LShift",                   "SC02A", 
 "RShift",                   "SC136", 

@@ -275,23 +275,34 @@ Class C_VSCode {
       Send "+!2"
    }
    
-   vsc_KeyCodeGetter() {
+   vsc_KeyCodeGetter(direction) {
       inputBoxTitle := "Key codes"
-      prevClip := A_Clipboard
-      Base.bsd_Copy()
-      Sleep 40
-      Try {
-         MsgBox D_KeyCodes_Out[A_Clipboard], inputBoxTitle
-         A_Clipboard := prevClip
-      }
-      Catch {
+      vsc_KeyNotFound() => MsgBox("Key not found!", inputBoxTitle, "T1")
+      ((direction == "to")
+         ? vsc_ToSC()
+      : direction == "from"
+         ? vsc_FromSC() : "")
+
+      vsc_ToSC() {
          Try {
             keyPointer := InputBox("Key pointer:", inputBoxTitle)
             if keyPointer.Result != "Cancel"
                A_Clipboard := D_KeyCodes_In[keyPointer.Value]
          }
          Catch
-            MsgBox "Key not found!", inputBoxTitle, "T1"
+            vsc_KeyNotFound()
+      }
+      
+      vsc_FromSC() {
+         Try {
+            prevClip := A_Clipboard
+            Base.bsd_Copy()
+            Sleep 40
+            MsgBox D_KeyCodes_Out[A_Clipboard], inputBoxTitle
+            A_Clipboard := prevClip
+         }
+         Catch 
+            vsc_KeyNotFound()
       }
    }
 

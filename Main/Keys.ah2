@@ -2,40 +2,20 @@ SetWorkingDir A_ScriptDir . "\..\" ;Ensures a consistent A_WorkingDir
 #SingleInstance Force ;Launches the new instance of the script always, instead of asking whether it should
 #WinActivateForce ;Forces windows to be activated, skipping the gentle method
 #Hotstring EndChars `t ;Decides the characters that can finish a hotstring
-#InputLevel 2 ;Makes sure hotkeys can't activate themselves (effectively $ on every hotkey)
 #HotIf ;At the start to autoresolve "this hotkey already exists" conflicts
 SetScrollLockState "AlwaysOff"
 CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of the window's
 A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seconds
 
-
-
-
-;SCRIPT SELF ##########################################################################
-;######################################################################################
-;######################################################################################
-;######################################################################################
-
-
-ScrollLock::Script.scr_Reload()
-SC050::Script.scr_Reload()
-
-!ScrollLock::Script.scr_HardReload()
-!SC050::Script.scr_HardReload()
-
 #SuspendExempt True
-+ScrollLock::Script.scr_Suspend()
-+SC050::Script.scr_Suspend()
+Launch_Media:: Script.scr_Reload()
+!Launch_Media::Script.scr_HardReload()
++Launch_Media::Script.scr_Suspend()
+#Launch_Media::Script.scr_Reboot()
+Pause::        Script.scr_Test()
++Pause::       Script.scr_Test("v1.ahk")
 #SuspendExempt False
-
-Pause::Script.scr_Test()
-SC051::Script.scr_Test()
-
-+Pause::Script.scr_Test("v1.ahk")
-+SC051::Script.scr_Test("v1.ahk")
-
-#ScrollLock::Script.scr_Reboot()
-#SC050::Script.scr_Reboot()
+#InputLevel 5
 
 
 
@@ -167,34 +147,8 @@ SC047::Base.bsd_SelectAll()
 >^PgUp::Media_Prev
 >^Pgdn::Media_Next
 
-
-#HotIf WinActive("ahk_group Messenger")
-
-;Alt + number sends the Unicode for a specific emoji, making that work anywhere. These hotkeys only work in windows that are messengers
-;🥺😋🤯😼😎😭🧐😳🤨🤔—💀
-!1::F_Emoji("pleading")
-!2::F_Emoji("yum")
-!3::F_Emoji("exploding_head")
-!4::F_Emoji("smirk_cat")
-!5::F_Emoji("sunglasses")
-!6::F_Emoji("sob")
-!7::F_Emoji("face_with_monocle")
-!8::F_Emoji("flushed")
-!9::F_Emoji("face_with_raised_eyebrow")
-!0::F_Emoji("thinking")
-!=::F_Emoji("skull")
-
-;Alt + F keys are emojis as well
-;😩🤤💜👉👈
-!F5::F_Emoji("weary")
-!F6::F_Emoji("drooling")
-!F7::F_Emoji("purple_heart")
-!F8::F_Emoji("finger_right"), F_Emoji("finger_left")
-
-#HotIf 
-
 ;Makes sure fn + function key doesn't do its native function. Commented if made into a hotkey
-Launch_Media::return ;F1
+; Launch_Media::return ;F1
 Media_Play_Pause::return ;F2
 Media_Stop::return ;F3
 Media_Prev::return ;F4
@@ -220,13 +174,18 @@ Browser_Home::return ;F12
 PrintScreen::return
 
 ;Numpad is special buttons
+#SuspendExempt True
 SC047::Insert
 SC04B::Delete
 SC048::Home
 SC04C::End
 SC049::PgUp
 SC04D::PgDn
+SC050::Launch_Media
+SC051::SC045
+ScrollLock::Launch_Media
 AppsKey::LCtrl
+#SuspendExempt False
 
 ;Makes sure the side mouse buttons work as intended ingame, despite their remapping outside of game 
 #HotIf WinActive("ahk_group Game_M")
@@ -240,6 +199,32 @@ AppsKey::LCtrl
 *Volume_Down::i
 *CapsLock::Enter
 #HotIf
+
+
+#HotIf WinActive("ahk_group Messenger")
+
+;Alt + number sends the Unicode for a specific emoji, making that work anywhere. These hotkeys only work in windows that are messengers
+;🥺😋🤯😼😎😭🧐😳🤨🤔—💀
+!1::F_Emoji("pleading")
+!2::F_Emoji("yum")
+!3::F_Emoji("exploding_head")
+!4::F_Emoji("smirk_cat")
+!5::F_Emoji("sunglasses")
+!6::F_Emoji("sob")
+!7::F_Emoji("face_with_monocle")
+!8::F_Emoji("flushed")
+!9::F_Emoji("face_with_raised_eyebrow")
+!0::F_Emoji("thinking")
+!=::F_Emoji("skull")
+
+;Alt + F keys are emojis as well
+;😩🤤💜👉👈
+!F5::F_Emoji("weary")
+!F6::F_Emoji("drooling")
+!F7::F_Emoji("purple_heart")
+!F8::F_Emoji("finger_right"), F_Emoji("finger_left")
+
+#HotIf 
 
 
 
@@ -351,12 +336,18 @@ AppsKey::LCtrl
       Case "git":Runner.nur_GitPage("run")
       Case "github":F_RunLink("https://github.com/Axlefublr")
 
-
-      ;SEND
-      ;————————————
-
-      ;Micha github nickname
+      ;Github nicknames
       Case "git Micha":F_ClipSend("@Micha-ohne-el")
+
+
+      ;AHK TUTORIALS
+      ;————————————————————————————————
+
+      Case "ahk startup":F_ClipSend("https://youtu.be/vjQIbagvkcs")
+
+
+      ;MEMES
+      ;————————————
 
       ;My source is that I made it the fuck up
       Case "I made it the fuck up", "I made it up":F_ClipSend("https://www.youtube.com/watch?v=r7l0Rq9E8MY")
@@ -734,9 +725,6 @@ MButton::Discord.dsc_Reply()
 
 #HotIf WinActive("ahk_exe Code.exe") ;_vscode 
 
-;Copies the most important setting files of vs code into the /Backups folder
-^u::Run A_WorkingDir . "\Scripts\Pull vs code settings.py"
-
 PrintScreen::VSC.vsc_RunCurrentInTerminal()
 !PrintScreen::VSC.vsc_KillCurrentTerminal()
 
@@ -750,7 +738,11 @@ PrintScreen::VSC.vsc_RunCurrentInTerminal()
 +!SC02B::VSC.vsc_FolderCorrectPath("+!\")
 
 ;Opens an inputbox for you to put in the name of the key to get its SC code into your clipboard, or takes the SC code to then show you to which key it belongs in a msgbox; if it finds neither, says so
-+!k::VSC.vsc_KeyCodeGetter()
++!k:: {
+   (Hold.hld_Bool("k")
+      ? VSC.vsc_KeyCodeGetter("to")
+      : VSC.vsc_KeyCodeGetter("from"))
+}
 
 
 #HotIf WinActive("ahk_exe wps.exe") ;_wps

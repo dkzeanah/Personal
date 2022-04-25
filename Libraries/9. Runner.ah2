@@ -57,10 +57,15 @@ Class C_Runner {
          "8. Script",                       "X200 Y453",
          "9. Runner",                       "X209 Y475"
       )
-
+      
+      ;Makes sure the mouse positions are correct
+      Send "!1{Home}"
+      Sleep 20
+      
       for key, value in D_Libraries 
          ControlClick(value, "ahk_exe Code.exe"), WinWait(key . ".ah2 - Personal - Visual Studio Code")
       Base.bsd_CloseTab()
+      Run A_WorkingDir . "\Scripts\Pull vs code settings.py"
    }
 
    ;Gets the github link to a file of your choosing

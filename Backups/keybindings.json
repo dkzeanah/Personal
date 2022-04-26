@@ -1782,11 +1782,23 @@
       "when": "textInputFocus"
    },
    {
-      "key": "ctrl+t",
+      "key": "ctrl+n",
       "command": "workbench.action.files.newUntitledFile"
    },
    {
       "key": "ctrl+n",
       "command": "-workbench.action.files.newUntitledFile"
+   },
+   {
+      "key": "ctrl+alt+n",
+      "command": "workbench.action.files.openFile"
+   },
+   {
+      "key": "shift+alt+s",
+      "command": "workbench.action.files.save"
+   },
+   {
+      "key": "ctrl+s",
+      "command": "-workbench.action.files.save"
    },
 ]

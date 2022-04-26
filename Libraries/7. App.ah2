@@ -306,21 +306,6 @@ Class C_VSCode {
       }
    }
 
-   vsc_WorkspaceCorrectPath(vscodeHotkey) {
-      ;Open explorer window
-      Send(vscodeHotkey), WinWait("ahk_exe explorer.exe"),
-      ;Paste the correct path to where workspaces are
-      workSpacesFolder := "C:\Files\Programming\Personal\Backups\Workspaces",
-      Send("^l"), SendText(workSpacesFolder), Send("{Enter}")
-   }
-
-   vsc_FolderCorrectPath(vscodeHotkey) {
-      ;Open project chooser
-      Send(vscodeHotkey), WinWait("ahk_exe explorer.exe")
-      ;Start in the folder that contains the project folders
-      projectsFolder := "C:\Files\Programming"
-      Send("^l"), SendText(projectsFolder), Send("{Enter}")
-   }
 }
 VSC := C_VSCode()
 

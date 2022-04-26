@@ -5,6 +5,7 @@ SetWorkingDir A_ScriptDir . "\..\" ;Ensures a consistent A_WorkingDir
 #HotIf ;At the start to autoresolve "this hotkey already exists" conflicts
 SetScrollLockState "AlwaysOff"
 CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of the window's
+SetControlDelay -1
 A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seconds
 
 #SuspendExempt True
@@ -340,10 +341,15 @@ AppsKey::LCtrl
       Case "git Micha":F_ClipSend("@Micha-ohne-el")
 
 
-      ;AHK TUTORIALS
+      ;AHK 
       ;————————————————————————————————
 
-      Case "ahk startup":F_ClipSend("https://youtu.be/vjQIbagvkcs")
+      ;Tutorials
+      Case "ahk yt startup":F_ClipSend("https://youtu.be/vjQIbagvkcs")
+      Case "ahk yt arrow":F_ClipSend("https://youtu.be/nSTL3KND25c")
+
+      ;Told often
+      Case "ahk directories v1":F_ClipSend(Runner.nur_Directories_v1)
 
 
       ;MEMES
@@ -665,8 +671,8 @@ PgUp::YouTube.ytt_SkipPrev()
 Escape::YouTube.ytt_MiniscreenClose()
 
 #HotIf Youtube.ytt_isWatchingVid
-!Right::YouTube.ytt_Seek("right")
-!Left::YouTube.ytt_Seek("left")
+>^Right::YouTube.ytt_Seek("right")
+>^Left::YouTube.ytt_Seek("left")
 
 #HotIf WinActive("WatchMoviesHD")
 Up::Send "{Volume_Up}"
@@ -727,15 +733,6 @@ MButton::Discord.dsc_Reply()
 
 PrintScreen::VSC.vsc_RunCurrentInTerminal()
 !PrintScreen::VSC.vsc_KillCurrentTerminal()
-
-;Choose a workspace to open
-^!SC02B::VSC.vsc_WorkspaceCorrectPath("^!\")
-
-;Save a workspace
-^+SC02B::VSC.vsc_WorkspaceCorrectPath("^+\")
-
-;Choose a folder to open
-+!SC02B::VSC.vsc_FolderCorrectPath("+!\")
 
 ;Opens an inputbox for you to put in the name of the key to get its SC code into your clipboard, or takes the SC code to then show you to which key it belongs in a msgbox; if it finds neither, says so
 +!k:: {

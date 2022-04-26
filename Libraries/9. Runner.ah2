@@ -1,5 +1,23 @@
 Class C_Runner {
 
+   nur_Directories_v1 => "``````ahk`n" . 
+   "#NoEnv `;Recommended for performance and compatibility with future AutoHotkey releases.`n" . 
+   "#Warn `;Enable warnings to assist with detecting common errors.`n" . 
+   "SetWorkingDir %A_ScriptDir% `;Ensures a consistent starting directory.`n" . 
+   "#SingleInstance, Force `;Only launch 1 instance of this script.`n" . 
+   "#Hotstring EndChars ``t `;The only character that completes a hotstring is Tab`n" . 
+   "#WinActivateForce `;Forces windows to be activated, skipping the gentle method`n" . 
+   "#InputLevel 5 `;Makes sure hotkeys can't activate themselves, looping in the process ($ on every hotkey essentially)`n" . 
+   "SendMode Input `;Recommended for new scripts due to its superior speed and reliability.`n" . 
+   "SetTitleMatchMode, 2 `;Title *consists of* instead of precise title`n" . 
+   "SetBatchLines, -1 `;Script takes CPU priority`n" . 
+   "CoordMode, Mouse, Screen `;Cursor coordinates are always of the screen, not window`n" . 
+   "`; if !A_IsAdmin { `;Runs the script as admin if `; are removed`n" . 
+   "`;    Run,*RunAs `"`%A_ScriptFullPath`%`"`n" . 
+   "`;    ExitApp`n" .
+   "`; }`n" . 
+   "``````"
+
    ;Takes a random number out of 1 and 100000, says yes if it's even, no if it's odd
    nur_CoinFlip() {
       coinFlip := Random(1, 100000),

@@ -69,7 +69,7 @@ Class C_WindowsApp {
       WinActivate winTitle
       ;If there's an unnesesary window that likes to pop up, it will get closed
       ((closeWin) 
-      ? (WinWait(closeWin,, 20), this.niw_ifClose(closeWin)) : "")
+      ? (WinWait(closeWin,, 60), this.niw_ifClose(closeWin)) : "")
    } 
 
    ;Only tries to close the window if it exists

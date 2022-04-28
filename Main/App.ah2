@@ -1,0 +1,198 @@
+#HotIf WinActive("Google Chrome") ;_chrome
+
+;Single press is copy, double press will get current tab's link to clipboard
+Volume_Down & XButton1:: {
+   (Hold.hld_Bool("XButton1") 
+      ? Chrome.chr_CopyLink()
+      : Base.bsd_Copy())
+}
+
+F1::Send "^1"
+F2::Send "^2"
+F3::Send "^3"
+F4::Send "^4"
+F5::Send "^5"
+F6::Send "^6"
+F7::Send "^7"
+F8::Send "^8"
+
+F10::Send "{Volume_Up}"
+F9::Send "{Volume_Down}"
+
++!e::Base.bsd_NewTab()
+
+#Delete::Base.bsd_CloseTab()
+
++!w::(!WinActive("Messenger") ? Base.bsd_CloseTab() : "")
+
+
+#HotIf WinActive("YouTube Music") ;_youtube music
+
+F1::YTMusic.ytm_Search()
+F2::YTMusic.ytm_Library()
+F3::YTMusic.ytm_CancelSearch()
+F4::YTMusic.ytm_Fullscreen()
+F5::YTMusic.ytm_Liked()
+F6::YTMusic.ytm_Best()
+F7::YTMusic.ytm_Discovery()
+
+F10::Send "{Volume_Up}"
+F9::Send "{Volume_Down}"
+
+F12::YTMusic.ytm_Like()
+F11::YTMusic.ytm_Dislike()
+
+
+#HotIf WinActive("ahk_exe chrome.exe")
+Volume_Down & MButton::F5
+^Space::Send "{Down}"
+
+#HotIf WinActive("YouTube") ;_youtube 
+PgDn::YouTube.ytt_SkipNext()
+PgUp::YouTube.ytt_SkipPrev()
+
+#HotIf YouTube.ytt_isNotWatchingVid
+Escape::YouTube.ytt_MiniscreenClose()
+
+#HotIf Youtube.ytt_isWatchingVid
+>^Right::YouTube.ytt_Seek("right")
+>^Left::YouTube.ytt_Seek("left")
+
+#HotIf WinActive("WatchMoviesHD")
+Up::Send "{Volume_Up}"
+Down::Send "{Volume_Down}"
+
+
+
+
+;OTHER ################################################################################
+;######################################################################################
+;######################################################################################
+;######################################################################################
+
+
+#HotIf WinActive("ahk_exe Telegram.exe") ;_telegram
+
+;Press an F key -> go to a channel
+F1::Telegram.tlg_Channel("diary")
+F2::Telegram.tlg_Channel("texts")
+F3::Telegram.tlg_Channel("transfer")
+F4::Telegram.tlg_Channel("documents")
+F5::Telegram.tlg_Channel("gallery")
+F6::Telegram.tlg_Channel("мама")
+F7::Telegram.tlg_Channel("кристина")
+F8::Telegram.tlg_Channel("алена")
+F9::Telegram.tlg_Channel("invie")
+
+
+#HotIf WinActive("ahk_exe Todoist.exe") ;_todoist
+
+;Hotkeys to jump to different projects
+F1::Todoist.tds_Project("inbox") 
+F2::Todoist.tds_Project("rappers") 
+F3::Todoist.tds_Project("unfinished")
+F4::Todoist.tds_Project("payments")
+F5::Todoist.tds_Project("desires")
+F6::Todoist.tds_Project("shopping") 
+
+;Gives the current task an unfinished label and lets you edit its description
++!e::Todoist.tds_toUnfinished()
+
+Enter::Base.bsd_ChooseNext()
+
+
+#HotIf WinActive("ahk_exe Discord.exe")
+MButton::Discord.dsc_Reply()
+
+
+
+
+;TECH #################################################################################
+;######################################################################################
+;######################################################################################
+;######################################################################################
+
+
+#HotIf WinActive("ahk_exe Code.exe") ;_vscode 
+
+PrintScreen::VSC.vsc_RunCurrentInTerminal()
+!PrintScreen::VSC.vsc_KillCurrentTerminal()
+
+;Opens an inputbox for you to put in the name of the key to get its SC code into your clipboard, or takes the SC code to then show you to which key it belongs in a msgbox; if it finds neither, says so
++!k:: {
+   (Hold.hld_Bool("k")
+      ? VSC.vsc_KeyCodeGetter("to")
+      : VSC.vsc_KeyCodeGetter("from"))
+}
+
+
+#HotIf WinActive("ahk_exe wps.exe") ;_wps
+
+;Switch between open documents
+^+Space::WPS.wps_NextTab()
+^Space::WPS.wps_PrevTab()
+
+;Save 
++!s::Base.bsd_Save()
+;Close tab
++!w::Base.bsd_CloseTab()
+
+
+#HotIf WinActive("ahk_exe wps.exe") && WinActive(".pptx")
+
+;Menu tabs
+F1::WPS.wps_Shortcut("h")
+F2::WPS.wps_Shortcut("n")
+F3::WPS.wps_Shortcut("g")
+F4::WPS.wps_Shortcut("t")
+F5::WPS.wps_Shortcut("a")
+F6::WPS.wps_Shortcut("s")
+F7::WPS.wps_Shortcut("r")
+F8::WPS.wps_Shortcut("w")
+F9::WPS.wps_Shortcut("k")
+F10::WPS.wps_Shortcut("jd")
+F11::WPS.wps_Shortcut("je")
+
+
+#HotIf WinActive("ahk_exe wps.exe") && WinActive("ahk_group Document")
+
+;Menu tabs
+F1::WPS.wps_Shortcut("h")
+F2::WPS.wps_Shortcut("n")
+F3::WPS.wps_Shortcut("p")
+F4::WPS.wps_Shortcut("s")
+F5::WPS.wps_Shortcut("r")
+F6::WPS.wps_Shortcut("w")
+F7::WPS.wps_Shortcut("z")
+F8::WPS.wps_Shortcut("k")
+
+;Bullets
+!F7::WPS.wps_Bullets()
+
+
+#HotIf WinActive("ahk_exe KMPlayer64.exe")
+
+Delete::Player.plr_SkipOpening()
+
+Up::Volume_Up
+Down::Volume_Down
+
+
+;Search in docs
+#HotIf WinActive("ahk_group AutoHotkey_Help")
+F1::Send "!s"
+
+;Scroll to go between pics
+#HotIf WinActive("ahk_group Media")
+WheelUp::Send "{Left}"
+WheelDown::Send "{Right}"
+
+
+#HotIf WinActive("ahk_exe ScreenClippingHost.exe")
+
+;Use the scroll wheel to choose among modes of the screenshot tool
+WheelUp::Screenshot.scr_Options("left")
+WheelDown::Screenshot.scr_Options("right")
+MButton::Screenshot.scr_Fullscreen() 
+
+#HotIf

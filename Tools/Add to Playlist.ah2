@@ -4,9 +4,10 @@ SetWorkingDir A_ScriptDir . "\..\" ;Ensures a consistent A_WorkingDir.
 CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of the window's
 A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seconds
 #Include "%A_ScriptDir%\..\Libraries\8. Script.ah2"
+#Include "%A_ScriptDir%\..\Libraries\3. Press.ah2"
 SoundPlay "*-1"
 
-#HotIf WinActive("YouTube")
+#HotIf WinActive("YouTube ahk_exe chrome.exe")
 RButton:: {
    static i := 0
    Switch i {
@@ -43,4 +44,8 @@ atp_isNotUsed() {
    ((l >= 60) ? Script.scr_ExitApp() : "")
 }
 
-Esc::Script.scr_ExitApp()
+Esc:: {
+   ((Hold.hld_Bool("Esc"))
+      ? Script.scr_ExitApp()
+      : Script.scr_Reload())
+}

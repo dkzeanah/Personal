@@ -39,10 +39,10 @@ XButton2 & Volume_Down:: {
 
 
 ;Special button + side buttons
-Volume_Down & XButton1::Hold.hld_Send("XButton1", Base.bsd_Copy, Base.bsd_Cut)
+Volume_Down & XButton1::Hold.hld_Send("XButton1", Base.bsd_Copy, Base.bsd_Cut, "0.17")
 Volume_Down & MButton::Base.bsd_SelectAll()
 Volume_Down & LButton::Space
-Volume_Down & XButton2::Hold.hld_Send("XButton2", Base.bsd_Paste, Base.bsd_WinPaste)
+Volume_Down & XButton2::Hold.hld_Send("XButton2", Base.bsd_Paste, Base.bsd_WinPaste, "0.17")
 
 ;Combined side buttons
 XButton2 & XButton1::Escape
@@ -78,16 +78,16 @@ Volume_Down:: {
    right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), topRight := ((sectionX > 1707) && (sectionY < 233)), topLeft := ((sectionX < 252) && (sectionY < 229)), bottomLeft := ((sectionX < 263) && (sectionY > 849)), bottomRight := ((sectionX > 1673) && (sectionY > 839))
    Switch {
       Case right:
-         ((topRight) ?   Base.bsd_WinUp()
+         ( (topRight)    ? Base.bsd_WinUp()
          : (bottomRight) ? Base.bsd_WinRight()
-         :               Win.niw_App("ahk_exe Discord.exe", Win.Discord))
+         :                 Win.niw_App("ahk_exe Discord.exe", Win.Discord))
       Case left:
-         ((topLeft) ?    Base.bsd_WinDown()
-         : (bottomLeft) ?  Base.bsd_WinLeft()
-         :               Win.niw_App("ahk_exe Code.exe", Win.VScode))
-      Case down:         Win.niw_App_WinNum("YouTube Music", "6")
-      Case up:           Win.niw_App("Google Chrome", Win.GoogleChrome)
-      Default:           Base.bsd_MouseAltTab()
+         ( (topLeft)     ? Base.bsd_WinDown()
+         : (bottomLeft)  ? Base.bsd_WinLeft()
+         :                 Win.niw_App("ahk_exe Code.exe", Win.VScode))
+      Case down:           Win.niw_App_WinNum("YouTube Music", "6")
+      Case up:             Win.niw_App("Google Chrome", Win.GoogleChrome)
+      Default:             Base.bsd_MouseAltTab()
    } 
 }
 

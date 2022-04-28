@@ -1,4 +1,8 @@
-;CHROME
+;CHROME ###############################################################################
+;######################################################################################
+;######################################################################################
+;######################################################################################
+
 
 Class C_Chrome {
    
@@ -12,9 +16,6 @@ Class C_Chrome {
 }
 Chrome := C_Chrome()
 
-
-;YOUTUBE MUSIC
-;——————————————————————————————
 
 Class C_YouTubeMusic {
    
@@ -80,9 +81,6 @@ Class C_YouTubeMusic {
 YTMusic := C_YouTubeMusic.Call()
 
 
-;YOUTUBE
-;—————————————————————————————
-
 Class C_YouTube {
 
    ytt_SkipNext() {
@@ -115,12 +113,12 @@ Class C_YouTube {
       ControlClick "X1858 Y665"
    }
 
-   ytt_isWatchingVid => (WinActive(" - YouTube") && !WinActive("Watch later") && !WinActive("Subscriptions"))
+   ytt_isWatchingVid => (WinActive(" - YouTube ahk_exe chrome.exe") && !WinActive("Watch later ahk_exe chrome.exe") && !WinActive("Subscriptions ahk_exe chrome.exe"))
 
    ytt_isNotWatchingVid => (
-      WinActive("Watch later")
-      ||  WinActive("Subscriptions")
-      || (WinActive("YouTube")
+      WinActive("Watch later ahk_exe chrome.exe")
+      ||  WinActive("Subscriptions ahk_exe chrome.exe")
+      || (WinActive("YouTube ahk_exe chrome.exe")
       && !WinActive(" - YouTube"))
    )
 
@@ -150,8 +148,13 @@ Class C_YouTube {
 YouTube := C_YouTube.Call()
 
 
-;VK
-;————————————————————————————————
+
+
+;MESSENGERS ###########################################################################
+;######################################################################################
+;######################################################################################
+;######################################################################################
+
 
 Class C_VK {
 
@@ -174,9 +177,6 @@ Class C_VK {
 VK := C_VK()
 
 
-;TELEGRAM
-;————————————————————————————————
-
 Class C_Telegram {
    
    tlg_Voice() {
@@ -194,9 +194,6 @@ Class C_Telegram {
 Telegram := C_Telegram()
 
 
-;WHATIBER
-;————————————————————————————————
-
 Class C_Whatiber {
    
    wtb_Voice() {
@@ -209,9 +206,6 @@ Class C_Whatiber {
 }
 Whatiber := C_Whatiber()
 
-
-;DISCORD
-;————————————————————————————————
 
 Class C_Discord {
    
@@ -227,6 +221,14 @@ Class C_Discord {
       Base.bsd_CtrlClick()
    }
 
+   dsc_NextServer() {
+      Send "^!{Down}"
+   }
+
+   dsc_PrevServer() {
+      Send "^!{Up}"
+   }
+
    dsc_Markdown() {
       MsgBox "__ underline __`n* italic *`n** bold **`n~~ strikethrough ~~`n|| spoiler ||`n`````` code ```````n`` code inline ```n_ nothing _", "Markdown", "4096"
    }
@@ -234,8 +236,13 @@ Class C_Discord {
 Discord := C_Discord()
 
 
-;TODOIST
-;————————————————————————————————
+
+
+;OTHER ################################################################################
+;######################################################################################
+;######################################################################################
+;######################################################################################
+
 
 Class C_Todoist {
    
@@ -250,8 +257,13 @@ Class C_Todoist {
 Todoist := C_Todoist()
 
 
-;VS CODE
-;————————————————————————————————
+
+
+;TECH #################################################################################
+;######################################################################################
+;######################################################################################
+;######################################################################################
+
 
 Class C_VSCode {
 
@@ -310,9 +322,6 @@ Class C_VSCode {
 VSC := C_VSCode()
 
 
-;WPS
-;————————————————————————————————
-
 Class C_WPSOffice {
    
    wps_NextTab() {
@@ -334,9 +343,6 @@ Class C_WPSOffice {
 WPS := C_WPSOffice()
 
 
-;PLAYER
-;————————————————————————————————
-
 Class C_Player {
    
    plr_SkipOpening() {
@@ -345,9 +351,6 @@ Class C_Player {
 }
 Player := C_Player()
 
-
-;SCREENSHOT
-;————————————————————————————————
 
 Class C_Screenshot {
    

@@ -307,11 +307,9 @@ AppsKey::LCtrl
 #F7::A_Clipboard := WinGetTitle("A")
 
 ;Opens a fileselect in the current folder for you to choose a file to get the path of into your clipboard
-#F8:: {
-   windowTitle := WinGetTitle("A")
-   if SubStr(windowTitle, 1, 3) == "C:\"
-      A_Clipboard := FileSelect("S", windowTitle)
-}
+#HotIf WinActive("ahk_exe explorer.exe")
+#F8::A_Clipboard := FileSelect("S", WinGetTitle("A"))
+#HotIf 
 
 ;Gets current cursor's position and opens a gui giving you the options for formatting the parameters for different commands to put them into your Clipboard or to not copy them into your Clipboard at all and just exit the gui
 +!f::Run A_WorkingDir . "\Tools\MouseGetPos.ah2"

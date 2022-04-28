@@ -1,4 +1,46 @@
-#HotIf WinActive("Google Chrome") ;_chrome
+;CHROME ###############################################################################
+;######################################################################################
+;######################################################################################
+;######################################################################################
+
+
+#HotIf WinActive("YouTube Music") ;_youtube music
+
+F1::YTMusic.ytm_Search()
+F2::YTMusic.ytm_Library()
+F3::YTMusic.ytm_CancelSearch()
+F4::YTMusic.ytm_Fullscreen()
+F5::YTMusic.ytm_Liked()
+F6::YTMusic.ytm_Best()
+F7::YTMusic.ytm_Discovery()
+
+F10::Send "{Volume_Up}"
+F9::Send "{Volume_Down}"
+
+F12::YTMusic.ytm_Like()
+F11::YTMusic.ytm_Dislike()
+
+
+#HotIf YouTube.ytt_isNotWatchingVid
+Escape::YouTube.ytt_MiniscreenClose()
+
+
+#HotIf Youtube.ytt_isWatchingVid
+>^Right::YouTube.ytt_Seek("right")
+>^Left::YouTube.ytt_Seek("left")
+
+
+#HotIf WinActive("YouTube") ;_youtube 
+PgDn::YouTube.ytt_SkipNext()
+PgUp::YouTube.ytt_SkipPrev()
+
+
+#HotIf WinActive("WatchMoviesHD")
+Up::Send "{Volume_Up}"
+Down::Send "{Volume_Down}"
+
+
+#HotIf WinActive("Google Chrome ahk_exe chrome") ;_chrome
 
 ;Single press is copy, double press will get current tab's link to clipboard
 Volume_Down & XButton1:: {
@@ -26,41 +68,9 @@ F9::Send "{Volume_Down}"
 +!w::(!WinActive("Messenger") ? Base.bsd_CloseTab() : "")
 
 
-#HotIf WinActive("YouTube Music") ;_youtube music
-
-F1::YTMusic.ytm_Search()
-F2::YTMusic.ytm_Library()
-F3::YTMusic.ytm_CancelSearch()
-F4::YTMusic.ytm_Fullscreen()
-F5::YTMusic.ytm_Liked()
-F6::YTMusic.ytm_Best()
-F7::YTMusic.ytm_Discovery()
-
-F10::Send "{Volume_Up}"
-F9::Send "{Volume_Down}"
-
-F12::YTMusic.ytm_Like()
-F11::YTMusic.ytm_Dislike()
-
-
 #HotIf WinActive("ahk_exe chrome.exe")
 Volume_Down & MButton::F5
 ^Space::Send "{Down}"
-
-#HotIf WinActive("YouTube") ;_youtube 
-PgDn::YouTube.ytt_SkipNext()
-PgUp::YouTube.ytt_SkipPrev()
-
-#HotIf YouTube.ytt_isNotWatchingVid
-Escape::YouTube.ytt_MiniscreenClose()
-
-#HotIf Youtube.ytt_isWatchingVid
->^Right::YouTube.ytt_Seek("right")
->^Left::YouTube.ytt_Seek("left")
-
-#HotIf WinActive("WatchMoviesHD")
-Up::Send "{Volume_Up}"
-Down::Send "{Volume_Down}"
 
 
 
@@ -102,7 +112,11 @@ Enter::Base.bsd_ChooseNext()
 
 
 #HotIf WinActive("ahk_exe Discord.exe")
+
 MButton::Discord.dsc_Reply()
+
+^Space::Discord.dsc_NextServer()
+^+Space::Discord.dsc_PrevServer()
 
 
 
@@ -126,21 +140,8 @@ PrintScreen::VSC.vsc_RunCurrentInTerminal()
 }
 
 
-#HotIf WinActive("ahk_exe wps.exe") ;_wps
+#HotIf WinActive(".pptx ahk_exe wps.exe")
 
-;Switch between open documents
-^+Space::WPS.wps_NextTab()
-^Space::WPS.wps_PrevTab()
-
-;Save 
-+!s::Base.bsd_Save()
-;Close tab
-+!w::Base.bsd_CloseTab()
-
-
-#HotIf WinActive("ahk_exe wps.exe") && WinActive(".pptx")
-
-;Menu tabs
 F1::WPS.wps_Shortcut("h")
 F2::WPS.wps_Shortcut("n")
 F3::WPS.wps_Shortcut("g")
@@ -154,9 +155,8 @@ F10::WPS.wps_Shortcut("jd")
 F11::WPS.wps_Shortcut("je")
 
 
-#HotIf WinActive("ahk_exe wps.exe") && WinActive("ahk_group Document")
+#HotIf WinActive("ahk_group Document ahk_exe wps.exe")
 
-;Menu tabs
 F1::WPS.wps_Shortcut("h")
 F2::WPS.wps_Shortcut("n")
 F3::WPS.wps_Shortcut("p")
@@ -166,8 +166,16 @@ F6::WPS.wps_Shortcut("w")
 F7::WPS.wps_Shortcut("z")
 F8::WPS.wps_Shortcut("k")
 
-;Bullets
 !F7::WPS.wps_Bullets()
+
+
+#HotIf WinActive("ahk_exe wps.exe") ;_wps
+
+^+Space::WPS.wps_NextTab()
+^Space::WPS.wps_PrevTab()
+
++!s::Base.bsd_Save()
++!w::Base.bsd_CloseTab()
 
 
 #HotIf WinActive("ahk_exe KMPlayer64.exe")
@@ -178,14 +186,14 @@ Up::Volume_Up
 Down::Volume_Down
 
 
-;Search in docs
-#HotIf WinActive("ahk_group AutoHotkey_Help")
-F1::Send "!s"
-
 ;Scroll to go between pics
 #HotIf WinActive("ahk_group Media")
 WheelUp::Send "{Left}"
 WheelDown::Send "{Right}"
+
+
+#HotIf WinActive("ahk_group AutoHotkey_Help")
+F1::Send "!s" ;Search in docs
 
 
 #HotIf WinActive("ahk_exe ScreenClippingHost.exe")

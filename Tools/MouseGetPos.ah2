@@ -1,8 +1,10 @@
 #SingleInstance Force 
-#InputLevel 2
-CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of the window's
+#InputLevel 5
 
+CoordMode "Mouse", "Screen" 
 MouseGetPos &locX, &locY
+CoordMode "Mouse", "Client"
+MouseGetPos &loc2X, &loc2Y
 G_MouseGetPos := Gui("AlwaysOnTop", "Mouse get position")
 G_MouseGetPos.Show("W301 H150 Center")
 G_MouseGetPos.SetFont("S30")
@@ -18,7 +20,7 @@ Esc::MGP.Exit()
 
 Class C_MouseGetPos {
 
-   ControlClick() => (A_Clipboard := "`"X" . locX . " Y" . locY . "`"", ExitApp())
+   ControlClick() => (A_Clipboard := "`"X" . loc2X . " Y" . loc2Y . "`"", ExitApp())
    Click() => (A_Clipboard := "`"" . locX . " " . locY . "`"", ExitApp())
    Pure() => (A_Clipboard := locX . " " . locY, ExitApp())
    Exit() => ExitApp()

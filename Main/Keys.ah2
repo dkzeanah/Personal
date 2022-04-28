@@ -120,14 +120,11 @@ GroupAdd "AutoHotkey_Help", "AutoHotkey v2 Help"
 
 
 
-;KBMAIN ###############################################################################
+;SPECIAL ##############################################################################
 ;######################################################################################
 ;######################################################################################
 ;######################################################################################
 
-
-;SPECIAL CHARACTERS
-;————————————————————
 
 ;Long dash
 !-::Send D_KeyCodes_In["long_dash"]
@@ -139,12 +136,64 @@ GroupAdd "AutoHotkey_Help", "AutoHotkey v2 Help"
 :XB0*?:ilandh::F_RandomWord(R_randomWords_Rus)
 
 ;If I try to laugh in russian but my language is set to english, it autosets the language to russian
-:X*?:[f[f::Base.bsd_SwitchLanguage() 
-:X*?:[[f[f::Base.bsd_SwitchLanguage()
+:X*?:[f[::Base.bsd_SwitchLanguage() 
+:X*?:[ff::Base.bsd_SwitchLanguage() 
+:X*?:[[f::Base.bsd_SwitchLanguage()
+:X*?:f[::Base.bsd_SwitchLanguage()
+:X*?:f[[::Base.bsd_SwitchLanguage()
+
+^m:: {
+   Switch {
+      Default:Send "^m"
+      Case WinActive("ahk_exe Discord.exe"):Discord.dsc_Markdown()
+      Case WinActive("Google Chrome"):
+         (WinActive("Messenger")
+            ?                               VK.vk_BlankMessage()
+            :                               Chrome.chr_Markdown())
+   }
+}
+
++!r:: {
+   ((WinActive("ahk_exe Discord.exe")
+   || WinActive("ahk_exe Telegram.exe")
+   || (WinActive("ahk_exe chrome.exe") && !WinActive("YouTube")))
+      ? YTMusic.ytm_LinkConverter()
+      : Send("+!r"))
+}
 
 
-;GLOBAL MANIPULATION
-;—————————————————————————————
+#HotIf WinActive("ahk_group Messenger")
+
+;Alt + number sends the Unicode for a specific emoji, making that work anywhere. These hotkeys only work in windows that are messengers
+;🥺😋🤯😼😎😭🧐😳🤨🤔—💀
+!1::F_Emoji("pleading")
+!2::F_Emoji("yum")
+!3::F_Emoji("exploding_head")
+!4::F_Emoji("smirk_cat")
+!5::F_Emoji("sunglasses")
+!6::F_Emoji("sob")
+!7::F_Emoji("face_with_monocle")
+!8::F_Emoji("flushed")
+!9::F_Emoji("face_with_raised_eyebrow")
+!0::F_Emoji("thinking")
+!=::F_Emoji("skull")
+
+;Alt + F keys are emojis as well
+;😩🤤💜👉👈
+!F5::F_Emoji("weary")
+!F6::F_Emoji("drooling")
+!F7::F_Emoji("purple_heart")
+!F8::F_Emoji("finger_right"), F_Emoji("finger_left")
+
+#HotIf 
+
+
+
+;GLOBAL ###############################################################################
+;######################################################################################
+;######################################################################################
+;######################################################################################
+
 
 ;Close active window
 !Escape::Base.bsd_CloseWin()
@@ -176,6 +225,13 @@ SC047::Base.bsd_SelectAll()
 >^PgUp::Media_Prev
 >^Pgdn::Media_Next
 
+
+;REMAP ################################################################################
+;######################################################################################
+;######################################################################################
+;######################################################################################
+
+
 ;Makes sure fn + function key doesn't do its native function. Commented if made into a hotkey
 ; Launch_Media::return ;F1
 Media_Play_Pause::return ;F2
@@ -200,10 +256,11 @@ Browser_Home::return ;F12
 *Numpad1::return
 *NumpadDot::return
 *NumpadEnter::return
-PrintScreen::return
+*PrintScreen::return
 
 ;Numpad is special buttons
 #SuspendExempt True
+#InputLevel 6
 SC047::Insert
 SC04B::Delete
 SC048::Home
@@ -214,6 +271,7 @@ SC050::Launch_Media
 SC051::SC045
 ScrollLock::Launch_Media
 AppsKey::LCtrl
+#InputLevel 5
 #SuspendExempt False
 
 ;Makes sure the side mouse buttons work as intended ingame, despite their remapping outside of game 
@@ -227,30 +285,6 @@ AppsKey::LCtrl
 *XButton2::LCtrl
 *Volume_Down::i
 *CapsLock::Enter
-
-
-#HotIf WinActive("ahk_group Messenger")
-
-;Alt + number sends the Unicode for a specific emoji, making that work anywhere. These hotkeys only work in windows that are messengers
-;🥺😋🤯😼😎😭🧐😳🤨🤔—💀
-!1::F_Emoji("pleading")
-!2::F_Emoji("yum")
-!3::F_Emoji("exploding_head")
-!4::F_Emoji("smirk_cat")
-!5::F_Emoji("sunglasses")
-!6::F_Emoji("sob")
-!7::F_Emoji("face_with_monocle")
-!8::F_Emoji("flushed")
-!9::F_Emoji("face_with_raised_eyebrow")
-!0::F_Emoji("thinking")
-!=::F_Emoji("skull")
-
-;Alt + F keys are emojis as well
-;😩🤤💜👉👈
-!F5::F_Emoji("weary")
-!F6::F_Emoji("drooling")
-!F7::F_Emoji("purple_heart")
-!F8::F_Emoji("finger_right"), F_Emoji("finger_left")
 
 #HotIf 
 

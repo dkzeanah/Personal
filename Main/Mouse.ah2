@@ -1,5 +1,11 @@
 #HotIf !WinActive("ahk_group Game")
 
+;SIDE TO SPECIAL ######################################################################
+;######################################################################################
+;######################################################################################
+;######################################################################################
+
+
 XButton1 & Volume_Down:: {
    Switch {
       Case WinActive("YouTube Music"):                           YTMusic.ytm_CancelSearch()
@@ -23,30 +29,10 @@ XButton2 & Volume_Down:: {
    }
 }
 
-^m:: {
-   Switch {
-      Default:Send "^m"
-      Case WinActive("ahk_exe Discord.exe"):Discord.dsc_Markdown()
-      Case WinActive("Google Chrome"):
-         (WinActive("Messenger")
-            ?                               VK.vk_BlankMessage()
-            :                               Chrome.chr_Markdown())
-   }
-}
-
-;Converts a YT Music link into a YT link while these windows are active, otherwise just sends itself
-+!r:: {
-   ((WinActive("ahk_exe Discord.exe")
-   || WinActive("ahk_exe Telegram.exe")
-   || (WinActive("ahk_exe chrome.exe") && !WinActive("YouTube")))
-      ? YTMusic.ytm_LinkConverter()
-      : Send("+!r"))
-}
 
 
 
-
-;MOUSE KEY INTERACTION ################################################################
+;KEYS #################################################################################
 ;######################################################################################
 ;######################################################################################
 ;###################################################################################### 
@@ -57,25 +43,6 @@ Volume_Down & XButton1::Hold.hld_Send("XButton1", Base.bsd_Copy, Base.bsd_Cut)
 Volume_Down & MButton::Base.bsd_SelectAll()
 Volume_Down & LButton::Space
 Volume_Down & XButton2::Hold.hld_Send("XButton2", Base.bsd_Paste, Base.bsd_WinPaste)
-
-;Special button by itself pressed in different sections of the screen does different things
-Volume_Down:: { 
-   MouseGetPos &sectionX, &sectionY
-   right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), topRight := ((sectionX > 1707) && (sectionY < 233)), topLeft := ((sectionX < 252) && (sectionY < 229)), bottomLeft := ((sectionX < 263) && (sectionY > 849)), bottomRight := ((sectionX > 1673) && (sectionY > 839))
-   Switch {
-      Case right:
-         ((topRight) ?   Base.bsd_WinUp()
-         : bottomRight ? Base.bsd_WinRight()
-         :               Win.niw_App("ahk_exe Discord.exe", Win.Discord))
-      Case left:
-         ((topLeft) ?    Base.bsd_WinDown()
-         : bottomLeft ?  Base.bsd_WinLeft()
-         :               Win.niw_App("ahk_exe Code.exe", Win.VScode))
-      Case down:         Win.niw_App_WinNum("YouTube Music", "6")
-      Case up:           Win.niw_App("Google Chrome", Win.GoogleChrome)
-      Default:           Base.bsd_MouseAltTab()
-   } 
-}
 
 ;Combined side buttons
 XButton2 & XButton1::Escape
@@ -100,13 +67,39 @@ XButton2 & LButton::Enter
 
 
 
-;SECTION GESTURES ####################################################################
+;SPECIAL #############################################################################
 ;#####################################################################################
 ;#####################################################################################
 ;##################################################################################### 
 
 
-;Far side button, does different things depending on what section of the screen it was pressed on. Right, left, down, up or middle
+Volume_Down:: { 
+   MouseGetPos &sectionX, &sectionY
+   right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), topRight := ((sectionX > 1707) && (sectionY < 233)), topLeft := ((sectionX < 252) && (sectionY < 229)), bottomLeft := ((sectionX < 263) && (sectionY > 849)), bottomRight := ((sectionX > 1673) && (sectionY > 839))
+   Switch {
+      Case right:
+         ((topRight) ?   Base.bsd_WinUp()
+         : (bottomRight) ? Base.bsd_WinRight()
+         :               Win.niw_App("ahk_exe Discord.exe", Win.Discord))
+      Case left:
+         ((topLeft) ?    Base.bsd_WinDown()
+         : (bottomLeft) ?  Base.bsd_WinLeft()
+         :               Win.niw_App("ahk_exe Code.exe", Win.VScode))
+      Case down:         Win.niw_App_WinNum("YouTube Music", "6")
+      Case up:           Win.niw_App("Google Chrome", Win.GoogleChrome)
+      Default:           Base.bsd_MouseAltTab()
+   } 
+}
+
+
+
+
+;FAR SIDE #############################################################################
+;######################################################################################
+;######################################################################################
+;######################################################################################
+
+
 XButton2:: { 
    MouseGetPos &sectionX, &sectionY
    right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), topRight := ((sectionX > 1707) && (sectionY < 233)), topLeft := ((sectionX < 252) && (sectionY < 229)) ;Here I define the sections
@@ -134,7 +127,15 @@ XButton2:: {
    }
 }
 
-;Close side button, does different things depending on what section of the screen it was pressed on. Right, left, down, up or middle
+
+
+
+;CLOSE SIDE ###########################################################################
+;######################################################################################
+;######################################################################################
+;######################################################################################
+
+
 XButton1:: { 
    MouseGetPos &sectionX, &sectionY
    right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), topRight := ((sectionX > 1707) && (sectionY < 233)), topLeft := ((sectionX < 252) && (sectionY < 229)), bottomLeft := ((sectionX < 263) && (sectionY > 849)), bottomRight := ((sectionX > 1673) && (sectionY > 839))

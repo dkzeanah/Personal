@@ -36,6 +36,36 @@
 ;Video editor
 <!SC01B::Win.niw_App("ahk_exe Resolve.exe", Win.DavinciResolve)
 
+;Visual studio code
+<!a::Win.niw_App("ahk_exe Code.exe", Win.VScode)
+
+;Youtube music
+<!s::Win.niw_App_WinNum("YouTube Music", "6")
+
+;Chrome 
+<!c::Win.niw_App("Google Chrome", Win.GoogleChrome)
+
+;Todoist
+<!x::Win.niw_App("ahk_exe Todoist.exe", Win.Todoist)
+
+;Wps
+<!w::Win.niw_App("ahk_exe wps.exe", Win.WPS)
+
+;Discord
+<!q::Win.niw_App("ahk_exe Discord.exe", Win.Discord)
+
+;Explorer
+<!e::Win.niw_App_Folders("C:\")
+
+;Documents 
+<!d::Win.niw_App_Folders("C:\Files\Documents")
+
+;Pictures
+<!v::Win.niw_App_Folders("C:\Files\Pictures")
+
+;One Piece
+<!b::Win.niw_App_Folders("C:\Files\Pictures\One Piece")
+
 ;MinMaxes a game if it exists, closes all apps but spotify if all main 6 apps exist, if they don't: launches those apps of the main 6, that do not yet exist
 <!g:: {
 
@@ -91,40 +121,10 @@
       : "")
 }
 
-;Visual studio code
-<!a::Win.niw_App("ahk_exe Code.exe", Win.VScode)
-
-;Youtube music
-<!s::Win.niw_App_WinNum("YouTube Music", "6")
-
-;Chrome 
-<!c::Win.niw_App("Google Chrome", Win.GoogleChrome)
-
-;Todoist
-<!x::Win.niw_App("ahk_exe Todoist.exe", Win.Todoist)
-
-;Wps
-<!w::Win.niw_App("ahk_exe wps.exe", Win.WPS)
-
-;Discord
-<!q::Win.niw_App("ahk_exe Discord.exe", Win.Discord)
-
 ;VPN
 <!z:: {
    (!Win.niw_ifMinMax("SoundCloud")
       ? Win.niw_App("ahk_exe vpncmgr_x64.exe", Win.VPN) : "")
 }
-
-;Explorer
-<!e::Win.niw_App_Folders("C:\")
-
-;Documents 
-<!d::Win.niw_App_Folders("C:\Files\Documents")
-
-;Pictures
-<!v::Win.niw_App_Folders("C:\Files\Pictures")
-
-;One Piece
-<!b::Win.niw_App_Folders("C:\Files\Pictures\One Piece")
 
 #HotIf 

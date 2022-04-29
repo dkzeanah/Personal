@@ -77,8 +77,7 @@ Class C_Runner {
       )
       
       ;Makes sure the mouse positions are correct
-      Send "!1{Home}"
-      Sleep 20
+      Send("!1{Home}"), Sleep(20)
       
       for key, value in D_Libraries 
          ControlClick(value, "ahk_exe Code.exe"), WinWait(key . ".ah2 - Personal - Visual Studio Code")

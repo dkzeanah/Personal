@@ -283,8 +283,12 @@ Class C_VSCode {
       Send "+!h"
    }
 
-   vsc_KillCurrentTerminal() {
-      Send "+!2"
+   vsc_KillCurrentTerminalOrDebug() {
+      Send "^!h"
+   }
+
+   vsc_Debug() {
+      Send "^+h"
    }
    
    vsc_KeyCodeGetter(direction) {

@@ -1,6 +1,16 @@
 {
    "configurations": [
       {
+         "name": "Ahk 2",
+         "type": "autohotkey",
+         "request": "launch",
+         "program":"${file}",
+         "runtimeArgs_v2":[".ah2"],
+         "port":"9002",
+         "runtime": "v2/AutoHotkey64.exe",
+         "runtimeArgs":[ "/ErrorStdOut=UTF-8"]
+      },
+      {
          "name": "Ahk 1",
          "type": "autohotkey",
          "program":"${file}",
@@ -10,16 +20,6 @@
          "runtime": "AutoHotkey.exe",
          "runtimeArgs":[ "/ErrorStdOut=UTF-8"]
          
-      },
-      {
-         "name": "Ahk 2",
-         "type": "autohotkey",
-         "request": "launch",
-         "program":"${file}",
-         "runtimeArgs_v2":[".ah2"],
-         "port":"9002",
-         "runtime": "v2/AutoHotkey64.exe",
-         "runtimeArgs":[ "/ErrorStdOut=UTF-8"]
       }
    ]
 }

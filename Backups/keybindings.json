@@ -86,42 +86,22 @@
         "command": "-notebook.cell.insertCodeCellAboveAndFocusContainer",
         "when": "notebookEditorFocused && !inputFocus"
     },
-    {
-        "key": "alt+f9",
-        "command": "workbench.action.debug.restart",
-        "when": "inDebugMode"
-    },
-    {
+   {
         "key": "ctrl+shift+f5",
         "command": "-workbench.action.debug.restart",
         "when": "inDebugMode"
     },
-    {
-        "key": "ctrl+alt+right",
-        "command": "workbench.action.debug.stepOver",
-        "when": "debugState == 'stopped'"
-    },
-    {
+   {
         "key": "f10",
         "command": "-workbench.action.debug.stepOver",
         "when": "debugState == 'stopped'"
     },
-    {
-        "key": "ctrl+alt+down",
-        "command": "workbench.action.debug.stepInto",
-        "when": "debugState != 'inactive'"
-    },
-    {
+   {
         "key": "f11",
         "command": "-workbench.action.debug.stepInto",
         "when": "debugState != 'inactive'"
     },
-    {
-        "key": "ctrl+alt+up",
-        "command": "workbench.action.debug.stepOut",
-        "when": "debugState == 'stopped'"
-    },
-    {
+   {
         "key": "shift+f11",
         "command": "-workbench.action.debug.stepOut",
         "when": "debugState == 'stopped'"
@@ -176,12 +156,7 @@
       "command": "workbench.view.explorer",
       "when": "editorFocus"
     },
-    {
-        "key": "ctrl+alt+h",
-        "command": "workbench.view.search",
-        "when": "workbench.view.search.active && neverMatch =~ /doesNotMatch/"
-    },
-    {
+   {
         "key": "ctrl+shift+f",
         "command": "-workbench.view.search",
         "when": "workbench.view.search.active && neverMatch =~ /doesNotMatch/"
@@ -196,12 +171,7 @@
         "command": "-workbench.view.scm",
         "when": "workbench.scm.active"
     },
-    {
-        "key": "alt+4",
-        "command": "workbench.view.debug",
-        "when": "viewContainer.workbench.view.debug.enabled"
-    },
-    {
+   {
         "key": "ctrl+shift+d",
         "command": "-workbench.view.debug",
         "when": "viewContainer.workbench.view.debug.enabled"
@@ -225,7 +195,7 @@
         "command": "-workbench.action.findInFiles"
     },
     {
-        "key": "ctrl+alt+h",
+        "key": "ctrl+shift+f",
         "command": "workbench.action.replaceInFiles"
     },
     {
@@ -291,12 +261,7 @@
         "command": "-workbench.action.debug.disconnect",
         "when": "focusedSessionIsAttach && inDebugMode"
     },
-    {
-        "key": "ctrl+f9",
-        "command": "workbench.action.debug.stop",
-        "when": "inDebugMode && !focusedSessionIsAttach"
-    },
-    {
+   {
         "key": "shift+f5",
         "command": "-workbench.action.debug.stop",
         "when": "inDebugMode && !focusedSessionIsAttach"
@@ -737,11 +702,6 @@
       "when": "watchExpressionsFocused"
    },
    {
-      "key": "ctrl+j ctrl+f6",
-      "command": "debug.setVariable",
-      "when": "variablesFocused"
-   },
-   {
       "key": "f2",
       "command": "-debug.setVariable",
       "when": "variablesFocused"
@@ -798,10 +758,6 @@
       "when": "notebookCellEditable && notebookCellHasOutputs && notebookEditable && notebookEditorFocused && !inputFocus"
    },
    {
-      "key": "ctrl+shift+f",
-      "command": "workbench.view.search.focus"
-   },
-   {
       "key": "alt+2",
       "command": "terminal.focus",
       "when": "!terminalFocus"
@@ -822,7 +778,7 @@
       "when": "breadcrumbsPossible"
    },
    {
-      "key": "ctrl+shift+p",
+      "key": "ctrl+alt+p",
       "command": "workbench.action.gotoLine"
    },
    {
@@ -854,7 +810,7 @@
       "command": "workbench.action.openSnippets"
    },
    {
-      "key": "ctrl+alt+p",
+      "key": "ctrl+shift+p",
       "command": "workbench.action.gotoSymbol"
    },
    {
@@ -977,9 +933,9 @@
       "when": "editorTextFocus && jupyter.hascodecells && !notebookEditorFocused"
    },
    {
-      "key": "shift+alt+2",
+      "key": "ctrl+alt+h",
       "command": "workbench.action.terminal.kill",
-      "when": "terminalHasBeenCreated"
+      "when": "terminalHasBeenCreated && !inDebugMode"
    },
    {
       "key": "ctrl+5",
@@ -1217,11 +1173,6 @@
       "when": "editorFocus"
    },
    {
-      "key": "f9",
-      "command": "workbench.action.debug.continue",
-      "when": "inDebugMode"
-   },
-   {
       "key": "ctrl+enter",
       "command": "editor.emmet.action.expandAbbreviation",
       "when": "config.emmet.triggerExpansionOnTab && editorTextFocus && !editorReadonly && !editorTabMovesFocus"
@@ -1250,11 +1201,6 @@
       "key": "ctrl+enter",
       "command": "insertSnippet",
       "when": "editorTextFocus && hasSnippetCompletions && !editorTabMovesFocus && !inSnippetMode"
-   },
-   {
-      "key": "shift+f9",
-      "command": "workbench.action.debug.pause",
-      "when": "inDebugMode"
    },
    {
       "key": "ctrl+enter",
@@ -1303,11 +1249,6 @@
       "key": "tab",
       "command": "list.select",
       "when": "listFocus && !inputFocus"
-   },
-   {
-      "key": "tab",
-      "command": "breadcrumbs.selectFocused",
-      "when": "breadcrumbsActive && breadcrumbsVisible"
    },
    {
       "key": "shift+alt+h",
@@ -1395,7 +1336,7 @@
       "command": "-testing.debugLastRun"
    },
    {
-      "key": "f9",
+      "key": "ctrl+shift+h",
       "command": "workbench.action.debug.selectandstart"
    },
    {
@@ -1801,4 +1742,151 @@
       "key": "ctrl+s",
       "command": "-workbench.action.files.save"
    },
+   {
+      "key": "ctrl+p",
+      "command": "-workbench.action.quickOpenNavigateNextInFilePicker",
+      "when": "inFilesPicker && inQuickOpen"
+   },
+   {
+      "key": "ctrl+shift+p",
+      "command": "-workbench.action.quickOpenNavigatePreviousInFilePicker",
+      "when": "inFilesPicker && inQuickOpen"
+   },
+   {
+      "key": "ctrl+shift+f",
+      "command": "-workbench.action.terminal.searchWorkspace",
+      "when": "terminalFocus && terminalProcessSupported && terminalTextSelected"
+   },
+   {
+      "key": "shift+alt+h",
+      "command": "-references-view.showCallHierarchy",
+      "when": "editorHasCallHierarchyProvider"
+   },
+   {
+      "key": "shift+alt+h",
+      "command": "-gitlens.showQuickRepoHistory",
+      "when": "!gitlens:disabled && config.gitlens.keymap == 'alternate'"
+   },
+   {
+      "key": "shift+alt+h",
+      "command": "-editor.showCallHierarchy",
+      "when": "editorHasCallHierarchyProvider && editorTextFocus && !inReferenceSearchEditor"
+   },
+   {
+      "key": "shift+alt+h",
+      "command": "-editor.showIncomingCalls",
+      "when": "callHierarchyVisible && callHierarchyDirection == 'outgoingCalls'"
+   },
+   {
+      "key": "shift+alt+h",
+      "command": "-editor.showOutgoingCalls",
+      "when": "callHierarchyVisible && callHierarchyDirection == 'incomingCalls'"
+   },
+   {
+      "key": "shift+alt+h",
+      "command": "-editor.showSubtypes",
+      "when": "typeHierarchyVisible && typeHierarchyDirection == 'supertypes'"
+   },
+   {
+      "key": "shift+alt+h",
+      "command": "-editor.showSupertypes",
+      "when": "typeHierarchyVisible && typeHierarchyDirection == 'subtypes'"
+   },
+   {
+      "key": "alt+f9",
+      "command": "-editor.action.nextCommentThreadAction",
+      "when": "editorFocus"
+   },
+   {
+      "key": "ctrl+alt+h",
+      "command": "workbench.action.debug.stop",
+      "when": "inDebugMode"
+   },
+   {
+      "key": "down",
+      "command": "-notebook.focusNextEditor",
+      "when": "config.notebook.navigation.allowNavigateToSurroundingCells && editorTextFocus && inputFocus && notebookEditorFocused && notebookEditorCursorAtBoundary != 'none' && notebookEditorCursorAtBoundary != 'top'"
+   },
+   {
+      "key": "ctrl+tab",
+      "command": "-workbench.action.quickOpenNavigateNextInEditorPicker",
+      "when": "inEditorsPicker && inQuickOpen"
+   },
+   {
+      "key": "ctrl+e",
+      "command": "-workbench.action.quickOpenNavigateNextInFilePicker",
+      "when": "inFilesPicker && inQuickOpen"
+   },
+   {
+      "key": "ctrl+q",
+      "command": "-workbench.action.quickOpenNavigateNextInViewPicker",
+      "when": "inQuickOpen && inViewsPicker"
+   },
+   {
+      "key": "ctrl+shift+tab",
+      "command": "-workbench.action.quickOpenNavigatePreviousInEditorPicker",
+      "when": "inEditorsPicker && inQuickOpen"
+   },
+   {
+      "key": "ctrl+shift+e",
+      "command": "-workbench.action.quickOpenNavigatePreviousInFilePicker",
+      "when": "inFilesPicker && inQuickOpen"
+   },
+   {
+      "key": "ctrl+shift+q",
+      "command": "-workbench.action.quickOpenNavigatePreviousInViewPicker",
+      "when": "inQuickOpen && inViewsPicker"
+   },
+   {
+      "key": "ctrl+space",
+      "command": "workbench.action.quickOpenNavigateNext",
+      "when": "inQuickOpen"
+   },
+   {
+      "key": "ctrl+shift+space",
+      "command": "workbench.action.quickOpenNavigatePrevious",
+      "when": "inQuickOpen"
+   },
+   {
+      "key": "ctrl+k ctrl+i",
+      "command": "-editor.debug.action.showDebugHover",
+      "when": "editorTextFocus && inDebugMode"
+   },
+   {
+      "key": "ctrl+shift+alt+enter",
+      "command": "-jupyter.runAndDebugCell"
+   },
+   {
+      "key": "ctrl+f",
+      "command": "-repl.action.filter",
+      "when": "inDebugRepl && textInputFocus"
+   },
+   {
+      "key": "ctrl+; ctrl+a",
+      "command": "-testing.debugAll"
+   },
+   {
+      "key": "ctrl+; ctrl+e",
+      "command": "-testing.debugFailTests"
+   },
+   {
+      "key": "ctrl+; ctrl+c",
+      "command": "-testing.debugAtCursor",
+      "when": "editorTextFocus"
+   },
+   {
+      "key": "ctrl+; ctrl+f",
+      "command": "-testing.debugCurrentFile",
+      "when": "editorTextFocus"
+   },
+   {
+      "key": "alt+enter",
+      "command": "-debug.openBreakpointToSide",
+      "when": "breakpointsFocused"
+   },
+   {
+      "key": "ctrl+enter",
+      "command": "-debug.openBreakpointToSide",
+      "when": "breakpointsFocused"
+   }
 ]

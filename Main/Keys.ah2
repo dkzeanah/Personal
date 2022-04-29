@@ -268,8 +268,8 @@ SC04C::End
 SC049::PgUp
 SC04D::PgDn
 SC050::Launch_Media
-SC051::SC045
 ScrollLock::Launch_Media
+SC051::SC045
 AppsKey::LCtrl
 #InputLevel 5
 #SuspendExempt False

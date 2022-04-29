@@ -42,9 +42,6 @@
    "gitlens.views.commits.avatars": false,
    "gitlens.hovers.avatars": false,
    "git.confirmSync": false,
-   "files.exclude": {
-      "**/.git": false
-   },
    "editor.suggest.snippetsPreventQuickSuggestions": true,
    "git.allowForcePush": true,
    "git.autoStash": true,
@@ -56,5 +53,5 @@
    "workbench.list.smoothScrolling": true,
    "editor.suggest.showWords": false,
    "workbench.startupEditor": "none",
-   "editor.multiCursorModifier": "ctrlCmd"
+   "editor.multiCursorModifier": "ctrlCmd",
 }

@@ -131,8 +131,8 @@ MButton::Discord.dsc_Reply()
 #HotIf WinActive("ahk_exe Code.exe") ;_vscode 
 
 PrintScreen::VSC.vsc_RunCurrentInTerminal()
-!PrintScreen::VSC.vsc_KillCurrentTerminal()
-^PrintScreen::VSC.vsc_
+!PrintScreen::VSC.vsc_KillCurrentTerminalOrDebug()
+^PrintScreen::VSC.vsc_Debug()
 
 !6::Run A_WorkingDir . "\Notes\Notep.txt"
 

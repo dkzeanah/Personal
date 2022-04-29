@@ -1,0 +1,5 @@
+I can just use ctrl+P to open notes anyway
+
+You can append any line if it starts with a comma, boutta rewrite my entire codebase into single expressions
+
+Made an autoclicker using #MaxThreadsPerHotkey

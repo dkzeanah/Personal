@@ -13,21 +13,21 @@ RButton:: {
    Switch i {
       Case 0:
          ;Opens the ... menu
-         MouseGetPos &locX, &locY
-         ControlClick "X" . locX . " Y" . locY
-         i := 1
+         MouseGetPos(&locX, &locY)
+         , ControlClick("X" . locX . " Y" . locY)
+         , i := 1
       Case 1:
          ;Selects "Add to playlist"
-         ControlClick "X" . locX-156 . " Y" . locY+184
-         i := 2
+         ControlClick("X" . locX-156 . " Y" . locY+184)
+         , i := 2
       Case 2:
          ;Choose last playlist
-         ControlClick "X852 Y670"
-         i := 3
+         ControlClick("X852 Y670")
+         , i := 3
       Case 3:
          ;Exit the playlist selecter
-         ControlClick "X" . locX . " Y" . locY
-         i := 0
+         ControlClick("X" . locX . " Y" . locY)
+         , i := 0
    }
    static locX := locX
    static locY := locY
@@ -41,7 +41,7 @@ atp_isNotUsed() {
    (!WinActive("YouTube") 
       ? (l += 1)
       : (l := 0))
-   ((l >= 60) ? Script.scr_ExitApp() : "")
+   , ((l >= 60) ? Script.scr_ExitApp() : "")
 }
 
 Esc:: {

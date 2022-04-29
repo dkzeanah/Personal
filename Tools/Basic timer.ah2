@@ -4,34 +4,38 @@ O_timerInput := InputBox("Enter time in minutes:", "Timer")
 if (!O_timerInput.Value) || ((O_timerInput.Value // O_timerInput.Value) != 1) || (O_timerInput.Result == "Cancel")
    ExitApp
 else if O_timerInput.Value < 0 {
-   MsgBox "Go fuck yourself smartass", "Timer", "4096"
-   ExitApp
+   MsgBox("Go fuck yourself smartass", "Timer", "4096")
+   , ExitApp()
 }
 else {
    endSecond := A_Sec
    if ((O_timerInput.Value // 60) >= 1) { ;calculates for if the time is more than an hour
-      endHour := A_Hour + (O_timerInput.Value // 60), endMinute := A_Min + Mod(O_timerInput.Value, 60)
+      endHour := A_Hour + (O_timerInput.Value // 60)
+      , endMinute := A_Min + Mod(O_timerInput.Value, 60)
       if (endMinute >= 60) ;accounts for if the end time becomes something like 4:78, making it 5:18
-         endHour := endHour + (endMinute // 60), endMinute := Mod(endMinute, 60) 
+         endHour := endHour + (endMinute // 60)
+         , endMinute := Mod(endMinute, 60) 
    }
    else {
-      endHour := A_Hour, endMinute := A_Min + O_timerInput.Value
+      endHour := A_Hour
+      , endMinute := A_Min + O_timerInput.Value
       if (endMinute >= 60) ;line 21 comment
-         endHour++, endMinute := Mod(endMinute, 60) 
+         endHour++
+         , endMinute := Mod(endMinute, 60) 
    }
-   if endHour >= 24 
-      endHour := Mod(endHour, 24) ;if the ringing time becomes later than 24 hours, turns that into next day hours, meaning 00 and on
-   SetTimer tmr_IsItTimeYet, 1000 
+   ((endHour >= 24)
+      ? endHour := Mod(endHour, 24) : "") ;if the ringing time becomes later than 24 hours, turns that into next day hours, meaning 00 and on
+   , SetTimer(tmr_IsItTimeYet, 1000)
 } 
 
 ;Checks for if it's the ringing time every second.
 tmr_IsItTimeYet()
 {
-   if (A_Hour == endHour) AND (A_Min == endMinute) AND (A_Sec >= endSecond) {
-      SoundPlay("*-1")
-      MsgBox "Time's up!", "Timer", "4096"
-      ExitApp
-   }
+   (((A_Hour == endHour) && (A_Min == endMinute) && (A_Sec >= endSecond))
+      ? (SoundPlay("*-1"),
+         MsgBox("Time's up!", "Timer", "4096"),
+         ExitApp() : ""))
+   
 }
 
 $#F5:: {

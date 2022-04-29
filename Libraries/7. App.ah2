@@ -60,18 +60,14 @@ Class C_YouTubeMusic {
    }
 
    ytm_ChannelSwitch() {
-      MouseGetPos &sectionX, &sectionY
-      right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347)
-      Switch {
-         Case down:this.ytm_ChannelSwitch_Menu()
-         Case up:this.ytm_ChannelSwitch_Axlefublr()
-         Default:this.ytm_ChannelSwitch_Switch()
-      }
+      static i := 0
+      ((i) 
+         ? (this.ytm_ChannelSwitch_Switch(), i := !i)
+         : (this.ytm_ChannelSwitch_Menu(), i := !i))
    }
 
    ytm_ChannelSwitch_Menu() => ControlClick("X1863 Y75")
    ytm_ChannelSwitch_Switch() => ControlClick("X1688 Y297")
-   ytm_ChannelSwitch_Axlefublr() => ControlClick("X1691 Y559")
 
    ;Converts a YT music link into a youtube link and pastes it
    ytm_LinkConverter() {
@@ -123,26 +119,14 @@ Class C_YouTube {
    )
 
    ytt_ChannelSwitch() {
-      MouseGetPos &sectionX, &sectionY
-      right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), topRight := ((sectionX > 1707) && (sectionY < 233)), topLeft := ((sectionX < 252) && (sectionY < 229))
-      Switch {
-         Case right:this.ytt_ChannelSwitch_Asmr()
-         Case left:
-            ((topLeft)
-               ?    this.ytt_ChannelSwitch_Ahk()
-               :    this.ytt_ChannelSwitch_Name())
-         Case down: this.ytt_ChannelSwitch_Menu()
-         Case up:   this.ytt_ChannelSwitch_Axlefublr()
-         Default:   this.ytt_ChannelSwitch_Switch()
-      }
+      static i := 0
+      ((i) 
+         ? (this.ytt_ChannelSwitch_Switch(), i := !i)
+         : (this.ytt_ChannelSwitch_Menu(), i := !i))
    }
 
    ytt_ChannelSwitch_Menu() => ControlClick("X1821 Y131")
    ytt_ChannelSwitch_Switch() => ControlClick("X1534 Y460")
-   ytt_ChannelSwitch_Name() => ControlClick("X1546 Y334")
-   ytt_ChannelSwitch_Ahk() => ControlClick("X1541 Y532")
-   ytt_ChannelSwitch_Asmr() => ControlClick("X1532 Y729")
-   ytt_ChannelSwitch_Axlefublr() => ControlClick("X1544 Y633")
 
 }
 YouTube := C_YouTube.Call()
@@ -294,6 +278,7 @@ Class C_VSCode {
    vsc_KeyCodeGetter(direction) {
       inputBoxTitle := "Key codes"
       vsc_KeyNotFound() => MsgBox("Key not found!", inputBoxTitle, "T1")
+
       ((direction == "to")
          ? vsc_ToSC()
       : direction == "from"
@@ -312,10 +297,10 @@ Class C_VSCode {
       vsc_FromSC() {
          Try {
             prevClip := A_Clipboard
-            Base.bsd_Copy()
-            Sleep 40
-            MsgBox D_KeyCodes_Out[A_Clipboard], inputBoxTitle
-            A_Clipboard := prevClip
+            , Base.bsd_Copy()
+            , Sleep(40)
+            , MsgBox(D_KeyCodes_Out[A_Clipboard], inputBoxTitle)
+            , A_Clipboard := prevClip
          }
          Catch 
             vsc_KeyNotFound()
@@ -366,27 +351,27 @@ Class C_Screenshot {
          Switch optionYoureOn
          {
             Case 1:
-               Click "959 27"
-               optionYoureOn := 3
+                 Click("959 27")
+               , optionYoureOn := 3
             Case 2:
-               Click "839 28"
-               optionYoureOn--
+                 Click("839 28")
+               , optionYoureOn--
             Case 3:
-               Click "897 31"
-               optionYoureOn--
+                 Click("897 31")
+               , optionYoureOn--
          }
       else 
          Switch optionYoureOn
          {
             Case 1:
-               Click "897 31"
-               optionYoureOn++
+                 Click("897 31")
+               , optionYoureOn++
             Case 2:
-               Click "959 27"
-               optionYoureOn++
+                 Click("959 27")
+               , optionYoureOn++
             Case 3:
-               Click "839 28"
-               optionYoureOn := 1
+                 Click("839 28")
+               , optionYoureOn := 1
          }
       MouseMove initX, initY   
    }

@@ -316,8 +316,8 @@ AppsKey::LCtrl
 
 ;Opens a msgbox showing the exact time
 +!t:: {
-   clock_time := FormatTime(, "H:mm")
-   clock_weekDay := FormatTime(, "dddd")
-   clock_date := FormatTime(, "d MMMM")
-   MsgBox clock_time . "`n" . clock_weekDay . "`n" . clock_date, "Current time", "4096"
+     clock_time := FormatTime(, "H:mm")
+   , clock_weekDay := FormatTime(, "dddd")
+   , clock_date := FormatTime(, "d MMMM")
+   , MsgBox(clock_time . "`n" . clock_weekDay . "`n" . clock_date, "Current time", "4096")
 }

@@ -120,12 +120,11 @@ Class C_Base {
    bsd_WinUp => "#{Up}"
 
    bsd_MouseAltTab() {
-      Send "{AltDown}{Tab}" 
-      KeyWait "LButton", "D"
-      Sleep 150
-      Send "{AltUp}"
-      if WinActive("ahk_exe wps.exe")
-         Send "{Esc}"
+        Send("{AltDown}{Tab}")
+      , KeyWait("LButton", "D")
+      , Sleep(150)
+      , Send("{AltUp}")
+      , (WinActive("ahk_exe wps.exe") ? Send("{Esc}") : "")
    }
 
    bsd_WinTab() {

@@ -75,7 +75,14 @@ XButton2 & LButton::Enter
 
 Volume_Down:: { 
    MouseGetPos &sectionX, &sectionY
-   right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), topRight := ((sectionX > 1707) && (sectionY < 233)), topLeft := ((sectionX < 252) && (sectionY < 229)), bottomLeft := ((sectionX < 263) && (sectionY > 849)), bottomRight := ((sectionX > 1673) && (sectionY > 839))
+     right       := (sectionX > 1368)
+   , left        := (sectionX < 568)
+   , down        := (sectionY > 747)
+   , up          := (sectionY < 347)
+   , topRight    := ((sectionX > 1707) && (sectionY < 233))
+   , topLeft     := ((sectionX < 252) && (sectionY < 229))
+   , bottomLeft  := ((sectionX < 263) && (sectionY > 849))
+   , bottomRight := ((sectionX > 1673) && (sectionY > 839))
    Switch {
       Case right:
          ( (topRight)    ? Base.bsd_WinUp()
@@ -102,7 +109,14 @@ Volume_Down:: {
 
 XButton2:: { 
    MouseGetPos &sectionX, &sectionY
-   right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), topRight := ((sectionX > 1707) && (sectionY < 233)), topLeft := ((sectionX < 252) && (sectionY < 229)) ;Here I define the sections
+     right       := (sectionX > 1368)
+   , left        := (sectionX < 568)
+   , down        := (sectionY > 747)
+   , up          := (sectionY < 347)
+   , topRight    := ((sectionX > 1707) && (sectionY < 233))
+   , topLeft     := ((sectionX < 252) && (sectionY < 229))
+   , bottomLeft  := ((sectionX < 263) && (sectionY > 849))
+   , bottomRight := ((sectionX > 1673) && (sectionY > 839))
    Switch {
       Case right:
          Switch {
@@ -138,7 +152,14 @@ XButton2:: {
 
 XButton1:: { 
    MouseGetPos &sectionX, &sectionY
-   right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), topRight := ((sectionX > 1707) && (sectionY < 233)), topLeft := ((sectionX < 252) && (sectionY < 229)), bottomLeft := ((sectionX < 263) && (sectionY > 849)), bottomRight := ((sectionX > 1673) && (sectionY > 839))
+     right       := (sectionX > 1368)
+   , left        := (sectionX < 568)
+   , down        := (sectionY > 747)
+   , up          := (sectionY < 347)
+   , topRight    := ((sectionX > 1707) && (sectionY < 233))
+   , topLeft     := ((sectionX < 252) && (sectionY < 229))
+   , bottomLeft  := ((sectionX < 263) && (sectionY > 849))
+   , bottomRight := ((sectionX > 1673) && (sectionY > 839))
    Switch {
       Case WinActive("Google Chrome"): ;_chrome
          Switch {

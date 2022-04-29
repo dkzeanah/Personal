@@ -134,8 +134,6 @@ PrintScreen::VSC.vsc_RunCurrentInTerminal()
 !PrintScreen::VSC.vsc_KillCurrentTerminalOrDebug()
 ^PrintScreen::VSC.vsc_Debug()
 
-!6::Run A_WorkingDir . "\Notes\Notep.txt"
-
 ;Opens an inputbox for you to put in the name of the key to get its SC code into your clipboard, or takes the SC code to then show you to which key it belongs in a msgbox; if it finds neither, says so
 +!k:: {
    (Hold.hld_Bool("k")

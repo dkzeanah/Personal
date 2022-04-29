@@ -10,8 +10,8 @@ Class C_Script {
       OnExit((ExitReason, ExitCode) => (
          ExitReason == "Exit" 
          ? (Run(A_ScriptFullPath), SoundPlay("*-1"))
-         : "")), 
-      SoundPlay("*16"), ExitApp()
+         : "")) 
+      , SoundPlay("*16"), ExitApp()
    }
 
    ;Exits the script

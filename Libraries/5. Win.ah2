@@ -64,11 +64,11 @@ Class C_WindowsApp {
 
    ;Run an exe, activate its window
    niw_Run(winTitle, exePath, closeWin:=False) {
-      Run exePath,, "Max"
-      WinWait winTitle,, 10
-      WinActivate winTitle
+        Run(exePath,, "Max")
+      , WinWait(winTitle,, 10)
+      , WinActivate(winTitle)
       ;If there's an unnesesary window that likes to pop up, it will get closed
-      ((closeWin) 
+      , ((closeWin) 
       ? (WinWait(closeWin,, 60), this.niw_ifClose(closeWin)) : "")
    } 
 

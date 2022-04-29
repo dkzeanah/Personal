@@ -32,7 +32,8 @@ Class C_Double {
 
    ;Sends first thing on a single press, the second one on a double press
    dbl_Send(whichKey, toSend1, toSend2, howLong:="0.1") {
-      KeyWait(whichKey, "U"), (KeyWait(whichKey, "D T" . howLong)
+         KeyWait(whichKey, "U")
+      , (KeyWait(whichKey, "D T" . howLong)
          ? (Send(toSend1), KeyWait(whichKey, "U"))
          : Send(toSend2))
    }

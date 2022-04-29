@@ -20,24 +20,24 @@ Class C_Runner {
 
    ;Takes a random number out of 1 and 100000, says yes if it's even, no if it's odd
    nur_CoinFlip() {
-      coinFlip := Random(1, 100000),
-      ((Mod(coinFlip, 2)) 
+      coinFlip := Random(1, 100000)
+      , ((Mod(coinFlip, 2)) 
          ? (result := "Yes") 
-         : (result := "No")),
-      MsgBox(result)
+         : (result := "No"))
+      , MsgBox(result)
    }
 
    ;Takes a multiline text and turns every line into a key in an array
    nur_FormatTableToArray() {
-      A_Clipboard := "`"" . StrReplace(A_Clipboard, "`r`n", '", "') . "`"",
-      MsgBox("Done formatting table to array")
+      A_Clipboard := "`"" . StrReplace(A_Clipboard, "`r`n", '", "') . "`""
+      , MsgBox("Done formatting table to array")
    }
 
    ;Select a file to run on startup
    nur_StartupRun() {
-      selectedFile := FileSelect("S", A_WorkingDir),
-      SplitPath(selectedFile, &fileName),
-      FileCreateShortcut(selectedFile, A_AppData . "\Microsoft\Windows\Start Menu\Programs\Startup\" . fileName . ".lnk")
+      selectedFile := FileSelect("S", A_WorkingDir)
+      , SplitPath(selectedFile, &fileName)
+      , FileCreateShortcut(selectedFile, A_AppData . "\Microsoft\Windows\Start Menu\Programs\Startup\" . fileName . ".lnk")
    }
 
    nur_Converter() {
@@ -59,7 +59,7 @@ Class C_Runner {
       : (currency == "d")
          ? (currency := "dollars", oppCurrency := "rubles") : "")
 
-      F_RunLink("https://www.google.com/search?q=" . num . "+" . currency . "+in+" . oppCurrency . "&oq=" . num . "+" . currency . "+in+" . oppCurrency . "&aqs=chrome..69i57.4182j1j9&sourceid=chrome&ie=UTF-8")
+      , F_RunLink("https://www.google.com/search?q=" . num . "+" . currency . "+in+" . oppCurrency . "&oq=" . num . "+" . currency . "+in+" . oppCurrency . "&aqs=chrome..69i57.4182j1j9&sourceid=chrome&ie=UTF-8")
    }
 
    ;Clicks on all the libraries consequentially, loading them into Intellisense
@@ -82,7 +82,7 @@ Class C_Runner {
       for key, value in D_Libraries 
          ControlClick(value, "ahk_exe Code.exe"), WinWait(key . ".ah2 - Personal - Visual Studio Code")
       Base.bsd_CloseTab()
-      Run A_WorkingDir . "\Scripts\Pull vs code settings.py"
+      , Run(A_WorkingDir . "\Scripts\Pull vs code settings.py")
    }
 
    ;Gets the github link to a file of your choosing
@@ -90,14 +90,14 @@ Class C_Runner {
 
       programmingPath := "C:\Files\Programming\"
 
-      fullPath := FileSelect("S", programmingPath)
+      , fullPath := FileSelect("S", programmingPath)
 
       if !fullPath 
          return
       faultyLink := PathToLink(fullPath)
 
       ;Formats a full file path into a relative one
-      PathToLink(fullPath) => (
+      , PathToLink(fullPath) => (
          ;Removes the start of the path, since it's irrelevant in the link that just uses the project folder
          relativePath := StrReplace(fullPath, programmingPath, ""),
          ;Links use forward slashes while paths use backslashes
@@ -106,7 +106,7 @@ Class C_Runner {
          relativePath := StrReplace(relativePath, " ", "%20")
       )
 
-      R_ProjectFolders := ["Python-tutorials/", "Other/", "Personal/"]
+      , R_ProjectFolders := ["Python-tutorials/", "Other/", "Personal/"]
 
       for index in R_ProjectFolders {
          noIndex := StrReplace(faultyLink, index, "")
@@ -126,15 +126,15 @@ Class C_Runner {
 
    nur_ArtistsCount() {
       ;Gets the artists into the clipboard
-      prevClip := A_Clipboard
-      Base.bsd_SelectAll(), Base.bsd_Cut()
-      Sleep 60
+        prevClip := A_Clipboard
+      , Base.bsd_SelectAll(), Base.bsd_Cut()
+      , Sleep(60)
 
       ;Counts the amount of artists
-      Artists := StrReplace(A_Clipboard, "`r`n", "`r`n",, &ArtistsCount)
+      , Artists := StrReplace(A_Clipboard, "`r`n", "`r`n",, &ArtistsCount)
 
       ;Possible last number of artists, that could be in the artists text
-      R_PossibleNumbers := [-8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8]
+      , R_PossibleNumbers := [-8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8]
       
       ;Removes the possible numbers that might be in the text 
       for index in R_PossibleNumbers {
@@ -143,8 +143,8 @@ Class C_Runner {
       A_Clipboard := Artists . " " . ArtistsCount+1
 
       ;Pastes them back, reverts your previous clipboard
-      Base.bsd_Paste()
-      F_RevertClipboard(prevClip)
+      , Base.bsd_Paste()
+      , SetTimer(() => A_Clipboard := prevClip, -200)
    }
 }
 Runner := C_Runner()

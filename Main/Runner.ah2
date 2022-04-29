@@ -69,7 +69,7 @@
 
       Case "syntax":Run "C:\Users\serge\.vscode\extensions\mark-wiemer.vscode-autohotkey-plus-plus-2.8.1\syntaxes\ahk.tmLanguage.json"
       Case "keybind":Run "C:\Users\serge\AppData\Roaming\Code\User\keybindings.json"
-      Case "settings":Run "C:\Files\Programming\Personal\Backups\settings.json"
+      Case "settings":Run "C:\Users\serge\AppData\Roaming\Code\User\settings.json"
       Case "tasks":Run "C:\Users\serge\AppData\Roaming\Code\User\tasks.json"
       Case "extensions":Run "C:\Users\serge\.vscode\extensions"
       Case "package":Run "C:\Users\serge\.vscode\extensions\mark-wiemer.vscode-autohotkey-plus-plus-2.8.1\package.json"

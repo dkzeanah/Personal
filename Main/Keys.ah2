@@ -68,8 +68,8 @@ Pause::        Script.scr_Test()
 ;Script parts
 ;————————————————————————————————
 #Include "%A_ScriptDir%\..\Main\Runner.ah2"
-#Include "%A_ScriptDir%\..\Main\Mouse.ah2"
 #Include "%A_ScriptDir%\..\Main\App.ah2"
+#Include "%A_ScriptDir%\..\Main\Mouse.ah2"
 #Include "%A_ScriptDir%\..\Main\Win.ah2"
 
 

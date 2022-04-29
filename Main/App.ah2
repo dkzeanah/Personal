@@ -20,6 +20,9 @@ F9::Send "{Volume_Down}"
 F12::YTMusic.ytm_Like()
 F11::YTMusic.ytm_Dislike()
 
+Volume_Down & MButton::F5
+^Space::Send "{Down}"
+
 
 #HotIf YouTube.ytt_isNotWatchingVid
 Escape::YouTube.ytt_MiniscreenClose()
@@ -40,7 +43,7 @@ Up::Send "{Volume_Up}"
 Down::Send "{Volume_Down}"
 
 
-#HotIf WinActive("Google Chrome ahk_exe chrome") ;_chrome
+#HotIf WinActive("Google Chrome") ;_chrome
 
 ;Single press is copy, double press will get current tab's link to clipboard
 Volume_Down & XButton1:: {
@@ -67,8 +70,6 @@ F9::Send "{Volume_Down}"
 
 +!w::(!WinActive("Messenger") ? Base.bsd_CloseTab() : "")
 
-
-#HotIf WinActive("ahk_exe chrome.exe")
 Volume_Down & MButton::F5
 ^Space::Send "{Down}"
 
@@ -131,6 +132,9 @@ MButton::Discord.dsc_Reply()
 
 PrintScreen::VSC.vsc_RunCurrentInTerminal()
 !PrintScreen::VSC.vsc_KillCurrentTerminal()
+^PrintScreen::VSC.vsc_
+
+!6::Run A_WorkingDir . "\Notes\Notep.txt"
 
 ;Opens an inputbox for you to put in the name of the key to get its SC code into your clipboard, or takes the SC code to then show you to which key it belongs in a msgbox; if it finds neither, says so
 +!k:: {

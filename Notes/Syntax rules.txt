@@ -22,7 +22,7 @@ Pascal case for everything else
 
 _ after variable for its variations
 
-S_ for snippets
+~ for snippets
 
 R_ for arrays
 

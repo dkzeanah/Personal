@@ -56,3 +56,6 @@ git change-commits GIT_AUTHOR_NAME "old name" "new name"
 ;To change email for 10 last commits
 git change-commits GIT_AUTHOR_EMAIL "old@email.com" "new@email.com" HEAD~10..HEAD
 */
+
+;Track a file's commits
+git lop -p file

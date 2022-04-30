@@ -1,5 +1,5 @@
-Removed ytmusic corner gestures, except options
+Learning regex
 
-Win + arrow keys replaced with functions using the — X Postmessage
-Since winmove doesn't work if the window is maximized, I improvised a WinWaitWinCanMove function.
-For the sake of staying an arrow function, it's not separate from the the winmove function
+^: opens emojis in discord
+
+v2iss is a hotstring that pastes ~~in v2 you wouldn't have this issue~~

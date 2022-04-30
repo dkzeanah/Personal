@@ -3,8 +3,8 @@ SetWorkingDir A_ScriptDir . "\..\" ;Ensures a consistent A_WorkingDir.
 #InputLevel 2 ;Makes sure hotkeys can't activate themselves (effectively $ on every hotkey)
 CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of the window's
 A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seconds
-#Include "%A_ScriptDir%\..\Libraries\8. Script.ah2"
-#Include "%A_ScriptDir%\..\Libraries\3. Press.ah2"
+#Include "%A_ScriptDir%\..\..Libraries\8. Script.ah2"
+#Include "%A_ScriptDir%\..\..Libraries\3. Press.ah2"
 SoundPlay "*-1"
 
 #HotIf WinActive("YouTube ahk_exe chrome.exe")

@@ -116,8 +116,15 @@ Enter::Base.bsd_ChooseNext()
 
 MButton::Discord.dsc_Reply()
 
-^Space::Discord.dsc_NextServer()
-^+Space::Discord.dsc_PrevServer()
+^SC027::Discord.dsc_Emoji()
+
+:X*:v2iss::F_ClipSend("~~in v2 you wouldn't have that issue~~")
+
+F1::Discord.dsc_PrevServer()
+F2::Discord.dsc_NextServer()
+
+^Space::Send "{Down}"
+^+Space::Send "{Up}"
 
 
 

@@ -65,15 +65,15 @@ Class C_Runner {
    ;Clicks on all the libraries consequentially, loading them into Intellisense
    nur_LibLoad() {
       D_Libraries := Map(
-         "1. Base",                         "X194 Y262",
-         "2. KeyCodes",                     "X194 Y287",
-         "3. Press",                        "X194 Y315",
-         "4. RandomWords",                  "X194 Y346",
-         "5. Win",                          "X194 Y370",
-         "6. Global",                       "X194 Y396",
-         "7. App",                          "X194 Y428",
-         "8. Script",                       "X200 Y453",
-         "9. Runner",                       "X209 Y475"
+         "1. Base",                         "X196 Y149",
+         "2. KeyCodes",                     "X196 Y178",
+         "3. Press",                        "X196 Y203",
+         "4. RandomWords",                  "X196 Y232",
+         "5. Win",                          "X196 Y257",
+         "6. Global",                       "X196 Y285",
+         "7. App",                          "X196 Y313",
+         "8. Script",                       "X196 Y343",
+         "9. Runner",                       "X196 Y368"
       )
       
       ;Makes sure the mouse positions are correct

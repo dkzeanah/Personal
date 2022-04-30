@@ -1,0 +1,13 @@
+.ask 
+
+.tag tias
+   Try it and see!
+
+.tag ahkformatted
+
+.d docName, docName2
+
+.tag coords2
+
+.w word
+   Dictionary

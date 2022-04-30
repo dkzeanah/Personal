@@ -1101,16 +1101,26 @@
       ]
    },
    "Full section gesture vars": {
-      "prefix": "~Section gesture vars full",
+      "prefix": "~Gesture vars full",
       "body": [
-         "right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347), topRight := ((sectionX > 1707) && (sectionY < 233)), topLeft := ((sectionX < 252) && (sectionY < 229)), bottomLeft := ((sectionX < 263) && (sectionY > 849)), bottomRight := ((sectionX > 1673) && (sectionY > 839))"
+         "  right       := (sectionX > 1368)",
+         ", left        := (sectionX < 568)",
+         ", down        := (sectionY > 747)",
+         ", up          := (sectionY < 347)",
+         ", topRight    := ((sectionX > 1707) && (sectionY < 233))",
+         ", topLeft     := ((sectionX < 252) && (sectionY < 229))",
+         ", bottomLeft  := ((sectionX < 263) && (sectionY > 849))",
+         ", bottomRight := ((sectionX > 1673) && (sectionY > 839))"
       ],
       "description": "Variable definitions"
    },
    "Section gesture vars": {
-      "prefix": "~Section gesture vars",
+      "prefix": "~Gesture vars",
       "body": [
-         "right := (sectionX > 1368), left := (sectionX < 568), down := (sectionY > 747), up := (sectionY < 347)"
+         "  right := (sectionX > 1368)",
+         ", left  := (sectionX < 568)",
+         ", down  := (sectionY > 747)",
+         ", up    := (sectionY < 347)"
       ],
       "description": "Variable definitions"
    },
@@ -1155,5 +1165,10 @@
          "#InputLevel "
       ]
    },
-
+   "#MaxThreadsPerHotkey": {
+      "prefix": "#MaxThreadsPerHotkey",
+      "body": [
+         "#MaxThreadsPerHotkey 2"
+      ]
+   }
 }

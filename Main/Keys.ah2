@@ -29,23 +29,23 @@ Pause::        Script.scr_Test()
 
 ;Libraries
 ;————————————————————————————————
-#Include "%A_ScriptDir%\..\Libraries\1. Base.ah2"
+#Include "%A_ScriptDir%\..\..Libraries\1. Base.ah2"
 ; Base
-#Include "%A_ScriptDir%\..\Libraries\2. KeyCodes.ah2"
+#Include "%A_ScriptDir%\..\..Libraries\2. KeyCodes.ah2"
 ; D_KeyCodes_In
 ; D_KeyCodes_Out
-#Include "%A_ScriptDir%\..\Libraries\3. Press.ah2"
+#Include "%A_ScriptDir%\..\..Libraries\3. Press.ah2"
 ; Twice
 ; Double
 ; Hold
-#Include "%A_ScriptDir%\..\Libraries\4. RandomWords.ah2"
+#Include "%A_ScriptDir%\..\..Libraries\4. RandomWords.ah2"
 ; R_RandomWords_Eng
 ; R_RandomWords_Rus
-#Include "%A_ScriptDir%\..\Libraries\5. Win.ah2"
+#Include "%A_ScriptDir%\..\..Libraries\5. Win.ah2"
 ; Win
-#Include "%A_ScriptDir%\..\Libraries\6. Global.ah2"
+#Include "%A_ScriptDir%\..\..Libraries\6. Global.ah2"
 ; F_
-#Include "%A_ScriptDir%\..\Libraries\7. App.ah2"
+#Include "%A_ScriptDir%\..\..Libraries\7. App.ah2"
 ; Chrome
 ; YTMusic
 ; YouTube
@@ -58,9 +58,9 @@ Pause::        Script.scr_Test()
 ; WPS
 ; Player
 ; Screenshot
-#Include "%A_ScriptDir%\..\Libraries\8. Script.ah2"
+#Include "%A_ScriptDir%\..\..Libraries\8. Script.ah2"
 ; Script
-#Include "%A_ScriptDir%\..\Libraries\9. Runner.ah2"
+#Include "%A_ScriptDir%\..\..Libraries\9. Runner.ah2"
 ; Runner
 ; TimeTable
 

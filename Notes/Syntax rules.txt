@@ -4,16 +4,14 @@ Omit brackets if you can, unless it's your own function
 
 ahk_exe is preferred when possible
 
-OTB everywhere except after more than one hotkey for one function
+OTB everywhere 
 
 Fat arrow for functions that are mostly used in nesting or are unwanted in intellisense
 
 ternary for if else
-   if for single
+   if for single non expressions
       switch for three or more
    
-All hotkeys use $
-
 $~*<#^+!
 
 Camel case for variables
@@ -28,7 +26,7 @@ R_ for arrays
 
 D_ for dictionaries
 
-F_ for functions
+F_ for global functions
 
 V_ for conflicting variables (usually params)
 

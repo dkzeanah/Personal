@@ -64,14 +64,36 @@ Class C_Base {
    }
    bsd_PrevWin => "+!{Tab}"
 
-   ;Defaults to closing the current window
    bsd_CloseWin(winTitle := "A") {
       PostMessage "0x0010",,,, winTitle
    }
 
-   ;Defaults to minimizing the current window
    bsd_MinimizeWin(winTitle := "A") {
       PostMessage "0x112", "0xF020",,, winTitle
+   }
+
+   bsd_WinRestoreDown(winTitle := "A") {
+      PostMessage "0x112", "0xF120",,, winTitle
+   }
+
+   bsd_Maximize(winTitle := "A") {
+      PostMessage "0x112", "0xF030",,, winTitle
+   }
+
+   bsd_WinRestore(direction, winTitle := "A") {
+      ((WinGetMinMax(winTitle)) ;If window is maximized
+      ? (this.bsd_WinRestoreDown(winTitle), ;Unmaximize it
+         SetTimer(() => (
+            !WinGetMinMax(winTitle) ;Check if it's unmaximized every 10ms
+               ? (F_WinMove(), SetTimer(, 0)) ;If so, move it
+               : ""), 20)) 
+      : F_WinMove()) ;If window is not maximized
+
+      F_WinMove() => (
+         ( (direction == "right") ? direction := 960
+         : (direction == "left")  ? direction := 0 : ""),
+         WinMove(direction, 0, 960, 1079, winTitle)
+      )
    }
 
    bsd_ChooseNext() {
@@ -98,26 +120,6 @@ Class C_Base {
       Send "^f"
    }
    bsd_Search => "^f"
-
-   bsd_WinRight() {
-      Send "#{Right}"
-   }
-   bsd_WinRight => "#{Right}"
-
-   bsd_WinLeft() {
-      Send "#{Left}"
-   }
-   bsd_WinLeft => "#{Left}"
-
-   bsd_WinDown() {
-      Send "#{Down}"
-   }
-   bsd_WinDown => "#{Down}"
-
-   bsd_WinUp() {
-      Send "#{Up}"
-   }
-   bsd_WinUp => "#{Up}"
 
    bsd_MouseAltTab() {
         Send("{AltDown}{Tab}")

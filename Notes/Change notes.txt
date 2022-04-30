@@ -1,5 +1,5 @@
-I can just use ctrl+P to open notes anyway
+Removed ytmusic corner gestures, except options
 
-You can append any line if it starts with a comma, boutta rewrite my entire codebase into single expressions
-
-Made an autoclicker using #MaxThreadsPerHotkey
+Win + arrow keys replaced with functions using the — X Postmessage
+Since winmove doesn't work if the window is maximized, I improvised a WinWaitWinCanMove function.
+For the sake of staying an arrow function, it's not separate from the the winmove function

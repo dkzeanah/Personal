@@ -85,12 +85,12 @@ Volume_Down:: {
    , bottomRight := ((sectionX > 1673) && (sectionY > 839))
    Switch {
       Case right:
-         ( (topRight)    ? Base.bsd_WinUp()
-         : (bottomRight) ? Base.bsd_WinRight()
+         ( (topRight)    ? Base.bsd_Maximize()
+         : (bottomRight) ? Win.niw_App("Telegram", Win.Telegram)
          :                 Win.niw_App("ahk_exe Discord.exe", Win.Discord))
       Case left:
-         ( (topLeft)     ? Base.bsd_WinDown()
-         : (bottomLeft)  ? Base.bsd_WinLeft()
+         ( (topLeft)     ? Base.bsd_WinRestoreDown()
+         : (bottomLeft)  ? Win.niw_App("ahk_exe Todoist.exe", Win.Todoist)
          :                 Win.niw_App("ahk_exe Code.exe", Win.VScode))
       Case down:           Win.niw_App_WinNum("YouTube Music", "6")
       Case up:             Win.niw_App("Google Chrome", Win.GoogleChrome)
@@ -181,12 +181,12 @@ XButton1:: {
          Switch {
             Default:           VSC.vsc_Comment()
             Case right:
-               ( topRight ?    VSC.vsc_IndentRight()
+               ( topRight    ? VSC.vsc_IndentRight()
                : bottomRight ? Script.scr_Reload()
                :               Base.bsd_NextTab())
             Case left:
-               ( topLeft ?     VSC.vsc_IndentLeft()
-               : bottomLeft ?  Script.scr_Test()
+               ( topLeft     ? VSC.vsc_IndentLeft()
+               : bottomLeft  ? Script.scr_Test()
                :               Base.bsd_PrevTab())
             Case down:         Base.bsd_CloseTab()
             Case up:           Send "#{PgUp}"
@@ -194,17 +194,13 @@ XButton1:: {
       Case WinActive("YouTube Music"): ;_youtube music
          ytmCover := ((sectionX > 1594) && (sectionY > 686))
          Switch {
-            Default:          Send "{Browser_Back}"
+            Default:        Send "{Browser_Back}"
             Case right:
-               ( topRight   ? YTMusic.ytm_Discovery()
-               : ytmCover   ? YTMusic.ytm_Options()
-               :              YTMusic.ytm_Fullscreen())
-            Case left:
-               ( topLeft    ? YTMusic.ytm_Best()
-               : bottomLeft ? YTMusic.ytm_Liked()
-               :              YTMusic.ytm_Library())
-            Case up:          YTMusic.ytm_Like()
-            Case down:        YTMusic.ytm_Dislike()
+               (ytmCover ?  YTMusic.ytm_Options()
+               :            YTMusic.ytm_Fullscreen())
+            Case left:      YTMusic.ytm_Library()
+            Case up:        YTMusic.ytm_Like()
+            Case down:      YTMusic.ytm_Dislike()
          }
       Case WinActive("ahk_exe wps.exe"): 
          Switch {

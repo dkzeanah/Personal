@@ -205,6 +205,11 @@ GroupAdd "AutoHotkey_Help", "AutoHotkey v2 Help"
 +!Left::Base.bsd_Undo()
 +!Right::Base.bsd_Redo()
 
+#Up::Base.bsd_Maximize()
+#Down::Base.bsd_WinRestoreDown()
+#Right::Base.bsd_WinRestore("right")
+#Left::Base.bsd_WinRestore("left")
+
 ;Select all
 Insert::Base.bsd_SelectAll()
 SC047::Base.bsd_SelectAll()

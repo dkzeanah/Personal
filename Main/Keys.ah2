@@ -68,7 +68,6 @@ Pause::        Script.scr_Test()
 
 ;Script parts
 ;————————————————————————————————
-Run A_WorkingDir . "\Main\Remap.ah2"
 #Include "%A_ScriptDir%\..\Main\Runner.ah2"
 #Include "%A_ScriptDir%\..\Main\App.ah2"
 #Include "%A_ScriptDir%\..\Main\Mouse.ah2"
@@ -236,6 +235,56 @@ Insert::Base.bsd_SelectAll()
 ;######################################################################################
 ;######################################################################################
 
+
+#HotIf WinActive("ahk_exe Code.exe")
+Numpad1:: VSC.vsc_RunCurrentInTerminal()
+!Numpad1::VSC.vsc_KillCurrentTerminalOrDebug()
+^Numpad1::VSC.vsc_Debug()
+#HotIf 
+
+Numpad2:: Script.scr_Reload()
+!Numpad2::Script.scr_HardReload()
++Numpad2::Script.scr_Suspend()
+#Numpad2::Script.scr_Reboot()
+
+Numpad3:: Script.scr_Test()
++Numpad3::Script.scr_Test("v1.ahk")
+!Numpad3::Send "!{Pause}"
+
+Numpad4::Delete
+Numpad5::End
+Numpad6::PgDn
+
+Numpad7:: Base.bsd_SelectAll()
+#Numpad7::Base.bsd_WinPaste()
+!Numpad7::Base.bsd_Cut()
+
+Numpad8::Home
+Numpad9::PgUp
+AppsKey::LCtrl
+
+Launch_Media::    return        ;F1
+Media_Play_Pause::return        ;F2
+Media_Stop::      return        ;F3
+Media_Prev::      return        ;F4
+Media_Next::      return        ;F5
+Volume_Mute::     return        ;F6
+Volume_Up::       return        ;F7
+; Volume_Down::     return        ;F8
+Launch_App1::     return        ;F9
+Launch_Mail::     return        ;F10
+Launch_App2::     return        ;F11
+Browser_Home::    return        ;F12
+
+*NumpadMult:: return
+*NumpadDiv::  return
+*NumpadAdd::  return
+*NumpadSub::  return
+*Numpad0::    return
+*Numpad1::    return
+*NumLock::    return
+*NumpadDot::  return
+*NumpadEnter::return
 
 ;Makes sure the side mouse buttons work as intended ingame, despite their remapping outside of game 
 #HotIf WinActive("ahk_group Game_M")

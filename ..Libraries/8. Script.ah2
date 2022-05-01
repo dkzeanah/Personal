@@ -28,7 +28,16 @@ Class C_Script {
 
    ;Run test script
    scr_Test(extension:=".ah2") {
-      SoundPlay("*-1"), Run(A_WorkingDir . "\Test\Tests" . extension)
+      SoundPlay("*-1"), Run(A_WorkingDir . "\Test\Tests" . extension,,, &testPID)
+      return testPID
+   }
+
+   ;Run test script if it doesn't exist, send the exiapp hotkey to it if it does
+   scr_ToggleTest(exitHotkey := "!{Pause}", extension := ".ah2") {
+      static testPID := 0
+      ((!testPID)
+         ? testPID := this.scr_Test(extension)
+         : (Send(exitHotkey), testPID := 0))
    }
 
    ;Reboot

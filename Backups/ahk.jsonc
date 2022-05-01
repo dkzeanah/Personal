@@ -12,14 +12,14 @@
 	// 	],
 	// 	"description": "Log output to console"
 	// }
-   "MsgBox": {
+   "1": {
       "prefix": "MsgBox",
       "body": [
          "MsgBox"
       ],
       "description": ""
    },
-   "Big separator": {
+   "2": {
       "prefix": "~Big separator",
       "body": [
          ";$0######################################################################################",
@@ -31,22 +31,22 @@
       ],
       "description": "Commented lines to separate large sections of code"
    },
-   "Persistent": {
+   "3": {
       "prefix": "Persistent",
       "body": [
          "Persistent True"
       ],
       "description": ""
    },
-   "#Hotstring": {
+   "4": {
       "prefix": "Hotstring",
       "body": [
          "#Hotstring EndChars"
       ],
       "description": ""
    },
-   "Directories": {
-      "prefix": "~Directories",
+   "5": {
+      "prefix": "~Directories v2",
       "body": [
          "SetWorkingDir A_ScriptDir . \"\\..\\\" ;Ensures a consistent A_WorkingDir.",
          "#SingleInstance Force ;Launches the new instance of the script always, instead of asking whether it should",
@@ -55,174 +55,174 @@
          "#InputLevel 5 ;Makes sure hotkeys can't activate themselves (effectively $ on every hotkey)",
          "#HotIf ;At the start to autoresolve \"this hotkey already exists\" conflicts",
          "CoordMode \"Mouse\", \"Screen\" ;Uses the coordinates of the screen rather than of the window's",
-         "SetControlDelay -1",
+         "SetControlDelay -1 ;Even faster ControlClick/Send",
          "A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seconds"
       ],
       "description": ""
    },
-   "True": {
+   "6": {
       "prefix": "True",
       "body": [
          "True"
       ],
       "description": ""
    },
-   "False": {
+   "7": {
       "prefix": "False",
       "body": [
          "False"
       ],
       "description": ""
    },
-   "HotIfWinActive": {
+   "8": {
       "prefix": "HotIfWinActive",
       "body": [
          "HotIfWinActive $0"
       ],
       "description": ""
    },
-   "HotIfWinNotActive": {
+   "9": {
       "prefix": "HotIfWinNotActive",
       "body": [
          "HotIfWinNotActive $0"
       ],
       "description": ""
    },
-   "HotIfWinExist": {
+   "10": {
       "prefix": "HotIfWinExist",
       "body": [
          "HotIfWinExist $0"
       ],
       "description": ""
    },
-   "HotIfWinNotExist": {
+   "11": {
       "prefix": "HotIfWinNotExist",
       "body": [
          "HotIfWinNotExist $0"
       ],
       "description": ""
    },
-   "ControlSend": {
+   "12": {
       "prefix": "ControlSend",
       "body": [
          "ControlSend"
       ],
       "description": ""
    },
-   "ControlClick": {
+   "13": {
       "prefix": "ControlClick",
       "body": [
          "ControlClick"
       ],
       "description": ""
    },
-   "ExitApp": {
+   "14": {
       "prefix": "ExitApp",
       "body": [
          "ExitApp"
       ],
       "description": ""
    },
-   "Call": {
+   "15": {
       "prefix": "Call",
       "body": [
          "Call(${1:Params*})"
       ],
       "description": ""
    },
-   "#HotIf": {
+   "16": {
       "prefix": "#HotIf",
       "body": [
          "#HotIf "
       ],
       "description": ""
    },
-   "#WinActivateForce": {
+   "17": {
       "prefix": "#WinActivateForce",
       "body": "#WinActivateForce",
       "description": "Skips the gentle method of activating a window and goes straight to the forceful method."
    },
-   "if": {
+   "18": {
       "prefix": "if",
       "body": [
          "if"
       ],
       "description": ""
    },
-   "else": {
+   "19": {
       "prefix": "else",
       "body": [
          "else"
       ],
       "description": ""
    },
-   "SetWorkingDir": {
+   "20": {
       "prefix": "SetWorkingDir",
       "body": [
          "SetWorkingDir "
       ],
       "description": ""
    },
-   "#SingleInstance": {
+   "21": {
       "prefix": "#SingleInstance",
       "body": [
          "#SingleInstance Force"
       ],
       "description": ""
    },
-   "Click": {
+   "22": {
       "prefix": "Click",
       "body": [
          "Click"
       ],
       "description": ""
    },
-   "MouseGetPos": {
+   "23": {
       "prefix": "MouseGetPos",
       "body": [
          "MouseGetPos &${1:OutputVarX}, &${2:OutputVarY}"
       ],
       "description": ""
    },
-   "MouseMove": {
+   "24": {
       "prefix": "MouseMove",
       "body": [
          "MouseMove"
       ],
       "description": "X, Y, Speed, Relative"
    },
-   "SendPlay": {
+   "25": {
       "prefix": "SendPlay",
       "body": [
          "SendPlay"
       ],
       "description": ""
    },
-   "WinActive": {
+   "26": {
       "prefix": "WinActive",
       "body": [
          "WinActive"
       ]
    },
-   "WinExist": {
+   "27": {
       "prefix": "WinExist",
       "body": [
          "WinExist"
       ]
    },
-   "ProcessExist": {
+   "28": {
       "prefix": "ProcessExist",
       "body": [
          "ProcessExist($0)"
       ]
    },
-   "InputBox": {
+   "29": {
       "prefix": "InputBox",
       "body": [
          "InputBox($0)"
       ]
    },
-   "Switch": {
+   "30": {
       "prefix": "Switch",
       "body": [
          "Switch $1 {",
@@ -230,97 +230,97 @@
          "}"
       ]
    },
-   "Case": {
+   "31": {
       "prefix": "Case",
       "body": [
          "Case "
       ]
    },
-   "KeyWait": {
+   "32": {
       "prefix": "KeyWait",
       "body": [
          "KeyWait"
       ]
    },
-   "AltTabAndMenu": {
+   "33": {
       "prefix": "AltTabAndMenu",
       "body": [
          "AltTabAndMenu"
       ]
    },
-   "ShiftAltTab": {
+   "34": {
       "prefix": "ShiftAltTab",
       "body": [
          "ShiftAltTab"
       ]
    },
-   "Media_Play_Pause": {
+   "35": {
       "prefix": "Media_Play_Pause",
       "body": [
          "Media_Play_Pause"
       ]
    },
-   "Volume_Up": {
+   "36": {
       "prefix": "Volume_Up",
       "body": [
          "Volume_Up"
       ]
    },
-   "Volume_Down": {
+   "37": {
       "prefix": "Volume_Down",
       "body": [
          "Volume_Down"
       ]
    },
-   "Volume_Mute": {
+   "38": {
       "prefix": "Volume_Mute",
       "body": [
          "Volume_Mute"
       ]
    },
-   "Media_Prev": {
+   "39": {
       "prefix": "Media_Prev",
       "body": [
          "Media_Prev"
       ]
    },
-   "Media_Next": {
+   "40": {
       "prefix": "Media_Next",
       "body": [
          "Media_Next"
       ]
    },
-   "A_Clipboard": {
+   "41": {
       "prefix": "A_Clipboard",
       "body": [
          "A_Clipboard"
       ]
    },
-   "Browser_Back": {
+   "42": {
       "prefix": "Browser_Back",
       "body": [
          "Browser_Back"
       ]
    },
-   "Random": {
+   "43": {
       "prefix": "Random",
       "body": [
          "Random($0)"
       ]
    },
-   "BackSpace": {
+   "44": {
       "prefix": "BackSpace",
       "body": [
          "BackSpace"
       ]
    },
-   "#Include": {
+   "45": {
       "prefix": "#Include",
       "body": [
          "#Include "
       ]
    },
-   "Try": {
+   "46": {
       "prefix": "Try",
       "body": [
          "Try {",
@@ -328,7 +328,7 @@
          "}"
       ]
    },
-   "Catch": {
+   "47": {
       "prefix": "Catch",
       "body": [
          "Catch {",
@@ -336,37 +336,37 @@
          "}"
       ]
    },
-   "XButton1": {
+   "48": {
       "prefix": "XButton1",
       "body": [
          "XButton1"
       ]
    },
-   "XButton2": {
+   "49": {
       "prefix": "XButton2",
       "body": [
          "XButton2"
       ]
    },
-   "WinGetProcessPath": {
+   "50": {
       "prefix": "WinGetProcessPath",
       "body": [
          "WinGetProcessPath($0)"
       ]
    },
-   "WinGetTitle": {
+   "51": {
       "prefix": "WinGetTitle",
       "body": [
          "WinGetTitle($0)"
       ]
    },
-   "FormatTime": {
+   "52": {
       "prefix": "FormatTime",
       "body": [
          "FormatTime($0)"
       ]
    },
-   "Directories v1": {
+   "53": {
       "prefix": "~Directories v1",
       "body": [
          "#NoEnv ;Recommended for performance and compatibility with future AutoHotkey releases.",
@@ -386,217 +386,217 @@
          "; }"
       ]
    },
-   "GuiCtrlFromHwnd": {
+   "54": {
       "prefix": "GuiCtrlFromHwnd",
       "body": [
          "GuiCtrlFromHwnd($0)"
       ]
    },
-   "SetTimer": {
+   "55": {
       "prefix": "SetTimer",
       "body": [
          "SetTimer"
       ]
    },
-   "ClipWait": {
+   "56": {
       "prefix": "ClipWait",
       "body": [
          "ClipWait"
       ]
    },
-   "CapsLock": {
+   "57": {
       "prefix": "CapsLock",
       "body": [
          "CapsLock"
       ]
    },
-   "AlwaysOnTop": {
+   "58": {
       "prefix": "AlwaysOnTop",
       "body": [
          "AlwaysOnTop"
       ]
    },
-   "GroupAdd": {
+   "59": {
       "prefix": "GroupAdd",
       "body": [
          "GroupAdd "
       ]
    },
-   "WinActivate": {
+   "60": {
       "prefix": "WinActivate",
       "body": [
          "WinActivate"
       ]
    },
-   "WinWait": {
+   "61": {
       "prefix": "WinWait",
       "body": [
          "WinWait"
       ]
    },
-   "ClipboardAll": {
+   "62": {
       "prefix": "ClipboardAll",
       "body": [
          "ClipboardAll($0)"
       ]
    },
-   "CoordMode": {
+   "63": {
       "prefix": "CoordMode",
       "body": [
          "CoordMode ${1:\"Mouse\"} ${2:\"Screen\"}"
       ]
    },
-   "A_MaxHotkeysPerInterval": {
+   "64": {
       "prefix": "A_MaxHotkeysPerInterval",
       "body": [
          "A_MaxHotkeysPerInterval"
       ]
    },
-   "ScrollLock": {
+   "65": {
       "prefix": "ScrollLock",
       "body": [
          "ScrollLock"
       ]
    },
-   "Run": {
+   "66": {
       "prefix": "Run",
       "body": [
          "Run"
       ]
    },
-   "SoundPlay": {
+   "67": {
       "prefix": "SoundPlay",
       "body": [
          "SoundPlay"
       ]
    },
-   "A_ScriptFullPath": {
+   "68": {
       "prefix": "A_ScriptFullPath",
       "body": [
          "A_ScriptFullPath"
       ]
    },
-   "#SuspendExempt": {
+   "69": {
       "prefix": "#SuspendExempt",
       "body": [
          "#SuspendExempt"
       ]
    },
-   "A_IsSuspended": {
+   "70": {
       "prefix": "A_IsSuspended",
       "body": [
          "A_IsSuspended"
       ]
    },
-   "Suspend": {
+   "71": {
       "prefix": "Suspend",
       "body": [
          "Suspend"
       ]
    },
-   "Pause": {
+   "72": {
       "prefix": "Pause",
       "body": [
          "Pause"
       ]
    },
-   "A_WorkingDir": {
+   "73": {
       "prefix": "A_WorkingDir",
       "body": [
          "A_WorkingDir"
       ]
    },
-   "Shutdown": {
+   "74": {
       "prefix": "Shutdown",
       "body": [
          "Shutdown"
       ]
    },
-   "A_MMMM": {
+   "75": {
       "prefix": "A_MMMM",
       "body": [
          "A_MMMM"
       ]
    },
-   "Send": {
+   "76": {
       "prefix": "Send",
       "body": [
          "Send"
       ]
    },
-   "WinClose": {
+   "77": {
       "prefix": "WinClose",
       "body": [
          "WinClose"
       ]
    },
-   "SendEvent": {
+   "78": {
       "prefix": "SendEvent",
       "body": [
          "SendEvent"
       ]
    },
-   "StrReplace": {
+   "79": {
       "prefix": "StrReplace",
       "body": [
          "StrReplace($0)"
       ]
    },
-   "Insert": {
+   "80": {
       "prefix": "Insert",
       "body": [
          "Insert"
       ]
    },
-   "Escape": {
+   "81": {
       "prefix": "Escape",
       "body": [
          "Escape"
       ]
    },
-   "Enter": {
+   "82": {
       "prefix": "Enter",
       "body": [
          "Enter"
       ]
    },
-   "PostMessage": {
+   "83": {
       "prefix": "PostMessage",
       "body": [
          "PostMessage"
       ]
    },
-   "Delete": {
+   "84": {
       "prefix": "Delete",
       "body": [
          "Delete"
       ]
    },
-   "ahk_group": {
+   "85": {
       "prefix": "ahk_group",
       "body": [
          "ahk_group"
       ]
    },
-   "AppsKey": {
+   "86": {
       "prefix": "AppsKey",
       "body": [
          "AppsKey"
       ]
    },
-   "Default": {
+   "87": {
       "prefix": "Default",
       "body": [
          "Default:"
       ]
    },
-   "WinGetID": {
+   "88": {
       "prefix": "WinGetID",
       "body": [
          "WinGetID($0)"
       ]
    },
-   "Hotkey": {
+   "89": {
       "prefix": "::",
       "body": [
          ":: {",
@@ -604,205 +604,205 @@
          "}"
       ]
    },
-   "Launch_Media": {
+   "90": {
       "prefix": "Launch_Media",
       "body": [
          "Launch_Media"
       ]
    },
-   "Media_Stop": {
+   "91": {
       "prefix": "Media_Stop",
       "body": [
          "Media_Stop"
       ]
    },
-   "Launch_App1": {
+   "92": {
       "prefix": "Launch_App1",
       "body": [
          "Launch_App1"
       ]
    },
-   "Launch_Mail": {
+   "93": {
       "prefix": "Launch_Mail",
       "body": [
          "Launch_Mail"
       ]
    },
-   "Launch_App2": {
+   "94": {
       "prefix": "Launch_App2",
       "body": [
          "Launch_App2"
       ]
    },
-   "Browser_Home": {
+   "95": {
       "prefix": "Browser_Home",
       "body": [
          "Browser_Home"
       ]
    },
-   "Sleep": {
+   "96": {
       "prefix": "Sleep",
       "body": [
          "Sleep"
       ]
    },
-   "PrintScreen": {
+   "97": {
       "prefix": "PrintScreen",
       "body": [
          "PrintScreen"
       ]
    },
-   "PgUp": {
+   "98": {
       "prefix": "PgUp",
       "body": [
          "PgUp"
       ]
    },
-   "PgDn": {
+   "99": {
       "prefix": "PgDn",
       "body": [
          "PgDn"
       ]
    },
-   "ahk_exe": {
+   "100": {
       "prefix": "ahk_exe",
       "body": [
          "ahk_exe"
       ]
    },
-   "static": {
+   "101": {
       "prefix": "static",
       "body": [
          "static"
       ]
    },
-   "return": {
+   "102": {
       "prefix": "return",
       "body": [
          "return "
       ]
    },
-   "WheelUp": {
+   "103": {
       "prefix": "WheelUp",
       "body": [
          "WheelUp"
       ]
    },
-   "WheelDown": {
+   "104": {
       "prefix": "WheelDown",
       "body": [
          "WheelDown"
       ]
    },
-   "MButton": {
+   "105": {
       "prefix": "MButton",
       "body": [
          "MButton"
       ]
    },
-   "Mod": {
+   "106": {
       "prefix": "Mod",
       "body": [
          "Mod($0)"
       ]
    },
-   "WinMinimize": {
+   "107": {
       "prefix": "WinMinimize",
       "body": [
          "WinMinimize"
       ]
    },
-   "SetScrollLockState": {
+   "108": {
       "prefix": "SetScrollLockState",
       "body": [
          "SetScrollLockState ${1:\"Off\"}"
       ]
    },
-   ".Value": {
+   "109": {
       "prefix": ".Value",
       "body": [
          ".Value"
       ]
    },
-   ".Result": {
+   "110": {
       "prefix": ".Result",
       "body": [
          ".Result"
       ]
    },
-   "A_Sec": {
+   "111": {
       "prefix": "A_Sec",
       "body": [
          "A_Sec"
       ]
    },
-   "A_Hour": {
+   "112": {
       "prefix": "A_Hour",
       "body": [
          "A_Hour"
       ]
    },
-   "A_Min": {
+   "113": {
       "prefix": "A_Min",
       "body": [
          "A_Min"
       ]
    },
-   ".Show": {
+   "114": {
       "prefix": ".Show",
       "body": [
          ".Show"
       ]
    },
-   ".SetFont": {
+   "115": {
       "prefix": ".SetFont",
       "body": [
          ".SetFont"
       ]
    },
-   ".Add": {
+   "116": {
       "prefix": ".Add",
       "body": [
          ".Add($0)"
       ]
    },
-   ".OnEvent": {
+   "117": {
       "prefix": ".OnEvent",
       "body": [
          ".OnEvent"
       ]
    },
-   "Button": {
+   "118": {
       "prefix": "Button",
       "body": [
          "Button"
       ]
    },
-   "Text": {
+   "119": {
       "prefix": "Text",
       "body": [
          "Text"
       ]
    },
-   "Gui": {
+   "120": {
       "prefix": "Gui",
       "body": [
          "Gui($0)"
       ]
    },
-   ".Text": {
+   "121": {
       "prefix": ".Text",
       "body": [
          ".Text"
       ]
    },
-   "Map": {
+   "122": {
       "prefix": "Map",
       "body": [
          "Map($0)"
       ]
    },
-   "for in": {
+   "123": {
       "prefix": "for in",
       "body": [
          "for $1 in $2 {",
@@ -810,297 +810,291 @@
          "}"
       ]
    },
-   "value": {
+   "124": {
       "prefix": "value",
       "body": [
          "value"
       ]
    },
-   "key": {
+   "125": {
       "prefix": "key",
       "body": [
          "key"
       ]
    },
-   "FileSelect": {
+   "126": {
       "prefix": "FileSelect",
       "body": [
          "FileSelect($0)"
       ]
    },
-   "FileCreateShortcut": {
+   "127": {
       "prefix": "FileCreateShortcut",
       "body": [
          "FileCreateShortcut"
       ]
    },
-   "A_AppData": {
+   "128": {
       "prefix": "A_AppData",
       "body": [
          "A_AppData"
       ]
    },
-   "SubStr": {
+   "129": {
       "prefix": "SubStr",
       "body": [
          "SubStr($0)"
       ]
    },
-   "RButton": {
+   "130": {
       "prefix": "RButton",
       "body": [
          "RButton"
       ]
    },
-   "LButton": {
+   "131": {
       "prefix": "LButton",
       "body": [
          "LButton"
       ]
    },
-   "SplitPath": {
+   "132": {
       "prefix": "SplitPath",
       "body": [
          "SplitPath "
       ]
    },
-   "SetNumLockState": {
+   "133": {
       "prefix": "SetNumLockState",
       "body": [
          "SetNumLockState ${1:\"Off\"}"
       ]
    },
-   "NumpadDot": {
+   "134": {
       "prefix": "NumpadDot",
       "body": [
          "NumpadDot"
       ]
    },
-   "NumLock": {
+   "135": {
       "prefix": "NumLock",
       "body": [
          "NumLock"
       ]
    },
-   "NumpadDiv": {
+   "136": {
       "prefix": "NumpadDiv",
       "body": [
          "NumpadDiv"
       ]
    },
-   "NumpadMult": {
+   "137": {
       "prefix": "NumpadMult",
       "body": [
          "NumpadMult"
       ]
    },
-   "NumpadAdd": {
+   "138": {
       "prefix": "NumpadAdd",
       "body": [
          "NumpadAdd"
       ]
    },
-   "NumpadSub": {
+   "139": {
       "prefix": "NumpadSub",
       "body": [
          "NumpadSub"
       ]
    },
-   "NumpadEnter": {
+   "140": {
       "prefix": "NumpadEnter",
       "body": [
          "NumpadEnter"
       ]
    },
-   "Numpad0": {
+   "141": {
       "prefix": "Numpad0",
       "body": [
          "Numpad0"
       ]
    },
-   "Numpad1": {
+   "142": {
       "prefix": "Numpad1",
       "body": [
          "Numpad1"
       ]
    },
-   "Numpad2": {
+   "143": {
       "prefix": "Numpad2",
       "body": [
          "Numpad2"
       ]
    },
-   "Numpad3": {
+   "144": {
       "prefix": "Numpad3",
       "body": [
          "Numpad3"
       ]
    },
-   "Numpad4": {
+   "145": {
       "prefix": "Numpad4",
       "body": [
          "Numpad4"
       ]
    },
-   "Numpad5": {
+   "146": {
       "prefix": "Numpad5",
       "body": [
          "Numpad5"
       ]
    },
-   "Numpad6": {
+   "147": {
       "prefix": "Numpad6",
       "body": [
          "Numpad6"
       ]
    },
-   "Numpad7": {
+   "148": {
       "prefix": "Numpad7",
       "body": [
          "Numpad7"
       ]
    },
-   "Numpad8": {
+   "149": {
       "prefix": "Numpad8",
       "body": [
          "Numpad8"
       ]
    },
-   "Numpad9": {
+   "150": {
       "prefix": "Numpad9",
       "body": [
          "Numpad9"
       ]
    },
-   "SoundBeep": {
+   "151": {
       "prefix": "SoundBeep",
       "body": [
          "SoundBeep"
       ]
    },
-   "A_IsAdmin": {
+   "152": {
       "prefix": "A_IsAdmin",
       "body": [
          "A_IsAdmin"
       ]
    },
-   "StrLower": {
+   "153": {
       "prefix": "StrLower",
       "body": [
          "StrLower($0)"
       ]
    },
-   "StrUpper": {
+   "154": {
       "prefix": "StrUpper",
       "body": [
          "StrUpper($0)"
       ]
    },
-   "A_LoopField": {
+   "155": {
       "prefix": "A_LoopField",
       "body": [
          "A_LoopField"
       ]
    },
-   "Chr": {
+   "156": {
       "prefix": "Chr",
       "body": [
          "Chr($0)"
       ]
    },
-   "InStr": {
+   "157": {
       "prefix": "InStr",
       "body": [
          "InStr($0)"
       ]
    },
-   "Trim": {
+   "158": {
       "prefix": "Trim",
       "body": [
          "Trim($0)"
       ]
    },
-   "A_PriorHotkey": {
+   "159": {
       "prefix": "A_PriorHotkey",
       "body": [
          "A_PriorHotkey"
       ]
    },
-   "A_ThisHotkey": {
+   "160": {
       "prefix": "A_ThisHotkey",
       "body": [
          "A_ThisHotkey"
       ]
    },
-   "A_TimeSinceThisHotkey": {
+   "161": {
       "prefix": "A_TimeSinceThisHotkey",
       "body": [
          "A_TimeSinceThisHotkey"
       ]
    },
-   "A_TimeSincePriorHotkey": {
+   "162": {
       "prefix": "A_TimeSincePriorHotkey",
       "body": [
          "A_TimeSincePriorHotkey"
       ]
    },
-   "Same hotkey twice": {
-      "prefix": "~Same hotkey twice",
-      "body": [
-         "(A_PriorHotkey == A_ThisHotkey) && (A_TimeSincePriorHotkey <= 200)"
-      ]
-   },
-   "WinWaitActive": {
+   "163": {
       "prefix": "WinWaitActive",
       "body": [
          "WinWaitActive"
       ]
    },
-   "WinWaitNotActive": {
+   "164": {
       "prefix": "WinWaitNotActive",
       "body": [
          "WinWaitNotActive"
       ]
    },
-   "Include higher": {
-      "prefix": "~Include higher",
+   "165": {
+      "prefix": "~Import higher",
       "body": [
          "#Include \"%A_ScriptDir%\\..\\\\$0\""
       ]
    },
-   "OnExit": {
+   "166": {
       "prefix": "OnExit",
       "body": [
          "OnExit((ExitReason, ExitCode) => $0)"
       ]
    },
-   "Function": {
-      "prefix": "~Function",
+   "167": {
+      "prefix": "Function",
       "body": [
          "$1($2) {",
          "\t$0",
          "}"
       ]
    },
-   "Arrow": {
-      "prefix": "~Arrow",
+   "168": {
+      "prefix": "Arrow",
       "body": [
          "$1($2) => ${3:($0)}"
       ]
    },
-   "index": {
+   "169": {
       "prefix": "index",
       "body": [
          "index"
       ]
    },
-   "break": {
+   "170": {
       "prefix": "break",
       "body": [
          "break"
       ]
    },
-   "Full section gesture vars": {
+   "171": {
       "prefix": "~Gesture vars full",
       "body": [
          "  right       := (sectionX > 1368)",
@@ -1114,7 +1108,7 @@
       ],
       "description": "Variable definitions"
    },
-   "Section gesture vars": {
+   "172": {
       "prefix": "~Gesture vars",
       "body": [
          "  right := (sectionX > 1368)",
@@ -1124,7 +1118,7 @@
       ],
       "description": "Variable definitions"
    },
-   "Class": {
+   "173": {
       "prefix": "Class",
       "body": [
          "Class C_$1 {",
@@ -1133,42 +1127,43 @@
          "$2 := C_$3()"
       ]
    },
-   "Small separator": {
+   "174": {
       "prefix": "~Small separator",
       "body": [
          ";————————————————————————————————"
       ]
    },
-   "Close when closed": {
+   "175": {
       "prefix": ".OnEvent(CloseExit)",
       "body": [
          ".OnEvent(\"Close\", (*) => ExitApp())"
       ],
       "description": "Exit the script when gui is closed"
    },
-   "Close when clicked": {
+   "176": {
       "prefix": ".OnEvent(ClickExit)",
       "body": [
          ".OnEvent(\"Click\", (*) => ExitApp())"
       ],
       "description": "Exit the script when guicontrol is clicked"
    },
-   "Include C_Script": {
-      "prefix": "~Include C_Script",
+   "177": {
+      "prefix": "~Import script",
       "body": [
          "#Include \"%A_ScriptDir%\\..\\Libraries\\8. Script.ah2\""
       ]
    },
-   "InputLevel": {
+   "178": {
       "prefix": "#InputLevel",
       "body": [
          "#InputLevel "
       ]
    },
-   "#MaxThreadsPerHotkey": {
+   "179": {
       "prefix": "#MaxThreadsPerHotkey",
       "body": [
          "#MaxThreadsPerHotkey 2"
       ]
-   }
+   },
+   
 }

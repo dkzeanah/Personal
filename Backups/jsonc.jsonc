@@ -14,7 +14,7 @@
 	// }
 
    "Snippet": {
-      "prefix": "::",
+      "prefix": "Snippet",
       "body": [
          "\"$1\": {",
          "\t\"prefix\": \"$2\",",
@@ -27,7 +27,7 @@
       "description": "Snippet to make a new snippet in the .json file"
    }, 
    "Task": {
-      "prefix": ";;",
+      "prefix": "Task",
       "body": [
          "{",
             "\t\"label\": \"$1\",",
@@ -44,5 +44,36 @@
          "},",
       ],
       "description": "Snippet to make a new task in the .json file"
-   }
+   },
+   "Ahk Debuggers": {
+      "prefix": "Ahk Debuggers",
+      "body": [
+         "{",
+            "\t\"configurations\": [",
+               "\t\t{",
+                  "\t\t\t\"name\": \"Ahk 2\",",
+                  "\t\t\t\"type\": \"autohotkey\",",
+                  "\t\t\t\"request\": \"launch\",",
+                  "\t\t\t\"program\":\"$${file}\",",
+                  "\t\t\t\"runtimeArgs_v2\":[\".ah2\"],",
+                  "\t\t\t\"port\":\"9002\",",
+                  "\t\t\t\"runtime\": \"v2/AutoHotkey64.exe\",",
+                  "\t\t\t\"runtimeArgs\":[ \"/ErrorStdOut=UTF-8\"]",
+               "\t\t},",
+               "\t\t{",
+                  "\t\t\t\"name\": \"Ahk 1\",",
+                  "\t\t\t\"type\": \"autohotkey\",",
+                  "\t\t\t\"program\":\"$${file}\",",
+                  "\t\t\t\"request\": \"launch\",",
+                  "\t\t\t\"runtimeArgs_v1\":[\".ahk\"],",
+                  "\t\t\t\"port\":\"9003\",",
+                  "\t\t\t\"runtime\": \"AutoHotkey.exe\",",
+                  "\t\t\t\"runtimeArgs\":[ \"/ErrorStdOut=UTF-8\"]",
+
+               "\t\t}",
+            "\t]",
+         "}$0"
+      ]
+   },
+   
 }

@@ -118,8 +118,6 @@ MButton::Discord.dsc_Reply()
 
 ^SC027::Discord.dsc_Emoji()
 
-:X*:v2iss::F_ClipSend("~~in v2 you wouldn't have that issue~~")
-
 F1::Discord.dsc_PrevServer()
 F2::Discord.dsc_NextServer()
 
@@ -208,8 +206,8 @@ F1::Send "!s" ;Search in docs
 #HotIf WinActive("ahk_exe ScreenClippingHost.exe")
 
 ;Use the scroll wheel to choose among modes of the screenshot tool
-WheelUp::Screenshot.scr_Options("left")
-WheelDown::Screenshot.scr_Options("right")
-MButton::Screenshot.scr_Fullscreen() 
+WheelUp::Screenshot.prt_Options("left")
+WheelDown::Screenshot.prt_Options("right")
+MButton::Screenshot.prt_Fullscreen() 
 
 #HotIf

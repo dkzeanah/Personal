@@ -344,7 +344,7 @@ Player := C_Player()
 Class C_Screenshot {
    
    ;In the screenshot tool there are three options that can be selected. Selects those options in a rotary manner, depending on direction
-   scr_Options(direction) {
+   prt_Options(direction) {
       MouseGetPos &initX, &initY
       static optionYoureOn := 1
       if (direction == "left")
@@ -376,7 +376,7 @@ Class C_Screenshot {
       MouseMove initX, initY   
    }
 
-   scr_Fullscreen() {
+   prt_Fullscreen() {
       F_ClickThenGoBack("1017 29")
    }
 }

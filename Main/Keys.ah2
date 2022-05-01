@@ -3,20 +3,21 @@ SetWorkingDir A_ScriptDir . "\..\" ;Ensures a consistent A_WorkingDir
 #WinActivateForce ;Forces windows to be activated, skipping the gentle method
 #Hotstring EndChars `t ;Decides the characters that can finish a hotstring
 #HotIf ;At the start to autoresolve "this hotkey already exists" conflicts
+#InputLevel 5
 SetScrollLockState "AlwaysOff"
+SetNumLockState "AlwaysOn"
 CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of the window's
 SetControlDelay -1
 A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seconds
 
 #SuspendExempt True
-Launch_Media:: Script.scr_Reload()
-!Launch_Media::Script.scr_HardReload()
-+Launch_Media::Script.scr_Suspend()
-#Launch_Media::Script.scr_Reboot()
+ScrollLock::   Script.scr_Reload()
+!ScrollLock::  Script.scr_HardReload()
++ScrollLock::  Script.scr_Suspend()
+#ScrollLock::  Script.scr_Reboot()
 Pause::        Script.scr_Test()
 +Pause::       Script.scr_Test("v1.ahk")
 #SuspendExempt False
-#InputLevel 5
 
 
 
@@ -67,6 +68,7 @@ Pause::        Script.scr_Test()
 
 ;Script parts
 ;————————————————————————————————
+Run A_WorkingDir . "\Main\Remap.ah2"
 #Include "%A_ScriptDir%\..\Main\Runner.ah2"
 #Include "%A_ScriptDir%\..\Main\App.ah2"
 #Include "%A_ScriptDir%\..\Main\Mouse.ah2"
@@ -82,40 +84,40 @@ Pause::        Script.scr_Test()
 ;######################################################################################
 
 
-GroupAdd "Game",            "ahk_exe EtG.exe"
-GroupAdd "Game",            "ahk_exe isaac-ng.exe"
-GroupAdd "Game",            "ahk_exe nuclearthrone.exe"
-GroupAdd "Game",            "ahk_exe METAL GEAR RISING REVENGEANCE.exe"
+  GroupAdd("Game",            "ahk_exe EtG.exe")
+, GroupAdd("Game",            "ahk_exe isaac-ng.exe")
+, GroupAdd("Game",            "ahk_exe nuclearthrone.exe")
+, GroupAdd("Game",            "ahk_exe METAL GEAR RISING REVENGEANCE.exe")
 
-GroupAdd "Game_M",          "ahk_exe EtG.exe" 
-GroupAdd "Game_M",          "ahk_exe isaac-ng.exe"
-GroupAdd "Game_M",          "ahk_exe nuclearthrone.exe"
+, GroupAdd("Game_M",          "ahk_exe EtG.exe" )
+, GroupAdd("Game_M",          "ahk_exe isaac-ng.exe")
+, GroupAdd("Game_M",          "ahk_exe nuclearthrone.exe")
 
-GroupAdd "Main",            "ahk_exe chrome.exe",, "Google Chrome"
-GroupAdd "Main",            "ahk_exe Todoist.exe"
-GroupAdd "Main",            "ahk_exe Telegram.exe"
-GroupAdd "Main",            "ahk_exe Code.exe"
-GroupAdd "Main",            "ahk_exe Discord.exe" 
-GroupAdd "Main",            "AutoHotkey Help"
-GroupAdd "Main",            "AutoHotkey v2 Help"
+, GroupAdd("Main",            "ahk_exe chrome.exe",, "Google Chrome")
+, GroupAdd("Main",            "ahk_exe Todoist.exe")
+, GroupAdd("Main",            "ahk_exe Telegram.exe")
+, GroupAdd("Main",            "ahk_exe Code.exe")
+, GroupAdd("Main",            "ahk_exe Discord.exe" )
+, GroupAdd("Main",            "AutoHotkey Help")
+, GroupAdd("Main",            "AutoHotkey v2 Help")
 
-GroupAdd "Messenger",       "Google Chrome"
-GroupAdd "Messenger",       "ahk_exe Telegram.exe"
-GroupAdd "Messenger",       "ahk_exe Discord.exe"
-GroupAdd "Messenger",       "ahk_exe WhatsApp.exe"
-GroupAdd "Messenger",       "ahk_exe Viber.exe"
+, GroupAdd("Messenger",       "Google Chrome")
+, GroupAdd("Messenger",       "ahk_exe Telegram.exe")
+, GroupAdd("Messenger",       "ahk_exe Discord.exe")
+, GroupAdd("Messenger",       "ahk_exe WhatsApp.exe")
+, GroupAdd("Messenger",       "ahk_exe Viber.exe")
 
-GroupAdd "Document",        ".doc"
-GroupAdd "Document",        ".docx"
+, GroupAdd("Document",        ".doc")
+, GroupAdd("Document",        ".docx")
 
-GroupAdd "Whatiber",        "ahk_exe WhatsApp.exe"
-GroupAdd "Whatiber",        "ahk_exe Viber.exe"
+, GroupAdd("Whatiber",        "ahk_exe WhatsApp.exe")
+, GroupAdd("Whatiber",        "ahk_exe Viber.exe")
 
-GroupAdd "Media",           "Photos"
-GroupAdd "Media",           "ahk_exe KMPlayer64.exe"
+, GroupAdd("Media",           "Photos")
+, GroupAdd("Media",           "ahk_exe KMPlayer64.exe")
 
-GroupAdd "AutoHotkey_Help", "AutoHotkey Help"
-GroupAdd "AutoHotkey_Help", "AutoHotkey v2 Help"
+, GroupAdd("AutoHotkey_Help", "AutoHotkey Help")
+, GroupAdd("AutoHotkey_Help", "AutoHotkey v2 Help")
 
 
 
@@ -212,14 +214,12 @@ GroupAdd "AutoHotkey_Help", "AutoHotkey v2 Help"
 
 ;Select all
 Insert::Base.bsd_SelectAll()
-SC047::Base.bsd_SelectAll()
 
 ;Easily accessible paste window
 #Insert::Base.bsd_WinPaste()
 
 ;Cut
 !Insert::Base.bsd_Cut()
-!SC047::Base.bsd_Cut()
 
 ;Media hotkeys
 !SC029::Media_Play_Pause
@@ -236,48 +236,6 @@ SC047::Base.bsd_SelectAll()
 ;######################################################################################
 ;######################################################################################
 
-
-;Makes sure fn + function key doesn't do its native function. Commented if made into a hotkey
-; Launch_Media::return ;F1
-Media_Play_Pause::return ;F2
-Media_Stop::return ;F3
-Media_Prev::return ;F4
-Media_Next::return ;F5
-Volume_Mute::return ;F6
-Volume_Up::return ;F7
-; Volume_Down::return ;F8
-Launch_App1::return ;F9
-; Launch_Mail::return ;F10
-; Launch_App2::return ;F11
-Browser_Home::return ;F12
-
-;Useless numpad
-*NumpadMult::return
-*NumpadDiv::return
-*NumpadAdd::return
-*NumpadSub::return
-*NumLock::return
-*Numpad0::return
-*Numpad1::return
-*NumpadDot::return
-*NumpadEnter::return
-*PrintScreen::return
-
-;Numpad is special buttons
-#SuspendExempt True
-#InputLevel 6
-SC047::Insert
-SC04B::Delete
-SC048::Home
-SC04C::End
-SC049::PgUp
-SC04D::PgDn
-SC050::Launch_Media
-ScrollLock::Launch_Media
-SC051::SC045
-AppsKey::LCtrl
-#InputLevel 5
-#SuspendExempt False
 
 ;Makes sure the side mouse buttons work as intended ingame, despite their remapping outside of game 
 #HotIf WinActive("ahk_group Game_M")

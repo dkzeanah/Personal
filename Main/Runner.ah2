@@ -106,11 +106,8 @@
       ;————————————————————————————————
 
       ;Tutorials
-      Case "ahk yt startup":F_ClipSend("https://youtu.be/vjQIbagvkcs")
+      Case "ahk yt run on reboot":F_ClipSend("https://youtu.be/vjQIbagvkcs")
       Case "ahk yt arrow":F_ClipSend("https://youtu.be/nSTL3KND25c")
-
-      ;Told often
-      Case "ahk directories v1":F_ClipSend(Runner.nur_Directories_v1)
 
 
       ;MEMES

@@ -1,5 +1,19 @@
-Learning regex
+Continuation section for directories paste
 
-^: opens emojis in discord
+endChar > space
 
-v2iss is a hotstring that pastes ~~in v2 you wouldn't have this issue~~
+You can choose whether to restore the clipboard or not in the public version of ClipSend in \Other
+
+Launch.json for ahk debuggers is now a snippet
+
+Instead of creating my own tags through ahk, I can use the Ace bot to create *actual* tags and use them
+
+Yt vid links stay, because I might need them outside of the ahk server
+
+Making tags for code is easier and less clunky, though. In the need to use a tag outside of the server, just use .tag raw name and copy
+
+Toggle test: if a test script is running, you can turn it off with the same mouse gesture
+
+Remap separate script: 
+#InputLevel 6 for pure remaps, that also need to activate script hotkeys
+#InputLevel 5 for pure remaps, that only need to restrict me pressing the buttons to do anything

@@ -12,9 +12,9 @@ F_ClickThenGoBack_Event(coordinates) {
 } 
 
 ;A faster send. Sending stuff can take too long, but if you copy and paste it, it's much faster. Takes care of your previous clipboard disappearing as well
-F_ClipSend(toSend, space:=" ") {
+F_ClipSend(toSend, endChar := " ") {
      prevClip := A_Clipboard
-   , A_Clipboard := toSend . space
+   , A_Clipboard := toSend . endChar
    , Send("^v")
    , SetTimer(() => A_Clipboard := prevClip, -200) ;Reverts the clipboard to what it was
 }

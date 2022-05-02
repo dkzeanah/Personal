@@ -20,7 +20,7 @@
       "description": ""
    },
    "2": {
-      "prefix": "~Big separator",
+      "prefix": "~~~~",
       "body": [
          ";$0######################################################################################",
          ";######################################################################################",
@@ -46,7 +46,7 @@
       "description": ""
    },
    "5": {
-      "prefix": "~Directories v2",
+      "prefix": "snippet Directories v2",
       "body": [
          "SetWorkingDir A_ScriptDir . \"\\..\\\" ;Ensures a consistent A_WorkingDir.",
          "#SingleInstance Force ;Launches the new instance of the script always, instead of asking whether it should",
@@ -367,7 +367,7 @@
       ]
    },
    "53": {
-      "prefix": "~Directories v1",
+      "prefix": "snippet Directories v1",
       "body": [
          "#NoEnv ;Recommended for performance and compatibility with future AutoHotkey releases.",
          "#Warn ;Enable warnings to assist with detecting common errors.",
@@ -1057,7 +1057,7 @@
       ]
    },
    "165": {
-      "prefix": "~Import higher",
+      "prefix": "Import higher",
       "body": [
          "#Include \"%A_ScriptDir%\\..\\\\$0\""
       ]
@@ -1095,7 +1095,7 @@
       ]
    },
    "171": {
-      "prefix": "~Gesture vars full",
+      "prefix": "snippet Gesture vars full",
       "body": [
          "  right       := (sectionX > 1368)",
          ", left        := (sectionX < 568)",
@@ -1109,7 +1109,7 @@
       "description": "Variable definitions"
    },
    "172": {
-      "prefix": "~Gesture vars",
+      "prefix": "snippet Gesture vars",
       "body": [
          "  right := (sectionX > 1368)",
          ", left  := (sectionX < 568)",
@@ -1128,7 +1128,7 @@
       ]
    },
    "174": {
-      "prefix": "~Small separator",
+      "prefix": "~~",
       "body": [
          ";————————————————————————————————"
       ]
@@ -1148,9 +1148,9 @@
       "description": "Exit the script when guicontrol is clicked"
    },
    "177": {
-      "prefix": "~Import script",
+      "prefix": "Import script",
       "body": [
-         "#Include \"%A_ScriptDir%\\..\\Libraries\\8. Script.ah2\""
+         "#Include \"%A_ScriptDir%\\..\\..Libraries\\8. Script.ah2\""
       ]
    },
    "178": {
@@ -1163,6 +1163,42 @@
       "prefix": "#MaxThreadsPerHotkey",
       "body": [
          "#MaxThreadsPerHotkey 2"
+      ]
+   },
+   "180": {
+      "prefix": "Import lib",
+      "body": [
+         "#Include \"%A_ScriptDir%\\..\\..Libraries\\\\$0.ah2\""
+      ]
+   },
+   "181": {
+      "prefix": "Import other",
+      "body": [
+         "#Include \"%A_ScriptDir%\\..\\..\\Other\\Libraries v2\\\\$0.ah2\""
+      ]
+   },
+   "182": {
+      "prefix": "Run upper",
+      "body": [
+         "Run A_WorkingDir . \"\\\\$0\""
+      ]
+   },
+   "183": {
+      "prefix": "RegexMatch",
+      "body": [
+         "RegexMatch"
+      ]
+   },
+   "184": {
+      "prefix": "Import global",
+      "body": [
+         "#Include \"%A_ScriptDir%\\..\\..Libraries\\6. Global.ah2\""
+      ]
+   },
+   "185": {
+      "prefix": "A_AhkVersion",
+      "body": [
+         "A_AhkVersion"
       ]
    },
    

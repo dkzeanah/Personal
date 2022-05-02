@@ -24,6 +24,11 @@ Class C_Base {
    }
    bsd_SelectAll => "^a"
 
+   bsd_DeleteAll() {
+      Send "^a{Delete}"
+   }
+   bsd_DeleteAll => "^a{Delete}"
+
    bsd_Undo() {
       Send "^z"
    }

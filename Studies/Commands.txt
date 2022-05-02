@@ -76,3 +76,39 @@ Edit an existing tag.
 
 .tags [member]
 View your or someone elses tags.
+
+
+;Reddit markdown
+;————————————————————————————————
+
+* italic *
+** bold **
+~~ strikethrough ~~
+>! spoiler !<
+[linkAlias](theLink)
+^x — x is superscript
+^(everything here is superscript)
+` code inline `
+# BIG TEXT
+
+
+;Discord markdown
+;————————————————————————————————
+
+
+* italic *
+** bold **
+~~ strikethrough ~~
+|| spoiler ||
+__ underline __
+_ nothing _
+` code inline `
+```ahk
+highlighted code
+```
+
+
+;VK markdown
+;————————————————————————————————
+
+&{#}12288; — blank message

@@ -41,7 +41,7 @@ m —
 SHIFT ALT
 (—! is used when there are multiple themed hotkeys using the key through using different combinations of the modifiers)
 ###########################################################################################
-q — time 
+q — 
 w — close tab
 e — open tab
    [gimp] — export 
@@ -49,9 +49,6 @@ e — open tab
    [vs code] — open file in file explorer
 r — 
    [youtube] — PiP
-   [discord,
-   telegram,
-   chrome] — convert ytm link to yt link
    [vs code] — rename file
 t — time
 y —! reload window, add to workspace, remove from workspace
@@ -76,7 +73,7 @@ l — runner
 z — 
 x — add todoist task
 c — 
-v — 
+v — convert ytm link
 b — 
 n — 
 m — 

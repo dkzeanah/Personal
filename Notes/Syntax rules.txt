@@ -20,7 +20,7 @@ Pascal case for everything else
 
 _ after variable for its variations
 
-~ for snippets
+snippet for snippets
 
 R_ for arrays
 

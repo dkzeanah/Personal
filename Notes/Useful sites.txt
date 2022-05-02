@@ -34,3 +34,8 @@ https://drive.google.com/u/0/uc?id=12PlMnHAMD0xJ9oPpjRIPX2qVd3wCbWQs&export=down
 Regex learning
 https://regex101.com/ 
 https://regexr.com/ 
+
+Json module
+https://github.com/Chunjee/json.ahk
+
+https://gogoanime.sk/one-piece-episode-456 

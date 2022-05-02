@@ -10,13 +10,10 @@
 #F10::Win.niw_App("ahk_exe py.exe", "py.exe")
 
 ;Monkeytype
-<!u::Win.niw_App_WinNum("Monkeytype", "4")
-
-;Mail
-<!SC033::Win.niw_App_WinNum("Gmail", "1")
+<!u::Win.niw_App_WinNum("Monkeytype", 3)
 
 ;Calendar
-<!SC034::Win.niw_App_WinNum("Google Calendar", "2")
+<!SC034::Win.niw_App_WinNum("Google Calendar", 1)
 
 ;Calculator
 <!SC035::Win.niw_App("Calculator", "calc.exe")
@@ -40,7 +37,7 @@
 <!a::Win.niw_App("ahk_exe Code.exe", Win.VScode)
 
 ;Youtube music
-<!s::Win.niw_App_WinNum("YouTube Music", "6")
+<!s::Win.niw_App_WinNum("YouTube Music", 5)
 
 ;Chrome 
 <!c::Win.niw_App("Google Chrome", Win.GoogleChrome)

@@ -14,3 +14,7 @@ fn(name, age)
 }
 
 MsgBox, % fn("George", 15)[1]
+
+
+Message to the other script
+PostMessage, 0x111, 65306,,, filename.ahk

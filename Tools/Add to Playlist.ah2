@@ -26,7 +26,7 @@ RButton:: {
          , i := 3
       Case 3:
          ;Exit the playlist selecter
-         ControlClick("X" . locX . " Y" . locY)
+         ControlClick("X355 Y669")
          , i := 0
    }
    static locX := locX

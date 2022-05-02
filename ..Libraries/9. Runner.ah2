@@ -1,5 +1,17 @@
 Class C_Runner {
 
+   ;Sends an emoji using its unicode
+   nur_Emoji(emojiName) {
+      Send("{" . D_KeyCodes_In[emojiName] . "}")
+   }
+
+   ;Sends a random word from your specified array
+   nur_RandomWord(whichArray) {
+      Send("{BackSpace 6}")
+      , i := Random(1, 3000)
+      , Send(whichArray[i])
+   }
+
    ;Takes a random number out of 1 and 100000, says yes if it's even, no if it's odd
    nur_CoinFlip() {
       coinFlip := Random(1, 100000)
@@ -22,26 +34,14 @@ Class C_Runner {
       , FileCreateShortcut(selectedFile, A_AppData . "\Microsoft\Windows\Start Menu\Programs\Startup\" . fileName . ".lnk")
    }
 
-   nur_Converter() {
-      O_Converter := InputBox("To convert: ", "Currency converter")
-      if O_Converter.Result == "Cancel"
-         return
-
-      R_Currencies := ["r", "d"]
-      for index in R_Currencies {
-         num := StrReplace(O_Converter.Value, index, "")
-         if num != O_Converter.Value {
-            currency := index
-            break
-         }
-      }
-
+   nur_Converter(currency, num) {
+      
       ((currency == "r")
          ? (currency := "rubles", oppCurrency := "dollars")
       : (currency == "d")
          ? (currency := "dollars", oppCurrency := "rubles") : "")
 
-      , F_RunLink("https://www.google.com/search?q=" . num . "+" . currency . "+in+" . oppCurrency . "&oq=" . num . "+" . currency . "+in+" . oppCurrency . "&aqs=chrome..69i57.4182j1j9&sourceid=chrome&ie=UTF-8")
+      , RunLink("https://www.google.com/search?q=" . num . "+" . currency . "+in+" . oppCurrency . "&oq=" . num . "+" . currency . "+in+" . oppCurrency . "&aqs=chrome..69i57.4182j1j9&sourceid=chrome&ie=UTF-8")
    }
 
    ;Clicks on all the libraries consequentially, loading them into Intellisense
@@ -58,9 +58,6 @@ Class C_Runner {
          "9. Runner",                       "X196 Y368"
       )
       
-      ;Makes sure the mouse positions are correct
-      Send("!1{Home}"), Sleep(20)
-      
       for key, value in D_Libraries 
          ControlClick(value, "ahk_exe Code.exe"), WinWait(key . ".ah2 - Personal - Visual Studio Code")
       Base.bsd_CloseTab()
@@ -68,7 +65,7 @@ Class C_Runner {
    }
 
    ;Gets the github link to a file of your choosing
-   nur_GitPage(doWhat) {
+   nur_GitLink(doWhat) {
 
       programmingPath := "C:\Files\Programming\"
 
@@ -101,8 +98,8 @@ Class C_Runner {
       fullLink := "https://github.com/Axlefublr/" . workingLink
 
       Switch doWhat {
-         Case "run":  this.F_RunLink(fullLink)
-         Case "paste":F_ClipSend(fullLink, "")
+         Case "run":  this.RunLink(fullLink)
+         Case "paste":ClipSend(fullLink, "")
       }
    }
 

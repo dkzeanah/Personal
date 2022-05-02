@@ -116,6 +116,8 @@ Enter::Base.bsd_ChooseNext()
 
 MButton::Discord.dsc_Reply()
 
+XButton1 & MButton::Discord.dsc_DeleteMessage()
+
 ^SC027::Discord.dsc_Emoji()
 
 F1::Discord.dsc_PrevServer()
@@ -202,12 +204,12 @@ WheelDown::Send "{Right}"
 #HotIf WinActive("ahk_group AutoHotkey_Help")
 F1::Send "!s" ;Search in docs
 
-
-#HotIf WinActive("ahk_exe ScreenClippingHost.exe")
+#HotIf WinActive("ahk_exe AutoHotkey64.exe")
+^BackSpace::Base.bsd_DeleteAll()
 
 ;Use the scroll wheel to choose among modes of the screenshot tool
-WheelUp::Screenshot.prt_Options("left")
-WheelDown::Screenshot.prt_Options("right")
+#HotIf WinActive("ahk_exe ScreenClippingHost.exe")
+WheelUp::Screenshot.prt_Options()
+WheelDown::Screenshot.prt_Options()
 MButton::Screenshot.prt_Fullscreen() 
-
 #HotIf

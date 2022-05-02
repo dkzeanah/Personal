@@ -6,10 +6,6 @@
 
 Class C_Chrome {
    
-   chr_Markdown() {
-      MsgBox "* italic *`n** bold **`n~~ strikethrough ~~`n>! spoiler !<`n[embed](link)`n^(superscript)`n`` code inline ```n # BIG TEXT", "MarkDown", "4096"
-   }
-
    chr_CopyLink() {
       Send("^l"), Sleep(40), Base.bsd_Copy()
    }
@@ -71,7 +67,7 @@ Class C_YouTubeMusic {
 
    ;Converts a YT music link into a youtube link and pastes it
    ytm_LinkConverter() {
-      F_ClipSend(A_Clipboard := StrReplace(StrReplace(A_Clipboard, "&feature=share", ""), "//music.", "//www."))
+      ClipSend(A_Clipboard := StrReplace(StrReplace(A_Clipboard, "&feature=share", ""), "//music.", "//www."))
    }
 }
 YTMusic := C_YouTubeMusic.Call()
@@ -153,10 +149,6 @@ Class C_VK {
    vk_Scroll() {
       ControlClick "X1750 Y903"
    }
-
-   vk_BlankMessage() {
-      Send "&{#}12288;"
-   }
 }
 VK := C_VK()
 
@@ -164,7 +156,7 @@ VK := C_VK()
 Class C_Telegram {
    
    tlg_Voice() {
-      F_ClickThenGoBack_Event("1452 1052")
+      ClickThenGoBack_Event("1452 1052")
    }
 
    tlg_Scroll() {
@@ -213,8 +205,8 @@ Class C_Discord {
       Send "^!{Up}"
    }
 
-   dsc_Markdown() {
-      MsgBox "__ underline __`n* italic *`n** bold **`n~~ strikethrough ~~`n|| spoiler ||`n`````` code ```````n`` code inline ```n_ nothing _", "Markdown", "4096"
+   dsc_DeleteMessage() {
+      Send "{Delete Down}{Click}{Delete Up}"
    }
 }
 Discord := C_Discord()
@@ -335,7 +327,7 @@ WPS := C_WPSOffice()
 Class C_Player {
    
    plr_SkipOpening() {
-      Send "{Delete 6}{Right 4}"
+      Send "{End 6}{Right 4}"
    }
 }
 Player := C_Player()
@@ -344,40 +336,15 @@ Player := C_Player()
 Class C_Screenshot {
    
    ;In the screenshot tool there are three options that can be selected. Selects those options in a rotary manner, depending on direction
-   prt_Options(direction) {
-      MouseGetPos &initX, &initY
+   prt_Options() {
       static optionYoureOn := 1
-      if (direction == "left")
-         Switch optionYoureOn
-         {
-            Case 1:
-                 Click("959 27")
-               , optionYoureOn := 3
-            Case 2:
-                 Click("839 28")
-               , optionYoureOn--
-            Case 3:
-                 Click("897 31")
-               , optionYoureOn--
-         }
-      else 
-         Switch optionYoureOn
-         {
-            Case 1:
-                 Click("897 31")
-               , optionYoureOn++
-            Case 2:
-                 Click("959 27")
-               , optionYoureOn++
-            Case 3:
-                 Click("839 28")
-               , optionYoureOn := 1
-         }
-      MouseMove initX, initY   
+      ClickThenGoBack((optionYoureOn 
+         ? (optionYoureOn := !optionYoureOn, "959 27")
+         : (optionYoureOn := !optionYoureOn, "839 28")))
    }
 
    prt_Fullscreen() {
-      F_ClickThenGoBack("1017 29")
+      ClickThenGoBack("1017 29")
    }
 }
 Screenshot := C_Screenshot()

@@ -1,5 +1,45 @@
-For whatever reason, a separate script with remaps / a separate script with inputlevel remaps (any int) turns off remaps of volume_down, possibly all the other remaps overall
+I only use two options from the screenshotter, so the scrollwheel will only go between those two
 
-Because of that, the doubles for the numpad will instead be in one section
-Things that I will actually use, so not all of them
-Since they are remaps still, innate hotkeys will work already
+ytm link converter moved to +!v for less conflictions
+
+^BackSpace works in inputboxes, but deletes all instead
+(deleteall now a base method)
+
+One piece downloader is now a runner-able separate script
+
+Snippet now simply have the snippet prefix, unless they make sense as parts of normal programming (stuff like function, class, big and small separator, imports (since they are just variations of the include))
+Essentially, random needed parts of code are just "snippet"
+
+For when no other cases match, it goes to the default, trying to regex match stuff that is not set up to be something specific (r 345345 vs ahk yt arrow)
+
+Idea: all the usual stuff that is directly binded stays what it is in the upper switch, but all the links and r 354534 type stuff goes into the lower switch. That is how we go out of the direct switch and then start using cases as evalutions of expressions
+
+the lower switch checks for 'flags', using the value after it
+
+d flag for dollar to ruble
+r flag for ruble to dollar
+o flag for open link 
+p flag for paste link
+gitlink flag for paste also, in the same regex
+
+The links are going to be properties in the new link class
+The value after the flag gets converted to lowercase with _ instead of spaces
+And then it tries to p/o the link that is now accessible from the property
+
+The properties are separated into sections, but naturally they don't matter and the naming is the same for all of them
+No asdf_ grouping because the chance for them to coincide is too small and I know what I want to paste already
+
+
+The runner class will since now also include all the small random scripts 
+when Runlink, clipsend, clickthengoback and the like are so useful that might as well be included everywhere, nur_Emoji definitely isn't and makes sense to have in a class instead
+
+
+Clipsend now uses ClipBoardAll() and the reversion check is direct rather than to a function for speed purposes. No need to flush the var since it's a function
+
+.tag bad to paste both ahkformatted and rule5
+Not written with clipsend because while you're pasting the first tag, your clipboard has already changed to the second one, so you end up pasting the second one twice
+Removed, actually, for the same reason markdown isn't in hotkeys
+
+XButton1 & MButton is delete message
+
+Shift esc and win alt delete now closes all files except the pinned ones

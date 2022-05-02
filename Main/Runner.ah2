@@ -1,40 +1,29 @@
 +!l:: {
-   O_Runner := InputBox("What do you want to run?", "Runner")
-   if O_Runner.Result = "Cancel" 
+   O_RunBox := InputBox("What do you want to run?", "Runner")
+   if O_RunBox.Result = "Cancel" 
       return
-   Switch O_Runner.Value {
+   val := O_RunBox.Value
+   Switch val {
 
       ;WEBSITES
       ;——————————————————
 
-      ;Reddit
-      Case "reddit":F_RunLink("https://www.reddit.com/notifications")
-      ;Instagram
-      Case "inst", "instagram":F_RunLink("https://www.instagram.com/")
-      ;Twitter
-      Case "twit", "twitter":F_RunLink("https://twitter.com/home")
-      ;Eкурсы
-      Case "eku":F_RunLink("https://e.sfu-kras.ru/calendar/view.php?view=month&time=" . TimeTable.tmt_Month())
-      ;MyAnimeList
-      Case "mal":F_RunLink("https://myanimelist.net/profile/Axlefublr")
-      ;Metta
-      Case "metta":F_RunLink("https://mettalife.ru/pl/my?gcmes=5779290672&gcmlg=-4")
-      ;Weather
-      Case "weather":F_RunLink("https://yandex.ru/pogoda/krasnoyarsk")
-      ;Watch movies
-      Case "movies":F_RunLink("https://watchmovieshd.ru/")
-      ;Gogoanime
-      Case "gogoanime":F_RunLink("https://gogoanime.fi/")
-      ;Mvideo
-      Case "mvideo":F_RunLink("https://www.mvideo.ru/")
-      ;Steam keys
-      Case "zaka", "zakazaka":F_RunLink("https://zaka-zaka.com/")
-      ;Barbershop
-      Case "barber":F_RunLink("https://b73723.yclients.com/company/89170/menu?o=")
-      ;Emoji unicodes
-      Case "emoji":F_RunLink("https://www.alt-codes.net/smiley_alt_codes.php")
-      ;Share files
-      Case "share files":F_RunLink("https://files.fm/")
+      Case "reddit":                 RunLink("https://www.reddit.com/notifications")
+      Case "inst", "instagram":      RunLink("https://www.instagram.com/")
+      Case "twit", "twitter":        RunLink("https://twitter.com/home")
+      Case "eku":                    RunLink("https://e.sfu-kras.ru/calendar/view.php?view=month&time=" . TimeTable.tmt_Month())
+      Case "mal":                    RunLink("https://myanimelist.net/profile/Axlefublr")
+      Case "metta":                  RunLink("https://mettalife.ru/pl/my?gcmes=5779290672&gcmlg=-4")
+      Case "weather":                RunLink("https://yandex.ru/pogoda/krasnoyarsk")
+      Case "movies":                 RunLink("https://watchmovieshd.ru/")
+      Case "gogoanime":              RunLink("https://gogoanime.fi/")
+      Case "mvideo":                 RunLink("https://www.mvideo.ru/")
+      Case "zaka", "zakazaka":       RunLink("https://zaka-zaka.com/")
+      Case "barber":                 RunLink("https://b73723.yclients.com/company/89170/menu?o=")
+      Case "emoji":                  RunLink("https://www.alt-codes.net/smiley_alt_codes.php")
+      Case "share files":            RunLink("https://files.fm/")
+      Case "bcs", "better call Saul":RunLink("https://watchmovieshd.ru/series/better-call-saul-82zxv/6-3")
+      Case "regex":                  RunLink("https://regex101.com/")
 
 
       ;РАСПИСАНИЕ
@@ -56,7 +45,7 @@
             Case 5:TimeTable.tmt_Day("Thursday")
             Case 6:TimeTable.tmt_Day("Friday")
          }
-      Case "week":F_RunLink(TimeTable.tmt_Full)
+      Case "week":RunLink(TimeTable.tmt_Full)
       Case "monday":TimeTable.tmt_Day("Monday")
       Case "tuesday":TimeTable.tmt_Day("Tuesday")
       Case "wednesday":TimeTable.tmt_Day("Wednesday")
@@ -78,53 +67,61 @@
       ;TASKS
       ;———————————————————
 
-      Case "new project tasks":Run A_WorkingDir . "\Scripts\New project tasks.py"
-      Case "click counter":Run A_WorkingDir . "\Tools\Click counter.ah2"
-      Case "discovery add":Run A_WorkingDir . "\Tools\Discovery add.ah2"
-      Case "add to playlist", "atp", "ytp":Run A_WorkingDir . "\Tools\Add to Playlist.ah2"
+      Case "new project tasks":    Run A_WorkingDir . "\Scripts\New project tasks.py"
+      Case "click counter":        Run A_WorkingDir . "\Tools\Click counter.ah2"
+      Case "discovery add":        Run A_WorkingDir . "\Tools\Discovery add.ah2"
+      Case "atp":                  Run A_WorkingDir . "\Tools\Add to Playlist.ah2"
+      Case "one piece download":   Run A_WorkingDir . "\Tools\Download One Piece.ah2"
       Case "format table to array":Runner.nur_FormatTableToArray()
-      Case "startup":Runner.nur_StartupRun()
-      Case "coin flip":Runner.nur_CoinFlip()
-      Case "converter", "conv":Runner.nur_Converter()
-      Case "ytm":YTMusic.ytm_LinkConverter()
-      Case "lib", "libload":Runner.nur_LibLoad()
-      Case "artists count":Runner.nur_ArtistsCount()
+      Case "startup":              Runner.nur_StartupRun()
+      Case "coin flip":            Runner.nur_CoinFlip()
+      Case "ytm":                  YTMusic.ytm_LinkConverter()
+      Case "lib":                  Runner.nur_LibLoad()
+      Case "artists count":        Runner.nur_ArtistsCount()
 
 
       ;GITHUB
       ;————————————————————
       
-      Case "gitpage", "gitfile", "gitlink":Runner.nur_GitPage("paste")
-      Case "git":Runner.nur_GitPage("run")
-      Case "github":F_RunLink("https://github.com/Axlefublr")
+      Case "gitlink":Runner.nur_GitLink("paste")
+      Case "gitopen":Runner.nur_GitLink("run")
+      Case "github":RunLink("https://github.com/Axlefublr")
+
+      Case "gitlink runner":ClipSend("https://github.com/Axlefublr/Personal/blob/main/Main/Runner.ah2")
 
       ;Github nicknames
-      Case "git Micha":F_ClipSend("@Micha-ohne-el")
+      Case "github Micha":ClipSend("@Micha-ohne-el")
 
 
       ;AHK 
       ;————————————————————————————————
 
-      ;Tutorials
-      Case "ahk yt run on reboot":F_ClipSend("https://youtu.be/vjQIbagvkcs")
-      Case "ahk yt arrow":F_ClipSend("https://youtu.be/nSTL3KND25c")
+      Case "ahk yt run on reboot":ClipSend("https://youtu.be/vjQIbagvkcs")
+      Case "ahk yt arrow":ClipSend("https://youtu.be/nSTL3KND25c")
 
 
       ;MEMES
       ;————————————
 
       ;My source is that I made it the fuck up
-      Case "I made it the fuck up", "I made it up":F_ClipSend("https://www.youtube.com/watch?v=r7l0Rq9E8MY")
+      Case "I made it the fuck up", "I made it up":ClipSend("https://www.youtube.com/watch?v=r7l0Rq9E8MY")
       ;Funny mic
-      Case "funny mic":F_ClipSend("https://www.youtube.com/watch?v=jfbKJy_ZuIU")
+      Case "funny mic":ClipSend("https://www.youtube.com/watch?v=jfbKJy_ZuIU")
       ;Delay lama vs meowsynth
-      Case "delay lama":F_ClipSend("https://www.youtube.com/watch?v=Np4iG7-se7I")
+      Case "delay lama":ClipSend("https://www.youtube.com/watch?v=Np4iG7-se7I")
       ;I quickly became homophobic
-      Case "I quickly became homophobic":F_ClipSend("https://www.youtube.com/watch?v=m2ksGuqf8eo")
+      Case "I quickly became homophobic":ClipSend("https://www.youtube.com/watch?v=m2ksGuqf8eo")
       ;If you design a quest
-      Case "if you design a quest":F_ClipSend("https://www.youtube.com/watch?v=chn0ggv9TdY")
+      Case "if you design a quest":ClipSend("https://www.youtube.com/watch?v=chn0ggv9TdY")
       ;Zoro is racist 100% not even imo
-      Case "zoro is racist":F_ClipSend("https://www.youtube.com/watch?v=kb_udP2ZeF8")
+      Case "zoro is racist":ClipSend("https://www.youtube.com/watch?v=kb_udP2ZeF8")
+
+
+      Default:
+      Switch {
+         Case RegexMatch(val, "(?<=r )\d+", &num):Runner.nur_Converter("r", num[0])
+         Case RegexMatch(val, "(?<=d )\d+", &num):Runner.nur_Converter("d", num[0])
+      }         
    }
 }
 

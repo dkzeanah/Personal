@@ -131,10 +131,10 @@ Pause::        Script.scr_Test()
 !-::Send D_KeyCodes_In["long_dash"]
 
 ;Hotstring that turns into a random english word every time
-:XB0*?:uclanr::F_RandomWord(R_randomWords_Eng)
+:XB0*?:uclanr::Runner.nur_RandomWord(R_randomWords_Eng)
 
 ;Hotstring that turns into a random russian word every time
-:XB0*?:ilandh::F_RandomWord(R_randomWords_Rus)
+:XB0*?:ilandh::Runner.nur_RandomWord(R_randomWords_Rus)
 
 ;If I try to laugh in russian but my language is set to english, it autosets the language to russian
 :X*?:[f[::Base.bsd_SwitchLanguage() 
@@ -143,48 +143,28 @@ Pause::        Script.scr_Test()
 :X*?:f[::Base.bsd_SwitchLanguage()
 :X*?:f[[::Base.bsd_SwitchLanguage()
 
-^m:: {
-   Switch {
-      Default:Send "^m"
-      Case WinActive("ahk_exe Discord.exe"):Discord.dsc_Markdown()
-      Case WinActive("Google Chrome"):
-         (WinActive("Messenger")
-            ?                               VK.vk_BlankMessage()
-            :                               Chrome.chr_Markdown())
-   }
-}
-
-+!r:: {
-   ((WinActive("ahk_exe Discord.exe")
-   || WinActive("ahk_exe Telegram.exe")
-   || (WinActive("ahk_exe chrome.exe") && !WinActive("YouTube")))
-      ? YTMusic.ytm_LinkConverter()
-      : Send("+!r"))
-}
-
-
 #HotIf WinActive("ahk_group Messenger")
 
 ;Alt + number sends the Unicode for a specific emoji, making that work anywhere. These hotkeys only work in windows that are messengers
 ;🥺😋🤯😼😎😭🧐😳🤨🤔—💀
-!1::F_Emoji("pleading")
-!2::F_Emoji("yum")
-!3::F_Emoji("exploding_head")
-!4::F_Emoji("smirk_cat")
-!5::F_Emoji("sunglasses")
-!6::F_Emoji("sob")
-!7::F_Emoji("face_with_monocle")
-!8::F_Emoji("flushed")
-!9::F_Emoji("face_with_raised_eyebrow")
-!0::F_Emoji("thinking")
-!=::F_Emoji("skull")
+!1::Runner.nur_Emoji("pleading")
+!2::Runner.nur_Emoji("yum")
+!3::Runner.nur_Emoji("exploding_head")
+!4::Runner.nur_Emoji("smirk_cat")
+!5::Runner.nur_Emoji("sunglasses")
+!6::Runner.nur_Emoji("sob")
+!7::Runner.nur_Emoji("face_with_monocle")
+!8::Runner.nur_Emoji("flushed")
+!9::Runner.nur_Emoji("face_with_raised_eyebrow")
+!0::Runner.nur_Emoji("thinking")
+!=::Runner.nur_Emoji("skull")
 
 ;Alt + F keys are emojis as well
 ;😩🤤💜👉👈
-!F5::F_Emoji("weary")
-!F6::F_Emoji("drooling")
-!F7::F_Emoji("purple_heart")
-!F8::F_Emoji("finger_right"), F_Emoji("finger_left")
+!F5::Runner.nur_Emoji("weary")
+!F6::Runner.nur_Emoji("drooling")
+!F7::Runner.nur_Emoji("purple_heart")
+!F8::Runner.nur_Emoji("finger_right"), Runner.nur_Emoji("finger_left")
 
 #HotIf 
 
@@ -262,6 +242,7 @@ Numpad7:: Base.bsd_SelectAll()
 Numpad8::Home
 Numpad9::PgUp
 AppsKey::LCtrl
+SC138::LAlt
 
 Launch_Media::    return        ;F1
 Media_Play_Pause::return        ;F2
@@ -333,3 +314,5 @@ Browser_Home::    return        ;F12
    , clock_date := FormatTime(, "d MMMM")
    , MsgBox(clock_time . "`n" . clock_weekDay . "`n" . clock_date, "Current time", "4096")
 }
+
++!v::YTMusic.ytm_LinkConverter()

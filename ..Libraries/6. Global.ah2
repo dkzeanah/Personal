@@ -1,39 +1,29 @@
-F_ClickThenGoBack(coordinates) {
+ClickThenGoBack(coordinates) {
      MouseGetPos(&initX, &initY)
    , Click(coordinates)
    , MouseMove(initX, initY)
 }
 
 ;Clicks as an event for extra fucky things
-F_ClickThenGoBack_Event(coordinates) {
+ClickThenGoBack_Event(coordinates) {
      MouseGetPos(&initX, &initY)
    , SendEvent("{Click " . coordinates . "}")
    , MouseMove(initX, initY)
 } 
 
 ;A faster send. Sending stuff can take too long, but if you copy and paste it, it's much faster. Takes care of your previous clipboard disappearing as well
-F_ClipSend(toSend, endChar := " ") {
-     prevClip := A_Clipboard
+ClipSend(toSend, endChar:=" ", isClipReverted:=True, untilRevert:=200) {
+     prevClip := ClipboardAll()
    , A_Clipboard := toSend . endChar
    , Send("^v")
-   , SetTimer(() => A_Clipboard := prevClip, -200) ;Reverts the clipboard to what it was
+   , ((isClipReverted) 
+      ? SetTimer(() => A_Clipboard := prevClip, -untilRevert) 
+      : "")
 }
 
 ;Runs the link and makes sure the browser is activated
-F_RunLink(link) {
-   Run(link), WinActivate("Google Chrome")
+RunLink(link) {
+   Run(link), WinActivate("Google Chrome ahk_exe chrome.exe")
 }
 
-
-;Sends an emoji using its unicode
-F_Emoji(emojiName) {
-   Send("{" . D_KeyCodes_In[emojiName] . "}")
-}
-
-;Sends a random word from your specified array
-F_RandomWord(whichArray) {
-   Send("{BackSpace 6}")
-   , i := Random(1, 3000)
-   , Send(whichArray[i])
-}
 

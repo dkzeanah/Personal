@@ -5,7 +5,7 @@ CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of t
 A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seconds
 #Include "%A_ScriptDir%\..\..Libraries\8. Script.ah2"
 #Include "%A_ScriptDir%\..\..Libraries\3. Press.ah2"
-SoundPlay "*-1"
+Script.scr_BeepLaunch()
 
 #HotIf WinActive("YouTube ahk_exe chrome.exe")
 RButton:: {

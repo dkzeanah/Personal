@@ -64,6 +64,8 @@ Pause::        Script.scr_Test()
 #Include "%A_ScriptDir%\..\..Libraries\9. Runner.ah2"
 ; Runner
 ; TimeTable
+#Include "%A_ScriptDir%\..\..Libraries\10. Links.ah2"
+; Links
 
 
 ;Script parts
@@ -129,6 +131,7 @@ Pause::        Script.scr_Test()
 
 ;Long dash
 !-::Send D_KeyCodes_In["long_dash"]
++!-::Send D_KeyCodes_In["middle_dot"]
 
 ;Hotstring that turns into a random english word every time
 :XB0*?:uclanr::Runner.nur_RandomWord(R_randomWords_Eng)

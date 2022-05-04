@@ -75,8 +75,8 @@ x — add todoist task
 c — 
 v — convert ytm link
 b — 
-n — 
-m — 
+n — reserved for tests
+m — reserved for tests
 б — 
 ю — 
 ? — 

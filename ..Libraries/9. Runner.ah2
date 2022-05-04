@@ -125,6 +125,66 @@ Class C_Runner {
       , Base.bsd_Paste()
       , SetTimer(() => A_Clipboard := prevClip, -200)
    }
+
+   nur_PropServe(flag, linkName) {
+      propName := StrLower(linkName)
+      , propName:= StrReplace(propName, " ", "_")
+      , ((flag == "paste")
+         ? ClipSend(Links.%propName%)
+      : (flag == "open") 
+         ? RunLink(Links.%propName%) : "")
+   }
+
+   nur_MorseCode() {
+      D_Morse_To := Map(
+         "a", "· -   ",
+         "b", "- · · ·   ",
+         "c", "- · - ·   ",
+         "d", "- · ·   ",
+         "e", "·   ", 
+         "f", "· · - ·   ", 
+         "g", "- - ·   ", 
+         "h", "· · · ·   ", 
+         "i", "· ·   ", 
+         "j", "· - - -   ", 
+         "k", "- · -   ", 
+         "l", "· - · ·   ", 
+         "m", "- -   ", 
+         "n", "- ·   ", 
+         "o", "- - -   ", 
+         "p", "· - - ·   ", 
+         "q", "- - · -   ", 
+         "r", "· - ·   ", 
+         "s", "· · ·   ", 
+         "t", "-   ", 
+         "u", "· · -   ", 
+         "v", "· · · -   ", 
+         "w", "· - -   ", 
+         "x", "- · · -   ", 
+         "y", "- · - -   ", 
+         "z", "- - · ·   ", 
+         " ", "     ", 
+         "`n", "`n ",
+         "`t", "`t ",
+         "0", "- - - - -   ", 
+         "1", "· - - - -   ", 
+         "2", "· · - - -   ", 
+         "3", "· · · - -   ", 
+         "4", "· · · · -   ", 
+         "5", "· · · · ·   ", 
+         "6", "- · · · ·   ", 
+         "7", "- - · · ·   ", 
+         "8", "- - - · ·   ", 
+         "9", "- - - - ·   "
+      )
+
+      text := StrLower(A_Clipboard)
+      , noSpecialText := RegexReplace(text, "[^\w\d\s]+")
+      , R_noSpecialSymbols := StrSplit(noSpecialText)
+      for value in R_noSpecialSymbols
+         try morseText .= D_Morse_To[value]
+      ClipSend(morseText)
+   }
 }
 Runner := C_Runner()
 

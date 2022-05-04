@@ -1901,5 +1901,9 @@
    {
       "key": "ctrl+k ctrl+w",
       "command": "-workbench.action.closeAllEditors"
+   },
+   {
+      "key": "shift+escape",
+      "command": "workbench.action.closeAllEditors"
    }
 ]

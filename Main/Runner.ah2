@@ -3,28 +3,7 @@
    if O_RunBox.Result = "Cancel" 
       return
    val := O_RunBox.Value
-   Switch val {
-
-      ;WEBSITES
-      ;——————————————————
-
-      Case "reddit":                 RunLink("https://www.reddit.com/notifications")
-      Case "inst", "instagram":      RunLink("https://www.instagram.com/")
-      Case "twit", "twitter":        RunLink("https://twitter.com/home")
-      Case "eku":                    RunLink("https://e.sfu-kras.ru/calendar/view.php?view=month&time=" . TimeTable.tmt_Month())
-      Case "mal":                    RunLink("https://myanimelist.net/profile/Axlefublr")
-      Case "metta":                  RunLink("https://mettalife.ru/pl/my?gcmes=5779290672&gcmlg=-4")
-      Case "weather":                RunLink("https://yandex.ru/pogoda/krasnoyarsk")
-      Case "movies":                 RunLink("https://watchmovieshd.ru/")
-      Case "gogoanime":              RunLink("https://gogoanime.fi/")
-      Case "mvideo":                 RunLink("https://www.mvideo.ru/")
-      Case "zaka", "zakazaka":       RunLink("https://zaka-zaka.com/")
-      Case "barber":                 RunLink("https://b73723.yclients.com/company/89170/menu?o=")
-      Case "emoji":                  RunLink("https://www.alt-codes.net/smiley_alt_codes.php")
-      Case "share files":            RunLink("https://files.fm/")
-      Case "bcs", "better call Saul":RunLink("https://watchmovieshd.ru/series/better-call-saul-82zxv/6-3")
-      Case "regex":                  RunLink("https://regex101.com/")
-
+   Switch val, 0 {
 
       ;РАСПИСАНИЕ
       ;————————————————————
@@ -78,6 +57,7 @@
       Case "ytm":                  YTMusic.ytm_LinkConverter()
       Case "lib":                  Runner.nur_LibLoad()
       Case "artists count":        Runner.nur_ArtistsCount()
+      Case "morse", "morse code":  Runner.nur_MorseCode()
 
 
       ;GITHUB
@@ -87,40 +67,18 @@
       Case "gitopen":Runner.nur_GitLink("run")
       Case "github":RunLink("https://github.com/Axlefublr")
 
-      Case "gitlink runner":ClipSend("https://github.com/Axlefublr/Personal/blob/main/Main/Runner.ah2")
-
       ;Github nicknames
       Case "github Micha":ClipSend("@Micha-ohne-el")
-
-
-      ;AHK 
-      ;————————————————————————————————
-
-      Case "ahk yt run on reboot":ClipSend("https://youtu.be/vjQIbagvkcs")
-      Case "ahk yt arrow":ClipSend("https://youtu.be/nSTL3KND25c")
-
-
-      ;MEMES
-      ;————————————
-
-      ;My source is that I made it the fuck up
-      Case "I made it the fuck up", "I made it up":ClipSend("https://www.youtube.com/watch?v=r7l0Rq9E8MY")
-      ;Funny mic
-      Case "funny mic":ClipSend("https://www.youtube.com/watch?v=jfbKJy_ZuIU")
-      ;Delay lama vs meowsynth
-      Case "delay lama":ClipSend("https://www.youtube.com/watch?v=Np4iG7-se7I")
-      ;I quickly became homophobic
-      Case "I quickly became homophobic":ClipSend("https://www.youtube.com/watch?v=m2ksGuqf8eo")
-      ;If you design a quest
-      Case "if you design a quest":ClipSend("https://www.youtube.com/watch?v=chn0ggv9TdY")
-      ;Zoro is racist 100% not even imo
-      Case "zoro is racist":ClipSend("https://www.youtube.com/watch?v=kb_udP2ZeF8")
+      Case "github reiwa":ClipSend("@rbstrachan")
 
 
       Default:
       Switch {
          Case RegexMatch(val, "(?<=r )\d+", &num):Runner.nur_Converter("r", num[0])
          Case RegexMatch(val, "(?<=d )\d+", &num):Runner.nur_Converter("d", num[0])
+         Case RegexMatch(val, "(?<=p ).+", &linkName):try Runner.nur_PropServe("paste", linkName[0])
+         Case RegexMatch(val, "(?<=o ).+", &linkName):try Runner.nur_PropServe("open", linkName[0])
+         Default:try Runner.nur_PropServe("open", val)
       }         
    }
 }

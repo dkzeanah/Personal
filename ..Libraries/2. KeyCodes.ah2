@@ -112,7 +112,9 @@ D_KeyCodes_In := Map(
 "drooling",                 "U+1F924",
 "eggplant",                 "U+1F346",
 "smiling_imp",              "U+1F608",
-"long_dash",                "{ASC 0151}")
+"long_dash",                "{ASC 0151}",
+"middle_dot",               "{U+00B7}"
+)
 
 D_KeyCodes_Out := Map()
 for key, value in D_KeyCodes_In ;Copy of the dictionary with reversed keys and values

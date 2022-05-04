@@ -9,6 +9,10 @@ Class C_Chrome {
    chr_CopyLink() {
       Send("^l"), Sleep(40), Base.bsd_Copy()
    }
+
+   chr_CloseAllTabs() {
+      Send "^+{Delete}"
+   }
 }
 Chrome := C_Chrome()
 
@@ -265,6 +269,14 @@ Class C_VSCode {
 
    vsc_Debug() {
       Send "^+h"
+   }
+
+   vsc_CloseAllTabs() {
+      Send "+{Escape}"
+   }
+
+   vsc_DeleteLine() {
+      Send "+{Delete}"
    }
    
    vsc_KeyCodeGetter(direction) {

@@ -73,6 +73,19 @@ F9::Send "{Volume_Down}"
 Volume_Down & MButton::F5
 ^Space::Send "{Down}"
 
+AppsKey & Delete:: {
+   (Hold.hld_Bool("Delete")
+      ? Chrome.chr_CloseAllTabs()
+      : Base.bsd_CloseTab())
+}
+
+AppsKey & Insert::Base.bsd_RestoreTab()
+AppsKey & PgUp::Base.bsd_PrevTab()
+AppsKey & PgDn::Base.bsd_NextTab()
+AppsKey & Home::Base.bsd_NewTab()
+AppsKey & End::Chrome.chr_CopyLink()
+
+
 
 
 
@@ -140,6 +153,18 @@ F2::Discord.dsc_NextServer()
 PrintScreen::VSC.vsc_RunCurrentInTerminal()
 !PrintScreen::VSC.vsc_KillCurrentTerminalOrDebug()
 ^PrintScreen::VSC.vsc_Debug()
+
+AppsKey & Delete:: {
+   (Hold.hld_Bool("Delete")
+      ? VSC.vsc_CloseAllTabs()
+      : Base.bsd_CloseTab())
+}
+
+AppsKey & Insert::Base.bsd_RestoreTab()
+AppsKey & PgUp::Base.bsd_PrevTab()
+AppsKey & PgDn::Base.bsd_NextTab()
+AppsKey & Home::VSC.vsc_DeleteLine()
+AppsKey & End::VSC.vsc_Comment()
 
 ;Opens an inputbox for you to put in the name of the key to get its SC code into your clipboard, or takes the SC code to then show you to which key it belongs in a msgbox; if it finds neither, says so
 +!k:: {

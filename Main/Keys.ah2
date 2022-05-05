@@ -30,23 +30,16 @@ Pause::        Script.scr_Test()
 
 ;Libraries
 ;————————————————————————————————
-#Include "%A_ScriptDir%\..\..Libraries\1. Base.ah2"
+#Include "%A_ScriptDir%\..\_Libraries\Func\1. Base.ah2"
 ; Base
-#Include "%A_ScriptDir%\..\..Libraries\2. KeyCodes.ah2"
-; D_KeyCodes_In
-; D_KeyCodes_Out
-#Include "%A_ScriptDir%\..\..Libraries\3. Press.ah2"
+#Include "%A_ScriptDir%\..\_Libraries\Func\2. Press.ah2"
 ; Twice
 ; Double
 ; Hold
-#Include "%A_ScriptDir%\..\..Libraries\4. RandomWords.ah2"
-; R_RandomWords_Eng
-; R_RandomWords_Rus
-#Include "%A_ScriptDir%\..\..Libraries\5. Win.ah2"
+#Include "%A_ScriptDir%\..\_Libraries\Func\3. Global.ah2"
+#Include "%A_ScriptDir%\..\_Libraries\Func\4. Win.ah2"
 ; Win
-#Include "%A_ScriptDir%\..\..Libraries\6. Global.ah2"
-; F_
-#Include "%A_ScriptDir%\..\..Libraries\7. App.ah2"
+#Include "%A_ScriptDir%\..\_Libraries\Func\5. App.ah2"
 ; Chrome
 ; YTMusic
 ; YouTube
@@ -59,12 +52,19 @@ Pause::        Script.scr_Test()
 ; WPS
 ; Player
 ; Screenshot
-#Include "%A_ScriptDir%\..\..Libraries\8. Script.ah2"
+#Include "%A_ScriptDir%\..\_Libraries\Func\6. Script.ah2"
 ; Script
-#Include "%A_ScriptDir%\..\..Libraries\9. Runner.ah2"
+#Include "%A_ScriptDir%\..\_Libraries\Func\7. Runner.ah2"
 ; Runner
 ; TimeTable
-#Include "%A_ScriptDir%\..\..Libraries\10. Links.ah2"
+
+#Include "%A_ScriptDir%\..\_Libraries\Var\1. KeyCodes.ah2"
+; D_KeyCodes_In
+; D_KeyCodes_Out
+#Include "%A_ScriptDir%\..\_Libraries\Var\2. RandomWords.ah2"
+; R_RandomWords_Eng
+; R_RandomWords_Rus
+#Include "%A_ScriptDir%\..\_Libraries\Var\3. Links.ah2"
 ; Links
 
 
@@ -254,7 +254,7 @@ Media_Prev::      return        ;F4
 Media_Next::      return        ;F5
 Volume_Mute::     return        ;F6
 Volume_Up::       return        ;F7
-; Volume_Down::     return        ;F8
+Volume_Down::     return        ;F8
 Launch_App1::     return        ;F9
 Launch_Mail::     return        ;F10
 Launch_App2::     return        ;F11
@@ -274,12 +274,12 @@ Browser_Home::    return        ;F12
 #HotIf WinActive("ahk_group Game_M")
 *XButton1::u
 *XButton2::y
-*Volume_Down::i
+*Media_Stop::i
 
 #HotIf WinActive("ahk_exe METAL GEAR RISING REVENGEANCE.exe")
 *XButton1::u
 *XButton2::LCtrl
-*Volume_Down::i
+*Media_Stop::i
 *CapsLock::Enter
 
 #HotIf 

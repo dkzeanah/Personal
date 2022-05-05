@@ -73,6 +73,32 @@ Class C_YouTubeMusic {
    ytm_LinkConverter() {
       ClipSend(A_Clipboard := StrReplace(StrReplace(A_Clipboard, "&feature=share", ""), "//music.", "//www."))
    }
+
+   ytm_SmartRandomPlaylist() {
+
+      file := FileOpen(A_WorkingDir . "\Files\Innit\Last playlists.txt", "r")
+      , file.Seek(, 0) ;Go to the start of the file
+      , prevNums := file.Read() ;Read the whole file to get all the string of numbers there
+      , fileParam := (StrLen(prevNums) >= 10 ? "w" : "a") ;If there are 10 of them, decide to overwrite them on the next new number
+      , file.Close() ;Flush
+
+      , file := FileOpen(A_WorkingDir . "\Files\Innit\Last playlists.txt", fileParam) ;Reopen the same file having decided to either overwrite it or append to it
+      Loop
+         newNum := Random(0, 9)
+      Until !InStr(prevNums, newNum) ;Get a number that won't be a dublicate to any currently in the file
+      file.Write(newNum) ;Write that new number
+      , file.Close() ;Flush
+
+      , G_Plst := Gui("AlwaysOnTop", "Playlist chooser") ;Create a gui
+      , exists := True
+      , G_Plst.Show("W200 H200 Center") ;Small square in the center
+      , G_Plst.SetFont("S70")
+      , G_Plst_Num := G_Plst.Add("Text", "X0 Y40 W200 H200 Center", newNum) ;Show the new number in the gui
+      , G_Plst.OnEvent("Close", (*) => (G_Plst.Destroy(), exists := False)) ;Destroy the gui if you close it
+      , G_Plst_Num.OnEvent("Click", (*) => (G_Plst.Destroy(), exists := False)) ;Destory the gui if you click on the new number
+      , SetTimer((*) => (exists ? G_Plst.Destroy() : ""), -1000) ;Destroy the gui in a second, if it still exists
+   }
+
 }
 YTMusic := C_YouTubeMusic.Call()
 

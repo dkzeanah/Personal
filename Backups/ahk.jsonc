@@ -46,7 +46,7 @@
       "description": ""
    },
    "5": {
-      "prefix": "snippet Directories v2",
+      "prefix": "snp Directories v2",
       "body": [
          "SetWorkingDir A_ScriptDir . \"\\..\\\" ;Ensures a consistent A_WorkingDir.",
          "#SingleInstance Force ;Launches the new instance of the script always, instead of asking whether it should",
@@ -367,7 +367,7 @@
       ]
    },
    "53": {
-      "prefix": "snippet Directories v1",
+      "prefix": "snp Directories v1",
       "body": [
          "#NoEnv ;Recommended for performance and compatibility with future AutoHotkey releases.",
          "#Warn ;Enable warnings to assist with detecting common errors.",
@@ -1095,7 +1095,7 @@
       ]
    },
    "171": {
-      "prefix": "snippet Gesture vars full",
+      "prefix": "snp Gesture vars full",
       "body": [
          "  right       := (sectionX > 1368)",
          ", left        := (sectionX < 568)",
@@ -1109,7 +1109,7 @@
       "description": "Variable definitions"
    },
    "172": {
-      "prefix": "snippet Gesture vars",
+      "prefix": "snp Gesture vars",
       "body": [
          "  right := (sectionX > 1368)",
          ", left  := (sectionX < 568)",
@@ -1150,7 +1150,7 @@
    "177": {
       "prefix": "Import script",
       "body": [
-         "#Include \"%A_ScriptDir%\\..\\..Libraries\\8. Script.ah2\""
+         "#Include \"%A_ScriptDir%\\..\\_Libraries\\Func\\7. Script.ah2\""
       ]
    },
    "178": {
@@ -1168,7 +1168,7 @@
    "180": {
       "prefix": "Import lib",
       "body": [
-         "#Include \"%A_ScriptDir%\\..\\..Libraries\\\\$0.ah2\""
+         "#Include \"%A_ScriptDir%\\..\\_Libraries\\\\$0.ah2\""
       ]
    },
    "181": {
@@ -1186,19 +1186,49 @@
    "183": {
       "prefix": "RegexMatch",
       "body": [
-         "RegexMatch"
+         "RegexMatch($0)"
       ]
    },
    "184": {
       "prefix": "Import global",
       "body": [
-         "#Include \"%A_ScriptDir%\\..\\..Libraries\\6. Global.ah2\""
+         "#Include \"%A_ScriptDir%\\..\\_Libraries\\Func\\3. Global.ah2\""
       ]
    },
    "185": {
       "prefix": "A_AhkVersion",
       "body": [
          "A_AhkVersion"
+      ]
+   },
+   "186": {
+      "prefix": "StrSplit",
+      "body": [
+         "StrSplit($0)"
+      ]
+   },
+   "187": {
+      "prefix": "Import lib func",
+      "body": [
+         "#Include \"%A_ScriptDir%\\..\\_Libraries\\Func\\\\$0.ah2\""
+      ]
+   },
+   "188": {
+      "prefix": "FileOpen",
+      "body": [
+         "FileOpen($0)"
+      ]
+   },
+   "189": {
+      "prefix": ".Destroy",
+      "body": [
+         ".Destroy()"
+      ]
+   },
+   "190": {
+      "prefix": "snp Destroy when clicked",
+      "body": [
+         ".OnEvent(\"Click\", (*) => $0.Destroy())"
       ]
    },
    

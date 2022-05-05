@@ -20,7 +20,7 @@ F9::Send "{Volume_Down}"
 F12::YTMusic.ytm_Like()
 F11::YTMusic.ytm_Dislike()
 
-Volume_Down & MButton::F5
+Media_Stop & MButton::F5
 ^Space::Send "{Down}"
 
 
@@ -46,7 +46,7 @@ Down::Send "{Volume_Down}"
 #HotIf WinActive("Google Chrome") ;_chrome
 
 ;Single press is copy, double press will get current tab's link to clipboard
-Volume_Down & XButton1:: {
+Media_Stop & XButton1:: {
    (Hold.hld_Bool("XButton1") 
       ? Chrome.chr_CopyLink()
       : Base.bsd_Copy())
@@ -61,8 +61,8 @@ F6::Send "^6"
 F7::Send "^7"
 F8::Send "^8"
 
-F10::Send "{Volume_Up}"
-F9::Send "{Volume_Down}"
+F10::Volume_Up
+F9::Volume_Down
 
 +!e::Base.bsd_NewTab()
 
@@ -70,7 +70,7 @@ F9::Send "{Volume_Down}"
 
 +!w::(!WinActive("Messenger") ? Base.bsd_CloseTab() : "")
 
-Volume_Down & MButton::F5
+Media_Stop & MButton::F5
 ^Space::Send "{Down}"
 
 AppsKey & Delete:: {

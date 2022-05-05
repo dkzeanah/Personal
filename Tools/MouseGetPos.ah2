@@ -9,7 +9,6 @@ CoordMode("Mouse", "Screen")
 , G_MouseGetPos.Show("W301 H150 Center")
 , G_MouseGetPos.SetFont("S30")
 , G_MouseGetPos_Coords := G_MouseGetPos.Add("Text", "X0 W300 H250 Center", "X = " . locX . "`nY = " . locY)
-, G_MouseGetPos.SetFont("S10")
 , G_MouseGetPos.OnEvent("Close", (*) => ExitApp())
 
 F1::MGP.ControlClick()

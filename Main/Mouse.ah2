@@ -6,7 +6,7 @@
 ;######################################################################################
 
 
-XButton1 & Volume_Down:: {
+XButton1 & Media_Stop:: {
    Switch {
       Case WinActive("YouTube Music"):                           YTMusic.ytm_CancelSearch()
       Case YouTube.ytt_isNotWatchingVid:                         YouTube.ytt_Miniscreen()
@@ -17,7 +17,7 @@ XButton1 & Volume_Down:: {
    }
 }
 
-XButton2 & Volume_Down:: {
+XButton2 & Media_Stop:: {
    Switch {
       Case WinActive("YouTube Music"):       YTMusic.ytm_ChannelSwitch()
       Case WinActive("YouTube"):             YouTube.ytt_ChannelSwitch()
@@ -39,10 +39,10 @@ XButton2 & Volume_Down:: {
 
 
 ;Special button + side buttons
-Volume_Down & XButton1::Hold.hld_Send("XButton1", Base.bsd_Copy, Base.bsd_Cut, "0.17")
-Volume_Down & MButton::Base.bsd_SelectAll()
-Volume_Down & LButton::Space
-Volume_Down & XButton2::Hold.hld_Send("XButton2", Base.bsd_Paste, Base.bsd_WinPaste, "0.17")
+Media_Stop & XButton1::Hold.hld_Send("XButton1", Base.bsd_Copy, Base.bsd_Cut, "0.17")
+Media_Stop & MButton::Base.bsd_SelectAll()
+Media_Stop & LButton::Space
+Media_Stop & XButton2::Hold.hld_Send("XButton2", Base.bsd_Paste, Base.bsd_WinPaste, "0.17")
 
 ;Combined side buttons
 XButton2 & XButton1::Escape
@@ -73,7 +73,7 @@ XButton2 & LButton::Enter
 ;##################################################################################### 
 
 
-Volume_Down:: { 
+Media_Stop:: { 
    MouseGetPos &sectionX, &sectionY
      right       := (sectionX > 1368)
    , left        := (sectionX < 568)
@@ -92,7 +92,7 @@ Volume_Down:: {
          ( (topLeft)     ? Base.bsd_WinRestoreDown()
          : (bottomLeft)  ? Win.niw_App("ahk_exe Todoist.exe", Win.Todoist)
          :                 Win.niw_App("ahk_exe Code.exe", Win.VScode))
-      Case down:           Win.niw_App_WinNum("YouTube Music", "6")
+      Case down:           Win.niw_App_WinNum("YouTube Music", 5)
       Case up:             Win.niw_App("Google Chrome", Win.GoogleChrome)
       Default:             Base.bsd_MouseAltTab()
    } 
@@ -197,6 +197,7 @@ XButton1:: {
             Default:        Send "{Browser_Back}"
             Case right:
                (ytmCover ?  YTMusic.ytm_Options()
+               : topRight ? YTMusic.ytm_SmartRandomPlaylist()
                :            YTMusic.ytm_Fullscreen())
             Case left:      YTMusic.ytm_Library()
             Case up:        YTMusic.ytm_Like()

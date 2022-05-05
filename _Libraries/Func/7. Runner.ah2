@@ -47,15 +47,13 @@ Class C_Runner {
    ;Clicks on all the libraries consequentially, loading them into Intellisense
    nur_LibLoad() {
       D_Libraries := Map(
-         "1. Base",                         "X196 Y149",
-         "2. KeyCodes",                     "X196 Y178",
-         "3. Press",                        "X196 Y203",
-         "4. RandomWords",                  "X196 Y232",
-         "5. Win",                          "X196 Y257",
-         "6. Global",                       "X196 Y285",
-         "7. App",                          "X196 Y313",
-         "8. Script",                       "X196 Y343",
-         "9. Runner",                       "X196 Y368"
+         "1. Base",                         "X204 Y177",
+         "2. Press",                        "X204 Y205",
+         "3. Global",                       "X204 Y233",
+         "4. Win",                          "X204 Y255",
+         "5. App",                          "X204 Y286",
+         "6. Script",                       "X204 Y310",
+         "7. Runner",                       "X204 Y338"
       )
       
       for key, value in D_Libraries 
@@ -185,6 +183,7 @@ Class C_Runner {
          try morseText .= D_Morse_To[value]
       ClipSend(morseText)
    }
+   
 }
 Runner := C_Runner()
 

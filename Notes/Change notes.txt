@@ -1,31 +1,37 @@
-Links are now in the links library
+Despite the fact that I can define the default directory of includes, using the "%A_ScriptDir%\..\%.... for every one looks better, and imo more readable
 
-Idea from the previous commit — implementation
+This code picks a random number that isn't a part of the array
+Was written by @Micha-ohne-el, thank you very much!!
+Loop {
+   newNum := Random(0, 9)
+   for value in R_PlayedPlaylists {
+      if value == newNum 
+         continue 2
+   }
+   break
+}
 
-by default, everything that you type into the runner tries to be opened as a property at the very least
-p for paste
-you *can* specify o for open (being explicit)
+I was able to think of a better way to do what I wanted to achieve with this ^ though, more readable and less wordy as well. 
 
-if it's something predefined in the main switch, it will get caught, if it doesn't, goes for the second check in the default inner switch, if still doesn't get caught, nothing happens (as it should)
+Playlist picker
+;————————————————————————————————
 
-When in vscode, appskey gets its own hotkeys
-short tap delete: close tab
-long hold delete: close all tabs except the pinned ones
-insert: restore tab
-pgup: prev tab
-pgdn: next tab
-home: delete line
-end: comment
+Idea: a random playlist picker for youtube music that doesn't pick duplicates. meaning, after listening to the 6th playlist, you'll have to listen to the other nine until you get to the sixth again. 
+Now the question is: why not just make a function that remembers what playlist you're on in order? That's a great question. Anyway
 
-Appskey for chrome as well, the only differences being 
-home: new tab
-end: copy link
+Implementation: every time the function picks a new playlist, it stores it in a text file and checks it for the history of the last 10 playlists picked. if the text file has all 10 digits (10 playlists gone through), it starts over
+the new picked playlist is guaranteed to not be a duplicate of the last ten, unless it's a new set of shuffle
+Shows the new playlist to pick in a gui
 
-You can make it play the vine boom sound effect when you catch an error lmao
 
-SoundPlay switched to soundbeep, they are different depending on commands 
+Figured out why Volume_Down was being blocked if there are hooked (inputleveled) hotkeys in a separate running script.
+apparently, &'ed keys start catching remaps into them, making them do nothing (since &'ed keys stop working)
+solution? don't use &'ed keys you could potentially need to send, easy clap
 
-Reiwa github nickname in runner
 
-Morse code translator: translates copied text into morse and pastes it
-keeps `n, `t, spaces and also tranlates numbers. everything else is left out
+..Libraries => _Libraries 
+libs divided into functions and variables
+because the former you can load into intellisense, 
+the latter you can't, since it's not in the same file
+
+The folder for files that are used as permanent memory is called Innit coming from ini because it's funny

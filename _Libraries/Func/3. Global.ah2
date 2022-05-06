@@ -11,7 +11,7 @@ ClickThenGoBack_Event(coordinates) {
    , MouseMove(initX, initY)
 } 
 
-;A faster send. Sending stuff can take too long, but if you copy and paste it, it's much faster. Takes care of your previous clipboard disappearing as well
+;A faster send. Sending stuff can take too long, but if you copy and paste it, it's much faster. Retains your clipboard as well
 ClipSend(toSend, endChar := " ", isClipReverted := 1, untilRevert := 200) {
      ((isClipReverted) ? prevClip := ClipboardAll() : "")
    , A_Clipboard := toSend . endChar
@@ -21,9 +21,18 @@ ClipSend(toSend, endChar := " ", isClipReverted := 1, untilRevert := 200) {
       : "")
 }
 
-;Runs the link and makes sure the browser is activated
 RunLink(link) {
    Run(link), WinActivate("Google Chrome ahk_exe chrome.exe")
 }
 
+WaitUntilImage(image) {
+   var := 0
+   While !var
+      var := ImageSearch(&imgX, &imgY, 0, 0, A_ScreenWidth, A_ScreenHeight, A_WorkingDir . "\Files\Images\" . image . ".png")
+   return [imgX, imgY]
+}
 
+WaitClick(img) {
+   coords := WaitUntilImage(img)
+   , ControlClick("X" . coords[1] . " Y" . coords[2], "A")
+}

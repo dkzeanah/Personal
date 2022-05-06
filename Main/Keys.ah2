@@ -7,6 +7,7 @@ SetWorkingDir A_ScriptDir . "\..\" ;Ensures a consistent A_WorkingDir
 SetScrollLockState "AlwaysOff"
 SetNumLockState "AlwaysOn"
 CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of the window's
+CoordMode "Pixel", "Client"
 SetControlDelay -1
 A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seconds
 
@@ -180,7 +181,7 @@ Pause::        Script.scr_Test()
 
 
 ;Close active window
-!Escape::Base.bsd_CloseWin()
+!Escape::Win.niw_CloseWin()
 
 ;Alt enter in down enter
 !Enter::Base.bsd_ChooseNext()
@@ -189,8 +190,8 @@ Pause::        Script.scr_Test()
 +!Left::Base.bsd_Undo()
 +!Right::Base.bsd_Redo()
 
-#Up::Base.bsd_Maximize()
-#Down::Base.bsd_WinRestoreDown()
+#Up::Win.niw_MaximizeWin()
+#Down::Win.niw_WinRestoreDown()
 #Right::Base.bsd_WinRestore("right")
 #Left::Base.bsd_WinRestore("left")
 
@@ -204,7 +205,6 @@ Insert::Base.bsd_SelectAll()
 !Insert::Base.bsd_Cut()
 
 ;Media hotkeys
-!SC029::Media_Play_Pause
 >^Home::Volume_Up
 >^End::Volume_Down
 >^Insert::Volume_Mute

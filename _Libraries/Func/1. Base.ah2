@@ -69,25 +69,9 @@ Class C_Base {
    }
    bsd_PrevWin => "+!{Tab}"
 
-   bsd_CloseWin(winTitle := "A") {
-      PostMessage "0x0010",,,, winTitle
-   }
-
-   bsd_MinimizeWin(winTitle := "A") {
-      PostMessage "0x112", "0xF020",,, winTitle
-   }
-
-   bsd_WinRestoreDown(winTitle := "A") {
-      PostMessage "0x112", "0xF120",,, winTitle
-   }
-
-   bsd_Maximize(winTitle := "A") {
-      PostMessage "0x112", "0xF030",,, winTitle
-   }
-
    bsd_WinRestore(direction, winTitle := "A") {
       ((WinGetMinMax(winTitle)) ;If window is maximized
-      ? (this.bsd_WinRestoreDown(winTitle), ;Unmaximize it
+      ? (Win.niw_WinRestoreDown(winTitle), ;Unmaximize it
          SetTimer(() => (
             !WinGetMinMax(winTitle) ;Check if it's unmaximized every 10ms
                ? (F_WinMove(), SetTimer(, 0)) ;If so, move it

@@ -60,14 +60,8 @@ Class C_YouTubeMusic {
    }
 
    ytm_ChannelSwitch() {
-      static i := 0
-      ((i) 
-         ? (this.ytm_ChannelSwitch_Switch(), i := !i)
-         : (this.ytm_ChannelSwitch_Menu(), i := !i))
+      ControlClick("X1863 Y75"), WaitClick("switch account ytm")
    }
-
-   ytm_ChannelSwitch_Menu() => ControlClick("X1863 Y75")
-   ytm_ChannelSwitch_Switch() => ControlClick("X1688 Y297")
 
    ;Converts a YT music link into a youtube link and pastes it
    ytm_LinkConverter() {
@@ -145,14 +139,8 @@ Class C_YouTube {
    )
 
    ytt_ChannelSwitch() {
-      static i := 0
-      ((i) 
-         ? (this.ytt_ChannelSwitch_Switch(), i := !i)
-         : (this.ytt_ChannelSwitch_Menu(), i := !i))
+      ControlClick("X1821 Y131"), WaitClick("switch account ytt")
    }
-
-   ytt_ChannelSwitch_Menu() => ControlClick("X1821 Y131")
-   ytt_ChannelSwitch_Switch() => ControlClick("X1534 Y460")
 
 }
 YouTube := C_YouTube.Call()
@@ -225,6 +213,11 @@ Class C_Discord {
 
    dsc_Reply() {
       Base.bsd_CtrlClick()
+   }
+
+   dsc_React() {
+      ImageSearch(&reactX, &reactY, 1730, 88, 1820, 995, A_WorkingDir "\Files\Images\react.png")
+      try ControlClick("X" reactX " Y" reactY, "ahk_exe Discord.exe")
    }
 
    dsc_NextServer() {
@@ -365,7 +358,7 @@ WPS := C_WPSOffice()
 Class C_Player {
    
    plr_SkipOpening() {
-      Send "{End 6}{Right 4}"
+      Send "{F12 6}{Right 4}"
    }
 }
 Player := C_Player()

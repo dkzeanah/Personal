@@ -85,11 +85,11 @@ Media_Stop:: {
    , bottomRight := ((sectionX > 1673) && (sectionY > 839))
    Switch {
       Case right:
-         ( (topRight)    ? Base.bsd_Maximize()
+         ( (topRight)    ? Win.niw_MaximizeWin()
          : (bottomRight) ? Win.niw_App("Telegram", Win.Telegram)
          :                 Win.niw_App("ahk_exe Discord.exe", Win.Discord))
       Case left:
-         ( (topLeft)     ? Base.bsd_WinRestoreDown()
+         ( (topLeft)     ? Win.niw_WinRestoreDown()
          : (bottomLeft)  ? Win.niw_App("ahk_exe Todoist.exe", Win.Todoist)
          :                 Win.niw_App("ahk_exe Code.exe", Win.VScode))
       Case down:           Win.niw_App_WinNum("YouTube Music", 5)
@@ -132,11 +132,11 @@ XButton2:: {
             Case WinActive("ahk_exe KMPlayer64.exe"):Send "{PgUp}"
             Default:Send "{Media_Prev}"
          }
-      Case down:Base.bsd_CloseWin()
-      Case up:Base.bsd_MinimizeWin()
+      Case down:Win.niw_CloseWin()
+      Case up:Win.niw_MinimizeWin()
       Default:
          Send(WinActive("ahk_exe Code.exe") 
-            ? "^!{Insert}" 
+            ? VSC.vsc_DeleteLine()
             : "{Browser_Forward}")
    }
 }

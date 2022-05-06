@@ -130,6 +130,7 @@ Enter::Base.bsd_ChooseNext()
 MButton::Discord.dsc_Reply()
 
 XButton1 & MButton::Discord.dsc_DeleteMessage()
+XButton2 & MButton::Discord.dsc_React()
 
 ^SC027::Discord.dsc_Emoji()
 

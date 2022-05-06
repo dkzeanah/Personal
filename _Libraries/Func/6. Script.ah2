@@ -72,6 +72,5 @@ Class C_Script {
    scr_BeepSuspend() {
       SoundBeep(800, 100), SoundBeep(700, 100)
    }
- 
 }
 Script := C_Script()

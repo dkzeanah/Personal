@@ -443,7 +443,7 @@
    "63": {
       "prefix": "CoordMode",
       "body": [
-         "CoordMode ${1:\"Mouse\"} ${2:\"Screen\"}"
+         "CoordMode(\"${1:Mouse}\", \"${2:Screen}\")"
       ]
    },
    "64": {
@@ -1229,6 +1229,24 @@
       "prefix": "snp Destroy when clicked",
       "body": [
          ".OnEvent(\"Click\", (*) => $0.Destroy())"
+      ]
+   },
+   "191": {
+      "prefix": "PixelGetColor",
+      "body": [
+         "PixelGetColor($0)"
+      ]
+   },
+   "192": {
+      "prefix": "PixelSearch",
+      "body": [
+         "PixelSearch"
+      ]
+   },
+   "193": {
+      "prefix": "A_TickCount",
+      "body": [
+         "A_TickCount"
       ]
    },
    

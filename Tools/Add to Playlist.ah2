@@ -3,34 +3,17 @@ SetWorkingDir A_ScriptDir . "\..\" ;Ensures a consistent A_WorkingDir.
 #InputLevel 2 ;Makes sure hotkeys can't activate themselves (effectively $ on every hotkey)
 CoordMode "Mouse", "Screen" ;Uses the coordinates of the screen rather than of the window's
 A_MaxHotkeysPerInterval := 1000 ;Removes the limitation of 70 hotkeys per 2 seconds
-#Include "%A_ScriptDir%\..\..Libraries\8. Script.ah2"
-#Include "%A_ScriptDir%\..\..Libraries\3. Press.ah2"
+#Include "%A_ScriptDir%\..\_Libraries\Func\6. Script.ah2"
+#Include "%A_ScriptDir%\..\_Libraries\Func\3. Global.ah2"
 Script.scr_BeepLaunch()
 
 #HotIf WinActive("YouTube ahk_exe chrome.exe")
 RButton:: {
-   static i := 0
-   Switch i {
-      Case 0:
-         ;Opens the ... menu
-         MouseGetPos(&locX, &locY)
-         , ControlClick("X" . locX . " Y" . locY)
-         , i := 1
-      Case 1:
-         ;Selects "Add to playlist"
-         ControlClick("X" . locX-156 . " Y" . locY+184)
-         , i := 2
-      Case 2:
-         ;Choose last playlist
-         ControlClick("X852 Y670")
-         , i := 3
-      Case 3:
-         ;Exit the playlist selecter
-         ControlClick("X355 Y669")
-         , i := 0
-   }
-   static locX := locX
-   static locY := locY
+   MouseGetPos(&locX, &locY)
+   , ControlClick("X" . locX . " Y" . locY)
+   , WaitClick("save to playlist")
+   , WaitUntilImage("save to")
+   , ControlClick("X852 Y670")
 }
 #HotIf 
 
@@ -38,14 +21,10 @@ RButton:: {
 SetTimer atp_isNotUsed, 1000
 atp_isNotUsed() {
    static l
-   (!WinActive("YouTube") 
+   (!WinActive("YouTube ahk_exe chrome.exe") 
       ? (l += 1)
       : (l := 0))
    , ((l >= 60) ? Script.scr_ExitApp() : "")
 }
 
-Esc:: {
-   ((Hold.hld_Bool("Esc"))
-      ? Script.scr_ExitApp()
-      : Script.scr_Reload())
-}
+Esc::Script.scr_ExitApp()

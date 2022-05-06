@@ -35,6 +35,24 @@ Class C_WindowsApp {
 
    VPN => "C:\Program Files\SoftEther VPN Client\vpncmgr_x64.exe"
 
+   Sounds => "C:\Files\Programming\Personal\Files\Sounds"
+
+   niw_CloseWin(winTitle := "A") {
+      PostMessage "0x0010",,,, winTitle
+   }
+
+   niw_MinimizeWin(winTitle := "A") {
+      PostMessage "0x112", "0xF020",,, winTitle
+   }
+
+   niw_WinRestoreDown(winTitle := "A") {
+      PostMessage "0x112", "0xF120",,, winTitle
+   }
+
+   niw_MaximizeWin(winTitle := "A") {
+      PostMessage "0x112", "0xF030",,, winTitle
+   }
+
    ;Minimizes or maximizes the window depending on its state
    niw_MinMax(title) {
       (WinActive(title) 
@@ -97,6 +115,15 @@ Class C_WindowsApp {
          Case WinActive(folderPath):WinMinimize folderPath
          Case !WinActive(folderPath):WinActivate folderPath
       }
+   }
+
+   niw_CloseOnceInactive(winTitle, closedAfter:=5) {
+      SetTimer(() => ;Once this function has been called, there's a timer waiting for the specified window to become inactive
+         (!WinActive(winTitle) ;Once it is, deletes the timer
+            ? (Settimer(, 0), SetTimer(() => ;And starts a new one, that closes the window after your specified time (better than a sleep)
+               Win.niw_CloseWin(winTitle), -closedAfter*1000))
+            : "")
+      , 200)
    }
 }
 Win := C_WindowsApp()

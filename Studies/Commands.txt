@@ -1,7 +1,7 @@
 ;My tags
 ;————————————————————————————————
 
-v2issue
+v2 issue
 directoriesv1
 no wrap if
 arrow functions

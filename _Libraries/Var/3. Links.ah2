@@ -51,6 +51,8 @@ Class C_Links {
    Emoji => "https://www.alt-codes.net/smiley_alt_codes.php"
    Share_files => "https://files.fm/"
    Regex => "https://regex101.com/"
+   Image_search_tips => "https://github.com/nuj123/AutoHotKey/blob/master/ImageSearchFAQ.md"
+   Dll_calls => "https://docs.microsoft.com/en-us/windows/win32/api/"
 
 
    ;Git file links
@@ -75,7 +77,6 @@ Class C_Links {
    I_quickly_became_homophobic => "https://www.youtube.com/watch?v=m2ksGuqf8eo"
    If_you_design_a_quest => "https://www.youtube.com/watch?v=chn0ggv9TdY"
    Zoro_is_racist => "https://www.youtube.com/watch?v=kb_udP2ZeF8"
-
    
 }
 Links := C_Links()

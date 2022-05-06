@@ -18,3 +18,25 @@ MsgBox, % fn("George", 15)[1]
 
 Message to the other script
 PostMessage, 0x111, 65306,,, filename.ahk
+
+
+coordMode, Pixel, Screen 
+
+loopCount := 100
+elapse := 0
+loop, % loopcount 
+{
+
+DllCall("QueryPerformanceFrequency", "Int64*", freq)
+DllCall("QueryPerformanceCounter", "Int64*", CounterBefore)
+
+    PixelSearch, oX, oY, 0, 0, A_ScreenWidth, A_ScreenHeight, 0x000000, RGB fast
+
+DllCall("QueryPerformanceCounter", "Int64*", CounterAfter)
+
+    elapse += (CounterAfter - CounterBefore) / freq * 1000 
+}
+
+total := elapse / loopCount 
+
+MsgBox, % "Avg over " loopCount " loops:`n" total " ms"

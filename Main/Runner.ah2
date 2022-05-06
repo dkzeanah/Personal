@@ -60,6 +60,12 @@
       Case "morse", "morse code":  Runner.nur_MorseCode()
 
 
+      ;FOLDERS
+      ;————————————————————————————————
+
+      Case "sounds":Runner.nur_MemeFolder(Win.Sounds)
+
+
       ;GITHUB
       ;————————————————————
       
@@ -78,7 +84,7 @@
          Case RegexMatch(val, "(?<=d )\d+", &num):Runner.nur_Converter("d", num[0])
          Case RegexMatch(val, "(?<=p ).+", &linkName):try Runner.nur_PropServe("paste", linkName[0])
          Case RegexMatch(val, "(?<=o ).+", &linkName):try Runner.nur_PropServe("open", linkName[0])
-         Default:try Runner.nur_PropServe("open", val)
+         Case RegexMatch(val, "(?<=s ).+", &sound):try SoundPlay(A_WorkingDir "\Files\Sounds\" sound[0] ".mp3")
       }         
    }
 }

@@ -39,9 +39,7 @@ XButton2 & Media_Stop:: {
 
 
 ;Special button + side buttons
-Media_Stop & XButton1::Hold.hld_Send("XButton1", Base.bsd_Copy, Base.bsd_Cut, "0.17")
-Media_Stop & MButton::Base.bsd_SelectAll()
-Media_Stop & LButton::Space
+Media_Stop & XButton1::Hold.hld_Send("XButton1", Base.bsd_Copy, Base.bsd_Cut, "0.19")
 Media_Stop & XButton2::Hold.hld_Send("XButton2", Base.bsd_Paste, Base.bsd_WinPaste, "0.17")
 
 ;Combined side buttons
@@ -57,12 +55,18 @@ XButton1 & WheelUp::Base.bsd_Redo()
 XButton1 & WheelDown::Base.bsd_Undo()
 
 ;Close side button with L and R buttons 
-XButton1 & LButton::BackSpace
+XButton1 & LButton:: {
+   ((Hold.hld_Bool("LButton", "0.19"))
+      ? Base.bsd_SelectAll()
+      : Send("{BackSpace}"))
+}
 XButton1 & RButton::Delete
 
 ;Far side button with L and R buttons
 XButton2 & RButton::PrintScreen
 XButton2 & LButton::Enter
+
+Media_Stop & RButton::Send "!{Pause}"
 
 
 

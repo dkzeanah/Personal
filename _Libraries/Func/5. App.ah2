@@ -118,11 +118,11 @@ Class C_YouTube {
    }
 
    ytt_Fullscreen() {
-      Send "f"
+      Base.bsd_LanguageEng(), Send("f")
    }
 
    ytt_Miniscreen() {
-      Send "i"
+      Base.bsd_LanguageEng(), Send("i")
    }
 
    ytt_MiniscreenClose() {
@@ -139,7 +139,9 @@ Class C_YouTube {
    )
 
    ytt_ChannelSwitch() {
-      ControlClick("X1821 Y131"), WaitClick("switch account ytt")
+      ControlClick("X1823 Y133")
+      , WaitUntilImage("switch account ytt")
+      , ControlClick("X1519 Y460")
    }
 
 }
@@ -330,6 +332,10 @@ Class C_VSCode {
       }
    }
 
+   vsc_Reload() {
+      Send "+!y"
+   }
+
 }
 VSC := C_VSCode()
 
@@ -358,7 +364,7 @@ WPS := C_WPSOffice()
 Class C_Player {
    
    plr_SkipOpening() {
-      Send "{F12 6}{Right 4}"
+      Send "{F12 8}"
    }
 }
 Player := C_Player()

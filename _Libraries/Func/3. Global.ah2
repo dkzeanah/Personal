@@ -27,12 +27,14 @@ RunLink(link) {
 
 WaitUntilImage(image) {
    var := 0
-   While !var
-      var := ImageSearch(&imgX, &imgY, 0, 0, A_ScreenWidth, A_ScreenHeight, A_WorkingDir . "\Files\Images\" . image . ".png")
+   imageFile := A_WorkingDir . "\Files\Images\" . image . ".png"
+   While !var {
+      var := ImageSearch(&imgX, &imgY, 0, 0, A_ScreenWidth, A_ScreenHeight, imageFile)
+   }
    return [imgX, imgY]
 }
 
-WaitClick(img) {
-   coords := WaitUntilImage(img)
+WaitClick(image) {
+   coords := WaitUntilImage(image)
    , ControlClick("X" . coords[1] . " Y" . coords[2], "A")
 }

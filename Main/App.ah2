@@ -167,6 +167,8 @@ AppsKey & PgDn::Base.bsd_NextTab()
 AppsKey & Home::VSC.vsc_DeleteLine()
 AppsKey & End::VSC.vsc_Comment()
 
+Media_Stop & MButton::VSC.vsc_Reload()
+
 ;Opens an inputbox for you to put in the name of the key to get its SC code into your clipboard, or takes the SC code to then show you to which key it belongs in a msgbox; if it finds neither, says so
 +!k:: {
    (Hold.hld_Bool("k")

@@ -1906,8 +1906,12 @@
       "command": "workbench.action.closeAllEditors"
    },
    {
-      "key": "alt+1",
+      "key": "alt+`",
       "command": "workbench.action.maximizeEditor",
       "when": "explorerViewletVisible && filesExplorerFocus"
+   },
+   {
+      "key": "alt+4",
+      "command": "workbench.view.debug"
    }
 ]

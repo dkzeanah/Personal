@@ -141,11 +141,11 @@ Pause::        Script.scr_Test()
 :XB0*?:ilandh::Runner.nur_RandomWord(R_randomWords_Rus)
 
 ;If I try to laugh in russian but my language is set to english, it autosets the language to russian
-:X*?:[f[::Base.bsd_SwitchLanguage() 
-:X*?:[ff::Base.bsd_SwitchLanguage() 
-:X*?:[[f::Base.bsd_SwitchLanguage()
-:X*?:f[::Base.bsd_SwitchLanguage()
-:X*?:f[[::Base.bsd_SwitchLanguage()
+:X*?:[f[::Base.bsd_LanguageRus()
+:X*?:[ff::Base.bsd_LanguageRus()
+:X*?:[[f::Base.bsd_LanguageRus()
+:X*?:f[::Base.bsd_LanguageRus()
+:X*?:f[[::Base.bsd_LanguageRus()
 
 #HotIf WinActive("ahk_group Messenger")
 

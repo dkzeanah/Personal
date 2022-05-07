@@ -1150,7 +1150,7 @@
    "177": {
       "prefix": "Import script",
       "body": [
-         "#Include \"%A_ScriptDir%\\..\\_Libraries\\Func\\7. Script.ah2\""
+         "#Include \"%A_ScriptDir%\\..\\_Libraries\\Func\\6. Script.ah2\""
       ]
    },
    "178": {
@@ -1247,6 +1247,18 @@
       "prefix": "A_TickCount",
       "body": [
          "A_TickCount"
+      ]
+   },
+   "194": {
+      "prefix": "A_ScreenHeight",
+      "body": [
+         "A_ScreenHeight"
+      ]
+   },
+   "195": {
+      "prefix": "A_ScreenWidth",
+      "body": [
+         "A_ScreenWidth"
       ]
    },
    

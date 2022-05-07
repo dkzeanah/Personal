@@ -1,38 +1,13 @@
-window manipulating methods should be in Win
+Remember NOT to get the image when it's highlighted, worst mistake of my life
 
-postmessages that are things like winclose, winminimize and the like should be used instead of ahk's commands
-better to talk to a french person in french rather than with a really good translator
+xbutton1 & lbutton becomes select all on hold
 
-if there's a question about what's faster, it can be argued either way, but almost all of my code is inside of a function or method, so speed isn't necessarily the most important thing here
-for this case it's a matter of consistency and reliability: I've had issues with winminimize but didn't with the postmessage for it
-maybe that's the only example where it's not a logical fallacy, but let me sniff copium here
-if I'll need to, I'll realize
+no space on mouse
 
+sp & mb reloads vs code as well
 
-A function that closes a window after a period after it became unactive
-usage: you open a folder with memes, drag one into your messenger and don't have to worry about closing the window after
+alt ` is no longer media play pause since I don't use it
+it is "close side bar and focus editor" instead
 
-Turns out that explorer windows might not be able to / can't have PID's (unlike your mom)
-
-"sound" opens the sounds folder for you to drag them in some messenger (or not), autocloses after 5 secs of inactivity
-
-"sound 'soundname'" plays the soundname
-
-after launching mousegetpos, you can press F4 to get the color of the pixel under your cursor
-formatting option for controlclick only
-F2 — client
-F3 — screen
-F4 — window
-F5 — pixel
-
-
-WaitUntilImage: keeps searching for the specified image until it finds it, returns an array with the x and y coords
-
-WaitClick: controlclicks those coords when waituntilimage finds them
-
-
-switch youtube / youtube music account is now a single press thanks to that!
-
-add to playlist script is now also a single click to add to a playlist, leaves you to actually leave the selection screen though
-
-I should really make commits more often
+Thanks to @rbstrachan I can now switch my keyboard layout to a *specific* language, and also in a much better way than just sending windows + space
+So, the [f[ff[ thing now uses that, and so does the fullscreen hotkey for youtube, since it requires you to use the english layout to work

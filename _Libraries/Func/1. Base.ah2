@@ -131,5 +131,13 @@ Class C_Base {
       Send "^+t"
    }
    bsd_RestoreTab => "^+t"
+   
+   bsd_LanguageRus() {
+      PostMessage(0x0050,, 0x0419,, "A")
+   }
+
+   bsd_LanguageEng() {
+      PostMessage(0x0050,, 0x0409,, "A")
+   }
 }
 Base := C_Base()

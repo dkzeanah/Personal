@@ -17,7 +17,6 @@ ScrollLock::   Script.scr_Reload()
 +ScrollLock::  Script.scr_Suspend()
 #ScrollLock::  Script.scr_Reboot()
 Pause::        Script.scr_Test()
-+Pause::       Script.scr_Test("v1.ahk")
 #SuspendExempt False
 
 

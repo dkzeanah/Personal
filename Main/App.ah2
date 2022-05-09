@@ -14,9 +14,6 @@ F5::YTMusic.ytm_Liked()
 F6::YTMusic.ytm_Best()
 F7::YTMusic.ytm_Discovery()
 
-F10::Send "{Volume_Up}"
-F9::Send "{Volume_Down}"
-
 F12::YTMusic.ytm_Like()
 F11::YTMusic.ytm_Dislike()
 
@@ -60,9 +57,6 @@ F5::Send "^5"
 F6::Send "^6"
 F7::Send "^7"
 F8::Send "^8"
-
-F10::Volume_Up
-F9::Volume_Down
 
 +!e::Base.bsd_NewTab()
 
@@ -231,6 +225,9 @@ WheelDown::Send "{Right}"
 
 #HotIf WinActive("ahk_group AutoHotkey_Help")
 F1::Send "!s" ;Search in docs
+
+^Space::Send "{Down}"
+^+Space::Send "{Up}"
 
 #HotIf WinActive("ahk_exe AutoHotkey64.exe")
 ^BackSpace::Base.bsd_DeleteAll()

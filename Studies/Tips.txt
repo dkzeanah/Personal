@@ -1,21 +1,3 @@
-You can return objects using JSON syntax sugar too. I use it all the time.
-
-fn(name, age)
-{
-  return {name: (name), age: (age)}
-}
-
-MsgBox, % fn("George", 15).name
-
-
-fn(name, age)
-{
-  return [name, age]
-}
-
-MsgBox, % fn("George", 15)[1]
-
-
 Message to the other script
 PostMessage, 0x111, 65306,,, filename.ahk
 

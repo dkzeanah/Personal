@@ -187,6 +187,17 @@ Class C_Runner {
    nur_MemeFolder(fullPath) {
       Run(fullPath), Win.niw_CloseOnceInactive(fullPath . " ahk_exe explorer.exe")
    }
+
+   nur_LastTrack(param, text := "") {
+      file := FileOpen(A_WorkingDir . "\Files\Innit\Last track.txt", param)
+      , file.Seek(, 0)
+      , ((param = "w") 
+         ? file.Write(text)
+      : (param = "r")
+         ? MsgBox(file.Read()) : "")
+      , file.Close()
+   }
+
 }
 Runner := C_Runner()
 

@@ -1,13 +1,8 @@
-Remember NOT to get the image when it's highlighted, worst mistake of my life
+no F9 F10 for volume
 
-xbutton1 & lbutton becomes select all on hold
+lkpl w/r to write/read the last track added to playlist txt file
 
-no space on mouse
+^/^+ space is also down up in the docs
 
-sp & mb reloads vs code as well
+you can sync all of the settings straight up in vs code, and I trust that enough
 
-alt ` is no longer media play pause since I don't use it
-it is "close side bar and focus editor" instead
-
-Thanks to @rbstrachan I can now switch my keyboard layout to a *specific* language, and also in a much better way than just sending windows + space
-So, the [f[ff[ thing now uses that, and so does the fullscreen hotkey for youtube, since it requires you to use the english layout to work

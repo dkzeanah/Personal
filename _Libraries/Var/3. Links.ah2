@@ -53,6 +53,9 @@ Class C_Links {
    Regex => "https://regex101.com/"
    Image_search_tips => "https://github.com/nuj123/AutoHotKey/blob/master/ImageSearchFAQ.md"
    Dll_calls => "https://docs.microsoft.com/en-us/windows/win32/api/"
+   Open_asar => "https://openasar.dev/"
+   Sounds => "https://www.myinstants.com/index/ru/"
+   Ahk_wiki => "https://autohotkey.wiki/"
 
 
    ;Git file links
@@ -66,6 +69,7 @@ Class C_Links {
 
    Run_on_reboot => "https://youtu.be/vjQIbagvkcs"
    Arrow => "https://youtu.be/nSTL3KND25c"
+   v2_setup => "https://youtu.be/TSvp6ktqo1Q"
 
 
    ;Memes
@@ -77,6 +81,13 @@ Class C_Links {
    I_quickly_became_homophobic => "https://www.youtube.com/watch?v=m2ksGuqf8eo"
    If_you_design_a_quest => "https://www.youtube.com/watch?v=chn0ggv9TdY"
    Zoro_is_racist => "https://www.youtube.com/watch?v=kb_udP2ZeF8"
+   Loaf_check => "https://www.youtube.com/watch?v=jvds0ib84VA"
+   A_shit_of_piece => "https://youtu.be/jsaRzVIBrg8?t=12"
+   Are_you_going_to_finish_that_croissant => "https://youtu.be/UZKcSuYaBQY?t=2"
+   Arab_cat => "https://www.youtube.com/watch?v=2rYQ1FC1orc"
+   Kitten_in_towel => "https://www.youtube.com/watch?v=nRBERbcbFgY"
+   Top_10_cat_loafs => "https://www.youtube.com/watch?v=_kRaKHKCj0g"
+   Do_the_skype_thing => "https://www.youtube.com/watch?v=ztubL6yVFkw"
    
 }
 Links := C_Links()

@@ -25,7 +25,7 @@
 <!SC027::Win.niw_App("AutoHotkey v2 Help", Win.AutoHotkeyDocs_v2)
 
 ;Gimp 
-<!SC01A::Win.niw_App("ahk_exe gimp-2.10.exe", Win.Gimp)
+<!SC01A::Win.niw_App("GIMP ahk_exe gimp-2.10.exe", Win.Gimp)
 
 ;Atom 
 <!y::Win.niw_App("ahk_exe atom.exe", Win.Atom) 

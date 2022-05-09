@@ -364,7 +364,7 @@ WPS := C_WPSOffice()
 Class C_Player {
    
    plr_SkipOpening() {
-      Send "{F12 8}"
+      Send "{F12 7}"
    }
 }
 Player := C_Player()

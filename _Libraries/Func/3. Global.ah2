@@ -38,3 +38,36 @@ WaitClick(image) {
    coords := WaitUntilImage(image)
    , ControlClick("X" . coords[1] . " Y" . coords[2], "A")
 }
+
+WindowGetter() {
+
+   ;Getting the current window's info
+   winTitle := WinGetTitle("A")
+   winExePath := WinGetProcessPath("A")
+   winExe := WinGetProcessName("A")
+   
+   ;Gui creation
+   G_WinGet := Gui("AlwaysOnTop", "WinGet")
+   G_WinGet.Show("Center H200 W1000")
+   G_WinGet.SetFont("S20")
+   
+   ;Show the window's info
+   G_WinGet_WinTitle := G_WinGet.Add("Text", "Center", winTitle)
+   G_WinGet_WinExePath := G_WinGet.Add("Text", "Center", winExePath)
+   G_WinGet_WinExe := G_WinGet.Add("Text", "Center", winExe)
+
+   ;When you click on the text, it activates toClip
+   G_WinGet_WinTitle.OnEvent("Click", (*) => ToClip(winTitle))
+   G_WinGet_WinExePath.OnEvent("Click", (*) => ToClip(winExePath))
+   G_WinGet_WinExe.OnEvent("Click", (*) => ToClip(winExe))
+
+   ;This function copies the text you clicked to your clipboard and destroys the gui right after
+   ToClip(text) => (
+      A_Clipboard := text,
+      G_WinGet.Destroy()
+   )
+
+   ;Destroys the gui when you close the X button on it
+   G_WinGet.OnEvent("Close", (*) => G_WinGet.Destroy())
+   
+}

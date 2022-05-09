@@ -86,12 +86,12 @@
 
       Default:
       Switch {
-         Case RegexMatch(val, "(?<=r )\d+", &num):Runner.nur_Converter("r", num[0])
-         Case RegexMatch(val, "(?<=d )\d+", &num):Runner.nur_Converter("d", num[0])
-         Case RegexMatch(val, "(?<=p ).+", &linkName):try Runner.nur_PropServe("paste", linkName[0])
-         Case RegexMatch(val, "(?<=o ).+", &linkName):try Runner.nur_PropServe("open", linkName[0])
-         Case RegexMatch(val, "(?<=s ).+", &sound):try SoundPlay(A_WorkingDir "\Files\Sounds\" sound[0] ".mp3")
-         Case RegexMatch(val, "(?<=lkpl w ).+", &text):try Runner.nur_LastTrack("w", text[0])
+         Case RegexMatch(val, "(?<=(^r ))\d+", &num):Runner.nur_Converter("r", num[0])
+         Case RegexMatch(val, "(?<=(^d ))\d+", &num):Runner.nur_Converter("d", num[0])
+         Case RegexMatch(val, "(?<=(^p )).+", &linkName):try Runner.nur_PropServe("paste", linkName[0])
+         Case RegexMatch(val, "(?<=(^o )).+", &linkName):try Runner.nur_PropServe("open", linkName[0])
+         Case RegexMatch(val, "(?<=(^s )).+", &sound):try SoundPlay(A_WorkingDir "\Files\Sounds\" sound[0] ".mp3")
+         Case RegexMatch(val, "(?<=(^lkpl w )).+", &text):try Runner.nur_LastTrack("w", text[0])
       }         
    }
 }

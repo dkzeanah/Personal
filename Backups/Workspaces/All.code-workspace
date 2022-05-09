@@ -5,10 +5,15 @@
          "path": "..\\.."
       },
       {
+         "name": "CS",
+         "path": "..\\..\\..\\CS"
+      },
+      {
          "name": "Other",
          "path": "..\\..\\..\\Other"
       },
       {
+         "name": "Python-tutorials",
          "path": "..\\..\\..\\Python-tutorials"
       }
    ]

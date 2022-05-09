@@ -1,8 +1,9 @@
-no F9 F10 for volume
+Last playlist gui moved to the top left corner
 
-lkpl w/r to write/read the last track added to playlist txt file
+"run in terminal" switched to code runner extension, because it's better
 
-^/^+ space is also down up in the docs
+Decided to start checking out C# for fun
 
-you can sync all of the settings straight up in vs code, and I trust that enough
+Omg it's amazing 😭
 
+reiwa is damn incredible, he found how to change syntax highlighting for ahk in vs code after his *first day* using vs code, so I changed a bunch of regex and coloring to make code match what *I* expect it to look like

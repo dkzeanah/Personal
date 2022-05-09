@@ -295,19 +295,14 @@ Browser_Home::    return        ;F12
 ;Opens an inputbox for you to input how many minutes to wait, plays a sound and opens a msgbox saying the time has passed after it has. Press the same hotkey while the timer is running to see when it will ring and three options: start a new timer, discarding the current one, continue on, exit the timer
 #F5::Run A_WorkingDir . "\Tools\Basic timer.ah2"
 
-;Get the root to the exe of the active window and put it into your clipboard
-#F6::A_Clipboard := WinGetProcessPath("A")
-
-;Get the name of the active window and put it into your clipboard
-#F7::A_Clipboard := WinGetTitle("A")
-
 ;Opens a fileselect in the current folder for you to choose a file to get the path of into your clipboard
 #HotIf WinActive("ahk_exe explorer.exe")
 #F8::A_Clipboard := FileSelect("S", WinGetTitle("A"))
 #HotIf 
 
-;Gets current cursor's position and opens a gui giving you the options for formatting the parameters for different commands to put them into your Clipboard or to not copy them into your Clipboard at all and just exit the gui
 +!f::Run A_WorkingDir . "\Tools\MouseGetPos.ah2"
+
++!g::WindowGetter()
 
 ;Opens a msgbox showing the exact time
 +!t:: {

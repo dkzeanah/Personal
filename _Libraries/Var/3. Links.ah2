@@ -86,7 +86,7 @@ Class C_Links {
    Are_you_going_to_finish_that_croissant => "https://youtu.be/UZKcSuYaBQY?t=2"
    Arab_cat => "https://www.youtube.com/watch?v=2rYQ1FC1orc"
    Kitten_in_towel => "https://www.youtube.com/watch?v=nRBERbcbFgY"
-   Top_10_cat_loafs => "https://www.youtube.com/watch?v=_kRaKHKCj0g"
+   Top_ten_cat_loafs => "https://www.youtube.com/watch?v=_kRaKHKCj0g"
    Do_the_skype_thing => "https://www.youtube.com/watch?v=ztubL6yVFkw"
    
 }

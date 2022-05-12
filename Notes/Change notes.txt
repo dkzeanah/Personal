@@ -1,1 +1,10 @@
+/* */ only works on the beginning of the line and is truly useless 
 
+Regex string popper: when you have a bunch of strings that need to be found so you want to use the regex generator, you can multiline your words, use Runner.nur_FormatTableToArray, then paste that array into the regex string file and run Runner.nur_RegexStringPopper
+What it does? sends the last entry in the array, enters it and pops it out of the array. Does so until it popped all of the entries and then says it did with a msgbox. If the array file is empty, says so beforehand, skipping trying to loop
+
+vk_ to vkk_
+
+Format table to array autocloses the msgbox now
+
+Some file organisation

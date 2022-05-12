@@ -158,15 +158,15 @@ YouTube := C_YouTube.Call()
 
 Class C_VK {
 
-   vk_Notifications() {
+   vkk_Notifications() {
       ControlClick "X788 Y126"
    }
 
-   vk_Voice() {
+   vkk_Voice() {
       ControlClick "X1757 Y1014"
    }
 
-   vk_Scroll() {
+   vkk_Scroll() {
       ControlClick "X1750 Y903"
    }
 }

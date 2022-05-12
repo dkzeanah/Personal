@@ -24,7 +24,7 @@ Class C_Runner {
    ;Takes a multiline text and turns every line into a key in an array
    nur_FormatTableToArray() {
       A_Clipboard := "`"" . StrReplace(A_Clipboard, "`r`n", '", "') . "`""
-      , MsgBox("Done formatting table to array")
+      , MsgBox("Done formatting table to array",, "T1")
    }
 
    ;Select a file to run on startup
@@ -198,13 +198,29 @@ Class C_Runner {
       , file.Close()
    }
 
+   nur_RegexStringPopper() {
+
+      #Include "%A_ScriptDir%\..\_Libraries\Var\4. Regex string.ah2"
+      if !R_Array.Length {
+         MsgBox("Regex array is empty",, "T1")
+         return 
+      }
+
+      Loop R_Array.Length {
+         Send(R_Array[-1] . "{Enter}")
+         , R_Array.Pop()
+         , Sleep(500)
+      }
+      MsgBox("Done!")
+   }
+
 }
 Runner := C_Runner()
 
 Class C_TimeTable {
 
    tmt_Day(weekDay) {
-      Run A_WorkingDir . "\Files\Time table\" . weekDay . ".jpg", "Max"
+      Run A_WorkingDir . "\Files\Pictures\Time table\" . weekDay . ".jpg", "Max"
    }
 
    tmt_Full => "https://edu.sfu-kras.ru/timetable?group=%D0%98%D0%9A21-08%D0%91+%28%D0%BF%D0%BE%D0%B4%D0%B3%D1%80%D1%83%D0%BF%D0%BF%D0%B0+2%29"

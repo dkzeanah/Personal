@@ -23,7 +23,7 @@ Class C_WindowsApp {
 
    Steam => "C:\Programs\Steam\steam.exe"
 
-   VScode => "C:\Programs\Microsoft VS Code\Code.exe"
+   VScode => "C:\Users\serge\AppData\Local\Programs\Microsoft VS Code\Code.exe"
 
    GoogleChrome => "C:\Program Files\Google\Chrome\Application\chrome.exe"
 

@@ -11,25 +11,25 @@
       Case "tom", "tomorrow":
          Switch A_WDay {
             Default:TimeTable.tmt_Day("Monday")
-            Case 2:TimeTable.tmt_Day("Tuesday")
-            Case 3:TimeTable.tmt_Day("Wednesday")
-            Case 4:TimeTable.tmt_Day("Thursday")
-            Case 5:TimeTable.tmt_Day("Friday")
+            Case 2: TimeTable.tmt_Day("Tuesday")
+            Case 3: TimeTable.tmt_Day("Wednesday")
+            Case 4: TimeTable.tmt_Day("Thursday")
+            Case 5: TimeTable.tmt_Day("Friday")
          }
       Case "today":
          Switch A_WDay {
             Default:TimeTable.tmt_Day("Monday")
-            Case 3:TimeTable.tmt_Day("Tuesday")
-            Case 4:TimeTable.tmt_Day("Wednesday")
-            Case 5:TimeTable.tmt_Day("Thursday")
-            Case 6:TimeTable.tmt_Day("Friday")
+            Case 3: TimeTable.tmt_Day("Tuesday")
+            Case 4: TimeTable.tmt_Day("Wednesday")
+            Case 5: TimeTable.tmt_Day("Thursday")
+            Case 6: TimeTable.tmt_Day("Friday")
          }
-      Case "week":RunLink(TimeTable.tmt_Full)
-      Case "monday":TimeTable.tmt_Day("Monday")
-      Case "tuesday":TimeTable.tmt_Day("Tuesday")
+      Case "week":     RunLink(TimeTable.tmt_Full)
+      Case "monday":   TimeTable.tmt_Day("Monday")
+      Case "tuesday":  TimeTable.tmt_Day("Tuesday")
       Case "wednesday":TimeTable.tmt_Day("Wednesday")
-      Case "thursday":TimeTable.tmt_Day("Thursday")
-      Case "friday":TimeTable.tmt_Day("Friday")
+      Case "thursday": TimeTable.tmt_Day("Thursday")
+      Case "friday":   TimeTable.tmt_Day("Friday")
 
 
       ;VS CODE
@@ -41,6 +41,7 @@
       Case "tasks":Run "C:\Users\serge\AppData\Roaming\Code\User\tasks.json"
       Case "extensions":Run "C:\Users\serge\.vscode\extensions"
       Case "package":Run "C:\Users\serge\.vscode\extensions\mark-wiemer.vscode-autohotkey-plus-plus-2.8.1\package.json"
+      Case "colors":Run A_WorkingDir . "\..\Other\Libraries v2\Ahk code coloring\color settings in settings.json.txt"
 
 
       ;TASKS
@@ -58,6 +59,7 @@
       Case "lib":                  Runner.nur_LibLoad()
       Case "artists count":        Runner.nur_ArtistsCount()
       Case "morse", "morse code":  Runner.nur_MorseCode()
+      Case "regex string popper":  Runner.nur_RegexStringPopper()
 
 
       ;FOLDERS

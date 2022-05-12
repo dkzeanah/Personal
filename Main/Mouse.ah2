@@ -8,24 +8,25 @@
 
 XButton1 & Media_Stop:: {
    Switch {
-      Case WinActive("YouTube Music"):                           YTMusic.ytm_CancelSearch()
-      Case YouTube.ytt_isNotWatchingVid:                         YouTube.ytt_Miniscreen()
-      Case YouTube.ytt_isWatchingVid, WinActive("WatchMoviesHD"):YouTube.ytt_Fullscreen()
-      Case WinActive("Messenger"):                               VK.vk_Notifications()
-      Case WinActive("ahk_exe Discord.exe"):                     Discord.dsc_Emoji()
-      Case WinActive("ahk_exe Code.exe"):                        Base.bsd_ShiftClick()
+      Case WinActive("YouTube Music"):      YTMusic.ytm_CancelSearch()
+      Case YouTube.ytt_isNotWatchingVid:    YouTube.ytt_Miniscreen()
+      Case YouTube.ytt_isWatchingVid
+         , WinActive("WatchMoviesHD"):      YouTube.ytt_Fullscreen()
+      Case WinActive("Messenger"):               VK.vkk_Notifications()
+      Case WinActive("ahk_exe Discord.exe"):Discord.dsc_Emoji()
+      Case WinActive("ahk_exe Code.exe"):      Base.bsd_ShiftClick()
    }
 }
 
 XButton2 & Media_Stop:: {
    Switch {
-      Case WinActive("YouTube Music"):       YTMusic.ytm_ChannelSwitch()
-      Case WinActive("YouTube"):             YouTube.ytt_ChannelSwitch()
-      Case WinActive("Messenger"):           VK.vk_Voice()
+      Case WinActive("YouTube Music"):        YTMusic.ytm_ChannelSwitch()
+      Case WinActive("YouTube"):              YouTube.ytt_ChannelSwitch()
+      Case WinActive("Messenger"):                 VK.vkk_Voice()
       Case WinActive("ahk_exe Telegram.exe"):Telegram.tlg_Voice()
       Case WinActive("ahk_group Whatiber"):  Whatiber.wtb_Voice()
-      Case WinActive("ahk_exe Discord.exe"): Discord.dsc_Gif()
-      Case WinActive("ahk_exe Code.exe"):    Base.bsd_Search()
+      Case WinActive("ahk_exe Discord.exe"):  Discord.dsc_Gif()
+      Case WinActive("ahk_exe Code.exe"):        Base.bsd_Search()
    }
 }
 
@@ -178,7 +179,7 @@ XButton1:: {
             Case up:      Base.bsd_NewTab()
             Case down:
                (WinActive("Messenger") 
-                  ?       VK.vk_Scroll() 
+                  ?       VK.vkk_Scroll() 
                   :       Base.bsd_CloseTab())
          }
       Case WinActive("ahk_exe Code.exe"): ;_vscode

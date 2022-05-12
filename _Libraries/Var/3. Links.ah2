@@ -22,15 +22,15 @@ Class C_Links {
    lnk_ekursTime() {
       ;Time part of the ekursы link
       Switch A_MMMM {
-         Case "April":ekursTime := 1648746000
-         Case "May":ekursTime := 1651338000
-         Case "June":ekursTime := 1654016400
-         Case "July":ekursTime := 1656608400
-         Case "August":ekursTime := 1659286800
+         Case "April":    ekursTime := 1648746000
+         Case "May":      ekursTime := 1651338000
+         Case "June":     ekursTime := 1654016400
+         Case "July":     ekursTime := 1656608400
+         Case "August":   ekursTime := 1659286800
          Case "September":ekursTime := 1661965200
-         Case "October":ekursTime := 1664557200
-         Case "November":ekursTime := 1667235600
-         Case "December":ekursTime := 1669827600
+         Case "October":  ekursTime := 1664557200
+         Case "November": ekursTime := 1667235600
+         Case "December": ekursTime := 1669827600
       }
       return ekursTime
    }
@@ -41,20 +41,27 @@ Class C_Links {
    
    Mvideo => "https://www.mvideo.ru/"
    Zakazaka => "https://zaka-zaka.com/"
-   Barber => "https://b73723.yclients.com/company/89170/menu?o="
+   Barber => "https://b73723.yclients.com/company/89170/"
    
    
-   ;Info websites
+   ;"databases"
    ;————————————————————————————————
 
    Weather => "https://yandex.ru/pogoda/krasnoyarsk"
    Emoji => "https://www.alt-codes.net/smiley_alt_codes.php"
    Share_files => "https://files.fm/"
    Regex => "https://regex101.com/"
+   Sounds => "https://www.myinstants.com/index/ru/"
+   ytdownload => "https://ytb.rip/en/"
+   Regex_generator => "https://ibnuhx.com/regex-generator/"
+
+   
+   ;docs
+   ;————————————————————————————————
+
    Image_search_tips => "https://github.com/nuj123/AutoHotKey/blob/master/ImageSearchFAQ.md"
    Dll_calls => "https://docs.microsoft.com/en-us/windows/win32/api/"
    Open_asar => "https://openasar.dev/"
-   Sounds => "https://www.myinstants.com/index/ru/"
    Ahk_wiki => "https://autohotkey.wiki/"
 
 

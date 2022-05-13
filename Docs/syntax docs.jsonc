@@ -62,3 +62,5 @@
       //there's a "strength" system, meaning the higher a code class is, the more overruling it will be. this is why everything after ; will still be colored grey even if you have something like this() in it, this() won't be highighted as a function because comments are stronger
    }
 }
+//prebuilt settings for each code class. just paste them into your settings.json and all that's left for you to do is change the colors: https://github.com/Axlefublr/Other/blob/main/Libraries%20v2/Ahk%20code%20coloring/color%20settings%20in%20settings.json.txt 
+//you can use this file to check out the color changes you made. includes more or less every code class: https://github.com/Axlefublr/Other/blob/main/Libraries%20v2/Ahk%20code%20coloring/test%20your%20coloring.ah2 

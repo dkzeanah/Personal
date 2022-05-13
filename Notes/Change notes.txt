@@ -1,2 +1,0 @@
-`" will be highlighted differently, since it's like "yo, I want a " but it's not a string"
-

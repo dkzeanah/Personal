@@ -60,8 +60,10 @@
 ;Pictures
 <!v::Win.niw_App_Folders("C:\Files\Pictures")
 
-;One Piece
-<!b::Win.niw_App_Folders("C:\Files\Pictures\One Piece")
+;Editing
+<!b::Win.niw_App_Folders("C:\Files\Pictures\Editing\In progress")
+
+#HotIf 
 
 ;MinMaxes a game if it exists, closes all apps but spotify if all main 6 apps exist, if they don't: launches those apps of the main 6, that do not yet exist
 <!g:: {
@@ -88,6 +90,7 @@
             Win.niw_ifRun(discord, Win.Discord))))
 }
 
+#HotIf !WinActive("ahk_group Game")
 
 ; Telegram, whatsapp, viber on one, two and three presses
 <!t:: {
@@ -106,9 +109,9 @@
 
 ;Projects folder on single press, FL Studio on double press
 <!f:: {
-   (Double.dbl_Bool("f")
+   (Hold.Hld_Bool("f")
       ? Win.niw_App("ahk_exe FL64.exe", Win.FL) 
-      : Win.niw_App_Folders("C:\Files\Projects"))
+      : Win.niw_MinMax("ahk_exe Resolve.exe"))
 }
 
 ;Photos or steam
@@ -116,12 +119,6 @@
    (!Win.niw_ifMinMax("ahk_group Media")
       ? Win.niw_App("ahk_exe steam.exe", Win.Steam, "Steam - News")
       : "")
-}
-
-;VPN
-<!z:: {
-   (!Win.niw_ifMinMax("SoundCloud")
-      ? Win.niw_App("ahk_exe vpncmgr_x64.exe", Win.VPN) : "")
 }
 
 #HotIf 

@@ -77,6 +77,7 @@ Class C_Links {
    Run_on_reboot => "https://youtu.be/vjQIbagvkcs"
    Arrow => "https://youtu.be/nSTL3KND25c"
    v2_setup => "https://youtu.be/TSvp6ktqo1Q"
+   Syntax_highlighting => "https://youtu.be/kYtKBncvEAA"
 
 
    ;Memes

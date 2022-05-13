@@ -385,3 +385,11 @@ Class C_Screenshot {
    }
 }
 Screenshot := C_Screenshot()
+
+Class C_Explorer {
+   
+   exp_Rename() {
+      Send "{F2}"
+   }
+}
+Explorer := C_Explorer()

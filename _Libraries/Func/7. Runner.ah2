@@ -103,7 +103,7 @@ Class C_Runner {
 
    nur_ArtistsCount() {
       ;Gets the artists into the clipboard
-        prevClip := A_Clipboard
+      prevClip := A_Clipboard
       , Base.bsd_SelectAll(), Base.bsd_Cut()
       , Sleep(60)
 
@@ -126,7 +126,7 @@ Class C_Runner {
 
    nur_PropServe(flag, linkName) {
       propName := StrLower(linkName)
-      , propName:= StrReplace(propName, " ", "_")
+      , propName := StrReplace(propName, " ", "_")
       , ((flag == "paste")
          ? ClipSend(Links.%propName%)
       : (flag == "open") 

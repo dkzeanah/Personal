@@ -66,7 +66,8 @@
       ;————————————————————————————————
 
       Case "sounds":Runner.nur_MemeFolder(Win.Sounds)
-
+      Case "pictures":Runner.nur_MemeFolder(Win.Pictures)
+      Case "one piece":Run "C:\Files\Pictures\One Piece"
 
       ;NOTEPADS
       ;————————————————————————————————

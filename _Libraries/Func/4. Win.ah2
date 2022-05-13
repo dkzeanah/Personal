@@ -37,6 +37,8 @@ Class C_WindowsApp {
 
    Sounds => "C:\Files\Programming\Personal\Files\Sounds"
 
+   Pictures => "C:\Files\Programming\Personal\Files\Pictures"
+
    niw_CloseWin(winTitle := "A") {
       PostMessage "0x0010",,,, winTitle
    }
@@ -83,7 +85,7 @@ Class C_WindowsApp {
    ;Run an exe, activate its window
    niw_Run(winTitle, exePath, closeWin:=False) {
         Run(exePath,, "Max")
-      , WinWait(winTitle,, 10)
+      , WinWait(winTitle,, 60)
       , WinActivate(winTitle)
       ;If there's an unnesesary window that likes to pop up, it will get closed
       , ((closeWin) 
@@ -104,7 +106,7 @@ Class C_WindowsApp {
    niw_App_WinNum(winTitle, windowsNumber) {
       (!this.niw_ifMinMax(winTitle)
          ? (Send("#" . windowsNumber),
-            WinWait(winTitle,, 10),
+            WinWait(winTitle,, 60),
             WinActivate(winTitle)) : "")
    }
 

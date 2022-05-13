@@ -232,6 +232,12 @@ F1::Send "!s" ;Search in docs
 #HotIf WinActive("ahk_exe AutoHotkey64.exe")
 ^BackSpace::Base.bsd_DeleteAll()
 
+#HotIf WinActive("Snip & Sketch")
+XButton1 & LButton::Base.bsd_Save()
+
+#HotIf WinActive("C:\ ahk_exe explorer.exe")
++!r::Explorer.exp_Rename()
+
 ;Use the scroll wheel to choose among modes of the screenshot tool
 #HotIf WinActive("ahk_exe ScreenClippingHost.exe")
 WheelUp::Screenshot.prt_Options()

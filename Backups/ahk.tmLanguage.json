@@ -13,10 +13,7 @@
          "include": "#script-block"
       },
       {
-         "include": "#function"
-      },
-      {
-         "include": "#function-call"
+         "include": "#function_call"
       },
       {
          "include": "#keyword"
@@ -51,9 +48,9 @@
       "string": {
          "patterns": [
                {
-                  "begin": "^\\s*\\([ \\t]*\\n",
-                  "end": "^\\s*\\)",
-                  "name": "string.ahk",
+                  "begin": "\"[ \\t]*\\n\\s*\\(",
+                  "end": "\\)\\s*\"",
+                  "name": "string.continuation.ahk",
                   "comment": "Quirked up white boy busts it down sexual style. Is he goated with the sauce?"
                }
          ]
@@ -109,7 +106,7 @@
                }
             ]
          },
-         "function-call": {
+         "function_call": {
             "patterns": [
                {
                   "captures": {
@@ -209,22 +206,22 @@
                   "begin": "(\")",
                   "beginCaptures": {
                      "1": {
-                           "name": "punctuation.definition.string.begin.ahk"
+                           "name": "string.start.ahk"
                      }
                   },
                   "end": "(\")",
                   "endCaptures": {
                      "1": {
-                           "name": "punctuation.definition.string.end.ahk"
+                           "name": "string.end.ahk"
                      }
                   },
                   "patterns": [
                      {
-                           "match": "`",
+                           "match": "`\"",
                            "name": "punctuation.ahk"
                      }
                   ],
-                  "name": "string.quoted.double.ahk",
+                  "name": "string.ahk",
                   "example": "\"string\""
                },
                {

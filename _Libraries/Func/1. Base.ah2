@@ -1,6 +1,8 @@
 Class C_Base {
    bsd_Copy() {
-      Send "^c"
+      A_Clipboard := ""
+      , Send("^c")
+      , ClipWait(, 1)
    }
    bsd_Copy => "^c"
 
@@ -15,7 +17,9 @@ Class C_Base {
    bsd_WinPaste => "#v"
 
    bsd_Cut() {
-      Send "^x"
+      A_Clipboard := ""
+      , Send("^x")
+      , ClipWait(, 1)
    }
    bsd_Cut => "^x"
 

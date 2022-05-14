@@ -1,0 +1,18 @@
+result, any text
+
+base copy and cut now clear the clip and wait for any data to appear in it (after copying/cutting)
+
+turns out links didn't work if there was only a \n for whitespace, despite \n also being considered whitespace
+
+Moving all of the vs code ahk v2 syntax highlighting files into one folder in Other\, keeping the original files where I want them to be. This way the users can easily find all the files in one place AND I get to keep them where I like them to be
+
+I had the idea to separate lib and load because I seem to load far more often than lib, as opposed to what it was before. To add, it makes sense to lib when you start working on something, and to load when you finish working on something, so them being together never made sense to begin with. 
+
+Also about the copier being written in python. Yeah, I tried to give it a use, but it's literally just better to do it in ahk, so bye-bye python.
+
+The copying in ahk is fucking instant, it's insane!
+
+So the load functions calls a function for every copy / rewrite it does, and each one is each own arrow function. 
+Positives: readability, no commas at the start, won't appear in intellisense, granularity, disableability
+
+Updated the links on the youtube video as well

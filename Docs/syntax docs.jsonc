@@ -30,12 +30,11 @@
       //basically, highlights the class part of a prop/method call
       "1hotkey.label.definition.ahk": "(?i: *((:[bceiknoprsxz0?\\*]{0,4}:).+(::))([^;]*))", //in :X0?:btw::by the way would catch :X0?: and ::
       "1hotkey.label.hotkey.ahk": "(?i: *((:[bceiknoprsxz0?\\*]{0,4}:).+(::))([^;]*))", //in :X0?:btw::by the way would catch btw
-      "hotkey.label.hotkey.ahk": "^\\s*(.+)(::)", //in !+Pause:: catches !+Pause
+      "2hotkey.label.hotkey.ahk": "^\\s*(.+)(::)", //in !+Pause:: catches !+Pause
       "2hotkey.label.definition.ahk": "^\\s*(.+)(::)", //in !+Pause:: catches ::
       "directives.parameters.ahk": "#\\b\\w*(?!:{1,2})\\b([^;]*)(\\s+;.*)?$", //in #InputLevel 5 ;this sets the inputlevel catches 5
       "keyword.control.directives.ahk": "#\\b\\w*(?!:{1,2})\\b([^;]*)(\\s+;.*)?$", //in #InputLevel 5 ;this sets the inputlevel catches #InputLevel
-      "2comment.line.semicolon.ahk": "#\\b\\w*(?!:{1,2})\\b([^;]*)(\\s+;.*)?$", //in #InputLevel 5 ;this sets the inputlevel catches ;this sets the inputlevel
-      "keyword.other.ahk": "\\b(?<!\\.)(?i:k(ey)?|v(alue)?|true|false|i(ndex)?|text|(\\w+)title|(\\w+)path|(loc(\\d?)[XY]))\\b", //a bunch of commonly used keywords and variable names. won't catch if starts with a comma like .value Built in methods and properties are caught by a different regex. To add yours, put it like this: (?i:k(ey)?|yourkeyword|v(alue)?)
+      "3comment.ahk": "#\\b\\w*(?!:{1,2})\\b([^;]*)(\\s+;.*)?$", //in #InputLevel 5 ;this sets the inputlevel catches ;this sets the inputlevel
       "support.class.builtin.property.ahk": "\\b(?<=\\.)(?i:__item|marginx|..........|maxparams)\\b", //matches words in (?i:here|here|andhere) that go after a period
       "support.class.builtin.method.ahk": "\\b(?<=\\.)(?i:insertat|removeat|.........|isoptional)(?=\\()\\b", //matches words in (?i:here|here|andhere) that go after a period and also are followed by a (
       "variable.builtin.ahk": "\\b(?i:a_\\w+)\\b", //matches every word that starts with a_ (case insensitive)
@@ -47,7 +46,7 @@
       "keyword.operator.arithmetic.ahk": "[/+\\-*\\^#]", //catches any of the characters listed. \\is the escape symbol for the ones that are special in regex, so just ignore the \\
       "keyword.operator.comparison.ahk": "[<>=!|]|[<>=]=|!(=*)|(?i:or|and|not)|&&", //catches any of the characters in the first [], any of the characters in the second [] + =, the words or, and, not, the double &&
       "keyword.operator.varref.ahk": "=>|[%?&:]", //[] mean "any single character here will be matched"
-      // | means or
+         // | means or
       "punctuation.ahk": "[`.,]", 
       "punctuation.bracket.ahk": "[\\[\\](){}]", // \\ is the escape symbol, read as [[](){}]
       "support.function.builtin.ahk": "(?<!\\.)|send(text|input|play|event|level|message|mode)?|", //the other regex is understandable as is, this means "either send or send + word in (), if there is one. (?<!\\.) means "catch only if not after a comma
@@ -58,9 +57,11 @@
          "string.end.ahk": "(\")", //stops capturing at next ". And here you have a string
          "punctuation.ahk": "`\"" //escaped quotes ( `" ) don't count, just like you'd imagine
       },
+      "keyword.other.ahk": "\\b(?<!\\.)(?i:k(ey)?|v(alue)?|i(ndex)?|text|(\\w+)title|(\\w+)path|(loc(\\d?)[XY]))\\b", //a bunch of commonly used keywords and variable names. won't catch if starts with a comma like .value Built in methods and properties are caught by a different regex. To add yours, put it like this: (?i:k(ey)?|yourkeyword|v(alue)?)
       "variable.def.ahk": "\\w+" //any word :)
       //there's a "strength" system, meaning the higher a code class is, the more overruling it will be. this is why everything after ; will still be colored grey even if you have something like this() in it, this() won't be highighted as a function because comments are stronger
    }
 }
-//prebuilt settings for each code class. just paste them into your settings.json and all that's left for you to do is change the colors: https://github.com/Axlefublr/Other/blob/main/Libraries%20v2/Ahk%20code%20coloring/color%20settings%20in%20settings.json.txt 
-//you can use this file to check out the color changes you made. includes more or less every code class: https://github.com/Axlefublr/Other/blob/main/Libraries%20v2/Ahk%20code%20coloring/test%20your%20coloring.ah2 
+//the link to the tmLanguage file. Just replace yours with this one: https://github.com/Axlefublr/Other/blob/main/Libraries%20v2/Ahk%20code%20coloring/code%20class%20regex.json 
+//prebuilt settings for each code class. just paste them into your settings.json and all that's left for you to do is change the colors: https://github.com/Axlefublr/Other/blob/main/Libraries%20v2/Ahk%20code%20coloring/color%20settings%20preset.txt 
+//you can use this file to check out the color changes you made. includes more or less every code class: https://github.com/Axlefublr/Other/blob/main/Libraries%20v2/Ahk%20code%20coloring/coloring%20test.ah2 

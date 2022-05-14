@@ -45,7 +45,7 @@ Class C_Runner {
    }
 
    ;Clicks on all the libraries consequentially, loading them into Intellisense
-   nur_LibLoad() {
+   nur_Lib() {
       D_Libraries := Map(
          "1. Base",                         "X204 Y177",
          "2. Press",                        "X204 Y205",
@@ -59,7 +59,50 @@ Class C_Runner {
       for key, value in D_Libraries 
          ControlClick(value, "ahk_exe Code.exe"), WinWait(key . ".ah2 - Personal - Visual Studio Code")
       Base.bsd_CloseTab()
-      , Run(A_WorkingDir . "\Scripts\Pull vs code settings.py")
+   }
+
+   nur_Load() {
+
+      nur_Load_ColorPreset()
+      , nur_Load_ColorTest()
+      , nur_Load_Docs()
+      , nur_Load_tmLanguage(A_WorkingDir "\Backups\ahk.tmLanguage.json")
+      , nur_Load_tmLanguage(A_WorkingDir "\..\Other\Libraries v2\Ahk code coloring\code class regex.json")
+
+      nur_Load_ColorPreset() => (
+         ;Get the whole settings file
+         settingsJson := FileOpen(A_AppData . "\Code\User\settings.json", "r"),
+         settingsJson.Seek(, 0),
+         text := settingsJson.Read(),
+         settingsJson.Close(),
+
+         ;Find the color preset part
+         regex := "ms)`"editor.tokenColorCustomizations`":.*`"fontStyle`": `".*`"\s*}\s*}\s*]\s*},",
+         RegexMatch(text, regex, &colorSettings),
+
+         ;Write it over the existing color settings preset
+         colorPreset := FileOpen(A_WorkingDir . "\..\Other\Libraries v2\Ahk code coloring\color settings preset.txt", "w"),
+         colorPreset.Write(colorSettings[0]),
+         colorPreset.Close()
+      )
+
+      nur_Load_ColorTest() => (
+         coloringPersonal := A_WorkingDir . "\Test\coloring.ah2",
+         coloringOther := A_WorkingDir . "\..\Other\Libraries v2\Ahk code coloring\coloring test.ah2",
+         FileCopy(coloringPersonal, coloringOther, 1)
+      )
+
+      nur_Load_Docs() => (
+         docsPersonal := A_WorkingDir . "\Docs\syntax docs.jsonc",
+         docsOther := A_WorkingDir . "\..\Other\Libraries v2\Ahk code coloring\code class docs.jsonc",
+         FileCopy(docsPersonal, docsOther, 1)
+      )
+
+      nur_Load_tmLanguage(where) => (
+         tmLanguageOrigin := "C:\Users\serge\.vscode\extensions\mark-wiemer.vscode-autohotkey-plus-plus-2.8.1\syntaxes\ahk.tmLanguage.json",
+         FileCopy(tmLanguageOrigin, where, 1)
+      )
+
    }
 
    ;Gets the github link to a file of your choosing
@@ -105,7 +148,6 @@ Class C_Runner {
       ;Gets the artists into the clipboard
       prevClip := A_Clipboard
       , Base.bsd_SelectAll(), Base.bsd_Cut()
-      , Sleep(60)
 
       ;Counts the amount of artists
       , Artists := StrReplace(A_Clipboard, "`r`n", "`r`n",, &ArtistsCount)

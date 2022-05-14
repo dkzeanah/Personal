@@ -169,7 +169,7 @@
                   "name": "keyword.operator.comparison.ahk"
                },
                {
-                  "match": "=>|[%?&:]",
+                  "match": "=>|[%?&:$]",
                   "name": "keyword.operator.varref.ahk"
                }
          ]
@@ -198,7 +198,7 @@
                   "example": "fun("
                },
                {
-                  "match": "[\\s\\(]+\"http(s)?:\\/\\/.+\"[\\s\\)]+",
+                  "match": "\"http(s)?:\\/\\/.+\"",
                   "name": "link.string.ahk",
                   "example": "\"https://github.com/Axlefublr/Personal/blob/main/_Libraries/Func/3.%20Global.ah2\""
                },
@@ -225,7 +225,7 @@
                   "example": "\"string\""
                },
                {
-                  "match": "\\b(?<!\\.)(?i:k|key|v|value|i|index|text|(\\w+)title|(\\w+)path|(loc(\\d?)[XY])|(pix(\\d?)[XY]))\\b",
+                  "match": "\\b(?<!\\.)(?i:k|key|v|value|i|index|result|(\\w*)text|(\\w*)title|(\\w*)path|(loc(\\d?)[XY])|(pix(\\d?)[XY]))\\b",
                   "name": "keyword.other.ahk",
                   "example": "text"
                },

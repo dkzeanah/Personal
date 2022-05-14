@@ -34,7 +34,7 @@ tmr_IsItTimeYet()
    (((A_Hour == endHour) && (A_Min == endMinute) && (A_Sec >= endSecond))
       ? (SoundPlay("*-1"),
          MsgBox("Time's up!", "Timer", "4096"),
-         ExitApp() : ""))
+         ExitApp()) : "")
    
 }
 

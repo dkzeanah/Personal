@@ -203,13 +203,13 @@
                   "example": "\"https://github.com/Axlefublr/Personal/blob/main/_Libraries/Func/3.%20Global.ah2\""
                },
                {
-                  "begin": "(\")",
+                  "begin": "(\")|'",
                   "beginCaptures": {
                      "1": {
                            "name": "string.start.ahk"
                      }
                   },
-                  "end": "(\")",
+                  "end": "(\")|'",
                   "endCaptures": {
                      "1": {
                            "name": "string.end.ahk"

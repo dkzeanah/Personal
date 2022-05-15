@@ -68,6 +68,7 @@ Class C_Runner {
       , nur_Load_Docs()
       , nur_Load_tmLanguage(A_WorkingDir "\Backups\ahk.tmLanguage.json")
       , nur_Load_tmLanguage(A_WorkingDir "\..\Other\Libraries v2\Ahk code coloring\code class regex.json")
+      , nur_Load_AhkSnippets()
 
       nur_Load_ColorPreset() => (
          ;Get the whole settings file
@@ -101,6 +102,12 @@ Class C_Runner {
       nur_Load_tmLanguage(where) => (
          tmLanguageOrigin := "C:\Users\serge\.vscode\extensions\mark-wiemer.vscode-autohotkey-plus-plus-2.8.1\syntaxes\ahk.tmLanguage.json",
          FileCopy(tmLanguageOrigin, where, 1)
+      )
+
+      nur_Load_AhkSnippets() => (
+         AhkSnippetsOrigin := A_AppData . "\Code\User\snippets\ahk.json",
+         AhkSnippetsOther := A_WorkingDir . "\..\Other\Files\ahk.json",
+         FileCopy(AhkSnippetsOrigin, AhkSnippetsOther, 1)
       )
 
    }

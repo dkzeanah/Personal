@@ -84,13 +84,10 @@ Class C_YouTubeMusic {
       , file.Close() ;Flush
 
       , G_Plst := Gui("AlwaysOnTop", "Playlist chooser") ;Create a gui
-      , exists := True
       , G_Plst.Show("X10 Y10 W200 H200") ;Small square in the center
       , G_Plst.SetFont("S70")
       , G_Plst_Num := G_Plst.Add("Text", "X0 Y40 W200 H200 Center", newNum) ;Show the new number in the gui
-      , G_Plst.OnEvent("Close", (*) => (G_Plst.Destroy(), exists := False)) ;Destroy the gui if you close it
-      , G_Plst_Num.OnEvent("Click", (*) => (G_Plst.Destroy(), exists := False)) ;Destory the gui if you click on the new number
-      , SetTimer((*) => (exists ? G_Plst.Destroy() : ""), -1000) ;Destroy the gui in a second, if it still exists
+      , SetTimer((*) => (G_Plst.Destroy(), WinActivate("YouTube Music ahk_exe chrome.exe")), -1000) ;Destroy the gui in a second
    }
 
 }

@@ -53,8 +53,8 @@
       "support.function.ahk": "\\b[\\w]+(?=\\()", //catches at least one letter, digit or _ followed by a (
       "link.string.ahk": "\\s+\"http(s)?:\\/\\/.+\"\\s+", //catches a link that is a string and starts with either http or https, and has to have whitespace around it. so, ( "https://link.com" ) but not ("https://link.com")
       "string.ahk": { //catches everything inside of "" that itself isn't inside of "", meaning "yes" ""no""
-         "string.start.ahk": "(\")", //starts capturing at "
-         "string.end.ahk": "(\")", //stops capturing at next ". And here you have a string
+         "string.start.ahk": "(\")|'", //starts capturing at " or '
+         "string.end.ahk": "(\")|'", //stops capturing at next " or '. And here you have a string
          "punctuation.ahk": "`\"" //escaped quotes ( `" ) don't count, just like you'd imagine
       },
       "keyword.other.ahk": "\\b(?<!\\.)(?i:k(ey)?|v(alue)?|i(ndex)?|text|(\\w+)title|(\\w+)path|(loc(\\d?)[XY]))\\b", //a bunch of commonly used keywords and variable names. won't catch if starts with a comma like .value Built in methods and properties are caught by a different regex. To add yours, put it like this: (?i:k(ey)?|yourkeyword|v(alue)?)

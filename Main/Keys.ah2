@@ -185,6 +185,8 @@ Pause::        Script.scr_Test()
 ;Alt enter in down enter
 !Enter::Base.bsd_ChooseNext()
 
+!BackSpace::Send("{BackSpace 4}")
+
 ;Undo/redo
 +!Left::Base.bsd_Undo()
 +!Right::Base.bsd_Redo()

@@ -51,7 +51,7 @@
       Case "click counter":        Run A_WorkingDir . "\Tools\Click counter.ah2"
       Case "discovery add":        Run A_WorkingDir . "\Tools\Discovery add.ah2"
       Case "atp":                  Run A_WorkingDir . "\Tools\Add to Playlist.ah2"
-      Case "one piece download":   Run A_WorkingDir . "\Tools\Download One Piece.ah2"
+      Case "one piece download":   Run A_WorkingDir . "\Tools\One piece download.ah2"
       Case "format table to array":Runner.nur_FormatTableToArray()
       Case "startup":              Runner.nur_StartupRun()
       Case "coin flip":            Runner.nur_CoinFlip()

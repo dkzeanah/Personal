@@ -73,7 +73,7 @@
                   "example": ".length"
                },
                {
-                  "match": "\\b\\w+(?=\\.[%]?\\w+[%]?)",
+                  "match": "\\b\\w+(\\(\\))?(?=\\.[%]?\\w+[%]?)",
                   "name": "support.class.ahk",
                   "example": "classInst.Method()"
                },
@@ -198,7 +198,7 @@
                   "example": "fun("
                },
                {
-                  "match": "\"http(s)?:\\/\\/.+\"",
+                  "match": "\"http(s)?:\\/\\/\\S+\"",
                   "name": "link.string.ahk",
                   "example": "\"https://github.com/Axlefublr/Personal/blob/main/_Libraries/Func/3.%20Global.ah2\""
                },
@@ -225,7 +225,7 @@
                   "example": "\"string\""
                },
                {
-                  "match": "\\b(?<!\\.)(?i:k|key|v|value|i|index|result|(\\w*)text|(\\w*)title|(\\w*)path|(loc(\\d?)[XY])|(pix(\\d?)[XY]))\\b",
+                  "match": "\\b(?<!\\.)(?i:k|key|v|value|i|index|result|(?<=(?i:loop))\\sfiles|(\\w*)text|(\\w*)title|(\\w*)name|(\\w*)path|(loc(\\d?)[XY])|(pix(\\d?)[XY]))\\b",
                   "name": "keyword.other.ahk",
                   "example": "text"
                },

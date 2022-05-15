@@ -1,7 +1,11 @@
-The playlist autopicker autocloses, so clicking it to close it is useless
+() in class call, if there are any
 
-Fixed the wrong window being activated after it's done
+link catches everything that isn't whitespace, meaning *only* the link, the folowing "" won't matter
 
-Added '' for string recognition
+alt backspace deletes four letters, because apparently I need that really often
 
-Ahk snippets are now in Files in Other
+one piece download script now has everything in one class, so there's no weird "if this parameter is this, or if this or if this or if this", because it just uses the class' global variable whenever it needs it
+
+also the next episode to download is gotten automatically using loop files and also opens the page of that next episode
+
+not only do you paste the number, you also press enter at the same time. you're gonna see it either way, so it's okay that you don't take the enter action

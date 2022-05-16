@@ -29,7 +29,7 @@ OnePiece := C_OnePiece()
 Loop Files "C:\Files\Pictures\One piece\*.mp4" {
    R_AllFiles.Push(A_LoopFileName) ;Push all the file names into an array
 }
-LastEpisode := R_AllFiles[-1] ;And retrive the last file name. Strange way to get it, ik
+LastEpisode := StrReplace(R_AllFiles[-1], ".mp4", "") ;And retrive the last file name. Strange way to get it, ik
 
 , OnePiece.onp_SetEpidode(LastEpisode) ;Now that we have the last file's number, we set it to the class' variable
 , OnePiece.onp_DownloadEpisodes() ;And open the next episode

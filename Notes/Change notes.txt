@@ -1,11 +1,9 @@
-() in class call, if there are any
+oh actually the filename still includes the extension, so a strreplace to remove it
 
-link catches everything that isn't whitespace, meaning *only* the link, the folowing "" won't matter
+unfixed ' for strings because it catches ' in it's and that's fucky, will likely fix later
 
-alt backspace deletes four letters, because apparently I need that really often
+rewrote the docs in markdown
 
-one piece download script now has everything in one class, so there's no weird "if this parameter is this, or if this or if this or if this", because it just uses the class' global variable whenever it needs it
+mouse alt tab now waits for the alttab window to become active and then unwaits, so you can close windows now and supposedly it's gonna be more consistent (despite it already being strangely consistent)
 
-also the next episode to download is gotten automatically using loop files and also opens the page of that next episode
-
-not only do you paste the number, you also press enter at the same time. you're gonna see it either way, so it's okay that you don't take the enter action
+regex doc rewritten in markdown

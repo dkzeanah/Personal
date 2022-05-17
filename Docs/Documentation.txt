@@ -15,7 +15,7 @@ o — obs
 p — 
 [ — gimp
 ] — davinci resolve 17
-\ — 
+\ — fl studio
 a — vs code
 s — youtube music
 d — documents

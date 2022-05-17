@@ -68,12 +68,13 @@
 
       Case "sounds":Runner.nur_MemeFolder(Win.Sounds)
       Case "pictures":Runner.nur_MemeFolder(Win.Pictures)
-      Case "one piece":Run "C:\Files\Pictures\One Piece"
+      Case "one piece":Win.niw_App_Folders("C:\Files\Pictures\One Piece")
 
       ;NOTEPADS
       ;————————————————————————————————
 
       Case "lkpl r":Runner.nur_LastTrack("r")
+      Case "dsc r":Runner.nur_LastDisc("r")
 
 
       ;GITHUB
@@ -96,6 +97,7 @@
          Case RegexMatch(val, "(?<=(^o )).+", &linkName):try Runner.nur_PropServe("open", linkName[0])
          Case RegexMatch(val, "(?<=(^s )).+", &sound):try SoundPlay(A_WorkingDir "\Files\Sounds\" sound[0] ".mp3")
          Case RegexMatch(val, "(?<=(^lkpl w )).+", &text):try Runner.nur_LastTrack("w", text[0])
+         Case RegexMatch(val, "(?<=(^dsc w )).+", &text):try Runner.nur_LastDisc("w", text[0])
       }         
    }
 }

@@ -33,6 +33,9 @@
 ;Video editor
 <!SC01B::Win.niw_App("ahk_exe Resolve.exe", Win.DavinciResolve)
 
+;FL Studio
+<!SC02B::Win.niw_App("ahk_exe FL64.exe", Win.FL)
+
 ;Visual studio code
 <!a::Win.niw_App("ahk_exe Code.exe", Win.VScode)
 
@@ -63,6 +66,33 @@
 ;Editing
 <!b::Win.niw_App_Folders("C:\Files\Pictures\Editing\In progress")
 
+#HotIf !WinActive("ahk_group Game")
+
+; Telegram, whatsapp, viber on one, two and three presses
+<!t:: {
+   Switch Double.dbl_Bool("t") {
+      Case True:
+         Switch Double.dbl_Bool("t") {
+            ; You pressed three times
+            Case True:Win.niw_App("ahk_exe Viber.exe", Win.Viber) 
+            ; You pressed twice
+            Case False:Win.niw_App("ahk_exe WhatsApp.exe", Win.WhatsApp)
+         }
+      ; You pressed once
+      Case False:Win.niw_App("Telegram", Win.Telegram)
+   } 
+}
+
+;Projects folder on single press, FL Studio on double press
+<!f::try WinActivateBottom("ahk_group MinMax")
+
+;Photos or steam
+<!r:: {
+   (!Win.niw_ifMinMax("ahk_group Media")
+      ? Win.niw_App("ahk_exe steam.exe", Win.Steam, "Steam - News")
+      : "")
+}
+
 #HotIf 
 
 ;MinMaxes a game if it exists, closes all apps but spotify if all main 6 apps exist, if they don't: launches those apps of the main 6, that do not yet exist
@@ -89,36 +119,3 @@
             Win.niw_ifRun(vscode, Win.VScode),
             Win.niw_ifRun(discord, Win.Discord))))
 }
-
-#HotIf !WinActive("ahk_group Game")
-
-; Telegram, whatsapp, viber on one, two and three presses
-<!t:: {
-   Switch Double.dbl_Bool("t") {
-      Case True:
-         Switch Double.dbl_Bool("t") {
-            ; You pressed three times
-            Case True:Win.niw_App("ahk_exe Viber.exe", Win.Viber) 
-            ; You pressed twice
-            Case False:Win.niw_App("ahk_exe WhatsApp.exe", Win.WhatsApp)
-         }
-      ; You pressed once
-      Case False:Win.niw_App("Telegram", Win.Telegram)
-   } 
-}
-
-;Projects folder on single press, FL Studio on double press
-<!f:: {
-   (Hold.Hld_Bool("f")
-      ? Win.niw_App("ahk_exe FL64.exe", Win.FL) 
-      : Win.niw_MinMax("ahk_exe Resolve.exe"))
-}
-
-;Photos or steam
-<!r:: {
-   (!Win.niw_ifMinMax("ahk_group Media")
-      ? Win.niw_App("ahk_exe steam.exe", Win.Steam, "Steam - News")
-      : "")
-}
-
-#HotIf 

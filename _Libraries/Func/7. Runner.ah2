@@ -67,7 +67,7 @@ Class C_Runner {
       , nur_Load_ColorTest()
       , nur_Load_Docs()
       , nur_Load_tmLanguage(A_WorkingDir "\Backups\ahk.tmLanguage.json")
-      , nur_Load_tmLanguage(A_WorkingDir "\..\Other\Libraries v2\Ahk code coloring\code class regex.json")
+      , nur_Load_tmLanguage(A_WorkingDir "\..\Other\Libraries v2\Ahk code coloring\tmLanguage.json")
       , nur_Load_AhkSnippets()
 
       nur_Load_ColorPreset() => (
@@ -89,13 +89,13 @@ Class C_Runner {
 
       nur_Load_ColorTest() => (
          coloringPersonal := A_WorkingDir . "\Test\coloring.ah2",
-         coloringOther := A_WorkingDir . "\..\Other\Libraries v2\Ahk code coloring\coloring test.ah2",
+         coloringOther := A_WorkingDir . "\..\Other\Libraries v2\Ahk code coloring\coloring book.ah2",
          FileCopy(coloringPersonal, coloringOther, 1)
       )
 
       nur_Load_Docs() => (
-         docsPersonal := A_WorkingDir . "\Docs\syntax docs.jsonc",
-         docsOther := A_WorkingDir . "\..\Other\Libraries v2\Ahk code coloring\code class docs.jsonc",
+         docsPersonal := A_WorkingDir . "\Docs\syntax docs.md",
+         docsOther := A_WorkingDir . "\..\Other\Libraries v2\Ahk code coloring\documentation.md",
          FileCopy(docsPersonal, docsOther, 1)
       )
 
@@ -239,6 +239,16 @@ Class C_Runner {
 
    nur_LastTrack(param, text := "") {
       file := FileOpen(A_WorkingDir . "\Files\Innit\Last track.txt", param)
+      , file.Seek(, 0)
+      , ((param = "w") 
+         ? file.Write(text)
+      : (param = "r")
+         ? MsgBox(file.Read()) : "")
+      , file.Close()
+   }
+
+   nur_LastDisc(param, text := "") {
+      file := FileOpen(A_WorkingDir . "\Files\Innit\Last discovery.txt", param)
       , file.Seek(, 0)
       , ((param = "w") 
          ? file.Write(text)

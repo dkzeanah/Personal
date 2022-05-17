@@ -132,8 +132,8 @@ Class C_Base {
 
    bsd_MouseAltTab() {
         Send("{AltDown}{Tab}")
-      , KeyWait("LButton", "D")
-      , Sleep(150)
+      , WinWaitActive("Task Switching ahk_exe explorer.exe")
+      , WinWaitNotActive("Task Switching ahk_exe explorer.exe")
       , Send("{AltUp}")
       , (WinActive("ahk_exe wps.exe") ? Send("{Esc}") : "")
    }

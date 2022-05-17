@@ -120,6 +120,12 @@ Pause::        Script.scr_Test()
 , GroupAdd("AutoHotkey_Help", "AutoHotkey Help")
 , GroupAdd("AutoHotkey_Help", "AutoHotkey v2 Help")
 
+, GroupAdd("MinMax", "ahk_exe FL64.exe")
+, GroupAdd("MinMax", "ahk_exe Resolve.exe")
+, GroupAdd("MinMax", "GIMP ahk_exe gimp-2.10.exe")
+, GroupAdd("MinMax", "SoundCloud ahk_exe chrome.exe")
+, GroupAdd("MinMax", "ahk_group AutoHotkey_Help")
+
 
 
 
@@ -273,9 +279,9 @@ Browser_Home::    return        ;F12
 
 ;Makes sure the side mouse buttons work as intended ingame, despite their remapping outside of game 
 #HotIf WinActive("ahk_group Game_M")
-*XButton1::u
-*XButton2::y
-*Media_Stop::i
+XButton1::u
+XButton2::y
+Media_Stop::i
 
 #HotIf WinActive("ahk_exe METAL GEAR RISING REVENGEANCE.exe")
 *XButton1::u

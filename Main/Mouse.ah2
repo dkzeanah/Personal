@@ -47,13 +47,24 @@ Media_Stop & XButton2::Hold.hld_Send("XButton2", Base.bsd_Paste, Base.bsd_WinPas
 XButton2 & XButton1::Escape
 XButton1 & XButton2::Media_Play_Pause
 
-;Far side button and Wheel
-XButton2 & WheelUp::Volume_Up
-XButton2 & WheelDown::Volume_Down
-
-;Close side button and Wheel
 XButton1 & WheelUp::Base.bsd_Redo()
 XButton1 & WheelDown::Base.bsd_Undo()
+
+XButton2 & WheelUp:: {
+   MouseGetPos(&sectionX, &sectionY)
+   topLeft := ((sectionX < 252) && (sectionY < 229))
+   ((topLeft)
+      ? TransAndProud(40)
+      : Send("{Volume_Up}"))
+}
+
+XButton2 & WheelDown:: {
+   MouseGetPos(&sectionX, &sectionY)
+   topLeft := ((sectionX < 252) && (sectionY < 229))
+   ((topLeft)
+      ? TransAndProud(-40)
+      : Send("{Volume_Down}"))
+}
 
 ;Close side button with L and R buttons 
 XButton1 & LButton:: {
@@ -68,7 +79,6 @@ XButton2 & RButton::PrintScreen
 XButton2 & LButton::Enter
 
 Media_Stop & RButton::Send "!{Pause}"
-
 
 
 
@@ -99,7 +109,7 @@ Media_Stop:: {
          :                 Win.niw_App("ahk_exe Code.exe", Win.VScode))
       Case down:           Win.niw_App_WinNum("YouTube Music", 5)
       Case up:             Win.niw_App("Google Chrome", Win.GoogleChrome)
-      Default:             Base.bsd_MouseAltTab()
+      Default:             Base.bsd_AltTab()
    } 
 }
 
@@ -174,8 +184,6 @@ XButton1:: {
                   ?       Base.bsd_RestoreTab()
                   :       Base.bsd_NextTab())
             Case left:    Base.bsd_PrevTab()
-               ; ((topLeft)
-               ;    ? YouTube.ytt_)   
             Case up:      Base.bsd_NewTab()
             Case down:
                (WinActive("Messenger") 

@@ -78,6 +78,8 @@ Class C_Links {
    Arrow => "https://youtu.be/nSTL3KND25c"
    v2_setup => "https://youtu.be/TSvp6ktqo1Q"
    Syntax_highlighting => "https://youtu.be/kYtKBncvEAA"
+   Ternary_is_readable => "https://youtu.be/RsH6A2Cuo-c"
+   Getters => "https://youtu.be/Nn6ndRMsDJs"
 
 
    ;Memes
@@ -96,6 +98,7 @@ Class C_Links {
    Kitten_in_towel => "https://www.youtube.com/watch?v=nRBERbcbFgY"
    Top_ten_cat_loafs => "https://www.youtube.com/watch?v=_kRaKHKCj0g"
    Do_the_skype_thing => "https://www.youtube.com/watch?v=ztubL6yVFkw"
+   Keke_gay => "https://www.youtube.com/watch?v=OpOyEUjHS1Q"
    
 }
 Links := C_Links()

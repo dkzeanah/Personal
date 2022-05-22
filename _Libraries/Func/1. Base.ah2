@@ -1,8 +1,8 @@
 Class C_Base {
    bsd_Copy() {
       A_Clipboard := ""
-      , Send("^c")
-      , ClipWait(, 1)
+      Send("^c")
+      ClipWait(, 1)
    }
    bsd_Copy => "^c"
 
@@ -18,8 +18,8 @@ Class C_Base {
 
    bsd_Cut() {
       A_Clipboard := ""
-      , Send("^x")
-      , ClipWait(, 1)
+      Send "^x"
+      ClipWait , 1
    }
    bsd_Cut => "^x"
 
@@ -90,19 +90,29 @@ Class C_Base {
    }
 
    bsd_WinRestore(direction, winTitle := "A") {
-      ((WinGetMinMax(winTitle)) ;If window is maximized
-      ? (this.bsd_WinRestoreDown(winTitle), ;Unmaximize it
-         SetTimer(() => (
-            !WinGetMinMax(winTitle) ;Check if it's unmaximized every 10ms
-               ? (F_WinMove(), SetTimer(, 0)) ;If so, move it
-               : ""), 20)) 
-      : F_WinMove()) ;If window is not maximized
-
-      F_WinMove() => (
-         ( (direction == "right") ? direction := 960
-         : (direction == "left")  ? direction := 0 : ""),
+      
+      bsd_WinMove() {
+         Switch direction {
+            Case "right":direction := 960
+            Case "left": direction := 0
+         }
          WinMove(direction, 0, 960, 1079, winTitle)
-      )
+      }
+
+      bsd_MoveWhenMin() {
+         if WinGetMinMax(winTitle)
+            return
+         bsd_WinMove(), SetTimer(, 0)
+      }
+
+      if !WinGetMinMax(winTitle) {
+         bsd_WinMove()
+         return
+      }
+
+      this.bsd_WinRestoreDown(winTitle) ;Unmaximize it
+      SetTimer(bsd_MoveWhenMin, 20)
+
    }
 
    bsd_ChooseNext() {
@@ -130,22 +140,20 @@ Class C_Base {
    }
    bsd_Search => "^f"
 
-   bsd_MouseAltTab() {
-        Send("{AltDown}{Tab}")
-      , WinWaitActive("Task Switching ahk_exe explorer.exe")
-      , WinWaitNotActive("Task Switching ahk_exe explorer.exe")
-      , Send("{AltUp}")
-      , (WinActive("ahk_exe wps.exe") ? Send("{Esc}") : "")
+   bsd_AltTab() {
+      Send "^!{Tab}"
    }
+   bsd_AltTab => "^!{Tab}"
 
    bsd_WinTab() {
       Send "#{Tab}"
    }
+   bsd_WinTab => "#{Tab}"
 
    bsd_Save() {
       Send "^s"
    }
-   bsd_save => "^s"
+   bsd_Save => "^s"
 
    bsd_RestoreTab() {
       Send "^+t"

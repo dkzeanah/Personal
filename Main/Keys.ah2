@@ -125,6 +125,7 @@ Pause::        Script.scr_Test()
 , GroupAdd("MinMax", "GIMP ahk_exe gimp-2.10.exe")
 , GroupAdd("MinMax", "SoundCloud ahk_exe chrome.exe")
 , GroupAdd("MinMax", "ahk_group AutoHotkey_Help")
+, GroupAdd("MinMax", "Monkeytype ahk_exe chrome.exe")
 
 
 
@@ -168,7 +169,6 @@ Pause::        Script.scr_Test()
 !0::Runner.nur_Emoji("thinking")
 !=::Runner.nur_Emoji("skull")
 
-;Alt + F keys are emojis as well
 ;😩🤤💜👉👈
 !F5::Runner.nur_Emoji("weary")
 !F6::Runner.nur_Emoji("drooling")
@@ -185,11 +185,7 @@ Pause::        Script.scr_Test()
 ;######################################################################################
 
 
-;Close active window
 !Escape::Win.niw_CloseWin()
-
-;Alt enter in down enter
-!Enter::Base.bsd_ChooseNext()
 
 !BackSpace::Send("{BackSpace 4}")
 
@@ -202,13 +198,10 @@ Pause::        Script.scr_Test()
 #Right::Base.bsd_WinRestore("right")
 #Left::Base.bsd_WinRestore("left")
 
-;Select all
 Insert::Base.bsd_SelectAll()
 
-;Easily accessible paste window
 #Insert::Base.bsd_WinPaste()
 
-;Cut
 !Insert::Base.bsd_Cut()
 
 ;Media hotkeys
@@ -227,36 +220,36 @@ Insert::Base.bsd_SelectAll()
 
 
 #HotIf WinActive("ahk_exe Code.exe")
-Numpad1:: VSC.vsc_RunCurrentInTerminal()
-!Numpad1::VSC.vsc_KillCurrentTerminalOrDebug()
-^Numpad1::VSC.vsc_Debug()
+SC04F:: VSC.vsc_RunCurrentInTerminal()
+!SC04F::VSC.vsc_KillCurrentTerminalOrDebug()
+^SC04F::VSC.vsc_Debug()
 #HotIf 
 
-Numpad2:: Script.scr_Reload()
-!Numpad2::Script.scr_HardReload()
-+Numpad2::Script.scr_Suspend()
-#Numpad2::Script.scr_Reboot()
+SC050:: Script.scr_Reload()
+!SC050::Script.scr_HardReload()
++SC050::Script.scr_Suspend()
+#SC050::Script.scr_Reboot()
 
-Numpad3:: Script.scr_Test()
-+Numpad3::Script.scr_Test("v1.ahk")
-!Numpad3::Send "!{Pause}"
+SC051:: Script.scr_Test()
++SC051::Script.scr_Test("v1.ahk")
+!SC051::Send "!{Pause}"
 
-Numpad4::Delete
-Numpad5::End
-Numpad6::PgDn
+SC04B::Delete
+SC04C::End
+SC04D::PgDn
 
-Numpad7:: Base.bsd_SelectAll()
-#Numpad7::Base.bsd_WinPaste()
-!Numpad7::Base.bsd_Cut()
+SC047:: Base.bsd_SelectAll()
+#SC047::Base.bsd_WinPaste()
+!SC047::Base.bsd_Cut()
 
-Numpad8::Home
-Numpad9::PgUp
+SC048::Home
+SC049::PgUp
 AppsKey::LCtrl
 SC138::LAlt
 
 Launch_Media::    return        ;F1
 Media_Play_Pause::return        ;F2
-Media_Stop::      return        ;F3
+; Media_Stop::      return        ;F3
 Media_Prev::      return        ;F4
 Media_Next::      return        ;F5
 Volume_Mute::     return        ;F6
@@ -308,16 +301,10 @@ Media_Stop::i
 #F8::A_Clipboard := FileSelect("S", WinGetTitle("A"))
 #HotIf 
 
-+!f::Run A_WorkingDir . "\Tools\MouseGetPos.ah2"
-
++!f::CoordGetter()
 +!g::WindowGetter()
 
 ;Opens a msgbox showing the exact time
-+!t:: {
-     clock_time := FormatTime(, "H:mm")
-   , clock_weekDay := FormatTime(, "dddd")
-   , clock_date := FormatTime(, "d MMMM")
-   , MsgBox(clock_time . "`n" . clock_weekDay . "`n" . clock_date, "Current time", "4096")
-}
++!t::Clock()
 
 +!v::YTMusic.ytm_LinkConverter()

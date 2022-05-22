@@ -15,9 +15,10 @@ Class C_Runner {
    ;Takes a random number out of 1 and 100000, says yes if it's even, no if it's odd
    nur_CoinFlip() {
       coinFlip := Random(1, 100000)
-      , ((Mod(coinFlip, 2)) 
-         ? (result := "Yes") 
-         : (result := "No"))
+      , result := (
+         Mod(coinFlip, 2) 
+         ? "Yes" 
+         : "No")
       , MsgBox(result)
    }
 
@@ -36,12 +37,12 @@ Class C_Runner {
 
    nur_Converter(currency, num) {
       
-      ((currency == "r")
-         ? (currency := "rubles", oppCurrency := "dollars")
-      : (currency == "d")
-         ? (currency := "dollars", oppCurrency := "rubles") : "")
-
-      , RunLink("https://www.google.com/search?q=" . num . "+" . currency . "+in+" . oppCurrency . "&oq=" . num . "+" . currency . "+in+" . oppCurrency . "&aqs=chrome..69i57.4182j1j9&sourceid=chrome&ie=UTF-8")
+      Switch currency {
+         Case "r":currency := "rubles", oppCurrency := "dollars"
+         Case "d":currency := "dollars", oppCurrency := "rubles"
+      }
+      
+      RunLink("https://www.google.com/search?q=" . num . "+" . currency . "+in+" . oppCurrency . "&oq=" . num . "+" . currency . "+in+" . oppCurrency . "&aqs=chrome..69i57.4182j1j9&sourceid=chrome&ie=UTF-8")
    }
 
    ;Clicks on all the libraries consequentially, loading them into Intellisense
@@ -149,28 +150,6 @@ Class C_Runner {
          Case "run":  RunLink(fullLink)
          Case "paste":ClipSend(fullLink, "")
       }
-   }
-
-   nur_ArtistsCount() {
-      ;Gets the artists into the clipboard
-      prevClip := A_Clipboard
-      , Base.bsd_SelectAll(), Base.bsd_Cut()
-
-      ;Counts the amount of artists
-      , Artists := StrReplace(A_Clipboard, "`r`n", "`r`n",, &ArtistsCount)
-
-      ;Possible last number of artists, that could be in the artists text
-      , R_PossibleNumbers := [-8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8]
-      
-      ;Removes the possible numbers that might be in the text 
-      for index in R_PossibleNumbers {
-         Artists := StrReplace(Artists, " " . ArtistsCount+index)
-      }
-      A_Clipboard := Artists . " " . ArtistsCount+1
-
-      ;Pastes them back, reverts your previous clipboard
-      , Base.bsd_Paste()
-      , SetTimer(() => A_Clipboard := prevClip, -200)
    }
 
    nur_PropServe(flag, linkName) {

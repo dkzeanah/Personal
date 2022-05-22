@@ -58,7 +58,6 @@
       Case "ytm":                  YTMusic.ytm_LinkConverter()
       Case "lib":                  Runner.nur_Lib()
       Case "load":                 Runner.nur_Load()
-      Case "artists count":        Runner.nur_ArtistsCount()
       Case "morse", "morse code":  Runner.nur_MorseCode()
       Case "regex string popper":  Runner.nur_RegexStringPopper()
 

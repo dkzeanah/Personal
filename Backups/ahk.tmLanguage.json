@@ -149,7 +149,7 @@
                   "example": "Class class1 extends class2"
                },
                {
-                  "match": "\\b(?i:if|else|switch|case|return|loop|break|for|in|while|catch|finally|throw|try|until|continue|true|false|default|except)\\b",
+                  "match": "\\b(?i:if|else|switch|case|return|loop|break|for|in|while|catch|finally|throw|try|until|continue|true|false|default|except|static|global)\\b",
                   "name": "keyword.control.ahk"
                },
                {
@@ -225,7 +225,7 @@
                   "example": "\"string\""
                },
                {
-                  "match": "\\b(?<!\\.)(?i:k|key|v|value|i|index|result|(?<=(?i:loop))\\sfiles|(\\w*)text|(\\w*)title|(\\w*)name|(\\w*)path|(loc(\\d?)[XY])|(pix(\\d?)[XY]))\\b",
+                  "match": "\\b(?<!\\.)(?i:k|key|v|value|i|index|result|(?<=(?i:loop))\\sfiles|(\\w*)text|(\\w*)title|(\\w*)name|(\\w*)path|(loc(\\d?)[XY])|(\\w)*exe|(pix(\\d?)[XY]))\\b",
                   "name": "keyword.other.ahk",
                   "example": "text"
                },

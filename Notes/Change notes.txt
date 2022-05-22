@@ -1,9 +1,25 @@
-oh actually the filename still includes the extension, so a strreplace to remove it
+Markdown file with artist to link
 
-unfixed ' for strings because it catches ' in it's and that's fucky, will likely fix later
+Artists new — function reads the md file, regexes the links into an array, and for loops the array to run link (just run)
 
-rewrote the docs in markdown
+something-exe added as a custom keyword
 
-mouse alt tab now waits for the alttab window to become active and then unwaits, so you can close windows now and supposedly it's gonna be more consistent (despite it already being strangely consistent)
+Win alt pgdn is align cursors
+Win alt pgup adds cursors to line ends
+The cursor trims are win alt arrows
 
-regex doc rewritten in markdown
+ToolPeek — automatical tooltip timeout implementation
+
+alt enter to select the down option is not needed because I have ctrl space for most things
+
+alt 1 opens explorer and closes it
+
+alt 2 opens the terminal and terminates it
+
+alt 3 opens and closes the search and replace
+
+now ctrl space and ^+space go up and down
+
+every other alt number is shifted to the right
+
+I made a clock :)

@@ -20,7 +20,7 @@ Chrome := C_Chrome()
 Class C_YouTubeMusic {
    
    ytm_Library() {
-      ControlClick("X1013 Y73")
+      ControlClick("X1013 Y73", "YouTube Music ahk_exe chrome.exe")
    }
 
    ytm_Liked() {
@@ -87,7 +87,11 @@ Class C_YouTubeMusic {
       , G_Plst.Show("X10 Y10 W200 H200") ;Small square in the center
       , G_Plst.SetFont("S70")
       , G_Plst_Num := G_Plst.Add("Text", "X0 Y40 W200 H200 Center", newNum) ;Show the new number in the gui
-      , SetTimer((*) => (G_Plst.Destroy(), WinActivate("YouTube Music ahk_exe chrome.exe")), -1000) ;Destroy the gui in a second
+      , SetTimer((*) => (
+         G_Plst.Destroy(), 
+         WinActivate("YouTube Music ahk_exe chrome.exe"),
+         this.ytm_Library()
+      ), -1000) ;Destroy the gui in a second
    }
 
 }

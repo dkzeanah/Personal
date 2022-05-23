@@ -54,6 +54,7 @@ Class C_Links {
    Sounds => "https://www.myinstants.com/index/ru/"
    ytdownload => "https://ytb.rip/en/"
    Regex_generator => "https://ibnuhx.com/regex-generator/"
+   img => "https://imgur.com/upload"
 
    
    ;docs
@@ -74,12 +75,13 @@ Class C_Links {
    ;Ahk tutorial videos
    ;————————————————————————————————
 
+   My_channel => "https://www.youtube.com/channel/UCN99M5Qu920IJX2pbrk9qPA"
    Run_on_reboot => "https://youtu.be/vjQIbagvkcs"
    Arrow => "https://youtu.be/nSTL3KND25c"
    v2_setup => "https://youtu.be/TSvp6ktqo1Q"
    Syntax_highlighting => "https://youtu.be/kYtKBncvEAA"
    Ternary_is_readable => "https://youtu.be/RsH6A2Cuo-c"
-   Getters => "https://youtu.be/Nn6ndRMsDJs"
+   Getters => "https://www.youtube.com/watch?v=Nn6ndRMsDJs"
 
 
    ;Memes
@@ -99,6 +101,8 @@ Class C_Links {
    Top_ten_cat_loafs => "https://www.youtube.com/watch?v=_kRaKHKCj0g"
    Do_the_skype_thing => "https://www.youtube.com/watch?v=ztubL6yVFkw"
    Keke_gay => "https://www.youtube.com/watch?v=OpOyEUjHS1Q"
+   Mi5 => "https://www.youtube.com/watch?v=xUxmdvYrCS4"
+   Fr_on_god => "https://www.youtube.com/watch?v=4V7_dlIEKEg"
    
 }
 Links := C_Links()

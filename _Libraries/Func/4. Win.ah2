@@ -120,12 +120,8 @@ Class C_WindowsApp {
    }
 
    niw_CloseOnceInactive(winTitle, closedAfter:=5) {
-      SetTimer(() => ;Once this function has been called, there's a timer waiting for the specified window to become inactive
-         (!WinActive(winTitle) ;Once it is, deletes the timer
-            ? (Settimer(, 0), SetTimer(() => ;And starts a new one, that closes the window after your specified time (better than a sleep)
-               Win.niw_CloseWin(winTitle), -closedAfter*1000))
-            : "")
-      , 200)
+      WinWaitNotActive(winTitle)
+      , SetTimer(() => Win.niw_CloseWin(winTitle), -closedAfter*1000)
    }
 }
 Win := C_WindowsApp()

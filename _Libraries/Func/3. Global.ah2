@@ -187,7 +187,7 @@ ToolPeek(text, timeout := 1000) {
 Clock() {
 
    ;Get the time variables
-   clock_Time := FormatTime(, " H:mm:ss")
+   clock_Time := FormatTime(, " HH:mm:ss")
    , clock_Week := FormatTime(, "dddd")
    , clock_Date := FormatTime(, "d MMMM")
 
@@ -206,7 +206,7 @@ Clock() {
    G_Clock.Add("Text", "Center W237", clock_Date)
 
    ;The func obj is separate because we'll need to disable the timer outside of it
-   seconds := () => (G_Clock_Time.Text := FormatTime(, " H:mm:ss"))
+   seconds := () => (G_Clock_Time.Text := FormatTime(, " HH:mm:ss"))
 
    ;Change the time text every half a second for better accuracy
    SetTimer(seconds, 500)
@@ -221,3 +221,47 @@ Clock() {
    Hotkey("Escape", Destruction, "On")
    G_Clock.OnEvent("Close", Destruction)
 }
+
+FileSearch(shouldOpen := True, caseSense := "Off") { ;Case sense is off by default, but may need to be changed to locale if you intend to search for files named not in English
+   
+   folder := DirSelect("C:\",, "What folder to you want to search?:")
+   if !folder 
+      return
+
+   search := InputBox("What file do you want to search for?:", "File Search")
+   if search.Result = "Cancel" 
+      return
+
+   if RegexMatch(search.Value, "[а-яА-Я]") ;If your search request you just did contains russian, caseSense for the search in InStr() is automatically made to Locale, so it actually *is* case insensitive. Likely the same case for other languages with different writing systems and doesn't matter for stuff like spanish and french (just a baseless hunch)
+      caseSense := "Locale"
+
+   g_found := Gui("AlwaysOnTop", "These files match your search:")
+   g_found_list := g_found.Add("ListView", "W1480 H500", ["Full file path"]) ;The width of both texts and listviews needs to be slightly smaller than the gui itself, so it actually looks like it's supposed to. The third parameter requires an array object, so you can read it as Array("Full file path")
+
+   g_found.OnEvent("Close", (*) => g_found.Destroy()) ;The gui doesn't get destroyed automatically when you close it, so we have to do it ourselves. I don't even remember if "close" has required parameters, but I take care of them with * (meaning "and any other parameters") if it does have them.
+   g_found_list.OnEvent("DoubleClick", openFolder.Bind(shouldOpen))
+
+   g_found_list.Opt("-Redraw") ;With the "+Redraw" that comes later, we speed up the process of adding rows to the ListView, since it doesn't need to refresh the new row every single time and instead just ends up showing what we got in the end
+
+   Loop Files folder . "\*.*", "R" { ;R means recursion. If the loop sees a folder, it goes into it. This way we search everything within the folder that was initially picked
+      if InStr(A_LoopFileName, search.Value, caseSense) ;Despite what you may think, ternary *isn't* faster here. At least, mostly isn't. A ternary with a : False is usually slower than an if check with no else
+         g_found_list.Add(, A_LoopFileFullPath)
+   }
+
+   g_found_list.Opt("+Redraw")
+
+   g_found.Show("W1500 H500")
+
+   openFolder(shouldOpen, g_found_list, RowNumber) { ;Despite that we didn't manually put in any of the two parameters, the onEvent automatically passes them into the function object of openFolder that we're using. 
+      path := g_found_list.GetText(RowNumber)
+      A_Clipboard := path
+      g_found.Destroy()
+
+      if shouldOpen {
+         SplitPath(path,, &dir)  
+         Run(dir)
+      }
+    } ;You can decide whether you just copy the path or also open the file's folder when you double click on it, by changing the shouldOpen parameter of FileSearch
+
+}
+

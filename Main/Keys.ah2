@@ -296,15 +296,14 @@ Media_Stop::i
 ;Opens an inputbox for you to input how many minutes to wait, plays a sound and opens a msgbox saying the time has passed after it has. Press the same hotkey while the timer is running to see when it will ring and three options: start a new timer, discarding the current one, continue on, exit the timer
 #F5::Run A_WorkingDir . "\Tools\Basic timer.ah2"
 
-;Opens a fileselect in the current folder for you to choose a file to get the path of into your clipboard
-#HotIf WinActive("ahk_exe explorer.exe")
-#F8::A_Clipboard := FileSelect("S", WinGetTitle("A"))
-#HotIf 
+#F6::FileSearch(False)
 
 +!f::CoordGetter()
 +!g::WindowGetter()
 
-;Opens a msgbox showing the exact time
 +!t::Clock()
 
+;Because markdown image paste
+#HotIf !WinActive("ahk_exe Code.exe")
 +!v::YTMusic.ytm_LinkConverter()
+#HotIf 

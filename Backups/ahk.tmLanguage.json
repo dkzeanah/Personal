@@ -149,7 +149,7 @@
                   "example": "Class class1 extends class2"
                },
                {
-                  "match": "\\b(?i:if|else|switch|case|return|loop|break|for|in|while|catch|finally|throw|try|until|continue|true|false|default|except|static|global)\\b",
+                  "match": "\\b(?i:if|else|switch|case|return|loop|break|for|in|while|catch|finally|throw|try|until|continue|true|false|default|except|static|global|class)\\b",
                   "name": "keyword.control.ahk"
                },
                {

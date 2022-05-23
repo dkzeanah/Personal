@@ -71,22 +71,25 @@ Class C_Runner {
       , nur_Load_tmLanguage(A_WorkingDir "\..\Other\Libraries v2\Ahk code coloring\tmLanguage.json")
       , nur_Load_AhkSnippets()
 
-      nur_Load_ColorPreset() => (
+      nur_Load_ColorPreset() {
          ;Get the whole settings file
-         settingsJson := FileOpen(A_AppData . "\Code\User\settings.json", "r"),
-         settingsJson.Seek(, 0),
-         text := settingsJson.Read(),
-         settingsJson.Close(),
+         settingsJson := FileOpen(A_AppData . "\Code\User\settings.json", "r")
+         settingsJson.Seek(, 0)
+         text := settingsJson.Read()
+         settingsJson.Close()
 
          ;Find the color preset part
-         regex := "ms)`"editor.tokenColorCustomizations`":.*`"fontStyle`": `".*`"\s*}\s*}\s*]\s*},",
-         RegexMatch(text, regex, &colorSettings),
+         regex := "ms)`"editor.tokenColorCustomizations`":.*`"fontStyle`": `".*`"\s*}\s*}\s*]\s*},"
+         if !RegexMatch(text, regex, &colorSettings) {
+            MsgBox("The setting.json color preset isn't recognized by the regex, somehow")
+            return
+         }
 
          ;Write it over the existing color settings preset
-         colorPreset := FileOpen(A_WorkingDir . "\..\Other\Libraries v2\Ahk code coloring\color settings preset.txt", "w"),
-         colorPreset.Write(colorSettings[0]),
+         colorPreset := FileOpen(A_WorkingDir . "\..\Other\Libraries v2\Ahk code coloring\color settings preset.txt", "w")
+         colorPreset.Write(colorSettings[0])
          colorPreset.Close()
-      )
+      }
 
       nur_Load_ColorTest() => (
          coloringPersonal := A_WorkingDir . "\Test\coloring.ah2",

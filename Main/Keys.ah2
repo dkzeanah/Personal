@@ -297,6 +297,7 @@ Media_Stop::i
 #F5::Run A_WorkingDir . "\Tools\Basic timer.ah2"
 
 #F6::FileSearch(False)
+#F7::FileSearch(True)
 
 +!f::CoordGetter()
 +!g::WindowGetter()

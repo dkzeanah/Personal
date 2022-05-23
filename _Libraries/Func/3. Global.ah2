@@ -222,9 +222,9 @@ Clock() {
    G_Clock.OnEvent("Close", Destruction)
 }
 
-FileSearch(shouldOpen := True, caseSense := "Off") { ;Case sense is off by default, but may need to be changed to locale if you intend to search for files named not in English
+FileSearch(shouldOpen := True, fileNameTip := True, caseSense := "Off") { ;fileNameTip shows you a small boxie around your cursor after opening the file's folder to remind you of the name of the file you're tryig to find. This is simply because I don't know how to make it highlight the file itself :(. Case sense is off by default, but may need to be changed to locale if you intend to search for files named not in English
    
-   folder := DirSelect("C:\",, "What folder to you want to search?:")
+   folder := DirSelect("C:\",, "What folder do you want to search?:")
    if !folder 
       return
 
@@ -232,14 +232,14 @@ FileSearch(shouldOpen := True, caseSense := "Off") { ;Case sense is off by defau
    if search.Result = "Cancel" 
       return
 
-   if RegexMatch(search.Value, "[а-яА-Я]") ;If your search request you just did contains russian, caseSense for the search in InStr() is automatically made to Locale, so it actually *is* case insensitive. Likely the same case for other languages with different writing systems and doesn't matter for stuff like spanish and french (just a baseless hunch)
+   if RegexMatch(search.Value, "[а-яА-Я]") && caseSense != "Locale" ;If your search request you just did contains russian, caseSense for the search in InStr() is automatically made to Locale, so it actually *is* case insensitive. Likely the same case for other languages with different writing systems and doesn't matter for stuff like spanish and french (just a baseless hunch)
       caseSense := "Locale"
 
    g_found := Gui("AlwaysOnTop", "These files match your search:")
    g_found_list := g_found.Add("ListView", "W1480 H500", ["Full file path"]) ;The width of both texts and listviews needs to be slightly smaller than the gui itself, so it actually looks like it's supposed to. The third parameter requires an array object, so you can read it as Array("Full file path")
 
    g_found.OnEvent("Close", (*) => g_found.Destroy()) ;The gui doesn't get destroyed automatically when you close it, so we have to do it ourselves. I don't even remember if "close" has required parameters, but I take care of them with * (meaning "and any other parameters") if it does have them.
-   g_found_list.OnEvent("DoubleClick", openFolder.Bind(shouldOpen))
+   g_found_list.OnEvent("DoubleClick", openFolder.Bind(shouldOpen, fileNameTip))
 
    g_found_list.Opt("-Redraw") ;With the "+Redraw" that comes later, we speed up the process of adding rows to the ListView, since it doesn't need to refresh the new row every single time and instead just ends up showing what we got in the end
 
@@ -252,16 +252,22 @@ FileSearch(shouldOpen := True, caseSense := "Off") { ;Case sense is off by defau
 
    g_found.Show("W1500 H500")
 
-   openFolder(shouldOpen, g_found_list, RowNumber) { ;Despite that we didn't manually put in any of the two parameters, the onEvent automatically passes them into the function object of openFolder that we're using. 
+   openFolder(shouldOpen, fileNameTip, g_found_list, RowNumber) { ;Despite that we didn't manually put in any of the two parameters, the onEvent automatically passes them into the function object of openFolder that we're using. 
       path := g_found_list.GetText(RowNumber)
       A_Clipboard := path
       g_found.Destroy()
 
       if shouldOpen {
-         SplitPath(path,, &dir)  
+         SplitPath(path, &fileName, &dir)  
          Run(dir)
+         if fileNameTip { ;So you remember what file you want to find after its folder has been opened, there will be a small boxie with the name of the file, until you close or minimize the explorer window
+            WinWaitActive(dir)
+            ToolTip(fileName, 10, 10)
+            WinWaitNotActive(dir)
+            ToolTip()
+         }
       }
-    } ;You can decide whether you just copy the path or also open the file's folder when you double click on it, by changing the shouldOpen parameter of FileSearch
+   } ;You can decide whether you just copy the path or also open the file's folder when you double click on it, by changing the shouldOpen parameter of FileSearch
 
 }
 

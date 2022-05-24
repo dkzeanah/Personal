@@ -1,15 +1,17 @@
-FileSearch. Probably the coolest thing I've ever done yet.
+Todoist winreactivate doesn't have to be as complicated as it was, winwait functions exist
 
-So basically it's windows' file search but actually usable
+# FileSearch:
 
-You pick the folder you want to search
+## you pass what you want to do with the file as the first parameter
+* copy
+* run
+* folder
 
-What search entry you want to search for
+## second parameter is for regex search, usually going to be left off
 
-And then you get a list of all the files that matched.
+## Error messages
+if you put in wrong parameters for the first or the third parameter. This is so instead of unexpected behaivor or error messages, a more friendly msgbox appears, that explains what needs to be changed
 
-When you double click on one of them, you copy the full path of it to your clipboard and open the folder where it's located. 
+# FileSearchBox:
 
-Doesn't highlight it though, idk how to do that. Probably some dllcall or smth
-
-You can disable it opening by setting the first parameter to false
+a way to write the first parameter of the filesearch and your search at the same time. more than likely you're not only gonna use one option, so you can use filesearchbox to type the first parameter of filesearch + space + your search and skip the inputbox of the filesearch that way

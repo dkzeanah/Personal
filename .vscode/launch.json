@@ -1,25 +1,40 @@
 {
    "configurations": [
       {
+         "name": "Python: Current File",
+         "type": "python",
+         "request": "launch",
+         "program": "${file}",
+         "console": "integratedTerminal",
+         "justMyCode": true
+      },
+      {
          "name": "Ahk 2",
          "type": "autohotkey",
          "request": "launch",
-         "program":"${file}",
-         "runtimeArgs_v2":[".ah2"],
-         "port":"9002",
+         "program": "${file}",
+         "runtimeArgs_v2": [
+            ".ah2"
+         ],
+         "port": "9002",
          "runtime": "v2/AutoHotkey64.exe",
-         "runtimeArgs":[ "/ErrorStdOut=UTF-8"]
+         "runtimeArgs": [
+            "/ErrorStdOut=UTF-8"
+         ]
       },
       {
          "name": "Ahk 1",
          "type": "autohotkey",
-         "program":"${file}",
+         "program": "${file}",
          "request": "launch",
-         "runtimeArgs_v1":[".ahk"],
-         "port":"9003",
+         "runtimeArgs_v1": [
+            ".ahk"
+         ],
+         "port": "9003",
          "runtime": "AutoHotkey.exe",
-         "runtimeArgs":[ "/ErrorStdOut=UTF-8"]
-         
+         "runtimeArgs": [
+            "/ErrorStdOut=UTF-8"
+         ]
       }
    ]
 }

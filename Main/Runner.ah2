@@ -90,13 +90,14 @@
 
       Default:
       Switch {
-         Case RegexMatch(val, "(?<=(^r ))\d+", &num):Runner.nur_Converter("r", num[0])
-         Case RegexMatch(val, "(?<=(^d ))\d+", &num):Runner.nur_Converter("d", num[0])
+         Case RegexMatch(val, "(?<=(^r ))\d+", &num):try Runner.nur_Converter("r", num[0])
+         Case RegexMatch(val, "(?<=(^d ))\d+", &num):try Runner.nur_Converter("d", num[0])
          Case RegexMatch(val, "(?<=(^p )).+", &linkName):try Runner.nur_PropServe("paste", linkName[0])
          Case RegexMatch(val, "(?<=(^o )).+", &linkName):try Runner.nur_PropServe("open", linkName[0])
          Case RegexMatch(val, "(?<=(^s )).+", &sound):try SoundPlay(A_WorkingDir "\Files\Sounds\" sound[0] ".mp3")
          Case RegexMatch(val, "(?<=(^lkpl w )).+", &text):try Runner.nur_LastTrack("w", text[0])
          Case RegexMatch(val, "(?<=(^dsc w )).+", &text):try Runner.nur_LastDisc("w", text[0])
+         Case RegexMatch(val, "(run|copy|folder) (.*)", &match):try FileSearch(match[1], match[2])
       }         
    }
 }
@@ -104,14 +105,8 @@
 ;Easy way to reactivate the previous window after using the quick add task of todoist
 +!x:: {
    prevActWin := WinGetID("A")
-   Send "^+!x"
-   (WinWait("ahk_exe Todoist.exe",, 7) 
-      ? SetTimer(ReactivatePrevActWin, 200) : "")
-   
-   ;Waits for the quick add task window to disappear and as soon as it does, reactivates the window it was called from
-   ReactivatePrevActWin() => (
-      (!WinActive("ahk_exe Todoist.exe"))
-         ? (WinActivate("ahk_id " . prevActWin),
-            SetTimer(ReactivatePrevActWin, 0)) : ""
-   ) 
+   Send("^+!x")
+   , WinWaitActive("ahk_exe Todoist.exe")
+   , WinWaitNotActive("ahk_exe Todoist.exe")
+   , WinActivate("ahk_id" prevActWin)
 }

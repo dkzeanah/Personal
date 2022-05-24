@@ -222,29 +222,58 @@ Clock() {
    G_Clock.OnEvent("Close", Destruction)
 }
 
-FileSearch(shouldOpen := True, fileNameTip := True, caseSense := "Off") { ;fileNameTip shows you a small boxie around your cursor after opening the file's folder to remind you of the name of the file you're tryig to find. This is simply because I don't know how to make it highlight the file itself :(. Case sense is off by default, but may need to be changed to locale if you intend to search for files named not in English
+FileSearch(action := "run", search_preset := "", caseSense := "Off") { ;fileNameTip shows you a small boxie around your cursor after opening the file's folder to remind you of the name of the file you're tryig to find. This is simply because I don't know how to make it highlight the file itself :(. Case sense is off by default, but may need to be changed to locale if you intend to search for files named not in English. search_preset is not usually going to be useful, since it makes no sense to search for the same couple files every time (unless you find a use for that). So, it's actually used by FileSearchBox
    
+   if action != "run" && action != "folder" && action != "copy" {
+      MsgBox("
+      (
+         You passed an incorrect value to the first parameter.
+         In action, you can pass any one of these three parameters:
+         "run" — opens the file
+         "folder" — opens the folder of the file
+         "copy" — copies the full path to the file
+      )", "Wrong parameters passed")
+      return
+   }
+
+   if caseSense != "Off" && caseSense != "On" && caseSense != "Locale" {
+      MsgBox("
+      (
+         You passed an incorrect value to the third parameter.
+         In caseSense, you can pass any one of these three parameters:
+         "On" — case sensitive search
+         "Off" — case insentive search 
+         "Locale" — case insentive search that works for languages other than English (inluding English, of course)
+      )", "Wrong parameters passed")
+      return
+   }
+
    folder := DirSelect("C:\",, "What folder do you want to search?:")
    if !folder 
       return
 
-   search := InputBox("What file do you want to search for?:", "File Search")
-   if search.Result = "Cancel" 
-      return
+   if search_preset ;if you put in something in the second parameter, it's gonna search for that and skip the inputbox
+      search_value := search_preset
+   else { ;if it's blank (usually would be), you get an inputbox where you type in your search 
+      search := InputBox("What file do you want to search for?:", "File Search")
+      search_value := search.Value
+      if search.Result = "Cancel" || !search_value ;code doesn't continue to run if you cancel the inputbox or don't type in anything
+         return
+   }
 
-   if RegexMatch(search.Value, "[а-яА-Я]") && caseSense != "Locale" ;If your search request you just did contains russian, caseSense for the search in InStr() is automatically made to Locale, so it actually *is* case insensitive. Likely the same case for other languages with different writing systems and doesn't matter for stuff like spanish and french (just a baseless hunch)
+   if RegexMatch(search_value, "[а-яА-Я]") && caseSense != "Locale" ;If your search request you just did contains russian, caseSense for the search in InStr() is automatically made to Locale, so it actually *is* case insensitive. Likely the same case for other languages with different writing systems and doesn't matter for stuff like spanish and french (just a baseless hunch)
       caseSense := "Locale"
 
    g_found := Gui("AlwaysOnTop", "These files match your search:")
    g_found_list := g_found.Add("ListView", "W1480 H500", ["Full file path"]) ;The width of both texts and listviews needs to be slightly smaller than the gui itself, so it actually looks like it's supposed to. The third parameter requires an array object, so you can read it as Array("Full file path")
 
    g_found.OnEvent("Close", (*) => g_found.Destroy()) ;The gui doesn't get destroyed automatically when you close it, so we have to do it ourselves. I don't even remember if "close" has required parameters, but I take care of them with * (meaning "and any other parameters") if it does have them.
-   g_found_list.OnEvent("DoubleClick", openFolder.Bind(shouldOpen, fileNameTip))
+   g_found_list.OnEvent("DoubleClick", openFolder.Bind(action))
 
    g_found_list.Opt("-Redraw") ;With the "+Redraw" that comes later, we speed up the process of adding rows to the ListView, since it doesn't need to refresh the new row every single time and instead just ends up showing what we got in the end
 
    Loop Files folder . "\*.*", "R" { ;R means recursion. If the loop sees a folder, it goes into it. This way we search everything within the folder that was initially picked
-      if InStr(A_LoopFileName, search.Value, caseSense) ;Despite what you may think, ternary *isn't* faster here. At least, mostly isn't. A ternary with a : False is usually slower than an if check with no else
+      if InStr(A_LoopFileName, search_value, caseSense) ;Despite what you may think, ternary *isn't* faster here. At least, mostly isn't. A ternary with a : False is usually slower than an if check with no else
          g_found_list.Add(, A_LoopFileFullPath)
    }
 
@@ -252,22 +281,24 @@ FileSearch(shouldOpen := True, fileNameTip := True, caseSense := "Off") { ;fileN
 
    g_found.Show("W1500 H500")
 
-   openFolder(shouldOpen, fileNameTip, g_found_list, RowNumber) { ;Despite that we didn't manually put in any of the two parameters, the onEvent automatically passes them into the function object of openFolder that we're using. 
+   openFolder(action, g_found_list, RowNumber) { ;Despite that we didn't manually put in any of the two parameters, the onEvent automatically passes them into the function object of openFolder that we're using. 
       path := g_found_list.GetText(RowNumber)
-      A_Clipboard := path
       g_found.Destroy()
 
-      if shouldOpen {
-         SplitPath(path, &fileName, &dir)  
-         Run(dir)
-         if fileNameTip { ;So you remember what file you want to find after its folder has been opened, there will be a small boxie with the name of the file, until you close or minimize the explorer window
-            WinWaitActive(dir)
-            ToolTip(fileName, 10, 10)
-            WinWaitNotActive(dir)
-            ToolTip()
-         }
+      Switch action {
+         Case "folder":
+            SplitPath(path, &fileName, &dir)  
+            Run(dir)
+         Case "copy":A_Clipboard := path
+         Case "run":Run(path)
       }
    } ;You can decide whether you just copy the path or also open the file's folder when you double click on it, by changing the shouldOpen parameter of FileSearch
-
 }
 
+FileSearchBox(caseSense := "Off") {
+   search := InputBox("FileSearch's first parameter + space + your search")
+   if search.Result = "Cancel" || !search.Value
+      return
+   RegexMatch(search.Value, "(.*) (.*)", &match)
+   FileSearch(match[1], match[2], caseSense)
+}

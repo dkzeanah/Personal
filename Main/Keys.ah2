@@ -296,6 +296,8 @@ Media_Stop::i
 ;Opens an inputbox for you to input how many minutes to wait, plays a sound and opens a msgbox saying the time has passed after it has. Press the same hotkey while the timer is running to see when it will ring and three options: start a new timer, discarding the current one, continue on, exit the timer
 #F5::Run A_WorkingDir . "\Tools\Basic timer.ah2"
 
+#F6::FileSearch()
+
 +!f::CoordGetter()
 +!g::WindowGetter()
 

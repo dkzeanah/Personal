@@ -222,44 +222,21 @@ Clock() {
    G_Clock.OnEvent("Close", Destruction)
 }
 
-FileSearch(action := "run", search_preset := "", caseSense := "Off") { ;fileNameTip shows you a small boxie around your cursor after opening the file's folder to remind you of the name of the file you're tryig to find. This is simply because I don't know how to make it highlight the file itself :(. Case sense is off by default, but may need to be changed to locale if you intend to search for files named not in English. search_preset is not usually going to be useful, since it makes no sense to search for the same couple files every time (unless you find a use for that). So, it's actually used by FileSearchBox
+FileSearch(action := "run", caseSense := "Off") { ;Case sense is off by default, but may need to be changed to locale if you intend to search for files named not in English. You can either predefine action in the parameter (run to run the double-clicked search result, folder to open its folder, copy to copy its full path) or omit the parameter and manually enter it in the inputbox (they will override the one passed into the parameter)
    
-   if action != "run" && action != "folder" && action != "copy" {
-      MsgBox("
-      (
-         You passed an incorrect value to the first parameter.
-         In action, you can pass any one of these three parameters:
-         "run" — opens the file
-         "folder" — opens the folder of the file
-         "copy" — copies the full path to the file
-      )", "Wrong parameters passed")
+   search := InputBox("What file do you want to search for?:", "File Search")
+   search_value := search.Value
+   if search.Result = "Cancel" || !search_value ;code doesn't continue to run if you cancel the inputbox or don't type in anything
       return
-   }
 
-   if caseSense != "Off" && caseSense != "On" && caseSense != "Locale" {
-      MsgBox("
-      (
-         You passed an incorrect value to the third parameter.
-         In caseSense, you can pass any one of these three parameters:
-         "On" — case sensitive search
-         "Off" — case insentive search 
-         "Locale" — case insentive search that works for languages other than English (inluding English, of course)
-      )", "Wrong parameters passed")
-      return
-   }
+   RegexMatch(search_value, "(\/(run|folder|copy)( ))?(.*)", &match) ;instead of passing run, folder or copy in the parameters of the function, you can pass them in your search, using /run, /folder or /copy + space + your search.
+   if match[2]
+      action := match[2]
+   search_value := match[4]
 
    folder := DirSelect("C:\",, "What folder do you want to search?:")
    if !folder 
       return
-
-   if search_preset ;if you put in something in the second parameter, it's gonna search for that and skip the inputbox
-      search_value := search_preset
-   else { ;if it's blank (usually would be), you get an inputbox where you type in your search 
-      search := InputBox("What file do you want to search for?:", "File Search")
-      search_value := search.Value
-      if search.Result = "Cancel" || !search_value ;code doesn't continue to run if you cancel the inputbox or don't type in anything
-         return
-   }
 
    if RegexMatch(search_value, "[а-яА-Я]") && caseSense != "Locale" ;If your search request you just did contains russian, caseSense for the search in InStr() is automatically made to Locale, so it actually *is* case insensitive. Likely the same case for other languages with different writing systems and doesn't matter for stuff like spanish and french (just a baseless hunch)
       caseSense := "Locale"
@@ -281,7 +258,7 @@ FileSearch(action := "run", search_preset := "", caseSense := "Off") { ;fileName
 
    g_found.Show("W1500 H500")
 
-   openFolder(action, g_found_list, RowNumber) { ;Despite that we didn't manually put in any of the two parameters, the onEvent automatically passes them into the function object of openFolder that we're using. 
+   openFolder(action, g_found_list, RowNumber) { ;Despite that we didn't manually put in any of the two parameters after "action", the onEvent automatically passes them into the function object of openFolder that we're using. 
       path := g_found_list.GetText(RowNumber)
       g_found.Destroy()
 
@@ -291,14 +268,8 @@ FileSearch(action := "run", search_preset := "", caseSense := "Off") { ;fileName
             Run(dir)
          Case "copy":A_Clipboard := path
          Case "run":Run(path)
+         Default:MsgBox("Remember to actually put in a valid action parameter next time"), Run(path)
       }
    } ;You can decide whether you just copy the path or also open the file's folder when you double click on it, by changing the shouldOpen parameter of FileSearch
 }
 
-FileSearchBox(caseSense := "Off") {
-   search := InputBox("FileSearch's first parameter + space + your search")
-   if search.Result = "Cancel" || !search.Value
-      return
-   RegexMatch(search.Value, "(.*) (.*)", &match)
-   FileSearch(match[1], match[2], caseSense)
-}

@@ -199,7 +199,7 @@ XButton1:: {
                :               Base.bsd_NextTab())
             Case left:
                ( topLeft     ? VSC.vsc_IndentLeft()
-               : bottomLeft  ? Script.scr_ToggleTest()
+               : bottomLeft  ? Script.scr_Test()
                :               Base.bsd_PrevTab())
             Case down:         Base.bsd_CloseTab()
             Case up:           Send "#{PgUp}"

@@ -70,6 +70,7 @@ Class C_Runner {
       , nur_Load_tmLanguage(A_WorkingDir "\Backups\ahk.tmLanguage.json")
       , nur_Load_tmLanguage(A_WorkingDir "\..\Other\Libraries v2\Ahk code coloring\tmLanguage.json")
       , nur_Load_AhkSnippets()
+      , nur_Load_Global()
 
       nur_Load_ColorPreset() {
          ;Get the whole settings file
@@ -89,6 +90,23 @@ Class C_Runner {
          colorPreset := FileOpen(A_WorkingDir . "\..\Other\Libraries v2\Ahk code coloring\color settings preset.txt", "w")
          colorPreset.Write(colorSettings[0])
          colorPreset.Close()
+      }
+
+      nur_Load_Global() {
+         globalLib := FileOpen(A_WorkingDir . "\_Libraries\Func\3. Global.ah2", "r")
+         globalLib.Seek(, 0)
+         globalLib_text := globalLib.Read()
+         globalLib.Close()
+
+         regex := "ms)FileSearch\(.*\}"
+         if !RegexMatch(globalLib_text, regex, &fileSearch) {
+            MsgBox("Can't find the FileSearch")
+            return
+         }
+
+         destination := FileOpen(A_WorkingDir . "\..\Other\Libraries v2\FileSearch\source code function.ah2", "w")
+         destination.Write(fileSearch[0])
+         destination.Close()
       }
 
       nur_Load_ColorTest() => (

@@ -224,7 +224,14 @@ Clock() {
 
 FileSearch(action := "run", caseSense := "Off") { ;Case sense is off by default, but may need to be changed to locale if you intend to search for files named not in English. You can either predefine action in the parameter (run to run the double-clicked search result, folder to open its folder, copy to copy its full path) or omit the parameter and manually enter it in the inputbox (they will override the one passed into the parameter)
    
-   search := InputBox("What file do you want to search for?:", "File Search")
+   search := InputBox("
+   (
+      What file do you want to search for?:
+
+      /flag + space + your search
+      
+      (folder, run, copy)
+   )", "File Search")
    search_value := search.Value
    if search.Result = "Cancel" || !search_value ;code doesn't continue to run if you cancel the inputbox or don't type in anything
       return
@@ -271,5 +278,63 @@ FileSearch(action := "run", caseSense := "Off") { ;Case sense is off by default,
          Default:MsgBox("Remember to actually put in a valid action parameter next time"), Run(path)
       }
    } ;You can decide whether you just copy the path or also open the file's folder when you double click on it, by changing the shouldOpen parameter of FileSearch
+}
+
+FileSearchc(action := "run", caseSense := "Off") { 
+   
+   search := InputBox("
+   (
+      What file do you want to search for?:
+
+      /flag + space + your search
+      
+      (folder, run, copy)
+   )", "File Search")
+   search_value := search.Value
+   if search.Result = "Cancel" || !search_value 
+      return
+
+   RegexMatch(search_value, "(\/(run|folder|copy)( ))?(.*)", &match) 
+   if match[2]
+      action := match[2]
+   search_value := match[4]
+
+   folder := DirSelect("C:\",, "What folder do you want to search?:")
+   if !folder 
+      return
+
+   if RegexMatch(search_value, "[а-яА-Я]") && caseSense != "Locale" 
+      caseSense := "Locale"
+
+   g_found := Gui("AlwaysOnTop", "These files match your search:")
+   g_found_list := g_found.Add("ListView", "W1480 H500", ["Full file path"]) 
+
+   g_found.OnEvent("Close", (*) => g_found.Destroy()) 
+   g_found_list.OnEvent("DoubleClick", openFolder.Bind(action))
+
+   g_found_list.Opt("-Redraw") 
+
+   Loop Files folder . "\*.*", "R" { 
+      if InStr(A_LoopFileName, search_value, caseSense) 
+         g_found_list.Add(, A_LoopFileFullPath)
+   }
+
+   g_found_list.Opt("+Redraw")
+
+   g_found.Show("W1500 H500")
+
+   openFolder(action, g_found_list, RowNumber) { 
+      path := g_found_list.GetText(RowNumber)
+      g_found.Destroy()
+
+      Switch action {
+         Case "folder":
+            SplitPath(path, &fileName, &dir)  
+            Run(dir)
+         Case "copy":A_Clipboard := path
+         Case "run":Run(path)
+         Default:MsgBox("Remember to actually put in a valid action parameter next time"), Run(path)
+      }
+   } 
 }
 

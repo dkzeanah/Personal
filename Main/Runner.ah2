@@ -97,7 +97,6 @@
          Case RegexMatch(val, "(?<=(^s )).+", &sound):try SoundPlay(A_WorkingDir "\Files\Sounds\" sound[0] ".mp3")
          Case RegexMatch(val, "(?<=(^lkpl w )).+", &text):try Runner.nur_LastTrack("w", text[0])
          Case RegexMatch(val, "(?<=(^dsc w )).+", &text):try Runner.nur_LastDisc("w", text[0])
-         Case RegexMatch(val, "(run|copy|folder) (.*)", &match):try FileSearch(match[1], match[2])
       }         
    }
 }
